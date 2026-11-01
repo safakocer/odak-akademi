@@ -1,0 +1,162 @@
+{
+  "sinif": 6,
+  "metinler": [
+    {
+      "kimlik": "arilarin-dansi",
+      "ad": "Arıların Dansı",
+      "sinif": 6,
+      "tur": "fen",
+      "metin": "Bal arıları kovandan çıkıp çiçek ararken bazen birkaç kilometre uzağa gider. Peki zengin bir çiçek tarlası bulan arı, bunu arkadaşlarına nasıl anlatır? Bilim insanları bu sorunun cevabını arıları uzun süre gözlemleyerek buldu. Bu davranışı ayrıntılı inceleyenlerden biri olan Karl von Frisch, çalışmaları nedeniyle 1973’te Nobel Ödülü aldı.\n\nYiyecek bulan arı kovana döner ve petekler üzerinde sekiz rakamına benzeyen bir yol çizerek dans eder. Dansın ortasında düz bir çizgi boyunca ilerlerken gövdesini sağa sola sallar. Bu sallanma bölümünün yönü, çiçeklerin Güneş’e göre hangi yönde olduğunu gösterir. Sallanmanın ne kadar sürdüğü ise yaklaşık uzaklık hakkında bilgi verir: Yiyecek ne kadar uzaktaysa sallanma o kadar uzun sürer.\n\nYiyecek kovana çok yakınsa arı uzun bir sekiz çizmez; daha kısa, daire biçiminde bir dans yapar. Bu dans, “Yiyecek yakında, çevreyi ara!” demek gibidir. Dans eden arının üzerindeki çiçek kokusu da diğer arılara ipucu verir.\n\nDiğer arılar dansı yakından izler, ardından doğru yöne uçar. Böylece kovandaki işçiler yiyeceği tek tek aramak yerine birlikte ve daha az yorularak bulur. Küçük bir böceğin bu iş birliği, doğadaki iletişimin ne kadar şaşırtıcı olabileceğini gösteriyor.",
+      "sorular": [
+        {
+          "kimlik": "sekiz",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Yiyecek bulan arı, petek üzerinde ___ rakamına benzeyen bir yol çizerek dans eder.",
+          "cevaplar": [
+            "sekiz",
+            "8"
+          ],
+          "aciklama": "Metnin ikinci paragrafında dansın sekiz rakamına benzeyen bir yol izlediği yazıyor."
+        },
+        {
+          "kimlik": "sallanma-yonu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Dansın sallanma bölümünün yönü neyi gösterir?",
+          "secenekler": [
+            "Çiçeklerin kovandan ne kadar uzakta olduğunu",
+            "Çiçeklerin hangi renkte ve kokuda olduğunu",
+            "Kovandan kaç arının birlikte uçması gerektiğini",
+            "Çiçeklerin Güneş’e göre hangi yönde olduğunu"
+          ],
+          "dogru": 3,
+          "aciklama": "Sallanma bölümünün yönü, çiçeklerin Güneş’e göre yönünü gösterir. Uzaklığı ise yön değil, sallanmanın ne kadar sürdüğü anlatır."
+        },
+        {
+          "kimlik": "sallanma-suresi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Sallanmanın ne kadar sürdüğü, yiyeceğin yaklaşık uzaklığı hakkında bilgi verir.",
+          "dogru": true,
+          "aciklama": "Metne göre yiyecek ne kadar uzaktaysa sallanma o kadar uzun sürer."
+        },
+        {
+          "kimlik": "yakin-yiyecek",
+          "tip": "dogru-yanlis",
+          "katman": "cikarim",
+          "soru": "Yiyecek kovanın hemen yanında olsaydı arı yine de uzun bir sekiz dansı yapardı.",
+          "dogru": false,
+          "aciklama": "Yiyecek çok yakınsa arı uzun bir sekiz çizmez; kısa, daire biçiminde bir dans yapar."
+        },
+        {
+          "kimlik": "dansin-yarari",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Dans, kovandaki arılara en çok hangi yararı sağlar?",
+          "secenekler": [
+            "Arıların kovanda daha uzun süre dinlenebilmesini",
+            "Yiyeceği birlikte ve daha az yorularak bulmalarını",
+            "Kovanın içindeki sıcaklığın dengede kalmasını",
+            "Arıların en hızlı uçanı belirlemek için yarışmasını"
+          ],
+          "dogru": 1,
+          "aciklama": "Son paragrafta işçilerin yiyeceği birlikte ve daha az yorularak bulduğu anlatılıyor. Bu, zaman ve enerji kazandırır."
+        },
+        {
+          "kimlik": "yol-tarifi",
+          "tip": "kisa-cevap",
+          "katman": "yorum",
+          "soru": "İnsanlar da birbirine yol tarif eder. Arıların dansı ile insanların yol tarifi arasında bir benzerlik ve bir fark yaz.",
+          "ornekCevap": "İkisinde de yön ve uzaklık bilgisi verilir. Fark olarak insanlar konuşarak ya da harita çizerek anlatır, arılar ise dans ederek ve koku taşıyarak anlatır.",
+          "kontrolListesi": [
+            "Bir benzerlik yazdım (ör. yön ve uzaklık).",
+            "Bir fark yazdım (ör. konuşma yerine dans)."
+          ],
+          "aciklama": "Arılar da insanlar gibi yön ve uzaklık bilgisi paylaşır; ama bunu sözle değil, hareket ve kokuyla yapar."
+        }
+      ]
+    },
+    {
+      "kimlik": "kagidin-yolculugu",
+      "ad": "Kâğıdın Yolculuğu",
+      "sinif": 6,
+      "tur": "bilgilendirici",
+      "metin": "Bugün defterlerimizden kitaplarımıza, paketlerden biletlere kadar her yerde kâğıt kullanıyoruz. Oysa kâğıt yokken insanlar yazılarını çok farklı malzemelere kaydediyordu. Mezopotamya’da yaşayanlar, yumuşak kil tabletlere sivri bir çubukla işaretler çizer, sonra tabletleri kuruturdu. Eski Mısır’da papirüs adı verilen bir bitkinin gövdesinden ince yapraklar hazırlanırdı. Bazı yerlerde ise hayvan derisinden yapılan parşömen kullanılırdı. Bu malzemelerin kimi ağır, kimi pahalı, kimi de hazırlaması zahmetliydi.\n\nKâğıt ilk kez yaklaşık iki bin yıl önce bugünkü Çin topraklarında geliştirildi. Bitki lifleri suyla ezilip hamur hâline getiriliyor, bu hamur ince bir elek üzerine yayılıp kurutuluyordu. Ortaya çıkan yaprak hem hafif hem de ucuzdu. Kâğıt yapımı, yüzyıllar içinde İpek Yolu üzerinden batıya doğru yayıldı. Orta Asya’daki Semerkant, kâğıdıyla ün kazanan şehirlerden biri oldu. Kâğıt yaygınlaştıkça kitaplar çoğaldı ve bilgi daha çok insana ulaşmaya başladı.\n\nGünümüzde kâğıdın büyük bölümü ağaçlardan elde edilir. Ağaçlar önce küçük parçalara ayrılır. Bu parçalar suyla ve çeşitli maddelerle karıştırılıp lif hamuru yapılır. Hamur, makinelerde ince bir tabaka hâlinde yayılır ve preslenerek suyu alınır. Son olarak tabaka kurutulur ve büyük rulolar hâline getirilir.\n\nKullanılmış kâğıt geri dönüştürülerek yeniden kâğıt yapılabilir. Bu sayede daha az ağaç kesilir, üretimde daha az su ve enerji harcanır. Ancak kâğıt sonsuza kadar geri dönüştürülemez; her seferinde lifleri biraz daha kısalır ve birkaç dönüşümden sonra kullanılamaz hâle gelir. Bu yüzden kâğıdı geri dönüşüme göndermek kadar, onu gereksiz yere harcamamak da önemlidir.",
+      "sorular": [
+        {
+          "kimlik": "eski-malzeme",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre kâğıttan önce yazı için hangisi kullanılmadı?",
+          "secenekler": [
+            "Kil tablet",
+            "Papirüs",
+            "Parşömen",
+            "Cam levha"
+          ],
+          "dogru": 3,
+          "aciklama": "Metinde kil tablet, papirüs ve parşömenden söz ediliyor; cam levhadan söz edilmiyor."
+        },
+        {
+          "kimlik": "ilk-kagit",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Kâğıt ilk kez yaklaşık iki bin yıl önce bugünkü ___ topraklarında geliştirildi.",
+          "cevaplar": [
+            "Çin",
+            "cin"
+          ],
+          "aciklama": "Metnin ikinci paragrafında kâğıdın ilk kez bugünkü Çin topraklarında geliştirildiği yazıyor."
+        },
+        {
+          "kimlik": "uretim-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Günümüzde kâğıt üretiminin aşamalarını sıraya diz.",
+          "ogeler": [
+            "Ağaçlar küçük parçalara ayrılır.",
+            "Parçalar suyla karıştırılıp lif hamuru yapılır.",
+            "Hamur ince bir tabaka hâlinde yayılıp preslenir.",
+            "Tabaka kurutulup rulo hâline getirilir."
+          ],
+          "aciklama": "Üçüncü paragraf üretimi bu sırayla anlatıyor: parçalama, hamur, presleme, kurutma."
+        },
+        {
+          "kimlik": "bilgi-yayilmasi",
+          "tip": "dogru-yanlis",
+          "katman": "cikarim",
+          "soru": "Kâğıdın yaygınlaşması, bilginin daha çok insana ulaşmasını kolaylaştırdı.",
+          "dogru": true,
+          "aciklama": "Kâğıt hafif ve ucuz olduğu için kitaplar çoğaldı; bu da bilginin daha çok insana ulaşmasını sağladı."
+        },
+        {
+          "kimlik": "lif-kisalmasi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Yazar, kâğıdın sonsuza kadar geri dönüştürülemeyeceğini söyledikten sonra hangi sonuca varıyor?",
+          "secenekler": [
+            "Geri dönüşüm artık hiçbir işe yaramamaktadır.",
+            "Kâğıdı gereksiz yere harcamamak da önemlidir.",
+            "Kâğıt yerine yeniden kil tablet kullanılmalıdır.",
+            "Ağaç kesmek çevre için hiçbir sorun yaratmaz."
+          ],
+          "dogru": 1,
+          "aciklama": "Lifler her dönüşümde kısaldığı için yazar, geri dönüşüm kadar az ve özenli kullanmanın da önemli olduğu sonucuna varıyor."
+        },
+        {
+          "kimlik": "okul-onerisi",
+          "tip": "kisa-cevap",
+          "katman": "yorum",
+          "soru": "Okulunda kâğıt tüketimini azaltmak için iki öneri yaz ve birinin neden işe yarayacağını açıkla.",
+          "ornekCevap": "Müsvedde kâğıtların boş arka yüzünü not almak için kullanabiliriz. Sınıfa bir geri dönüşüm kutusu koyabiliriz. Arka yüzü kullanmak işe yarar, çünkü aynı kâğıttan iki kat yararlanmış oluruz.",
+          "kontrolListesi": [
+            "İki öneri yazdım.",
+            "Önerilerden birinin neden işe yarayacağını açıkladım."
+          ],
+          "aciklama": "Metin hem geri dönüşümü hem de gereksiz harcamamayı öneriyor. İyi bir cevap bu iki fikirden yararlanır ve bir gerekçe verir."
+        }
+      ]
+    }
+  ]
+}

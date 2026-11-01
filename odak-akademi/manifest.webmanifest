@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "Odak Akademi",
+  "short_name": "Odak Akademi",
+  "description": "Ortaokul öğrencileri için okuma, anlama, dikkat ve hafıza çalışmaları.",
+  "lang": "tr",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#edf4f3",
+  "theme_color": "#0e6b63",
+  "categories": ["education"],
+  "icons": [
+    { "src": "icons/ikon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/ikon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/ikon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/uygulama-ikonu.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

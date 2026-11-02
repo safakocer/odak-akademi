@@ -1,0 +1,244 @@
+/* Tasarım belirteçleri: renk, tipografi, boşluk, gölge, köşe, hareket (açık + koyu tema, "Fener" paleti) */
+
+/* Okuma dostu yerel yazı tipi (SIL OFL 1.1, fonts/ klasöründe; Türkçe harflerin tamamı var). Yalnızca seçilince indirilir. */
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("../fonts/atkinson-hyperlegible-next-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("../fonts/atkinson-hyperlegible-next-bold.woff2") format("woff2");
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Marka: deniz camı yeşili (odak ışığı), mercan (fener çatısı), güneş sarısı (ışık) */
+  --renk-birincil: #0e6b63;
+  --renk-birincil-hover: #0a5750;
+  --renk-birincil-zemin: #d3ece8;
+  --renk-birincil-uzeri: #ffffff;
+  --renk-birincil-golge: #08443f;
+  --renk-vurgu: #ff6f4f;
+  --renk-vurgu-zemin: #ffe2da;
+  --renk-vurgu-metin: #a3321a;
+  --renk-gunes: #ffc94d;
+  --renk-gunes-zemin: #fff3cf;
+  --renk-gunes-uzeri: #3a2a00;
+  --renk-gunes-golge: #c9962a;
+
+  /* Yüzeyler ve metin (serin deniz sisi zemini) */
+  --renk-zemin: #edf4f3;
+  --renk-yuzey: #ffffff;
+  --renk-yuzey-2: #e0ebe9;
+  --renk-kenar: #c6d6d4;
+  --renk-kenar-guclu: #7b918f;
+  --renk-metin: #16262b;
+  --renk-metin-soluk: #46585d;
+  --renk-odak: #c2410c;
+
+  /* Durum renkleri (metin / zemin) */
+  --renk-basari: #1f7a3a;  --renk-basari-zemin: #dcf2e2;
+  --renk-uyari: #845500;   --renk-uyari-zemin: #fff0c7;
+  --renk-hata: #b42318;    --renk-hata-zemin: #fde3df;
+  --renk-bilgi: #1d5fa8;   --renk-bilgi-zemin: #dfeafa;
+
+  /* Görev kartı ve toast */
+  --gorev-zemin: #0e6b63;
+  --gorev-metin: #ffffff;
+  --gorev-ic: rgb(255 255 255 / 0.12);
+  --toast-zemin: #16262b;
+  --toast-metin: #ffffff;
+
+  /* Modül renkleri: ikon zemini / ikon */
+  --modul-kurs: #d3ece8;      --modul-kurs-ikon: #0e6b63;
+  --modul-oku: #dfeafa;       --modul-oku-ikon: #1d5fa8;
+  --modul-goz: #ebe7fb;       --modul-goz-ikon: #5643c4;
+  --modul-dikkat: #ffe2da;    --modul-dikkat-ikon: #a3321a;
+  --modul-hafiza: #fff0c7;    --modul-hafiza-ikon: #845500;
+  --modul-test: #dcf2e2;      --modul-test-ikon: #1f7a3a;
+  --modul-kutuphane: #f3e6da; --modul-kutuphane-ikon: #7a4521;
+  --modul-rehber: #e2e7f1;    --modul-rehber-ikon: #33456b;
+
+  /* Tipografi (yalnızca cihazda yüklü yazı tipleri; dış istek yok) */
+  --font-govde: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, Arial, sans-serif;
+  --font-baslik: ui-rounded, "SF Pro Rounded", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --font-disleksi: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", "OpenDyslexic", Verdana, Tahoma, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --yazi-olcek: 1;
+  --fs-xs: 0.8125rem;
+  --fs-s: 0.9375rem;
+  --fs-m: 1rem;
+  --fs-l: 1.1875rem;
+  --fs-xl: 1.4375rem;
+  --fs-2xl: clamp(1.625rem, 1.2rem + 1.8vw, 2.125rem);
+  --fs-3xl: clamp(2rem, 1.4rem + 2.6vw, 2.75rem);
+  --sh-govde: 1.6;
+  --sh-baslik: 1.2;
+  --harf-araligi: 0;
+  --kelime-araligi: 0;
+
+  /* Boşluk (4 px tabanlı) */
+  --b-1: 0.25rem;
+  --b-2: 0.5rem;
+  --b-3: 0.75rem;
+  --b-4: 1rem;
+  --b-5: 1.5rem;
+  --b-6: 2rem;
+  --b-7: 3rem;
+  --b-8: 4rem;
+
+  /* Köşe yuvarlaklığı (hiyerarşiye göre: küçük öğe < kart < büyük kart) */
+  --kose-s: 0.5rem;
+  --kose-m: 0.875rem;
+  --kose-l: 1.25rem;
+  --kose-xl: 1.75rem;
+  --kose-tam: 999px;
+
+  /* Gölge */
+  --golge-1: 0 1px 2px rgb(22 38 43 / 0.08);
+  --golge-2: 0 6px 16px rgb(22 38 43 / 0.12);
+  --golge-3: 0 16px 40px rgb(22 38 43 / 0.22);
+
+  /* Hareket */
+  --sure-hizli: 120ms;
+  --sure-orta: 220ms;
+  --sure-yavas: 600ms;
+  --egri: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Düzen */
+  --dokunma-min: 44px;
+  --icerik-genislik: 72rem;
+  --ust-cubuk-y: 3.75rem;
+  --alt-gezinme-y: 4rem;
+  --z-ust: 20;
+  --z-toast: 60;
+  --z-egzersiz: 59; /* egzersiz katmanı: toast'ların hemen altında, kutlama (toast + 1) üstünde */
+}
+
+/* Koyu tema: kullanıcı seçtiyse */
+:root[data-tema="koyu"] {
+  color-scheme: dark;
+  --renk-birincil: #4fd1c1;
+  --renk-birincil-hover: #74ddd0;
+  --renk-birincil-zemin: #12403b;
+  --renk-birincil-uzeri: #05211e;
+  --renk-birincil-golge: #1f8c80;
+  --renk-vurgu: #ff8a6b;
+  --renk-vurgu-zemin: #4a2318;
+  --renk-vurgu-metin: #ffb39f;
+  --renk-gunes: #ffd166;
+  --renk-gunes-zemin: #3d3214;
+  --renk-gunes-uzeri: #2b1f00;
+  --renk-gunes-golge: #b38a2c;
+  --renk-zemin: #0f1a1d;
+  --renk-yuzey: #172529;
+  --renk-yuzey-2: #1f3136;
+  --renk-kenar: #2d4349;
+  --renk-kenar-guclu: #6f8a91;
+  --renk-metin: #e8f0ee;
+  --renk-metin-soluk: #a7b7b8;
+  --renk-odak: #ffb067;
+  --renk-basari: #6fd08c;  --renk-basari-zemin: #143222;
+  --renk-uyari: #f2c14e;   --renk-uyari-zemin: #3a2e0e;
+  --renk-hata: #ff8a80;    --renk-hata-zemin: #3d1716;
+  --renk-bilgi: #8bbcf5;   --renk-bilgi-zemin: #13283f;
+  --gorev-zemin: #134a45;
+  --gorev-metin: #effcf9;
+  --gorev-ic: rgb(255 255 255 / 0.08);
+  --toast-zemin: #e8f0ee;
+  --toast-metin: #0f1a1d;
+  --modul-kurs: #12403b;      --modul-kurs-ikon: #7fe3d6;
+  --modul-oku: #13283f;       --modul-oku-ikon: #8bbcf5;
+  --modul-goz: #26213f;       --modul-goz-ikon: #b3a6f5;
+  --modul-dikkat: #4a2318;    --modul-dikkat-ikon: #ffb39f;
+  --modul-hafiza: #3d3214;    --modul-hafiza-ikon: #ffd166;
+  --modul-test: #143222;      --modul-test-ikon: #6fd08c;
+  --modul-kutuphane: #3a2a1c; --modul-kutuphane-ikon: #e0b48a;
+  --modul-rehber: #222b3a;    --modul-rehber-ikon: #a9b9d6;
+  --golge-1: 0 1px 2px rgb(0 0 0 / 0.4);
+  --golge-2: 0 6px 16px rgb(0 0 0 / 0.45);
+  --golge-3: 0 16px 40px rgb(0 0 0 / 0.6);
+}
+
+/* Koyu tema: sistem koyuysa ve kullanıcı açık seçmediyse (yukarıdaki blokla AYNI tutulmalı) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="acik"]) {
+    color-scheme: dark;
+    --renk-birincil: #4fd1c1;
+    --renk-birincil-hover: #74ddd0;
+    --renk-birincil-zemin: #12403b;
+    --renk-birincil-uzeri: #05211e;
+    --renk-birincil-golge: #1f8c80;
+    --renk-vurgu: #ff8a6b;
+    --renk-vurgu-zemin: #4a2318;
+    --renk-vurgu-metin: #ffb39f;
+    --renk-gunes: #ffd166;
+    --renk-gunes-zemin: #3d3214;
+    --renk-gunes-uzeri: #2b1f00;
+    --renk-gunes-golge: #b38a2c;
+    --renk-zemin: #0f1a1d;
+    --renk-yuzey: #172529;
+    --renk-yuzey-2: #1f3136;
+    --renk-kenar: #2d4349;
+    --renk-kenar-guclu: #6f8a91;
+    --renk-metin: #e8f0ee;
+    --renk-metin-soluk: #a7b7b8;
+    --renk-odak: #ffb067;
+    --renk-basari: #6fd08c;  --renk-basari-zemin: #143222;
+    --renk-uyari: #f2c14e;   --renk-uyari-zemin: #3a2e0e;
+    --renk-hata: #ff8a80;    --renk-hata-zemin: #3d1716;
+    --renk-bilgi: #8bbcf5;   --renk-bilgi-zemin: #13283f;
+    --gorev-zemin: #134a45;
+    --gorev-metin: #effcf9;
+    --gorev-ic: rgb(255 255 255 / 0.08);
+    --toast-zemin: #e8f0ee;
+    --toast-metin: #0f1a1d;
+    --modul-kurs: #12403b;      --modul-kurs-ikon: #7fe3d6;
+    --modul-oku: #13283f;       --modul-oku-ikon: #8bbcf5;
+    --modul-goz: #26213f;       --modul-goz-ikon: #b3a6f5;
+    --modul-dikkat: #4a2318;    --modul-dikkat-ikon: #ffb39f;
+    --modul-hafiza: #3d3214;    --modul-hafiza-ikon: #ffd166;
+    --modul-test: #143222;      --modul-test-ikon: #6fd08c;
+    --modul-kutuphane: #3a2a1c; --modul-kutuphane-ikon: #e0b48a;
+    --modul-rehber: #222b3a;    --modul-rehber-ikon: #a9b9d6;
+    --golge-1: 0 1px 2px rgb(0 0 0 / 0.4);
+    --golge-2: 0 6px 16px rgb(0 0 0 / 0.45);
+    --golge-3: 0 16px 40px rgb(0 0 0 / 0.6);
+  }
+}
+
+/* Yazı boyutu ayarı */
+:root[data-yazi="kucuk"] { --yazi-olcek: 0.9; }
+:root[data-yazi="buyuk"] { --yazi-olcek: 1.125; }
+:root[data-yazi="cok-buyuk"] { --yazi-olcek: 1.25; }
+
+/* Okuma dostu (disleksi) yazı tipi: daha geniş harf/kelime aralığı ve satır yüksekliği */
+:root[data-font="disleksi"] {
+  --font-govde: var(--font-disleksi);
+  --font-baslik: var(--font-disleksi);
+  --harf-araligi: 0.03em;
+  --kelime-araligi: 0.12em;
+  --sh-govde: 1.8;
+  --sh-baslik: 1.35;
+}
+
+/* Hareketi azalt: kullanıcı seçimi veya sistem tercihi */
+:root[data-hareket="azalt"] {
+  --sure-hizli: 0ms;
+  --sure-orta: 0ms;
+  --sure-yavas: 0ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sure-hizli: 0ms;
+    --sure-orta: 0ms;
+    --sure-yavas: 0ms;
+  }
+}

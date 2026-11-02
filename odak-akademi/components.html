@@ -1,0 +1,357 @@
+<!-- Bileşen vitrini: tasarım sistemindeki tüm renk, yazı ve bileşenleri açık/koyu temada gösterir -->
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bileşen vitrini - Odak Akademi</title>
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#172529" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="icons/fener.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/library.css">
+  <link rel="stylesheet" href="css/exercise.css">
+  <style>
+    /* Yalnızca vitrine özel küçük düzenlemeler */
+    .vitrin-bolum { padding-block: var(--b-5); border-top: 1px solid var(--renk-kenar); }
+    .vitrin-icindekiler { display: flex; flex-wrap: wrap; gap: var(--b-2); list-style: none; padding: 0; margin: 0; }
+    .renk-ornek { display: grid; gap: var(--b-1); font-size: var(--fs-xs); }
+    .renk-ornek__kutu { height: 3.5rem; border-radius: var(--kose-m); border: 1px solid var(--renk-kenar); }
+    .ana { padding-bottom: var(--b-8); }
+  </style>
+</head>
+<body>
+  <!-- İkon seti sayfanın içinde: sunucu ayarından ve dosya türünden bağımsız çalışır -->
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="ev" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol>
+  <symbol id="harita" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></symbol>
+  <symbol id="kitap" viewBox="0 0 24 24"><path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3z"/><path d="M21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z"/></symbol>
+  <symbol id="goz" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="hedef" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="ampul" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="test" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="m9 13 2 2 4-4"/></symbol>
+  <symbol id="kitaplar" viewBox="0 0 24 24"><path d="M4 4h4v16H4z"/><path d="M10 4h4v16h-4z"/><path d="m15.5 5.5 3.9-1 3.6 14.5-3.9 1z"/></symbol>
+  <symbol id="pusula" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
+  <symbol id="grafik" viewBox="0 0 24 24"><path d="M4 20V11"/><path d="M10 20V5"/><path d="M16 20v-7"/><path d="M3 20h18"/></symbol>
+  <symbol id="ayar" viewBox="0 0 24 24"><path d="M4 7h9"/><path d="M17 7h3"/><circle cx="15" cy="7" r="2"/><path d="M4 17h3"/><path d="M11 17h9"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="gunes" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="ay" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="kapat" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="onay" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="saat" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="alev" viewBox="0 0 24 24"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 2.5-5 .3 1.8 1.2 2.8 2.5 3 0-3-1-5.5 0-8z"/></symbol>
+  <symbol id="yildiz" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+  <symbol id="kilit" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="ok-sag" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="kalem" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m14 6 4 4"/></symbol>
+  <symbol id="cop" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="m6 7 1 13h10l1-13"/><path d="M10 11v6M14 11v6"/></symbol>
+  <symbol id="duraklat" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></symbol>
+  <symbol id="devam" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></symbol>
+  <symbol id="tam-ekran" viewBox="0 0 24 24"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="indir" viewBox="0 0 24 24"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></symbol>
+  <symbol id="yenile" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></symbol>
+  <symbol id="ses" viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="bilgi" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></symbol>
+  <symbol id="isik" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v2M12 20.5v2M1.5 12h2M20.5 12h2"/></symbol>
+  </svg>
+
+  <a class="atla-baglanti" href="#ana-icerik">İçeriğe atla</a>
+
+  <header class="ust-cubuk">
+    <div class="ust-cubuk__ic kapsayici">
+      <a class="logo" href="index.html" aria-label="Odak Akademi, ana sayfaya dön">
+        <img src="icons/fener.svg" alt="" width="36" height="36">
+        <span class="logo__yazi" aria-hidden="true"><b>Odak</b> Akademi</span>
+      </a>
+      <div class="ust-cubuk__eylemler">
+        <button class="btn btn--hayalet btn--ikon" id="tema-dugmesi" type="button" aria-pressed="false" aria-label="Koyu tema" title="Koyu temayı aç / kapat">
+          <svg class="ikon" aria-hidden="true"><use href="#gunes"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="ana-icerik" class="ana kapsayici" tabindex="-1">
+    <h1>Bileşen vitrini</h1>
+    <p class="soluk">Tasarım sistemindeki her parça burada. Temayı üstteki düğmeyle değiştirip iki temayı da kontrol et.</p>
+
+    <nav aria-label="Vitrin bölümleri">
+      <ul class="vitrin-icindekiler">
+        <li><a class="cip" href="#marka">Marka</a></li>
+        <li><a class="cip" href="#renkler">Renkler</a></li>
+        <li><a class="cip" href="#yazi">Yazı</a></li>
+        <li><a class="cip" href="#butonlar">Butonlar</a></li>
+        <li><a class="cip" href="#kartlar">Kartlar</a></li>
+        <li><a class="cip" href="#rozetler">Rozetler</a></li>
+        <li><a class="cip" href="#ilerleme">İlerleme</a></li>
+        <li><a class="cip" href="#sekmeler">Sekmeler</a></li>
+        <li><a class="cip" href="#form">Form</a></li>
+        <li><a class="cip" href="#geri-bildirim">Modal ve toast</a></li>
+      </ul>
+    </nav>
+
+    <section class="vitrin-bolum" id="marka" aria-labelledby="b-marka">
+      <h2 id="b-marka">Marka</h2>
+      <div class="satir" style="gap: var(--b-6)">
+        <img src="icons/fener.svg" alt="Maskot Fener, güler yüzlü küçük bir deniz feneri" width="120" height="120">
+        <img src="icons/fener.svg" alt="" width="64" height="64">
+        <img src="icons/fener.svg" alt="" width="32" height="32">
+        <span class="logo" style="font-size: 1.75rem"><img src="icons/fener.svg" alt="" width="48" height="48" style="width:3rem;height:3rem"><span class="logo__yazi"><b>Odak</b> Akademi</span></span>
+      </div>
+      <p class="soluk" style="margin-top: var(--b-3)">Fener, ışığını tek bir noktaya tutar: odaklanmanın kendisi. Tek renk ikonlar 2 px çizgi, yuvarlak uçlu.</p>
+    </section>
+
+    <section class="vitrin-bolum" id="renkler" aria-labelledby="b-renkler">
+      <h2 id="b-renkler">Renkler</h2>
+      <div class="izgara" style="--izgara-min: 7rem; --izgara-bosluk: var(--b-3)">
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-birincil)"></span>Birincil</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-birincil-zemin)"></span>Birincil zemin</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-vurgu)"></span>Mercan</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-gunes)"></span>Güneş</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-zemin)"></span>Zemin</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-yuzey)"></span>Yüzey</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-metin)"></span>Metin</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-basari)"></span>Başarı</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-uyari)"></span>Uyarı</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-hata)"></span>Hata</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-bilgi)"></span>Bilgi</div>
+        <div class="renk-ornek"><span class="renk-ornek__kutu" style="background: var(--renk-odak)"></span>Odak halkası</div>
+      </div>
+    </section>
+
+    <section class="vitrin-bolum" id="yazi" aria-labelledby="b-yazi">
+      <h2 id="b-yazi">Yazı</h2>
+      <div class="yigin" style="--yigin-bosluk: var(--b-2)">
+        <p style="font-family: var(--font-baslik); font-size: var(--fs-3xl); font-weight: 800; line-height: 1.1; margin: 0">Başlık 1</p>
+        <p style="font-family: var(--font-baslik); font-size: var(--fs-2xl); font-weight: 800; margin: 0">Başlık 2</p>
+        <p style="font-family: var(--font-baslik); font-size: var(--fs-xl); font-weight: 800; margin: 0">Başlık 3</p>
+        <p>Gövde metni: Iğdır’dan gelen Çağla, Üsküdar’daki kitaplıkta şiir okuyor; İzmir’deki Ömer ise ılık bir öğleden sonra bahçede ağaç çiziyor.</p>
+        <p class="soluk" style="font-size: var(--fs-s)">Soluk küçük metin: ipuçları ve açıklamalar için.</p>
+      </div>
+    </section>
+
+    <section class="vitrin-bolum" id="butonlar" aria-labelledby="b-butonlar">
+      <h2 id="b-butonlar">Butonlar</h2>
+      <div class="yigin">
+        <div class="satir">
+          <button class="btn btn--birincil" type="button">Birincil</button>
+          <button class="btn btn--gunes" type="button">Güneş</button>
+          <button class="btn btn--ikincil" type="button">İkincil</button>
+          <button class="btn" type="button">Nötr</button>
+          <button class="btn btn--hayalet" type="button">Hayalet</button>
+          <button class="btn btn--tehlike" type="button">Sil</button>
+        </div>
+        <div class="satir">
+          <button class="btn btn--birincil btn--buyuk" type="button">Büyük <svg class="ikon" aria-hidden="true"><use href="#ok-sag"/></svg></button>
+          <button class="btn btn--ikincil btn--kucuk" type="button">Küçük</button>
+          <button class="btn btn--birincil btn--ikon" type="button" aria-label="Yıldızla"><svg class="ikon" aria-hidden="true"><use href="#yildiz"/></svg></button>
+          <button class="btn btn--birincil" type="button" disabled>Devre dışı</button>
+        </div>
+        <button class="btn btn--birincil btn--blok" type="button">Tam genişlik</button>
+      </div>
+    </section>
+
+    <section class="vitrin-bolum" id="kartlar" aria-labelledby="b-kartlar">
+      <h2 id="b-kartlar">Kartlar</h2>
+      <ul class="izgara" style="--izgara-min: 9.5rem; --izgara-bosluk: var(--b-3)">
+        <li>
+          <a class="kart kart--modul" href="#kartlar" data-modul="oku">
+            <span class="kart__ikon" aria-hidden="true"><svg class="ikon"><use href="#kitap"/></svg></span>
+            <span class="kart__baslik">Modül kartı</span>
+            <span class="kart__aciklama">Bağlantıdır, Tab ile ulaşılır</span>
+          </a>
+        </li>
+        <li>
+          <a class="kart kart--modul" href="#kartlar" data-modul="hafiza">
+            <span class="kart__ikon" aria-hidden="true"><svg class="ikon"><use href="#ampul"/></svg></span>
+            <span class="kart__baslik">Rozetli kart</span>
+            <span class="kart__aciklama">Alt alanda durum gösterir</span>
+            <span class="kart__alt"><span class="rozet rozet--basari">Bugün yapıldı</span></span>
+          </a>
+        </li>
+        <li>
+          <div class="kart">
+            <h3>Düz kart</h3>
+            <p class="soluk" style="margin: 0">İçerik kutusu.</p>
+          </div>
+        </li>
+        <li>
+          <div class="kart kart--golgeli">
+            <h3>Gölgeli kart</h3>
+            <p class="soluk" style="margin: 0">Öne çıkan içerik.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="vitrin-bolum" id="rozetler" aria-labelledby="b-rozetler">
+      <h2 id="b-rozetler">Rozetler, madalyalar, avatarlar</h2>
+      <div class="yigin">
+        <div class="satir">
+          <span class="rozet">Nötr</span>
+          <span class="rozet rozet--birincil">Yeni</span>
+          <span class="rozet rozet--gunes">Bugünün Görevi</span>
+          <span class="rozet rozet--vurgu">5. sınıf</span>
+          <span class="rozet rozet--basari"><svg class="ikon ikon--kucuk" aria-hidden="true"><use href="#onay"/></svg>Tamamlandı</span>
+          <span class="rozet rozet--uyari">Tekrar zamanı</span>
+          <span class="rozet rozet--hata">Süre doldu</span>
+          <span class="rozet rozet--bilgi">İpucu</span>
+        </div>
+        <div class="satir" style="align-items: flex-start">
+          <div class="madalya"><span class="madalya__disk"><svg class="ikon" aria-hidden="true"><use href="#alev"/></svg></span>3 gün üst üste</div>
+          <div class="madalya"><span class="madalya__disk"><svg class="ikon" aria-hidden="true"><use href="#kitap"/></svg></span>İlk metin</div>
+          <div class="madalya madalya--kilitli"><span class="madalya__disk"><svg class="ikon" aria-hidden="true"><use href="#kilit"/></svg></span>Henüz açılmadı</div>
+        </div>
+        <div class="satir">
+          <span class="avatar" aria-hidden="true">D</span>
+          <span class="avatar avatar--birincil" aria-hidden="true">K</span>
+          <span class="avatar avatar--gunes avatar--buyuk" aria-hidden="true">Y</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="vitrin-bolum" id="ilerleme" aria-labelledby="b-ilerleme">
+      <h2 id="b-ilerleme">İlerleme</h2>
+      <div class="yigin" style="max-width: 28rem">
+        <div>
+          <div class="ilerleme-etiket"><span id="il-1">Okuma hedefi</span><span>%40</span></div>
+          <div class="ilerleme" role="progressbar" aria-labelledby="il-1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40"><span class="ilerleme__dolgu" style="--deger: 40%"></span></div>
+        </div>
+        <div>
+          <div class="ilerleme-etiket"><span id="il-2">Anlama</span><span>%80</span></div>
+          <div class="ilerleme ilerleme--basari" role="progressbar" aria-labelledby="il-2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80"><span class="ilerleme__dolgu" style="--deger: 80%"></span></div>
+        </div>
+        <div class="ilerleme ilerleme--ince ilerleme--gunes" role="progressbar" aria-label="Ders ilerlemesi" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65"><span class="ilerleme__dolgu" style="--deger: 65%"></span></div>
+        <div class="satir">
+          <div class="halka" style="--deger: 72" role="progressbar" aria-label="Haftalık hedef" aria-valuemin="0" aria-valuemax="100" aria-valuenow="72"><span class="halka__ic">%72</span></div>
+          <p class="soluk" style="margin: 0">Halka: haftalık hedef gibi tek bir oran için.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="vitrin-bolum" id="sekmeler" aria-labelledby="b-sekmeler">
+      <h2 id="b-sekmeler">Sekmeler</h2>
+      <div class="sekmeler" id="ornek-sekmeler">
+        <div class="sekmeler__liste" role="tablist" aria-label="Örnek sekmeler">
+          <button class="sekme" role="tab" id="sk-1" aria-controls="sp-1" aria-selected="true" type="button">Bugün</button>
+          <button class="sekme" role="tab" id="sk-2" aria-controls="sp-2" aria-selected="false" type="button">Bu hafta</button>
+          <button class="sekme" role="tab" id="sk-3" aria-controls="sp-3" aria-selected="false" type="button">Tümü</button>
+        </div>
+        <div class="sekmeler__panel" role="tabpanel" id="sp-1" aria-labelledby="sk-1" tabindex="0"><p>Bugünün çalışmaları burada görünecek.</p></div>
+        <div class="sekmeler__panel" role="tabpanel" id="sp-2" aria-labelledby="sk-2" tabindex="0" hidden><p>Bu haftanın özeti burada görünecek.</p></div>
+        <div class="sekmeler__panel" role="tabpanel" id="sp-3" aria-labelledby="sk-3" tabindex="0" hidden><p>Tüm kayıtların burada görünecek.</p></div>
+      </div>
+      <p class="soluk">Klavye: sekmeye Tab ile gel, sol/sağ ok tuşlarıyla geç.</p>
+    </section>
+
+    <section class="vitrin-bolum" id="form" aria-labelledby="b-form">
+      <h2 id="b-form">Form elemanları</h2>
+      <form class="yigin" style="max-width: 28rem" onsubmit="return false">
+        <div class="alan">
+          <label class="alan__etiket" for="f-takma">Takma ad</label>
+          <input class="girdi" id="f-takma" type="text" placeholder="Örneğin: Yıldız" autocomplete="off" aria-describedby="f-takma-ipucu">
+          <span class="alan__ipucu" id="f-takma-ipucu">Gerçek adını yazma; takma ad yeterli.</span>
+        </div>
+        <div class="alan">
+          <label class="alan__etiket" for="f-hata">Hatalı alan örneği</label>
+          <input class="girdi" id="f-hata" type="text" value="?" aria-invalid="true" aria-describedby="f-hata-mesaj">
+          <span class="alan__hata" id="f-hata-mesaj">Takma ad en az 2 harf olmalı.</span>
+        </div>
+        <div class="alan">
+          <label class="alan__etiket" for="f-sinif">Sınıf</label>
+          <select class="girdi" id="f-sinif">
+            <option>5. sınıf</option><option>6. sınıf</option><option>7. sınıf</option><option>8. sınıf</option>
+          </select>
+        </div>
+        <div class="alan">
+          <label class="alan__etiket" for="f-not">Kısa not</label>
+          <textarea class="girdi" id="f-not" placeholder="Bugün ne öğrendin?"></textarea>
+        </div>
+        <fieldset class="grup">
+          <legend>Sevdiğin metin türleri</legend>
+          <label class="secim"><input type="checkbox" checked> Hikâye</label>
+          <label class="secim"><input type="checkbox"> Bilgilendirici metin</label>
+        </fieldset>
+        <fieldset class="grup">
+          <legend>Zorluk</legend>
+          <div class="segment">
+            <label><input type="radio" name="zorluk" value="1" checked><span>Kolay</span></label>
+            <label><input type="radio" name="zorluk" value="2"><span>Orta</span></label>
+            <label><input type="radio" name="zorluk" value="3"><span>Zor</span></label>
+          </div>
+        </fieldset>
+        <label class="anahtar"><span>Ses efektleri</span><input type="checkbox" role="switch" checked><span class="anahtar__ray" aria-hidden="true"></span></label>
+        <div class="alan">
+          <label class="alan__etiket" for="f-kaydirici">Günlük süre (dakika)</label>
+          <input class="kaydirici" id="f-kaydirici" type="range" min="5" max="15" step="5" value="10">
+        </div>
+        <div class="satir" id="cipler">
+          <button class="cip" type="button" aria-pressed="true">Hikâye</button>
+          <button class="cip" type="button" aria-pressed="false">Bilim</button>
+          <button class="cip" type="button" aria-pressed="false">Doğa</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="vitrin-bolum" id="geri-bildirim" aria-labelledby="b-geri">
+      <h2 id="b-geri">Modal, bildirim ve toast</h2>
+      <div class="yigin">
+        <div class="bildirim" role="note"><svg class="ikon" aria-hidden="true"><use href="#bilgi"/></svg><p>Anlama oranın %70’e ulaştığında hız hedefi bir adım artar.</p></div>
+        <div class="bildirim bildirim--basari" role="note"><svg class="ikon" aria-hidden="true"><use href="#onay"/></svg><p>Harika, bugünkü görevin tamam.</p></div>
+        <div class="bildirim bildirim--uyari" role="note"><svg class="ikon" aria-hidden="true"><use href="#saat"/></svg><p>Kısa bir mola zamanı. Gözlerini uzağa çevir.</p></div>
+        <div class="bildirim bildirim--hata" role="note"><svg class="ikon" aria-hidden="true"><use href="#bilgi"/></svg><p>Bu metin henüz yüklenemedi. Sayfayı yenileyip tekrar dene.</p></div>
+        <div class="satir">
+          <button class="btn btn--birincil" type="button" id="modal-ac" aria-haspopup="dialog">Modalı aç</button>
+          <button class="btn btn--ikincil" type="button" data-toast="bilgi">Bilgi toast</button>
+          <button class="btn btn--ikincil" type="button" data-toast="basari">Başarı toast</button>
+          <button class="btn btn--ikincil" type="button" data-toast="uyari">Uyarı toast</button>
+          <button class="btn btn--ikincil" type="button" data-toast="hata">Hata toast</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-alani" role="status" aria-live="polite"></div>
+
+  <dialog class="modal" id="ornek-modal" aria-labelledby="ornek-modal-baslik">
+    <div class="modal__ic">
+      <div class="modal__ust">
+        <h2 id="ornek-modal-baslik">Mola zamanı</h2>
+        <button class="btn btn--hayalet btn--ikon" type="button" data-kapat aria-label="Kapat"><svg class="ikon" aria-hidden="true"><use href="#kapat"/></svg></button>
+      </div>
+      <div class="modal__govde">
+        <p>10 dakikadır çalışıyorsun. Bir dakika ayağa kalkıp gerinmek ister misin?</p>
+        <p class="soluk" style="margin: 0">Esc tuşu veya dışarıya tıklamak da modalı kapatır.</p>
+      </div>
+      <div class="modal__alt">
+        <button class="btn btn--hayalet" type="button" data-kapat>Sonra</button>
+        <button class="btn btn--birincil" type="button" data-kapat>Mola ver</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module">
+    // Vitrin etkileşimleri: tema, sekme, modal, toast ve çip örnekleri
+    import { temaDugmesiBagla } from './js/core/a11y.js';
+    import { modalBagla, sekmeleriBagla, toastGoster } from './js/core/ui.js';
+
+    temaDugmesiBagla(document.getElementById('tema-dugmesi'));
+    sekmeleriBagla(document.getElementById('ornek-sekmeler'));
+    modalBagla(document.getElementById('modal-ac'), document.getElementById('ornek-modal'));
+
+    const mesajlar = {
+      bilgi: 'Yeni metinler kütüphaneye eklendi.',
+      basari: 'Kaydedildi.',
+      uyari: 'Anlama %70 altında; hız hedefi aynı kalıyor.',
+      hata: 'Kaydedilemedi. Tekrar dene.',
+    };
+    document.querySelectorAll('[data-toast]').forEach((d) =>
+      d.addEventListener('click', () => toastGoster(mesajlar[d.dataset.toast], { tur: d.dataset.toast })));
+
+    document.querySelectorAll('#cipler .cip').forEach((c) =>
+      c.addEventListener('click', () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'))));
+  </script>
+</body>
+</html>

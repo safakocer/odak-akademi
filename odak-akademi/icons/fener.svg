@@ -1,0 +1,28 @@
+<!-- Maskot "Fener": güler yüzlü küçük deniz feneri; logo ve favicon olarak da kullanılır (özgün çizim) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Fener">
+  <!-- ışık huzmeleri -->
+  <path d="M32 16.5 3 8v17z" fill="#ffc94d" opacity=".5"/>
+  <path d="M32 16.5 61 8v17z" fill="#ffc94d" opacity=".5"/>
+  <!-- çatı -->
+  <path d="M21.5 12.5 32 3.5l10.5 9z" fill="#ff6f4f"/>
+  <circle cx="32" cy="3.5" r="1.8" fill="#ff6f4f"/>
+  <!-- lamba odası -->
+  <rect x="24" y="12" width="16" height="9" rx="2" fill="#fff3cf" stroke="#08443f" stroke-width="2"/>
+  <circle cx="32" cy="16.5" r="3" fill="#ffc94d"/>
+  <!-- balkon -->
+  <rect x="20.5" y="20.5" width="23" height="3.5" rx="1.75" fill="#08443f"/>
+  <!-- gövde -->
+  <path d="M23.5 24h17l4 33h-25z" fill="#0e6b63"/>
+  <path d="M21.4 41h21.2l.9 7.5H20.5z" fill="#ffffff"/>
+  <!-- yüz -->
+  <circle cx="28" cy="30.5" r="3.2" fill="#ffffff"/>
+  <circle cx="36" cy="30.5" r="3.2" fill="#ffffff"/>
+  <circle cx="28.6" cy="31" r="1.6" fill="#16262b"/>
+  <circle cx="36.6" cy="31" r="1.6" fill="#16262b"/>
+  <circle cx="25" cy="35.5" r="1.5" fill="#ff6f4f" opacity=".8"/>
+  <circle cx="39" cy="35.5" r="1.5" fill="#ff6f4f" opacity=".8"/>
+  <path d="M29 35.2q3 2.6 6 0" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- kapı ve zemin -->
+  <path d="M29 57v-4.5a3 3 0 0 1 6 0V57z" fill="#08443f"/>
+  <rect x="14" y="56.5" width="36" height="4.5" rx="2.25" fill="#08443f"/>
+</svg>

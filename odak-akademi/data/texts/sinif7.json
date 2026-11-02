@@ -1,0 +1,168 @@
+{
+  "sinif": 7,
+  "metinler": [
+    {
+      "kimlik": "eski-radyo",
+      "ad": "Eski Radyo",
+      "sinif": 7,
+      "tur": "hikaye",
+      "metin": "Yaz tatilinin ilk günlerinde Emir, dedesiyle birlikte çatı katını toplamaya karar verdi. Tozlu kutuların arasından ahşap kasalı, düğmeleri sararmış eski bir radyo çıktı. Radyoyu gören dedesinin gözleri parladı: “Bu radyo, ben senin yaşındayken evimizin en değerli eşyasıydı. Akşamları hep birlikte başına toplanırdık.”\n\nEmir radyoyu hemen prize takmak istedi ama dedesi onu durdurdu: “Önce bir ustaya göstermeliyiz. Eski kablolar tehlikeli olabilir.” Ertesi gün radyoyu, apartmanlarında oturan emekli elektrik teknisyeni Nesrin Hanım’a götürdüler.\n\nNesrin Hanım, radyonun fişinin prizden çekili olduğundan emin olduktan sonra arka kapağını açtı. İçerisi toz ve örümcek ağıyla doluydu. “Sorunu bulmak için önce temizlemeliyiz,” dedi ve Emir’e yumuşak bir fırça verdi. Emir saatlerce, hiçbir parçayı zorlamadan tozları aldı. Sıkıldığı anlar oldu; bir ara fırçayı bırakıp “Bu iş hiç bitmeyecek!” diye söylendi. Nesrin Hanım sakin bir sesle, “Aceleyle yapılan tamir, yeni bir arıza demektir,” diye cevap verdi.\n\nTemizlik bitince Nesrin Hanım ölçü aletiyle parçaları tek tek denedi ve yanmış küçük bir parça buldu. Yenisini sipariş ettiler. Parça bir hafta sonra geldi. Nesrin Hanım onu yerine lehimledi, eskiyen kabloları da yenileriyle değiştirdi.\n\nRadyonun fişi takıldığında önce bir cızırtı duyuldu. Emir düğmeyi yavaşça çevirdikçe cızırtı azaldı ve odayı bir türkünün sesi doldurdu. Dedesi bir süre hiç konuşmadan dinledi, sonra Emir’in omzuna dokundu: “Bu radyoyu yalnızca tamir etmedin, eski günlerimi de geri getirdin.”\n\nO akşam Emir, defterine tamirin bütün aşamalarını resimleriyle birlikte yazdı. Artık bir şeyi onarmanın en önemli aletinin sabır olduğunu biliyordu.",
+      "sorular": [
+        {
+          "kimlik": "prize-takma",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Dedesi, Emir’i radyoyu hemen prize takmaktan neden durdurdu?",
+          "secenekler": [
+            "Eski kablolar tehlikeli olabileceği için",
+            "Radyonun sesi komşuları rahatsız edeceği için",
+            "Evde o gün elektrik kesintisi olduğu için",
+            "Radyoyu önce bir koleksiyoncuya satmak istediği için"
+          ],
+          "dogru": 0,
+          "aciklama": "Dede, “Eski kablolar tehlikeli olabilir.” diyerek önce bir ustaya göstermeleri gerektiğini söylüyor."
+        },
+        {
+          "kimlik": "tamir-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Olayları hikâyedeki sıraya göre diz.",
+          "ogeler": [
+            "Radyo çatı katında bulundu.",
+            "Radyo Nesrin Hanım’a götürüldü.",
+            "Emir radyonun içini fırçayla temizledi.",
+            "Yanmış parça yenisiyle değiştirildi.",
+            "Radyodan bir türkünün sesi yükseldi."
+          ],
+          "aciklama": "Hikâye bulma, ustaya götürme, temizlik, parça değişimi ve radyonun çalışması sırasıyla ilerliyor."
+        },
+        {
+          "kimlik": "aceleyle-tamir",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Nesrin Hanım, “Aceleyle yapılan tamir, yeni bir ___ demektir.” dedi.",
+          "cevaplar": [
+            "arıza",
+            "ariza"
+          ],
+          "aciklama": "Nesrin Hanım bu sözle, aceleyle çalışmanın yeni sorunlara yol açabileceğini anlatıyor."
+        },
+        {
+          "kimlik": "eski-gunler",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Dedenin “Eski günlerimi de geri getirdin.” sözüyle anlatmak istediği nedir?",
+          "secenekler": [
+            "Radyonun yüz yıllık çok eski bir model olduğu",
+            "Emir’in tamiri hiç yardım almadan bitirdiği",
+            "Radyonun ona çocukluk anılarını hatırlattığı",
+            "Radyonun kısa süre içinde yeniden bozulacağı"
+          ],
+          "dogru": 2,
+          "aciklama": "Dede çocukken akşamları ailesiyle radyonun başında toplanırdı. Radyonun sesi ona o günleri hatırlatıyor."
+        },
+        {
+          "kimlik": "sabir-degisimi",
+          "tip": "dogru-yanlis",
+          "katman": "cikarim",
+          "soru": "Hikâyenin sonunda Emir’in sabır hakkındaki düşüncesi, temizlik sırasındaki düşüncesine göre değişmiştir.",
+          "dogru": true,
+          "aciklama": "Temizlik sırasında “Bu iş hiç bitmeyecek!” diye söylenen Emir, sonunda onarmanın en önemli aletinin sabır olduğunu anlıyor."
+        },
+        {
+          "kimlik": "sabirli-is",
+          "tip": "kisa-cevap",
+          "katman": "yorum",
+          "soru": "Sabır gerektiren bir işi düşün. Emir’in yaşadıklarından yararlanarak bu işi nasıl daha iyi yapabileceğini yaz.",
+          "ornekCevap": "Yapboz yaparken sıkılınca hemen bırakıyorum. Emir gibi işi küçük adımlara bölüp önce kenar parçalarını ayırırsam, acele etmeden ilerler ve sonunda bitirebilirim.",
+          "kontrolListesi": [
+            "Sabır gerektiren bir iş seçtim.",
+            "Hikâyeden bir fikir kullandım (ör. adım adım çalışmak, acele etmemek)."
+          ],
+          "aciklama": "İyi bir cevap, hikâyedeki fikirleri (adım adım çalışmak, acele etmemek, güvenliği düşünmek) kendi işine uygular."
+        }
+      ]
+    },
+    {
+      "kimlik": "ruzgari-dinleyen-degirmenci",
+      "ad": "Rüzgârı Dinleyen Değirmenci",
+      "sinif": 7,
+      "tur": "masal",
+      "metin": "Evvel zaman içinde, yeşil tepelerle çevrili bir köyde Ilgaz adında genç bir değirmenci yaşarmış. Köyün en yüksek tepesindeki yel değirmeni, ustası Şahin Usta’dan ona kalmış. Şahin Usta, uzak bir köye yerleşmek için yola çıkmadan önce ona tek bir öğüt vermiş: “Değirmeni rüzgâr döndürür ama rüzgârı dinlemeyi bilen yönetir.”\n\nIlgaz bu söze o gün pek anlam verememiş. Hasat zamanı gelince köylüler buğdaylarını çuval çuval getirmeye başlamış. Kapıdaki sıra uzadıkça Ilgaz telaşlanmış. Değirmen daha hızlı dönsün diye kanatlardaki bezleri sonuna kadar açmış.\n\nBir sabah tepeye çıktığında rüzgârın her zamankinden farklı estiğini fark etmiş. Rüzgâr bir esip bir duruyor, sonra birden sertleşiyormuş. Kulağına ince bir ses gelmiş: “Yavaş ol, Ilgaz. Bezlerini topla; bugün huysuzum, nereye eseceğimi ben de bilmiyorum.” Ilgaz bunun bir hayal olduğunu düşünüp omuz silkmiş. Bezleri açık bırakıp işine devam etmiş.\n\nÖğleden sonra sert bir fırtına çıkmış. Kanatlar öyle hızlı dönmüş ki değirmen taşları ısınmış, ahşap mil çatırdamaya başlamış. Ilgaz koşup bezleri toplamış ama kanatlardan biri çoktan çatlamış. Değirmen günlerce çalışamamış.\n\nKöylüler yardıma gelmiş; kimi tahta taşımış, kimi çivi çakmış. Onarım sürerken Ilgaz her sabah tepeye çıkıp rüzgârı dinlemiş. Esintinin yönünü, sesini, havadaki nemi tanımayı öğrenmiş. Rüzgâr hafifken bezleri açmış, sertleşirken toplamış.\n\nDeğirmen yeniden döndüğünde eskisinden daha düzenli çalışıyormuş. Taşlar ısınmadığı için un daha ince çıkıyor, iş de aksamıyormuş. Ilgaz o zaman ustasının sözünü anlamış: Güç, ona karşı gelmekte değil, onu tanımaktaymış.\n\nGökten üç elma düşmüş: biri bu masalı anlatana, biri dinleyene, biri de rüzgârı dinlemeyi bilene.",
+      "sorular": [
+        {
+          "kimlik": "usta-ogudu",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Şahin Usta’nın öğüdü: “Değirmeni rüzgâr döndürür ama rüzgârı ___ bilen yönetir.”",
+          "cevaplar": [
+            "dinlemeyi"
+          ],
+          "aciklama": "Masalın ilk paragrafında ustanın öğüdü bu sözlerle veriliyor."
+        },
+        {
+          "kimlik": "uyari-tepkisi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Ilgaz, rüzgârın uyarısını duyunca bezleri hemen topladı.",
+          "dogru": false,
+          "aciklama": "Ilgaz sesi bir hayal sanıp omuz silkti ve bezleri açık bıraktı. Bezleri ancak fırtına çıkınca topladı."
+        },
+        {
+          "kimlik": "bezleri-acma",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ilgaz kanatlardaki bezleri neden sonuna kadar açtı?",
+          "secenekler": [
+            "Bekleyen köylülerin buğdayını daha hızlı öğütmek için",
+            "Yaklaşan fırtınaya karşı değirmeni korumak için",
+            "Uzaktaki ustasına ne kadar çalışkan olduğunu göstermek için",
+            "Rüzgârın uyarı sesini daha iyi duyabilmek için"
+          ],
+          "dogru": 0,
+          "aciklama": "Hasat zamanı sıra uzadıkça Ilgaz telaşlandı ve değirmen daha hızlı dönsün diye bezleri açtı."
+        },
+        {
+          "kimlik": "masal-ozelligi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Aşağıdakilerden hangisi bu metnin bir masal olduğunu en iyi gösterir?",
+          "secenekler": [
+            "Bir değirmenden ve değirmencinin işinden söz etmesi",
+            "Hasat zamanında yaşanan olayların anlatılması",
+            "“Evvel zaman içinde” diye başlaması ve rüzgârın konuşması",
+            "Köylülerin değirmeni onarmak için yardıma gelmesi"
+          ],
+          "dogru": 2,
+          "aciklama": "Masallar çoğunlukla kalıp sözlerle başlar ve olağanüstü olaylar içerir. Konuşan rüzgâr ve “Gökten üç elma düşmüş” bitişi de bunu gösterir."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Masalın ana fikri hangisidir?",
+          "secenekler": [
+            "Çok çalışan kişi, sonunda her zaman en çok kazanan kişi olur.",
+            "Değirmencilik, sabır ve büyük bir beden gücü isteyen zor bir meslektir.",
+            "Zor zamanlarda köylülerin birbirine yardım etmesi her şeyden önemlidir.",
+            "Doğanın gücünü tanıyıp ona uyum sağlamak, karşı gelmekten akıllıcadır."
+          ],
+          "dogru": 3,
+          "aciklama": "Ilgaz sonunda gücün rüzgâra karşı gelmekte değil, onu tanımakta olduğunu anlıyor. Yardımlaşma da masalda var ama ana fikir değil."
+        },
+        {
+          "kimlik": "dinlenecek-uyari",
+          "tip": "kisa-cevap",
+          "katman": "yorum",
+          "soru": "Masaldaki rüzgâr gibi, senin hayatında da dikkate alman gereken uyarılar olabilir. Bir örnek ver ve neden önemli olduğunu yaz.",
+          "ornekCevap": "Ders çalışırken gözlerim yorulup başım ağrımaya başlarsa bu bir uyarıdır. Kısa bir mola verirsem daha sonra daha iyi odaklanırım; zorlarsam hem yorulur hem de az öğrenirim.",
+          "kontrolListesi": [
+            "Hayatımdan bir uyarı örneği verdim.",
+            "O uyarıyı dikkate almanın neden önemli olduğunu açıkladım."
+          ],
+          "aciklama": "İyi bir cevap, masaldaki “uyarıyı dinleme” fikrini kendi deneyimine bağlar ve sonucunu açıklar."
+        }
+      ]
+    }
+  ]
+}

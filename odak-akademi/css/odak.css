@@ -1,0 +1,165 @@
+/* Odak Araçları (S12): sayfa düzeni, kontrol listesi, zamanlayıcı halkası, öz değerlendirme, haftalık grafik ve yüzen zamanlayıcı göstergesi */
+
+.odak-sayfa [hidden] { display: none !important; }
+
+.odak-duzen { display: grid; gap: var(--b-5); align-items: start; }
+.odak-sutun { display: grid; gap: var(--b-5); min-width: 0; }
+@media (min-width: 900px) {
+  .odak-duzen { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+}
+
+.odak-kart { display: grid; gap: var(--b-4); min-width: 0; }
+.odak-kart h2 { margin: 0; font-size: var(--fs-l); }
+.odak-kart > p { margin: 0; }
+@media (max-width: 420px) {
+  .odak-kart { padding: var(--b-4); }
+}
+
+/* Kontrol listesi */
+.odak-liste { display: grid; gap: var(--b-1); }
+.odak-liste .secim span { line-height: 1.35; }
+.odak-kart .alan__ipucu:empty { display: none; }
+
+/* Zamanlayıcı seçimleri: çalışırken kilitlenir */
+.odak-ayar { display: grid; gap: var(--b-3); min-width: 0; margin: 0; padding: 0; border: 0; }
+.odak-ayar:disabled { opacity: 0.6; }
+.odak-ayar .anahtar > span:first-child { min-width: 0; }
+.odak-ayar small { display: block; font-size: var(--fs-xs); font-weight: 400; }
+.odak-oneri { margin: calc(-1 * var(--b-1)) 0 0; }
+
+/* Halka: ilerleme konik dolgu, ortada kalan süre */
+.odak-saat { display: grid; justify-items: center; gap: var(--b-3); }
+.odak-halka {
+  --deger: 0%;
+  --halka-renk: var(--renk-birincil);
+  display: grid;
+  place-items: center;
+  inline-size: min(13rem, 64vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--renk-yuzey-2);
+  background: conic-gradient(var(--halka-renk) var(--deger), var(--renk-yuzey-2) 0);
+}
+.odak-halka[data-tur="mola"] { --halka-renk: var(--renk-uyari); }
+.odak-halka__ic {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--b-1);
+  inline-size: 80%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--renk-yuzey);
+  text-align: center;
+}
+.odak-halka__sure {
+  font-family: var(--font-baslik);
+  font-size: var(--fs-3xl);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.odak-halka__tur { padding-inline: var(--b-2); font-size: var(--fs-s); font-weight: 700; color: var(--renk-metin-soluk); }
+.odak-durum { margin: 0; max-inline-size: 30rem; text-align: center; font-weight: 700; line-height: 1.45; }
+
+.odak-eylemler { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--b-2); }
+.odak-eylemler--sola { justify-content: flex-start; }
+
+/* Blok sonrası öz değerlendirme */
+.odak-degerlendir {
+  display: grid;
+  gap: var(--b-3);
+  padding: var(--b-4);
+  border-radius: var(--kose-m);
+  background: var(--renk-gunes-zemin);
+}
+.odak-degerlendir h3 { margin: 0; font-size: var(--fs-m); }
+.odak-degerlendir p { margin: 0; }
+.odak-puanlar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--b-1); min-width: 0; margin: 0; padding: 0; border: 0; }
+.odak-puanlar legend { padding: 0; margin-bottom: var(--b-2); font-weight: 700; font-size: var(--fs-s); }
+.odak-puan { position: relative; min-width: 0; }
+.odak-puan input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.odak-puan > span {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.125rem;
+  min-height: 3.75rem;
+  padding: var(--b-2) 0.125rem;
+  border: 2px solid var(--renk-kenar-guclu);
+  border-radius: var(--kose-m);
+  background: var(--renk-yuzey);
+  text-align: center;
+  cursor: pointer;
+}
+.odak-puan b { font-size: var(--fs-xl); line-height: 1; }
+.odak-puan small { font-size: var(--fs-xs); font-weight: 700; line-height: 1.2; }
+.odak-puan input:checked + span { border-color: var(--renk-birincil); background: var(--renk-birincil-zemin); color: var(--renk-birincil); }
+.odak-puan input:focus-visible + span { outline: 3px solid var(--renk-odak); outline-offset: 2px; }
+@media (max-width: 420px) {
+  .odak-degerlendir { padding: var(--b-3); }
+}
+
+/* Haftalık grafik (HTML: yazılar yazı boyutu ayarıyla büyür) */
+.odak-gunluk { display: grid; gap: var(--b-4); }
+.odak-gunluk .mini-istatistik { margin: 0; }
+.odak-grafik {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--b-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.odak-grafik li { min-width: 0; }
+.odak-grafik__sutun { display: grid; justify-items: center; gap: 0.125rem; }
+.odak-grafik__deger { min-block-size: 1.3em; font-size: var(--fs-xs); font-weight: 700; font-variant-numeric: tabular-nums; }
+.odak-grafik__alan {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 7rem;
+  border-bottom: 2px solid var(--renk-kenar-guclu);
+}
+.odak-grafik__cubuk {
+  display: block;
+  inline-size: min(70%, 2rem);
+  block-size: var(--yukseklik, 0%);
+  border-radius: var(--kose-s) var(--kose-s) 0 0;
+  background: var(--renk-birincil);
+}
+.odak-grafik__gun { max-inline-size: 100%; font-size: var(--fs-xs); font-weight: 700; overflow-wrap: anywhere; text-align: center; }
+.odak-grafik li[data-bugun] .odak-grafik__gun { color: var(--renk-birincil); text-decoration: underline 2px; text-underline-offset: 3px; }
+.odak-grafik__puan { font-size: var(--fs-xs); color: var(--renk-metin-soluk); font-variant-numeric: tabular-nums; }
+.odak-not { margin: 0; padding-inline-start: var(--b-3); border-inline-start: 3px solid var(--renk-birincil); line-height: 1.45; }
+
+/* Yüzen gösterge: zamanlayıcı çalışırken başka sayfalarda görünür, dokununca Odak Araçları açılır */
+.odak-cip {
+  position: fixed;
+  top: calc(var(--ust-cubuk-y, 4rem) + var(--b-2) + env(safe-area-inset-top, 0px));
+  inset-inline-end: var(--b-3);
+  z-index: calc(var(--z-ust) - 1);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--b-2);
+  min-height: var(--dokunma-min);
+  padding: 0 var(--b-4);
+  border-radius: var(--kose-tam);
+  background: var(--gorev-zemin, var(--renk-birincil));
+  color: var(--gorev-metin, var(--renk-yuzey));
+  box-shadow: var(--golge-2);
+  font-weight: 700;
+  font-size: var(--fs-s);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  --renk-odak: var(--gorev-metin, var(--renk-yuzey));
+}
+.odak-cip[hidden],
+html.egz-acik .odak-cip { display: none; }
+
+@media (forced-colors: active) {
+  .odak-halka { border: 3px solid CanvasText; }
+  .odak-grafik__cubuk { background: CanvasText; }
+  .odak-cip { border: 2px solid CanvasText; }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Odak Akademi uygulama ikonu: deniz feneri (kenarlara kadar dolu zemin; maskable güvenli alanında çizim) -->
+  <rect width="512" height="512" fill="#0e6b63"/>
+  <path d="M256 168 L440 120 L440 216 Z" fill="#ffd977" opacity="0.9"/>
+  <path d="M256 168 L72 120 L72 216 Z" fill="#ffd977" opacity="0.9"/>
+  <path d="M0 396 Q128 368 256 392 T512 388 L512 512 L0 512 Z" fill="#d3ece8"/>
+  <path d="M206 392 L222 210 L290 210 L306 392 Z" fill="#ffffff"/>
+  <path d="M214 300 L298 300 L301 334 L211 334 Z" fill="#ff6f4f"/>
+  <path d="M219 244 L293 244 L295 266 L217 266 Z" fill="#ff6f4f"/>
+  <rect x="222" y="148" width="68" height="62" rx="10" fill="#ffc94d"/>
+  <circle cx="256" cy="179" r="16" fill="#fff3cf"/>
+  <path d="M206 150 L256 108 L306 150 Z" fill="#ff6f4f"/>
+  <rect x="246" y="352" width="20" height="40" rx="8" fill="#0e6b63"/>
+</svg>

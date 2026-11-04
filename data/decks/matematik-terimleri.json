@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "matematik-terimleri",
+  "baslik": "Matematik terimleri",
+  "aciklama": "Sayılar, oranlar, cebir, geometri ve olasılıkla ilgili temel terimler.",
+  "sinif": "5-8",
+  "kartlar": [
+    {
+      "on": "Asal sayı",
+      "arka": "1’den büyük, yalnızca 1’e ve kendisine bölünebilen doğal sayı.\nÖrnek: 2, 3, 5, 7."
+    },
+    {
+      "on": "Çarpan (bölen)",
+      "arka": "Bir sayıyı kalansız bölen doğal sayılar.\nÖrnek: 12’nin çarpanları 1, 2, 3, 4, 6, 12."
+    },
+    {
+      "on": "EBOB",
+      "arka": "İki ya da daha çok sayının ortak bölenlerinin en büyüğü."
+    },
+    {
+      "on": "EKOK",
+      "arka": "İki ya da daha çok sayının ortak katlarının en küçüğü."
+    },
+    {
+      "on": "Kesir",
+      "arka": "Bir bütünün eş parçalarından birini ya da birkaçını gösteren sayı."
+    },
+    {
+      "on": "Ondalık gösterim",
+      "arka": "Paydası 10, 100, 1000… olan kesirlerin virgül kullanılarak yazılışı.\nÖrnek: 3/10 = 0,3"
+    },
+    {
+      "on": "Yüzde",
+      "arka": "Paydası 100 olan oran; % işaretiyle gösterilir."
+    },
+    {
+      "on": "Oran",
+      "arka": "İki çokluğun bölme işlemiyle karşılaştırılması."
+    },
+    {
+      "on": "Orantı",
+      "arka": "İki oranın birbirine eşit olması."
+    },
+    {
+      "on": "Tam sayılar",
+      "arka": "Negatif tam sayılar, sıfır ve pozitif tam sayıların oluşturduğu sayılar."
+    },
+    {
+      "on": "Mutlak değer",
+      "arka": "Bir sayının sayı doğrusunda sıfıra olan uzaklığı.\nÖrnek: |−5| = 5"
+    },
+    {
+      "on": "Üslü ifade",
+      "arka": "Bir sayının kendisiyle tekrarlı çarpımının kısa yazılışı.\nÖrnek: 2³ = 2 · 2 · 2 = 8"
+    },
+    {
+      "on": "Karekök",
+      "arka": "Karesi verilen sayıya eşit olan, negatif olmayan sayı.\nÖrnek: √49 = 7"
+    },
+    {
+      "on": "Cebirsel ifade",
+      "arka": "İçinde en az bir bilinmeyen (değişken) ve işlem bulunan ifade.\nÖrnek: 3x + 2"
+    },
+    {
+      "on": "Denklem",
+      "arka": "İçinde bilinmeyen bulunan eşitlik.\nÖrnek: x + 4 = 9"
+    },
+    {
+      "on": "Aritmetik ortalama",
+      "arka": "Sayıların toplamının, sayıların adedine bölümü."
+    },
+    {
+      "on": "Olasılık",
+      "arka": "Bir olayın gerçekleşme ihtimalinin 0 ile 1 arasında bir sayıyla gösterilmesi."
+    },
+    {
+      "on": "Çevre",
+      "arka": "Kapalı bir şeklin kenar uzunluklarının toplamı."
+    },
+    {
+      "on": "Alan",
+      "arka": "Bir yüzeyin kapladığı yer; birim karelerle ölçülür."
+    },
+    {
+      "on": "Hacim",
+      "arka": "Bir cismin uzayda kapladığı yer; birim küplerle ölçülür."
+    }
+  ]
+}

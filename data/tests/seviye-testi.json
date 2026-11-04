@@ -1,0 +1,86 @@
+{
+  "surum": 1,
+  "aciklama": "Seviye Belirleme Testi okuma metinleri (S17). Sınıf başına bir sabit metin; final testi başlangıçtaki metni yeniden kullanır. Soru şeması quiz-engine.js ile aynı.",
+  "metinler": [
+    {
+      "kimlik": "test-balkondaki-fide",
+      "ad": "Balkondaki Fide",
+      "sinif": 5,
+      "tur": "hikaye",
+      "metin": "Elif, bahar gelince balkona küçük bir saksı koydu. İçine toprak doldurdu ve dedesinin verdiği domates tohumlarını ekti. Her sabah okula gitmeden önce saksıya biraz su veriyordu.\n\nİlk hafta hiçbir şey olmadı. Elif sabırsızlandı ve tohumların bozuk olduğunu düşündü. Dedesi gülümseyerek, “Toprağın altında iş bitmez, yalnızca görünmez,” dedi.\n\nDokuzuncu günün sabahı toprağın üstünde iki minik yeşil yaprak belirmişti. Elif sevinçle annesini çağırdı. O günden sonra fidenin boyunu her hafta bir deftere yazmaya başladı. Bir ay sonra fide, Elif’in bir karışını geçmişti.\n\nYaz ortasında ilk sarı çiçekler açtı. Komşular balkonun önünden geçerken durup bitkiye bakıyordu. Ağustosun sonunda Elif, kızarmış üç domatesi topladı. Birini dedesine götürdü ve “Haklıymışsın, toprak boş durmuyormuş,” dedi. Dedesi domatesi eline alıp uzun uzun kokladı.",
+      "sorular": [
+        { "kimlik": "s1", "tip": "coktan-secmeli", "katman": "bilgi", "soru": "Elif domates tohumlarını kimden almıştı?",
+          "secenekler": ["Annesinden", "Dedesinden", "Komşusundan", "Öğretmeninden"], "dogru": 1,
+          "aciklama": "Metinde tohumların dedesinin verdiği tohumlar olduğu yazıyor." },
+        { "kimlik": "s2", "tip": "dogru-yanlis", "katman": "bilgi", "soru": "İlk yapraklar, tohumlar ekildikten tam bir hafta sonra çıktı.",
+          "dogru": false, "aciklama": "İlk hafta hiçbir şey olmadı; yapraklar dokuzuncu günün sabahı belirdi." },
+        { "kimlik": "s3", "tip": "coktan-secmeli", "katman": "cikarim", "soru": "Dede, “Toprağın altında iş bitmez, yalnızca görünmez.” sözüyle ne anlatmak istiyor?",
+          "secenekler": ["Tohumların bozuk olduğunu", "Tohumun görünmeden de büyümeye başladığını", "Saksıya daha çok su verilmesi gerektiğini", "Toprağın değiştirilmesi gerektiğini"], "dogru": 1,
+          "aciklama": "Dede, toprağın altında bir şeyler olduğunu ama henüz gözle görülmediğini söylüyor; birkaç gün sonra yapraklar çıkıyor." },
+        { "kimlik": "s4", "tip": "coktan-secmeli", "katman": "yorum", "soru": "Bu metinden çıkarılabilecek en uygun düşünce hangisi?",
+          "secenekler": ["Sonuç hemen görünmese de emek boşa gitmez.", "Bitkiler yalnızca yazın büyür.", "Balkonda bitki yetiştirmek imkânsızdır.", "Domates en kolay yetişen sebzedir."], "dogru": 0,
+          "aciklama": "Elif sabırla bakım yapmaya devam etti ve sonunda domates topladı; metin sabrın ve emeğin karşılığını anlatıyor." }
+      ]
+    },
+    {
+      "kimlik": "test-arilarin-dansi",
+      "ad": "Arıların Dansı",
+      "sinif": 6,
+      "tur": "fen",
+      "metin": "Bal arıları yiyecek bulduklarında bunu kovandaki arkadaşlarına anlatmanın ilginç bir yolunu kullanır: dans etmek. Çiçeklerle dolu bir alan keşfeden işçi arı kovana döner ve diğer arıların arasında özel hareketler yapar.\n\nYiyecek kovana yakınsa arı küçük daireler çizerek döner. Bu dans, yakınlarda yiyecek olduğunu bildirir. Yiyecek uzaktaysa arı sekiz rakamına benzeyen bir yol izler. Bu yolun ortasındaki düz kısımda gövdesini hızla sağa sola sallar. Sallanarak yürüdüğü bu bölüm ne kadar uzun sürerse yiyecek o kadar uzaktadır.\n\nDansın yönü de önemlidir. Arı, düz kısımda yürürken güneşin konumunu kendine işaret noktası olarak kullanır. Böylece diğer arılar hangi yöne uçmaları gerektiğini anlar. Kovanın içi karanlık olduğu için arkadaşları dansı çoğunlukla dokunarak ve titreşimleri hissederek izler.\n\nBilim insanları bu davranışı uzun yıllar boyunca gözlemleyerek çözmüştür. Arıların dansı, hayvanların da karmaşık bilgileri birbirine aktarabildiğini gösteren güzel bir örnektir.",
+      "sorular": [
+        { "kimlik": "s1", "tip": "coktan-secmeli", "katman": "bilgi", "soru": "Yiyecek kovana yakınsa arı nasıl dans eder?",
+          "secenekler": ["Sekiz rakamı çizerek", "Küçük daireler çizerek", "Kanatlarını açıp kapayarak", "Hiç dans etmez"], "dogru": 1,
+          "aciklama": "Metinde yiyecek yakınsa arının küçük daireler çizerek döndüğü yazıyor." },
+        { "kimlik": "s2", "tip": "dogru-yanlis", "katman": "bilgi", "soru": "Dansın sallanarak yürünen bölümü uzadıkça yiyecek de daha uzaktadır.",
+          "dogru": true, "aciklama": "Metne göre sallanarak yürünen bölüm ne kadar uzun sürerse yiyecek o kadar uzaktadır." },
+        { "kimlik": "s3", "tip": "coktan-secmeli", "katman": "cikarim", "soru": "Bir arı dansın düz kısmında güneşin bulunduğu yöne doğru yürürse diğer arılar ne anlar?",
+          "secenekler": ["Yiyecek güneşin bulunduğu yöndedir.", "Yiyecek kovanın içindedir.", "Hava kararmak üzeredir.", "Yiyecek çok yakındadır."], "dogru": 0,
+          "aciklama": "Arı yönü güneşe göre gösterir; güneşe doğru yürümesi, yiyeceğin o yönde olduğunu anlatır." },
+        { "kimlik": "s4", "tip": "coktan-secmeli", "katman": "yorum", "soru": "Metnin ana fikri hangisidir?",
+          "secenekler": ["Arılar yiyeceğin yerini dansla birbirine aktarır.", "Bal arıları yalnızca güneşli günlerde uçar.", "Kovanlar her zaman soğuktur.", "Arılar en çok sarı çiçekleri sever."], "dogru": 0,
+          "aciklama": "Metnin tamamı, arıların yiyeceğin uzaklığını ve yönünü dansla nasıl paylaştığını anlatıyor." }
+      ]
+    },
+    {
+      "kimlik": "test-duran-saat",
+      "ad": "Duran Saat",
+      "sinif": 7,
+      "tur": "hikaye",
+      "metin": "Kasabanın meydanındaki saat kulesi yıllardır on ikiyi on geçeyi gösteriyordu. Kimse saatin ne zaman durduğunu tam olarak hatırlamıyordu. İnsanlar ona bakmayı bırakmış, telefonlarındaki saate güvenir olmuşlardı.\n\nYedinci sınıfa giden Kerem, okul gazetesi için kuleyle ilgili bir haber hazırlamaya karar verdi. Önce kasabanın en yaşlı saatçisi Nuri Usta’yı ziyaret etti. Nuri Usta, saatin büyük dişlilerinden birinin kırıldığını, o parçanın da artık üretilmediğini anlattı. “Parça bulunamazsa kopyası yapılabilir,” dedi, “ama bu, tek bir kişinin altından kalkabileceği bir iş değil.”\n\nKerem haberinin sonuna bir soru ekledi: “Meydanın saati yeniden çalışsın mı?” Gazete çıktıktan sonra okulun teknoloji öğretmeni, öğrencileriyle birlikte dişlinin çizimini hazırlamaya başladı. Belediye malzeme desteği verdi, Nuri Usta da parçanın yerine takılmasını üstlendi.\n\nSonbaharda bir sabah kasaba halkı alışık olmadığı bir ses duydu. Kuledeki saat, yıllar sonra ilk kez çalmıştı. Meydandaki insanlar bir an durup başlarını kaldırdı.",
+      "sorular": [
+        { "kimlik": "s1", "tip": "coktan-secmeli", "katman": "bilgi", "soru": "Kuledeki saat neden çalışmıyordu?",
+          "secenekler": ["Pili bittiği için", "Büyük dişlilerinden biri kırıldığı için", "Kule yıkıldığı için", "Akrebi kaybolduğu için"], "dogru": 1,
+          "aciklama": "Nuri Usta, saatin büyük dişlilerinden birinin kırıldığını anlatıyor." },
+        { "kimlik": "s2", "tip": "dogru-yanlis", "katman": "bilgi", "soru": "Dişlinin çizimini Nuri Usta tek başına hazırladı.",
+          "dogru": false, "aciklama": "Çizimi teknoloji öğretmeni öğrencileriyle birlikte hazırladı; Nuri Usta parçayı yerine taktı." },
+        { "kimlik": "s3", "tip": "coktan-secmeli", "katman": "cikarim", "soru": "Kerem’in haberin sonuna eklediği soru neden önemliydi?",
+          "secenekler": ["Okurları konuyu düşünmeye ve harekete geçmeye yöneltti.", "Gazetenin sayfa sayısını artırdı.", "Nuri Usta’nın işini zorlaştırdı.", "Belediyenin konudan habersiz kalmasını sağladı."], "dogru": 0,
+          "aciklama": "Gazete çıktıktan sonra öğretmen, öğrenciler, belediye ve Nuri Usta harekete geçti; soru insanları düşünmeye yöneltti." },
+        { "kimlik": "s4", "tip": "coktan-secmeli", "katman": "yorum", "soru": "Metindeki olaylara göre hangisi söylenebilir?",
+          "secenekler": ["Küçük bir adım, birçok kişinin katkısıyla büyük bir işe dönüşebilir.", "Eski eşyaların tamir edilmesine gerek yoktur.", "Saatçilik artık kimsenin ihtiyaç duymadığı bir meslektir.", "Okul gazeteleri yalnızca okul içindeki olayları yazar."], "dogru": 0,
+          "aciklama": "Kerem’in haberiyle başlayan iş, öğretmenin, öğrencilerin, belediyenin ve Nuri Usta’nın katkısıyla tamamlandı." }
+      ]
+    },
+    {
+      "kimlik": "test-isi-adalari",
+      "ad": "Şehirlerdeki Isı Adaları",
+      "sinif": 8,
+      "tur": "bilgilendirici",
+      "metin": "Yaz günlerinde şehir merkezinde yürüyen biri, havanın şehrin dışındaki köylere göre daha sıcak olduğunu fark edebilir. Bilim insanları bu duruma “kentsel ısı adası” adını verir.\n\nBu farkın birkaç nedeni vardır. Asfalt ve beton gibi koyu renkli yüzeyler gün boyunca güneş ışığını emer ve depoladıkları ısıyı akşam saatlerinde yavaş yavaş havaya verir. Bu yüzden şehirler özellikle geceleri daha geç serinler. Ayrıca şehirlerde ağaç ve toprak alan azdır. Bitkiler yapraklarından su buharı salarak çevrelerini serinletir; bitki azaldıkça bu doğal serinleme de azalır. Araçlardan, klimalardan ve fabrikalardan çıkan ısı da sıcaklığın artmasına katkıda bulunur.\n\nIsı adası etkisini azaltmak için çeşitli çözümler denenmektedir. Sokaklara ağaç dikmek, çatıları açık renge boyamak ve binaların üzerinde bitkili çatılar oluşturmak bunlardan bazılarıdır. Açık renkli yüzeyler güneş ışığının bir kısmını geri yansıtır. Bu önlemler hem sıcak günlerde insanların daha rahat etmesine hem de serinletme için harcanan enerjinin azalmasına yardımcı olabilir.",
+      "sorular": [
+        { "kimlik": "s1", "tip": "coktan-secmeli", "katman": "bilgi", "soru": "Metne göre şehirler en çok hangi zaman diliminde daha geç serinler?",
+          "secenekler": ["Sabahları", "Öğle saatlerinde", "Geceleri", "İlkbaharda"], "dogru": 2,
+          "aciklama": "Metinde koyu yüzeylerin ısıyı akşam yavaşça verdiği, bu yüzden şehirlerin özellikle geceleri daha geç serinlediği yazıyor." },
+        { "kimlik": "s2", "tip": "dogru-yanlis", "katman": "bilgi", "soru": "Bitkiler yapraklarından su buharı salarak çevrelerini serinletir.",
+          "dogru": true, "aciklama": "Bu bilgi metnin ikinci paragrafında açıkça veriliyor." },
+        { "kimlik": "s3", "tip": "coktan-secmeli", "katman": "cikarim", "soru": "Bir mahalledeki ağaçlık alan kaldırılıp yerine asfalt otopark yapılırsa ne olması beklenir?",
+          "secenekler": ["Mahalle yazın daha sıcak olabilir.", "Mahalle geceleri daha çabuk serinler.", "Mahallenin sıcaklığı hiç değişmez.", "Mahallede kışın daha çok kar yağar."], "dogru": 0,
+          "aciklama": "Ağaçlar azalınca doğal serinleme azalır, koyu asfalt da ısıyı depolar; bu yüzden mahalle daha sıcak olabilir." },
+        { "kimlik": "s4", "tip": "coktan-secmeli", "katman": "yorum", "soru": "Yazarın bu metni yazma amacı en çok hangisidir?",
+          "secenekler": ["Bir sorunu nedenleri ve çözüm yollarıyla açıklamak", "Köyde yaşamanın şehirden daha iyi olduğunu kanıtlamak", "Okurları klima almaya yönlendirmek", "Bir yaz tatilini anlatmak"], "dogru": 0,
+          "aciklama": "Metin önce ısı adasını tanımlıyor, sonra nedenlerini ve azaltma yollarını açıklıyor." }
+      ]
+    }
+  ]
+}

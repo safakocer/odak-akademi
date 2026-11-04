@@ -1,0 +1,169 @@
+{
+  "surum": 2,
+  "ad": "akilli-kurs",
+  "yontemAdi": "Kural tabanlı uyarlanabilir plan",
+  "kurs": {
+    "gunSayisi": 21,
+    "gundeDers": 5,
+    "takvimGunundeEnCokKursGunu": 1,
+    "gunTamamEnAzDers": 3,
+    "gunTamamZorunluTip": "anlama",
+    "enUzunTakvimGun": 42,
+    "yuvarlama": "yarim-yukari"
+  },
+  "gunTurleri": {
+    "pekistirmeAraligi": 5,
+    "olcumGunleri": [7, 14, 21],
+    "cakismaOnceligi": ["olcum", "pekistirme", "normal"],
+    "hedefArtisiYok": ["pekistirme", "olcum"]
+  },
+  "baslangic": {
+    "sinifVarsayilanWpm": { "5": 110, "6": 125, "7": 140, "8": 150 },
+    "testsizIlkGun": "kalibrasyon",
+    "testAnlamaDusukCarpani": 0.9,
+    "hizliGecisteTestsiz": true
+  },
+  "kalibrasyon": {
+    "okumaModu": "serbest",
+    "anlamaIyiyse": "olculen-wpm",
+    "anlamaDusukCarpani": 0.9,
+    "baslangicWpmGuncelle": true,
+    "seriSifirla": true,
+    "kademeSifirla": true
+  },
+  "hedef": {
+    "wpmSinir": [60, 500],
+    "artisKademeleri": [0.02, 0.03, 0.04],
+    "baslangicKademe": 0,
+    "ustSinirOrani": 0.5,
+    "ustSinirOraniAralik": [0.4, 0.6],
+    "tabanOrani": 0.85,
+    "tutmaToleransi": 0.95,
+    "hizDersiCarpani": 1.1,
+    "hizDersiCarpaniDondurulmus": 1.0,
+    "yuksekBaslangic": { "esikWpm": 350, "ustSinirOrani": 0.15, "enCokKademe": 0 },
+    "artisKapaliEsikWpm": 450,
+    "tavanda": {
+      "hizDersiModu": "tekrarli-okuma",
+      "agirlikDegisimi": { "hiz": -1, "anlama": 1 }
+    }
+  },
+  "anlama": {
+    "esik": 70,
+    "ileriEsik": 85,
+    "dusukSeriEsigi": 2,
+    "dusukSeriDusus": 0.05,
+    "dususteKademeSifirla": true,
+    "veriYoksa": "sabit-seri-degismez"
+  },
+  "olcum": {
+    "okumaModu": "serbest",
+    "metin": "sinif-okunmamis-orta",
+    "dersSirasi": ["goz", "anlama", "hiz", "esnek", "esnek"],
+    "hizDersiCarpani": 1.0,
+    "yukariKalibrasyon": { "wpmOrani": 1.1, "enAzAnlama": 85 },
+    "asagiKalibrasyon": { "wpmOrani": 0.85 },
+    "guncellenenEksenler": ["okumaHizi", "anlama"],
+    "finalTestiGunu": 21
+  },
+  "ara": {
+    "olcu": "kacirilan-gun",
+    "kurallar": [
+      { "enAz": 0, "enCok": 2, "eylem": "devam", "hedefCarpani": 1.0, "seriSifirla": false },
+      { "enAz": 3, "enCok": 6, "eylem": "devam", "hedefCarpani": 0.95, "seriSifirla": true },
+      { "enAz": 7, "enCok": 13, "eylem": "kalibrasyon", "hedefCarpani": 0.9, "seriSifirla": true },
+      { "enAz": 14, "enCok": null, "eylem": "yeniden-baslatma-oner", "hedefCarpani": 0.9, "seriSifirla": true }
+    ],
+    "yenidenBaslatmaSecenekleri": ["kaldigim-yerden", "bastan"],
+    "kaldigimYerdenEylem": "kalibrasyon"
+  },
+  "yorgun": {
+    "dersler": ["goz", "anlama", "esnek"],
+    "sureProfili": 15,
+    "hedefArtisi": false,
+    "anlamaSayilir": true,
+    "kursGunuSayilir": true,
+    "esnekKrediTuketimi": 1,
+    "ardArdaOneriEsigi": 3,
+    "oneri": "sure-profili-15"
+  },
+  "sureProfilleri": {
+    "varsayilan": 20,
+    "secenekler": [15, 20, 30],
+    "15": { "goz": 2, "hiz": 3, "anlama": 6, "esnek": [2, 2], "metinUzunlugu": "kisa" },
+    "20": { "goz": 3, "hiz": 4, "anlama": 7, "esnek": [3, 3], "metinUzunlugu": "kisa" },
+    "30": { "goz": 4, "hiz": 6, "anlama": 10, "esnek": [5, 5], "metinUzunlugu": "orta" }
+  },
+  "slotlar": [
+    { "sira": 1, "sabit": "goz" },
+    { "sira": 2, "sabit": "hiz" },
+    { "sira": 3, "sabit": "anlama" },
+    { "sira": 4, "sabit": null },
+    { "sira": 5, "sabit": null }
+  ],
+  "pekistirme": {
+    "hizDersiModu": "tekrarli-okuma",
+    "besinciDers": { "tip": "hafiza", "arac": "tekrar", "kosul": "bekleyen-kart", "yedekEgzersiz": "kelime-listesi" },
+    "zorlukFarki": -1
+  },
+  "dersTipleri": {
+    "goz": {
+      "etiket": "Göz ısınma",
+      "eksen": "gorme",
+      "havuz": ["schulte", "satir-ritmi", "kelime-piramidi", "periferik-flas", "grup-flasi"]
+    },
+    "hiz": {
+      "etiket": "Hız çalışması",
+      "eksen": "okumaHizi",
+      "havuz": ["hizli-oku"],
+      "modlar": ["rehber", "kelime-grubu", "rsvp"]
+    },
+    "anlama": {
+      "etiket": "Anlama okuması",
+      "eksen": "anlama",
+      "havuz": ["oku-anla"],
+      "modlar": ["rehber"],
+      "olcuKaynagi": true
+    },
+    "dikkat": {
+      "etiket": "Dikkat",
+      "eksen": "dikkat",
+      "havuz": ["hizli-dokun", "git-dur", "stroop", "iptal-testi", "surekli-dikkat"]
+    },
+    "hafiza": {
+      "etiket": "Hafıza ve pekiştirme",
+      "eksen": "hafiza",
+      "havuz": ["rakam-dizisi", "corsi-bloklari", "kelime-listesi", "eslestirme", "n-geri"]
+    }
+  },
+  "havuzSecimi": "tip-sayaci-mod-havuz",
+  "agirlik": {
+    "yontem": "kredili-dagitim",
+    "temel": { "dikkat": 3, "hafiza": 3, "anlama": 1, "hiz": 1, "goz": 1 },
+    "enZayifEk": 4,
+    "ikinciZayifEk": 2,
+    "dengeliFark": 10,
+    "enAzEksen": 2,
+    "esitlikSirasi": ["dikkat", "hafiza", "anlama", "hiz", "goz"],
+    "ayniTipGunlukEnCok": 2,
+    "agirlikDegisinceKrediSifirla": true
+  },
+  "kararOnceligi": ["yeniden-baslat", "kalibrasyon", "dusur", "sabit", "ayarla", "artir"],
+  "korumalar": ["wpm-siniri", "taban", "tavan"],
+  "kararMetinleri": {
+    "artir": "Hem anladın hem hedefi tuttun; yarınki hedef biraz yükseldi.",
+    "sabit-anlama": "Anlama bugün %{esik} eşiğinin altında kaldı; önce anlamak gelir, hız hedefi aynı kalıyor.",
+    "sabit-tutmadi": "Bugünkü hız hedefine henüz ulaşmadın; hedef aynı kalıyor, yarın yeniden deneyebilirsin.",
+    "sabit-veri-yok": "Bugün anlama sonucu bulunamadı; hedef aynı kalıyor.",
+    "sabit-gun-turu": "Pekiştirme ve ölçüm günlerinin çevresinde hedef değişmiyor; bugünkü çalışman yine sayıldı.",
+    "sabit-yorgun": "Bugün kısa planı seçtin; hedef aynı kalıyor. Dinlenmek de çalışmanın parçası.",
+    "dusur-seri": "Hedefin biraz düştü, çünkü anlama oranın {dusukSeriEsigi} gün üst üste %{esik} eşiğinin altında kaldı. Rahat bir hızla anlamayı güçlendireceğiz.",
+    "dusur-ara": "Bir süre ara verdin; rahat bir hızla yeniden başlıyoruz.",
+    "kalibrasyon": "Kendi hızında okudun; hedefini bu okumaya göre ayarladık.",
+    "ayarla-yukari": "Ölçüm okumasında hem hızlı okudun hem iyi anladın; hedef güncellendi.",
+    "ayarla-asagi": "Ölçüm okumasına göre hedefi sana uygun hâle getirdik.",
+    "tavan": "Kursun hız hedefine ulaştın; şimdi anlamayı derinleştiriyoruz.",
+    "yeniden-baslat": "Uzun bir aradan döndün. Kaldığın yerden mi, baştan mı devam etmek istersin?"
+  },
+  "aciklamalar": ["Bu kurs yapay zekâ kullanmaz; herkesin görebileceği basit kurallarla çalışır.", "Kurs seni değil, planı senin gelişimine göre uyarlar: her gün sonunda kendi sonuçların okunur.", "Anlama %{esik} eşiğinin altındaysa hız hedefi yükselmez; önce anlamak gelir.", "Her {pekistirmeAraligi}. gün pekiştirme, {olcumGunleri} günler kısa ölçüm günüdür; yorgun günlerde kısa plan seçebilirsin.", "Bir günü kaçırırsan plan kaybolmaz; kaldığın günden, gerekirse daha rahat bir hızla devam edersin."]
+}

@@ -1,0 +1,60 @@
+{
+  "surum": 1,
+  "ad": "akrostis-kisaltma",
+  "baslik": "Akrostiş ve Kısaltma",
+  "kisaAciklama": "Baş harflerden akılda kalan bir cümle ya da kısa bir kelime kur.",
+  "sureDk": "6-8",
+  "anlat": {
+    "baslik": "Baş harfler neden işe yarar?",
+    "paragraflar": [
+      "Bir listenin baş harfleri, listenin tamamına açılan küçük bir anahtar gibidir.",
+      "Akrostişte, baş harflerle başlayan kelimelerden akılda kalan bir cümle kurarsın. Kısaltmada ise baş harfleri yan yana koyup okunabilen kısa bir kelime yaparsın.",
+      "Cümle ne kadar komik ya da sana özel olursa o kadar kolay hatırlanır. Baş harf yetmezse ilk iki harfi kullanabilirsin."
+    ],
+    "ornek": {
+      "baslik": "Kısaltma örneği: Türkiye’yi çevreleyen dört deniz",
+      "satirlar": [
+        "Karadeniz, Akdeniz, Marmara, Ege → K, A, M, E → KAME",
+        "“KAME” kelimesini hatırlayınca dört deniz de aklına gelir."
+      ]
+    },
+    "not": "Akrostiş sırayı da korur; bu yüzden sırası önemli listelerde çok işe yarar."
+  },
+  "birlikte": {
+    "yonerge": "Gökkuşağının yedi rengini sırasıyla akrostişle hatırlayalım: kırmızı, turuncu, sarı, yeşil, mavi, lacivert, mor.",
+    "adimlar": [
+      { "metin": "Önce baş harfleri sırayla yaz.", "sahne": "K – T – S – Y – M – L – M" },
+      { "metin": "Her harfle başlayan bir kelime seç. Kelimeler bir hikâye gibi bağlanırsa işin kolaylaşır.", "sahne": "Küçük – Tavşan – Sabah – Yeşil – Marulu – Lezzetle – Mideye…" },
+      { "metin": "Kelimeleri bir cümleye çevir.", "sahne": "Küçük Tavşan Sabah Yeşil Marulu Lezzetle Mideye indirdi." },
+      { "metin": "Son kelime (indirdi) yalnızca cümleyi tamamlıyor; harfleri ilk yedi kelimeden alıyoruz." },
+      { "metin": "Cümleyi bir kez içinden söyle, sonra her kelimeden rengi bul: Küçük → kırmızı, Tavşan → turuncu…" }
+    ],
+    "kontrol": {
+      "soru": "Cümledeki “Lezzetle” kelimesi hangi rengi hatırlatıyor?",
+      "secenekler": ["lacivert", "yeşil", "mor"],
+      "dogru": 0,
+      "aciklama": "“L” harfi lacivert içindi. Cümle sırayı da koruduğu için laciverdin mavi ile mor arasında olduğunu da bilirsin."
+    }
+  },
+  "kendin": {
+    "tur": "metin",
+    "yonerge": "Aşağıdaki 7 kelimeyi sırasıyla hatırlamak için bir akrostiş cümlesi ya da kısaltma kur.",
+    "ipuclari": [
+      "Önce baş harfleri sırayla yaz: B, A, G, Ö, K, F, S.",
+      "Her harfe bir kelime bul ve onları bir cümlede bağla.",
+      "Cümleyi iki kez içinden söyle; sonra her kelimeden listedeki kelimeye git."
+    ],
+    "etiket": "Baş harflerin ve cümlen (isteğe bağlı)",
+    "yerTutucu": "B A G Ö K F S → …",
+    "onerilenSn": 100
+  },
+  "olcum": {
+    "tur": "liste",
+    "siraOnemli": true,
+    "calismaSn": 35,
+    "araSn": 15,
+    "once": { "ogeler": ["pergel", "kiraz", "uçak", "dere", "tepsi", "halı", "mısır"] },
+    "sonra": { "ogeler": ["bisiklet", "armut", "gemi", "ördek", "kalem", "fırın", "sepet"] }
+  },
+  "kapanis": "Akrostiş ve kısaltma; gezegenlerin sırası, bir konunun alt başlıkları ya da bir işlemin adımları için kullanışlıdır."
+}

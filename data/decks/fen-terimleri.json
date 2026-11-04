@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "fen-terimleri",
+  "baslik": "Fen terimleri",
+  "aciklama": "Hücreden kuvvete, maddeden ekosisteme temel fen kavramları.",
+  "sinif": "5-8",
+  "kartlar": [
+    {
+      "on": "Hücre",
+      "arka": "Canlıların yapı ve görev bakımından en küçük birimi."
+    },
+    {
+      "on": "Fotosentez",
+      "arka": "Bitkilerin ışık enerjisini kullanarak karbondioksit ve sudan besin (glikoz) ve oksijen üretmesi."
+    },
+    {
+      "on": "Mitoz bölünme",
+      "arka": "Bir hücreden, kalıtsal yapısı kendisiyle aynı iki yeni hücre oluşturan bölünme."
+    },
+    {
+      "on": "Mayoz bölünme",
+      "arka": "Üreme hücrelerini oluşturan, kromozom sayısını yarıya indiren bölünme."
+    },
+    {
+      "on": "DNA",
+      "arka": "Canlının kalıtsal bilgisini taşıyan, hücrede bulunan molekül."
+    },
+    {
+      "on": "Gen",
+      "arka": "DNA üzerinde bir özelliğin ortaya çıkmasını sağlayan bölüm."
+    },
+    {
+      "on": "Mutasyon",
+      "arka": "DNA’da oluşan kalıcı değişiklik; üreme hücrelerinde olursa yavrulara aktarılabilir."
+    },
+    {
+      "on": "Adaptasyon",
+      "arka": "Canlının yaşadığı ortamda hayatta kalma ve üreme şansını artıran kalıtsal özellik."
+    },
+    {
+      "on": "Kütle",
+      "arka": "Bir cismin madde miktarı; eşit kollu terazi ile ölçülür, birimi kilogramdır.\nKonum değişse de değişmez."
+    },
+    {
+      "on": "Ağırlık",
+      "arka": "Bir cisme etki eden yer çekimi kuvveti; dinamometre ile ölçülür, birimi newtondur."
+    },
+    {
+      "on": "Sürtünme kuvveti",
+      "arka": "Birbirine değen yüzeyler arasında, harekete zıt yönde etki eden kuvvet."
+    },
+    {
+      "on": "Basınç",
+      "arka": "Birim yüzeye dik olarak etki eden kuvvet."
+    },
+    {
+      "on": "Element",
+      "arka": "Tek cins atomdan oluşan saf madde.\nÖrnek: demir, oksijen."
+    },
+    {
+      "on": "Bileşik",
+      "arka": "Farklı elementlerin belirli oranlarda kimyasal olarak birleşmesiyle oluşan saf madde.\nÖrnek: su."
+    },
+    {
+      "on": "Karışım",
+      "arka": "Birden çok maddenin kendi özelliklerini kaybetmeden bir araya gelmesi.\nÖrnek: tuzlu su."
+    },
+    {
+      "on": "Erime",
+      "arka": "Katı bir maddenin ısı alarak sıvı hâle geçmesi."
+    },
+    {
+      "on": "Yoğuşma",
+      "arka": "Gaz hâlindeki bir maddenin ısı vererek sıvı hâle geçmesi."
+    },
+    {
+      "on": "Asit",
+      "arka": "Suda çözündüğünde H⁺ iyonu oluşturan, mavi turnusol kâğıdını kırmızıya çeviren madde."
+    },
+    {
+      "on": "Ekosistem",
+      "arka": "Bir bölgedeki canlılar ile cansız çevrenin (su, toprak, hava) birlikte oluşturduğu bütün."
+    },
+    {
+      "on": "İletken madde",
+      "arka": "Elektrik akımını iyi ileten madde.\nÖrnek: bakır tel."
+    }
+  ]
+}

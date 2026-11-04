@@ -1,0 +1,162 @@
+/* İlerleme paneli (S20): özet kartları, seri şeridi, SVG grafikler, rozet ızgarası, ana sayfa günlük hedef, egzersiz sonucundaki kazanım, veli raporu ve yazdırma */
+
+/* ---------- Ana sayfa: günlük hedef ---------- */
+.gunluk-hedef { display: grid; gap: var(--b-2); }
+.gunluk-hedef__ust { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--b-2); }
+.gunluk-hedef__ust h2 { margin: 0; font-size: var(--fs-l); }
+.gunluk-hedef p { margin: 0; }
+.gunluk-hedef__seviye { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+
+/* ---------- Özet kartları ---------- */
+.ilerleme-ozet {
+  display: grid;
+  gap: var(--b-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+.ilerleme-kart { display: grid; gap: var(--b-3); align-content: start; }
+.ilerleme-kart__baslik { margin: 0; font-size: var(--fs-m); color: var(--renk-metin-soluk); }
+.ilerleme-kart__deger { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--b-2); margin: 0; }
+.ilerleme-kart__deger strong { font-family: var(--font-baslik); font-size: var(--fs-3xl); line-height: 1; color: var(--renk-birincil); }
+.ilerleme-kart__deger span { font-weight: 700; }
+.ilerleme-kart__not { margin: 0; font-size: var(--fs-s); }
+.ilerleme-kart__alt {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--b-2);
+  margin: 0; font-size: var(--fs-s); color: var(--renk-metin-soluk);
+}
+.ilerleme-kart__alt span { display: inline-flex; align-items: center; gap: var(--b-1); }
+.ilerleme-kart .segment { flex-wrap: wrap; }
+
+/* Son 7 gün: dolu yeşil = çalıştın, ay = dinlenme hakkı, kesik = bugün (henüz), boş = çalışma yok (renk tek başına anlam taşımaz) */
+.seri-serit {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--b-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.seri-serit__gun { display: grid; justify-items: center; gap: 2px; }
+.seri-serit__isaret {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid var(--renk-kenar);
+  background: var(--renk-yuzey-2);
+  color: var(--renk-metin-soluk);
+}
+.seri-serit__gun[data-durum="calisti"] .seri-serit__isaret { background: var(--renk-birincil); border-color: var(--renk-birincil); color: var(--renk-birincil-uzeri); }
+.seri-serit__gun[data-durum="dinlenme"] .seri-serit__isaret { background: var(--renk-gunes-zemin); border-color: var(--renk-uyari); color: var(--renk-uyari); }
+.seri-serit__gun[data-durum="bekliyor"] .seri-serit__isaret { border-style: dashed; border-color: var(--renk-kenar-guclu); background: transparent; }
+.seri-serit__ad { font-size: var(--fs-xs); color: var(--renk-metin-soluk); }
+
+/* ---------- Grafikler ---------- */
+.ilerleme-bolum-baslik { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--b-3); }
+.ilerleme-bolum-baslik h2 { margin: 0; }
+.donem-secimi { margin: 0; padding: 0; border: 0; }
+.grafik-izgara {
+  display: grid;
+  gap: var(--b-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+.grafik-kart { display: grid; gap: var(--b-2); align-content: start; min-width: 0; }
+.grafik-kart__bos-baslik { margin: 0; font-size: var(--fs-m); }
+.grafik-kart__not { margin: 0; font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+.grafik-kart > .btn { justify-self: start; }
+.ilerleme-bos { display: grid; gap: var(--b-3); justify-items: start; }
+.ilerleme-bos p { margin: 0; }
+
+.grafik { display: grid; gap: var(--b-2); margin: 0; min-width: 0; }
+.grafik__baslik { display: grid; gap: 2px; }
+.grafik__baslik strong { font-size: var(--fs-m); }
+.grafik__baslik span { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+.grafik__cizim { min-width: 0; }
+.grafik__svg { display: block; max-width: 100%; height: auto; overflow: visible; }
+.grafik__izgara { stroke: var(--renk-kenar); stroke-width: 1; }
+.grafik__taban { stroke: var(--renk-kenar-guclu); stroke-width: 1; }
+.grafik__eksen { fill: var(--renk-metin-soluk); font-size: var(--fs-xs); font-family: var(--font-govde); }
+.grafik__cizgi { fill: none; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.grafik__cizgi--0 { stroke: var(--renk-birincil); }
+.grafik__cizgi--1 { stroke: var(--renk-vurgu-metin); stroke-dasharray: 7 4; }
+.grafik__cizgi--2 { stroke: var(--renk-bilgi); stroke-dasharray: 2 4; }
+.grafik__isaret { stroke: var(--renk-yuzey); stroke-width: 1.5; }
+.grafik__isaret--0 { fill: var(--renk-birincil); }
+.grafik__isaret--1 { fill: var(--renk-vurgu-metin); }
+.grafik__isaret--2 { fill: var(--renk-bilgi); }
+
+.grafik__lejant { display: flex; flex-wrap: wrap; gap: var(--b-2) var(--b-4); margin: 0; padding: 0; list-style: none; font-size: var(--fs-s); }
+.grafik__lejant li { display: inline-flex; align-items: center; gap: var(--b-2); }
+.grafik__ornek { display: inline-block; width: 1.75rem; height: 0; border-top: 3px solid var(--renk-birincil); }
+.grafik__ornek--1 { border-top: 3px dashed var(--renk-vurgu-metin); }
+.grafik__ornek--2 { border-top: 3px dotted var(--renk-bilgi); }
+
+.grafik__tablo summary {
+  min-height: var(--dokunma-min);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: var(--fs-s);
+  font-weight: 700;
+  color: var(--renk-birincil);
+}
+.grafik__tablo-kap, .rapor-tablo-kap { overflow-x: auto; }
+.grafik__tablo table, .rapor-tablo { width: 100%; border-collapse: collapse; font-size: var(--fs-s); }
+.grafik__tablo th, .grafik__tablo td, .rapor-tablo th, .rapor-tablo td {
+  padding: var(--b-2) var(--b-3);
+  border-bottom: 1px solid var(--renk-kenar);
+  text-align: start;
+}
+.grafik__tablo td, .rapor-tablo td { font-variant-numeric: tabular-nums; }
+.grafik__tablo thead th, .rapor-tablo thead th { color: var(--renk-metin-soluk); font-size: var(--fs-xs); }
+
+/* ---------- Rozetler (madalya bileşeni üzerine) ---------- */
+.rozet-izgara {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: var(--b-4) var(--b-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rozet-karti { width: auto; align-content: start; }
+.rozet-karti__ad { font-size: var(--fs-s); }
+.rozet-karti__olcut { font-weight: 400; color: var(--renk-metin-soluk); }
+.rozet-karti__tarih { font-weight: 400; color: var(--renk-basari); }
+.madalya--kilitli .rozet-karti__ad { color: var(--renk-metin); }
+
+.ilerleme-rapor-karti { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--b-3); }
+.ilerleme-rapor-karti h2, .ilerleme-rapor-karti p { margin: 0; }
+.ilerleme-nasil summary { min-height: var(--dokunma-min); display: flex; align-items: center; cursor: pointer; font-weight: 700; }
+.ilerleme-nasil ul { margin: var(--b-2) 0 0; padding-inline-start: var(--b-5); display: grid; gap: var(--b-2); }
+
+/* ---------- Egzersiz sonucu: XP, rozet ve günlük durum ---------- */
+.egz-kazanim { display: grid; gap: var(--b-2); }
+.egz-kazanim p { margin: 0; }
+.egz-kazanim__xp { display: flex; flex-wrap: wrap; align-items: center; gap: var(--b-2); }
+.egz-kazanim__not { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+
+/* ---------- Veli raporu ---------- */
+.rapor-ust { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--b-3); }
+.rapor-ust h1, .rapor-ust p { margin: 0; }
+.rapor-ust__kim { font-size: var(--fs-l); font-weight: 700; }
+.rapor-tablo caption { text-align: start; font-weight: 800; font-size: var(--fs-m); padding-bottom: var(--b-2); }
+.rapor-notlar h2 { margin-top: 0; font-size: var(--fs-l); }
+.rapor-notlar ul { margin: 0; padding-inline-start: var(--b-5); display: grid; gap: var(--b-2); }
+
+/* ---------- Yazdırma (yalnız rapor açıkken; renkler tokens.css print bloğundan açık) ---------- */
+@media print {
+  html.yazdir-ilerleme .ust-cubuk,
+  html.yazdir-ilerleme .alt-gezinme,
+  html.yazdir-ilerleme .toast-alani,
+  html.yazdir-ilerleme .guncelleme-bandi,
+  html.yazdir-ilerleme .atla-baglanti,
+  html.yazdir-ilerleme .yazdirma-yok,
+  html.yazdir-ilerleme .grafik__tablo { display: none !important; }
+  html.yazdir-ilerleme body { background: var(--renk-yuzey); padding: 0; }
+  html.yazdir-ilerleme .ana { padding: 0; max-width: none; }
+  html.yazdir-ilerleme .kart { box-shadow: none; break-inside: avoid; }
+  html.yazdir-ilerleme .rapor-tablo-kap { overflow: visible; break-inside: avoid; }
+  html.yazdir-ilerleme .grafik-izgara { grid-template-columns: 1fr 1fr; }
+  html.yazdir-ilerleme .rozet-izgara { grid-template-columns: repeat(5, 1fr); }
+}

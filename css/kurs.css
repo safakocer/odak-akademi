@@ -1,0 +1,94 @@
+/* Akıllı Kurs (S19): özet, plan notu, gün haritası, bugünün dersleri, dersler arası mola, çerçevedeki kurs bandı, rapor, sertifika ve yazdırma. Renkler yalnız tokens.css belirteçlerinden */
+
+#kurs-sayfasi [hidden], #kurs-rapor-sayfasi [hidden] { display: none !important; }
+.kurs-kart { display: grid; gap: var(--b-4); padding: var(--b-5); border: 1px solid var(--renk-kenar); border-radius: var(--kose-l); background: var(--renk-yuzey); min-inline-size: 0; }
+.kurs-kart h2, .kurs-kart p { margin: 0; }
+.kurs-kart p { line-height: var(--sh-govde); }
+.kurs-kart h2 { font-size: var(--fs-l); }
+.kurs-eylemler { display: flex; flex-wrap: wrap; gap: var(--b-2); }
+.kurs-eylemler > .btn { flex: 1 1 12rem; }
+.kurs-kurallar { display: grid; gap: var(--b-2); margin: 0; padding-inline-start: 1.25rem; line-height: var(--sh-govde); }
+.kurs-secenekler { display: grid; gap: var(--b-3); margin: 0; padding: 0; list-style: none; }
+.kurs-secenekler li { display: grid; gap: var(--b-2); }
+.kurs-secenekler p { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+.kurs-detay > summary { display: flex; align-items: center; min-block-size: var(--dokunma-min); cursor: pointer; font-weight: 700; }
+.kurs-detay[open] { display: grid; gap: var(--b-3); }
+
+/* Plan notu (hedef değişikliği ve nedeni) */
+.kurs-karar { display: grid; gap: var(--b-2); padding: var(--b-4) var(--b-5); border-radius: var(--kose-l); background: var(--renk-birincil-zemin); border-inline-start: 6px solid var(--renk-birincil); }
+.kurs-karar h2 { margin: 0; font-size: var(--fs-m); }
+.kurs-karar p { margin: 0; line-height: var(--sh-govde); }
+.kurs-karar[data-yon="dustu"] { background: var(--renk-gunes-zemin); border-inline-start-color: var(--renk-gunes-golge); }
+
+/* ---------- Gün haritası: 7 sütun × 3 hafta ---------- */
+.kurs-harita { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--b-2); margin: 0; padding: 0; list-style: none; }
+.kurs-harita li {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; aspect-ratio: 1; min-inline-size: 0; overflow: hidden;
+  border-radius: var(--kose-m); background: var(--renk-yuzey-2); color: var(--renk-metin-soluk); font-weight: 800; font-variant-numeric: tabular-nums;
+}
+/* Numara (ya da ✓) üstte, gün türü işareti altında: dar ekranda üst üste binmez */
+.kurs-harita__no { font-size: var(--fs-m); line-height: 1; }
+.kurs-harita__isaret { font-size: var(--fs-xs); line-height: 1; }
+.kurs-harita li[data-durum="tamam"] { background: var(--renk-birincil); color: var(--renk-birincil-uzeri); }
+.kurs-harita li[data-durum="bugun"] { background: var(--renk-gunes); color: var(--renk-gunes-uzeri); box-shadow: inset 0 0 0 3px var(--renk-birincil); }
+.kurs-harita li[data-durum="yarin"] { background: var(--renk-yuzey); color: var(--renk-metin); box-shadow: inset 0 0 0 2px var(--renk-gunes-golge); }
+.kurs-harita__lejant { display: flex; flex-wrap: wrap; gap: var(--b-2) var(--b-4); margin: 0; padding: 0; list-style: none; font-size: var(--fs-xs); color: var(--renk-metin-soluk); }
+.kurs-harita__lejant li { display: inline-flex; align-items: center; gap: var(--b-1); }
+.kurs-harita__ornek { display: inline-grid; place-items: center; inline-size: 1.25rem; block-size: 1.25rem; border-radius: var(--kose-s); background: var(--renk-yuzey-2); font-weight: 800; }
+.kurs-harita__ornek[data-durum="tamam"] { background: var(--renk-birincil); color: var(--renk-birincil-uzeri); }
+.kurs-harita__ornek[data-durum="bugun"] { background: var(--renk-gunes); color: var(--renk-gunes-uzeri); }
+
+/* ---------- Bugünün dersleri ---------- */
+.kurs-gun__ust { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--b-2); }
+.kurs-gun__not { padding: var(--b-3) var(--b-4); border-radius: var(--kose-m); background: var(--renk-birincil-zemin); }
+.kurs-dersler { display: grid; gap: var(--b-2); margin: 0; padding: 0; list-style: none; }
+.kurs-dersler > li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: var(--b-3); padding: var(--b-3); border-radius: var(--kose-m); background: var(--renk-yuzey-2); }
+.kurs-ders__no { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%; background: var(--renk-birincil); color: var(--renk-birincil-uzeri); font-weight: 800; }
+.kurs-dersler > li[data-durum="tamam"] .kurs-ders__no { background: var(--renk-basari); color: var(--renk-yuzey); }
+.kurs-dersler > li[data-durum="atlandi"] .kurs-ders__no { background: var(--renk-kenar-guclu); color: var(--renk-yuzey); }
+.kurs-ders__govde { display: grid; gap: var(--b-1); min-inline-size: 0; }
+.kurs-ders__ust { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--b-2); }
+.kurs-ders__sure { font-size: var(--fs-s); font-weight: 700; color: var(--renk-metin-soluk); white-space: nowrap; }
+.kurs-ders__ad { font-size: var(--fs-s); font-weight: 700; }
+.kurs-ders__yonerge { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+.kurs-ders__eylemler { display: flex; flex-wrap: wrap; gap: var(--b-2); margin-block-start: var(--b-1); }
+
+/* ---------- Dersler arası mola ---------- */
+.kurs-ara h2 { margin: 0; }
+.kurs-ara p { margin: 0; line-height: var(--sh-govde); }
+.kurs-ara__liste { margin: 0; padding-inline-start: 1.25rem; line-height: var(--sh-govde); }
+.kurs-ara__sayac { display: flex; align-items: baseline; justify-content: center; gap: var(--b-2); color: var(--renk-metin-soluk); }
+.kurs-ara__sure { font-size: var(--fs-3xl); font-weight: 800; color: var(--renk-birincil); font-variant-numeric: tabular-nums; }
+
+/* ---------- Egzersiz çerçevesinde kurs bandı ve “Sonraki derse geç” ---------- */
+.egz-kurs-bandi { display: grid; gap: var(--b-1); padding: var(--b-3) var(--b-4); border-radius: var(--kose-m); background: var(--renk-birincil-zemin); border-inline-start: 6px solid var(--renk-birincil); }
+.egz-kurs-bandi p { margin: 0; line-height: 1.5; }
+.egz-sonuc__kurs > .btn { flex: 1 1 100%; }
+
+/* ---------- Rapor ve sertifika ---------- */
+.kurs-rapor__test { display: grid; gap: var(--b-4); }
+.kurs-sertifika {
+  display: grid; justify-items: center; gap: var(--b-2); padding: var(--b-6) var(--b-5); text-align: center;
+  border: 6px double var(--renk-birincil); border-radius: var(--kose-l); background: var(--renk-yuzey);
+}
+.kurs-sertifika p, .kurs-sertifika h2 { margin: 0; line-height: 1.5; }
+.kurs-sertifika h2 { font-size: var(--fs-2xl); color: var(--renk-birincil); }
+.kurs-sertifika__ust { font-weight: 800; letter-spacing: 0.08em; color: var(--renk-metin-soluk); }
+.kurs-sertifika__ad { font-size: var(--fs-2xl); font-weight: 800; padding-block-end: var(--b-1); border-block-end: 2px solid var(--renk-gunes-golge); overflow-wrap: anywhere; }
+.kurs-sertifika__mesaj { max-inline-size: 32rem; }
+.kurs-sertifika__tarih { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+
+/* ---------- Yazdırma (rapor + sertifika; “Yalnız sertifika”: html.yazdir-sertifika) ---------- */
+@media print {
+  @page { margin: 14mm; }
+  .ust-cubuk, .alt-gezinme, .atla-baglanti, .toast-alani, .guncelleme-bandi, .yazdirma-yok, dialog { display: none !important; }
+  html, body, .ana { background: var(--renk-yuzey) !important; }
+  .ana { padding: 0 !important; margin: 0 !important; max-inline-size: none !important; }
+  .kurs-rapor { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .kurs-rapor .kurs-kart, .kurs-rapor .radar, .kurs-rapor .test-tablo-kap { break-inside: avoid; }
+  .kurs-rapor .test-tablo-kap { overflow: visible; }
+  .kurs-rapor .radar__seri--simdiki { animation: none; }
+  .kurs-sertifika { break-before: page; break-inside: avoid; min-block-size: 70vh; align-content: center; }
+  html.yazdir-sertifika .kurs-rapor > :not(.kurs-sertifika) { display: none !important; }
+  html.yazdir-sertifika .kurs-sertifika { break-before: auto; min-block-size: 85vh; }
+}

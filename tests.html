@@ -1,0 +1,368 @@
+<!doctype html>
+<!-- Kurs planlayıcı testleri (S18b): course-planner.js kurallarını senaryolarla otomatik dener; yalnız geliştirme, sw.js'te yok -->
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurs planlayıcı testleri · Odak Akademi</title>
+  <style>
+    :root { color-scheme: light dark; --zemin: #edf4f3; --yuzey: #ffffff; --metin: #10302d; --ikincil: #3d5a57; --gecti: #0e6b63; --kaldi: #a8321b; --kenar: #c9dbd8; }
+    @media (prefers-color-scheme: dark) { :root { --zemin: #0d1f1d; --yuzey: #142b28; --metin: #e6f2f0; --ikincil: #b5ccc8; --gecti: #6fd3c6; --kaldi: #ff9c85; --kenar: #2d4a46; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 1rem; background: var(--zemin); color: var(--metin); font: 1rem/1.5 system-ui, sans-serif; }
+    main { max-width: 52rem; margin: 0 auto; }
+    h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
+    p { margin: .25rem 0 .75rem; color: var(--ikincil); }
+    button { min-height: 44px; padding: .5rem 1rem; border-radius: .6rem; border: 2px solid var(--gecti); background: var(--yuzey); color: var(--metin); font: inherit; cursor: pointer; }
+    button:focus-visible, summary:focus-visible { outline: 3px solid #ffc94d; outline-offset: 2px; }
+    #ozet { font-weight: 700; padding: .75rem 1rem; border-radius: .6rem; background: var(--yuzey); border: 2px solid var(--kenar); margin: 1rem 0; }
+    #ozet[data-durum="gecti"] { border-color: var(--gecti); }
+    #ozet[data-durum="kaldi"] { border-color: var(--kaldi); }
+    ol { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+    li.senaryo { background: var(--yuzey); border: 2px solid var(--kenar); border-left-width: .5rem; border-radius: .6rem; padding: .6rem .8rem; }
+    li.senaryo[data-durum="gecti"] { border-left-color: var(--gecti); }
+    li.senaryo[data-durum="kaldi"] { border-left-color: var(--kaldi); border-style: dashed; border-left-style: solid; }
+    summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: .5rem; font-weight: 600; }
+    .isaret { font-size: 1.2rem; }
+    .gecti .isaret, [data-durum="gecti"] > details > summary .isaret { color: var(--gecti); }
+    [data-durum="kaldi"] > details > summary .isaret, .kaldi .isaret { color: var(--kaldi); }
+    ul.kontroller { margin: .4rem 0 0; padding-left: 0; list-style: none; font-size: .95rem; }
+    ul.kontroller li { padding: .2rem 0; border-top: 1px solid var(--kenar); overflow-wrap: anywhere; }
+    .ayrinti { color: var(--ikincil); font-size: .9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Kurs planlayıcı testleri</h1>
+  <p>Her senaryo planı gün gün ilerletir ve beklenen davranışı denetler. Kurallar <code>data/course-rules.json</code> dosyasından okunur.</p>
+  <button type="button" id="calistir">Testleri yeniden çalıştır</button>
+  <div id="ozet" role="status" aria-live="polite">Testler hazırlanıyor…</div>
+  <ol id="liste" aria-label="Senaryolar"></ol>
+</main>
+<script type="module">
+// --- TESTLER BAŞI ---
+import {
+  planOlustur, gunSonuGuncelle, atlananGunIsle, yorgunModuUygula, yorgunModuKaldir, yenidenBaslat, dersDurumuAyarla,
+  bugunkuGun, kursOzeti, kararAciklamasi, kurallarAciklamasi, kurallariDenetle, gunTuru, agirlikHesapla, kacirilanGun,
+} from './js/engine/course-planner.js';
+
+const BASLANGIC = '2026-01-05';
+function tarih(n, bas = BASLANGIC) { // bas + n gün
+  const [y, a, d] = bas.split('-').map(Number);
+  const t = new Date(Date.UTC(y, a - 1, d + n));
+  return t.toISOString().slice(0, 10);
+}
+const test = (wpm, yuzde, puanlar = {}) => ({ okuma: { wpm }, anlama: { yuzde }, puanlar: { okumaHizi: 50, anlama: yuzde, dikkat: 50, hafiza: 50, gorme: 50, ...puanlar } });
+const yeniPlan = (K, ek = {}) => planOlustur({ sinif: 6, profilDk: 20, bugun: BASLANGIC, baslangicTesti: test(150, 90), kurallar: K, olcekWpm: [40, 240], ...ek });
+
+// Kontrol toplayıcı + her günde geçerli değişmez kural: anlama eşiğin altındaysa hedef yükselmez
+function denetci(K) {
+  const kontroller = [];
+  const ok = (kosul, ad, ayrinti = '') => kontroller.push({ ad, gecti: !!kosul, ayrinti });
+  function oyna(plan, { tarih: t, wpm, anlama, dersler }) {
+    const g = bugunkuGun(plan);
+    const durumlar = dersler ?? Object.fromEntries(g.dersler.map((x) => [x.sira, 'tamam']));
+    const w = typeof wpm === 'function' ? wpm(g.hedefWpm ?? plan.durum.hedefWpm) : wpm;
+    const s = gunSonuGuncelle(plan, { gun: g.gun, tarih: t, dersler: durumlar, wpm: w, anlamaYuzde: anlama }, K);
+    if (s.tamamlandi && anlama !== undefined && anlama < K.anlama.esik && s.karar.yeni > s.karar.onceki) {
+      ok(false, `Gün ${g.gun}: anlama %${anlama} iken hedef yükseldi`, `${s.karar.onceki} → ${s.karar.yeni}`);
+    }
+    return s;
+  }
+  function seri(plan, gunler, { basGun = 0, wpm = (h) => h, anlama = 90 } = {}) { // ardışık takvim günlerinde oyna
+    let p = plan; const sonuclar = [];
+    for (let i = 0; i < gunler; i++) {
+      const a = typeof anlama === 'function' ? anlama(i) : anlama;
+      const s = oyna(p, { tarih: tarih(basGun + i), wpm, anlama: a });
+      sonuclar.push(s); p = s.plan;
+    }
+    return { plan: p, sonuclar };
+  }
+  return { kontroller, ok, oyna, seri };
+}
+
+const SENARYOLAR = [
+  {
+    ad: '1. Hep iyi giden öğrenci',
+    aciklama: 'Başlangıç 150 k/dk, %90 anlama; her gün hedefi tutuyor ve %90 anlıyor.',
+    calistir(K, { ok, seri }) {
+      const p0 = yeniPlan(K);
+      const { plan, sonuclar } = seri(p0, 21);
+      ok(sonuclar.every((s) => s.tamamlandi), '21 günün hepsi tamamlandı');
+      ok(plan.durum.bitti, 'Kurs bitti olarak işaretlendi');
+      ok(kursOzeti(plan, tarih(20), K).finalTestiZamani && !kursOzeti(p0, BASLANGIC, K).finalTestiZamani, 'Final testi zamanı finalTestiGunu’ndan');
+      const hedefler = sonuclar.map((s) => s.karar.yeni);
+      ok(hedefler.every((h, i) => i === 0 || h >= hedefler[i - 1]), 'Hedef hiç düşmedi', hedefler.join(', '));
+      ok(plan.durum.hedefWpm > 150, 'Hedef yükseldi', `150 → ${plan.durum.hedefWpm}`);
+      ok(plan.durum.hedefWpm <= plan.durum.tavanWpm, 'Hedef tavanı aşmadı', `tavan ${plan.durum.tavanWpm}`);
+      const yanlisArtis = plan.gunler.filter((g) => g.karar.kod === 'artir' && (g.tur !== 'normal' || (g.gun < 21 && gunTuru(g.gun + 1, K) !== 'normal')));
+      ok(!yanlisArtis.length, 'Pekiştirme/ölçüm günlerinin çevresinde artış yok', yanlisArtis.map((g) => g.gun).join(', '));
+      ok(plan.gunler[0].karar.yeni === Math.floor(150 * 1.03 + 0.5), '1. gün %85+ → kademe 1 (%3) artış', `${plan.gunler[0].karar.yeni}`);
+      ok(plan.durum.kademe === 2, 'Kademe en üste (%4) çıktı', `kademe ${plan.durum.kademe}`);
+    },
+  },
+  {
+    ad: '2. Hep düşük anlayan öğrenci',
+    aciklama: 'Her gün hedef hızda okuyor ama anlama %60.',
+    calistir(K, { ok, seri }) {
+      const p0 = yeniPlan(K);
+      const { plan, sonuclar } = seri(p0, 21, { anlama: 60 });
+      ok(sonuclar.every((s) => s.karar.yeni <= s.karar.onceki), 'Hedef hiçbir gün yükselmedi');
+      ok(sonuclar.every((s) => s.karar.yeni >= plan.durum.tabanWpm), 'Hedef tabanın altına inmedi', `taban ${plan.durum.tabanWpm}`);
+      ok(sonuclar[1].karar.kod === 'dusur-seri', '2. gün sonunda düşüş (2 gün üst üste)', sonuclar[1].karar.kod);
+      ok(sonuclar[0].karar.kod === 'sabit-anlama' && sonuclar[2].karar.kod === 'sabit-anlama', 'Düşüşten sonra seri yeniden başlıyor');
+      const p1 = sonuclar[0].plan;
+      const hiz = bugunkuGun(p1).dersler.find((x) => x.tip === 'hiz');
+      ok(hiz.ayar.wpm === p1.durum.hedefWpm, 'Anlama düşükken hız dersi hedefle aynı (×1,0)', `${hiz.ayar.wpm} / ${p1.durum.hedefWpm}`);
+      ok(plan.durum.hedefWpm === plan.durum.tabanWpm, 'Sonunda hedef tabanda', `${plan.durum.hedefWpm}`);
+    },
+  },
+  {
+    ad: '3. Üç gün atlayan öğrenci',
+    aciklama: '3 gün çalışıyor, sonra 3 gün kaçırıp dönüyor.',
+    calistir(K, { ok, seri, oyna }) {
+      const { plan: p3 } = seri(yeniPlan(K), 3);
+      const donus = tarih(6); // son çalışma tarih(2); 3,4,5 kaçtı
+      ok(kacirilanGun(p3, donus) === 3, 'Kaçırılan gün 3 sayıldı', `${kacirilanGun(p3, donus)}`);
+      const a = atlananGunIsle(p3, donus, K);
+      ok(a.degisti && a.karar.kod === 'dusur-ara', 'Ara kuralı uygulandı (dusur-ara)', a.karar?.kod);
+      ok(a.plan.durum.hedefWpm === Math.max(a.plan.durum.tabanWpm, Math.floor(p3.durum.hedefWpm * 0.95 + 0.5)), 'Hedef ×0,95', `${p3.durum.hedefWpm} → ${a.plan.durum.hedefWpm}`);
+      ok(a.plan.durum.gun === 4, 'Plan kaybolmadı: kaldığı günden (4. gün) devam', `gün ${a.plan.durum.gun}`);
+      ok(!atlananGunIsle(a.plan, donus, K).degisti, 'Aynı gün ikinci kez açınca yeniden düşmüyor');
+      ok(!atlananGunIsle(a.plan, tarih(7), K).degisti, 'Ertesi gün (aynı aralık) yeniden düşmüyor');
+      const s = oyna(a.plan, { tarih: donus, wpm: (h) => h, anlama: 90 });
+      ok(s.tamamlandi && s.plan.durum.gun === 5, 'Dönüş günü tamamlandı, 5. güne geçildi');
+      ok(s.plan.durum.araIslenen === null, 'Ara bilgisi temizlendi');
+    },
+  },
+  {
+    ad: '4. İki gün üst üste düşük anlama',
+    aciklama: 'Gün 1 %90, gün 2-3 %60, gün 4 %60, gün 5 %90.',
+    calistir(K, { ok, seri }) {
+      const anlamalar = [90, 60, 60, 60];
+      const { sonuclar } = seri(yeniPlan(K), 4, { anlama: (i) => anlamalar[i] });
+      const [g1, g2, g3, g4] = sonuclar;
+      ok(g1.karar.kod === 'artir', '1. gün artış', g1.karar.kod);
+      ok(g2.karar.kod === 'sabit-anlama' && g2.karar.yeni === g2.karar.onceki, '2. gün hedef sabit');
+      ok(g3.karar.kod === 'dusur-seri', '3. gün (ikinci düşük) hedef düştü', g3.karar.kod);
+      ok(g3.karar.yeni === Math.floor(g3.karar.onceki * 0.95 + 0.5), 'Düşüş %5', `${g3.karar.onceki} → ${g3.karar.yeni}`);
+      ok(g3.plan.durum.kademe === 0, 'Kademe sıfırlandı');
+      ok(g4.karar.kod === 'sabit-anlama', '4. gün (seri yeniden 1) hedef sabit, tekrar düşmedi', g4.karar.kod);
+      const metin = kararAciklamasi(g3.karar, K);
+      ok(metin.includes('2 gün üst üste') && metin.includes('%70') && metin.includes('→'), 'Açıklama nedeni söylüyor', metin);
+      ok(!/başarısız|kötü|yetersiz/i.test(metin), 'Açıklamada cezalandırıcı dil yok');
+    },
+  },
+  {
+    ad: '5. Yorgun mod',
+    aciklama: '2., 3. ve 4. günlerde “Bugün yorgunum” seçiliyor.',
+    calistir(K, { ok, seri, oyna }) {
+      let { plan } = seri(yeniPlan(K), 1);
+      const y = yorgunModuUygula(plan, 2, K);
+      const g = bugunkuGun(y.plan);
+      ok(y.degisti && g.yorgun, 'Gün yorgun moda geçti');
+      ok(g.dersler.map((x) => x.tip).slice(0, 2).join(',') === 'goz,anlama' && g.dersler.length === 3 && !g.dersler[2].sabit, 'Dersler: göz + anlama + 1 esnek', g.dersler.map((x) => x.tip).join(', '));
+      const P = K.sureProfilleri[String(K.yorgun.sureProfili)];
+      ok(g.dersler[0].dk === P.goz && g.dersler[1].dk === P.anlama && g.dersler[2].dk === P.esnek[0], '15 dk profil süreleri', g.dersler.map((x) => x.dk).join('+'));
+      ok(yorgunModuKaldir(y.plan, 2, K).plan.gunler[1].dersler.length === 5, 'Yorgun mod geri alınabiliyor');
+      const eksik = oyna(y.plan, { tarih: tarih(1), wpm: (h) => h, anlama: 90, dersler: { [g.dersler[0].sira]: 'tamam', [g.dersler[1].sira]: 'tamam' } });
+      ok(!eksik.tamamlandi && eksik.neden === 'eksik-ders', '2 ders yetmiyor (en az 3)', eksik.neden);
+      const s = oyna(y.plan, { tarih: tarih(1), wpm: (h) => h, anlama: 95 });
+      ok(s.tamamlandi && s.karar.kod === 'sabit-yorgun' && s.karar.yeni === s.karar.onceki, 'Yorgun günde hedef artmadı', s.karar.kod);
+      ok(s.plan.durum.gun === 3, 'Yorgun gün kurs gününe sayıldı');
+      plan = s.plan;
+      for (const n of [3, 4]) plan = oyna(yorgunModuUygula(plan, n, K).plan, { tarih: tarih(n - 1), wpm: (h) => h, anlama: 90 }).plan;
+      ok(plan.durum.oneri === K.yorgun.oneri, '3 gün üst üste yorgun → kısa süre profili önerisi', `${plan.durum.oneri}`);
+      plan = oyna(plan, { tarih: tarih(4), wpm: (h) => h, anlama: 90 }).plan;
+      ok(plan.durum.oneri === null && plan.durum.yorgunSeri === 0, 'Normal günden sonra öneri kalkar');
+    },
+  },
+  {
+    ad: '6. Hedefe erken ulaşan öğrenci',
+    aciklama: 'Başlangıç 200 k/dk (tavan 300); 7. gün ölçümünde 340 k/dk ve %90.',
+    calistir(K, { ok, seri, oyna }) {
+      const p0 = yeniPlan(K, { baslangicTesti: test(200, 90) });
+      ok(p0.durum.tavanWpm === 300, 'Tavan başlangıç ×1,5', `${p0.durum.tavanWpm}`);
+      const { plan: p6 } = seri(p0, 6);
+      const olcum = bugunkuGun(p6);
+      ok(olcum.tur === 'olcum' && olcum.dersler.find((x) => x.tip === 'anlama').ayar.mod === 'serbest', '7. gün ölçüm (serbest okuma)');
+      const s = oyna(p6, { tarih: tarih(6), wpm: 340, anlama: 90 });
+      ok(s.karar.kod === 'tavan' && s.plan.durum.hedefWpm === 300, 'Ölçüm yüksek → hedef tavanda (tavan kodu)', `${s.karar.kod} ${s.plan.durum.hedefWpm}`);
+      ok(s.plan.durum.tavanda, 'tavanda = true');
+      const g8 = bugunkuGun(s.plan);
+      ok(g8.dersler.find((x) => x.tip === 'hiz').ayar.mod === K.hedef.tavanda.hizDersiModu, 'Hız dersi tekrarlı okumaya döndü');
+      ok(s.plan.durum.agirlik.hiz === 0 && s.plan.durum.agirlik.anlama === 2, 'Ağırlık hızdan anlamaya kaydı', JSON.stringify(s.plan.durum.agirlik));
+      const { sonuclar } = seri(s.plan, 6, { basGun: 7, wpm: (h) => h + 20 });
+      ok(sonuclar.every((x) => x.karar.yeni <= 300), 'Sonraki günlerde tavan aşılmadı');
+      ok(kararAciklamasi(s.karar, K).includes('anlamayı derinleştiriyoruz'), 'Açıklama anlamaya odaklanıyor');
+    },
+  },
+  {
+    ad: '7. Testsiz başlangıç ve kalibrasyon',
+    aciklama: '6. sınıf, seviye testi yok; 1. gün kendi hızında okuyor.',
+    calistir(K, { ok, oyna }) {
+      const p = yeniPlan(K, { baslangicTesti: null });
+      const g1 = bugunkuGun(p);
+      ok(p.durum.hedefWpm === 125 && g1.kalibrasyon, 'Sınıf varsayılanı (125) + kalibrasyon günü');
+      ok(g1.dersler.find((x) => x.tip === 'anlama').ayar.mod === 'serbest', 'Kalibrasyonda serbest okuma');
+      const s = oyna(p, { tarih: tarih(0), wpm: 170, anlama: 80 });
+      ok(s.karar.kod === 'kalibrasyon' && s.plan.durum.hedefWpm === 170 && s.plan.durum.baslangicWpm === 170, 'Hedef ölçülen hız oldu', `${s.plan.durum.hedefWpm}`);
+      ok(s.plan.durum.tavanWpm === 255 && s.plan.durum.tabanWpm === 145, 'Taban/tavan yeni başlangıca göre');
+      const d = oyna(p, { tarih: tarih(0), wpm: 170, anlama: 60 });
+      ok(d.plan.durum.hedefWpm === 125, 'Anlama düşükse hedef yükselmez (170 × 0,9 = 153 yerine 125 kalır)', `${d.plan.durum.hedefWpm}`);
+      const d2 = oyna(p, { tarih: tarih(0), wpm: 100, anlama: 60 });
+      ok(d2.plan.durum.hedefWpm === 90, 'Anlama düşük ve yavaşsa ölçülen ×0,9', `${d2.plan.durum.hedefWpm}`);
+      const v = oyna(p, { tarih: tarih(0) });
+      ok(v.tamamlandi && v.karar.kod === 'sabit-veri-yok' && bugunkuGun(v.plan).kalibrasyon, 'Veri yoksa hedef sabit, kalibrasyon ertesi güne kalır');
+    },
+  },
+  {
+    ad: '8. Uzun ara',
+    aciklama: '8 gün ve 15 gün kaçırma.',
+    calistir(K, { ok, seri, oyna }) {
+      const { plan } = seri(yeniPlan(K), 2);
+      const k = atlananGunIsle(plan, tarih(1 + 9), K); // 8 gün kaçtı
+      ok(k.plan.durum.kalibrasyonBekliyor && bugunkuGun(k.plan).kalibrasyon, '7-13 gün → kalibrasyon günü');
+      ok(k.plan.durum.hedefWpm === Math.floor(plan.durum.hedefWpm * 0.9 + 0.5), 'Ara süresince hedef ×0,9');
+      const y = atlananGunIsle(plan, tarih(1 + 16), K); // 15 gün
+      ok(y.plan.durum.yenidenBaslatmaOnerisi && y.karar.kod === 'yeniden-baslat', '≥14 gün → yeniden başlatma önerisi');
+      ok(oyna(y.plan, { tarih: tarih(17), wpm: 150, anlama: 90 }).neden === 'yeniden-baslat-bekliyor', 'Seçim yapılmadan gün bitmiyor');
+      const kald = yenidenBaslat(y.plan, 'kaldigim-yerden', { bugun: tarih(17), kurallar: K });
+      ok(!kald.durum.yenidenBaslatmaOnerisi && bugunkuGun(kald).kalibrasyon && kald.durum.gun === 3, 'Kaldığım yerden: 3. gün, kalibrasyonla');
+      const bas = yenidenBaslat(y.plan, 'bastan', { bugun: tarih(17), kurallar: K, girdi: { sinif: 6, profilDk: 20, baslangicTesti: null } });
+      ok(bas.durum.gun === 1 && bas.gecmis.length === 1 && bas.gecmis[0].tamamlananGun === 2, 'Baştan: yeni plan, eski özet geçmişte');
+    },
+  },
+  {
+    ad: '9. Kural dosyası değişince davranış değişiyor',
+    aciklama: 'Kod aynı; yalnız kural nesnesindeki değerler değişiyor.',
+    calistir(K, { ok }) {
+      const K2 = structuredClone(K);
+      K2.anlama.esik = 60;
+      K2.hedef.artisKademeleri = [0.1, 0.1, 0.1];
+      const g = (KK) => {
+        const p = yeniPlan(KK);
+        const gun = bugunkuGun(p);
+        return gunSonuGuncelle(p, { tarih: tarih(0), dersler: Object.fromEntries(gun.dersler.map((x) => [x.sira, 'tamam'])), wpm: 150, anlamaYuzde: 65 }, KK);
+      };
+      const a = g(K); const b = g(K2);
+      ok(a.karar.kod === 'sabit-anlama', 'Eşik 70: %65 → sabit', a.karar.kod);
+      ok(b.karar.kod === 'artir' && b.karar.yeni === 165, 'Eşik 60 + %10 kademe: %65 → 165', `${b.karar.kod} ${b.karar.yeni}`);
+      ok(kurallarAciklamasi(K2)[2].includes('%60'), 'Açıklama metni yeni eşiği gösteriyor', kurallarAciklamasi(K2)[2]);
+      const K3 = structuredClone(K); K3.gunTurleri.pekistirmeAraligi = 4; K3.sureProfilleri['20'].goz = 5;
+      const p3 = yeniPlan(K3);
+      ok(p3.gunler[3].tur === 'pekistirme' && p3.gunler[0].dersler[0].dk === 5, 'Pekiştirme aralığı ve ders süresi JSON’dan');
+      const K4 = structuredClone(K); delete K4.anlama.esik;
+      ok(kurallariDenetle(K4).includes('anlama.esik'), 'Eksik kural yakalanıyor');
+      let atti = false; try { yeniPlan(K4); } catch { atti = true; }
+      ok(atti, 'Eksik kuralla plan kurulmuyor (hata)');
+      const K5 = structuredClone(K); K5.agirlik.yontem = 'rastgele';
+      ok(kurallariDenetle(K5).some((x) => x.startsWith('agirlik.yontem')), 'Desteklenmeyen yöntem adı sessizce yok sayılmıyor');
+      // Yorgun gün kuralları JSON’dan
+      const K6 = structuredClone(K); K6.yorgun.kursGunuSayilir = false; K6.yorgun.anlamaSayilir = false; K6.yorgun.esnekKrediTuketimi = 0;
+      const y6 = yorgunModuUygula(yeniPlan(K6), 1, K6).plan;
+      ok(bugunkuGun(y6).dersler.length === 2, 'esnekKrediTuketimi 0 → yorgun günde esnek ders yok', `${bugunkuGun(y6).dersler.length} ders`);
+      const tamam6 = Object.fromEntries(bugunkuGun(y6).dersler.map((x) => [x.sira, 'tamam']));
+      const s6 = gunSonuGuncelle(y6, { tarih: tarih(0), dersler: tamam6, wpm: 150, anlamaYuzde: 50 }, K6);
+      ok(s6.tamamlandi && !s6.ilerledi && s6.plan.durum.gun === 1, 'kursGunuSayilir false → kurs günü ilerlemedi');
+      ok(s6.plan.durum.dusukSeri === 0 && s6.karar.kod === 'sabit-yorgun', 'anlamaSayilir false → düşük anlama seriye girmedi');
+      ok(!bugunkuGun(s6.plan).yorgun && bugunkuGun(s6.plan).dersler.length === 5, 'Gün yarın normal planla geliyor');
+      const tamam7 = Object.fromEntries(bugunkuGun(s6.plan).dersler.map((x) => [x.sira, 'tamam']));
+      ok(gunSonuGuncelle(s6.plan, { tarih: tarih(0), dersler: tamam7, wpm: 150, anlamaYuzde: 90 }, K6).neden === 'takvim-siniri', 'Aynı takvim gününde yeniden yapılamıyor');
+      ok(gunSonuGuncelle(s6.plan, { tarih: tarih(1), dersler: tamam7, wpm: 150, anlamaYuzde: 90 }, K6).ilerledi, 'Ertesi gün 1. kurs günü tamamlanıyor');
+      let secimHatasi = false; try { yenidenBaslat(yeniPlan(K), 'baska', { bugun: tarih(0), kurallar: K }); } catch { secimHatasi = true; }
+      ok(secimHatasi, 'Yeniden başlatma seçenekleri JSON’daki listeyle sınırlı');
+    },
+  },
+  {
+    ad: '10. Plan yapısı, ağırlıklar ve saflık',
+    aciklama: 'Dikkat ekseni en zayıf öğrenci; plan şeması, gün kuralları, girdi değişmezliği.',
+    calistir(K, { ok, oyna }) {
+      const p = yeniPlan(K, { baslangicTesti: test(150, 80, { dikkat: 20, hafiza: 35, gorme: 70, okumaHizi: 60 }) });
+      ok(p.gunler.length === 21 && p.gunler.every((g) => g.dersler.length === 5), '21 gün × 5 ders');
+      ok(p.gunler.every((g) => g.dersler.some((x) => x.tip === 'anlama')), 'Her gün en az 1 anlama okuması');
+      ok(p.gunler.every((g) => Object.values(g.dersler.reduce((s, x) => ({ ...s, [x.tip]: (s[x.tip] ?? 0) + 1 }), {})).every((n) => n <= 2)), 'Aynı tip günde en çok 2');
+      ok([7, 14, 21].every((n) => p.gunler[n - 1].tur === 'olcum') && [5, 10, 15, 20].every((n) => p.gunler[n - 1].tur === 'pekistirme'), 'Ölçüm 7/14/21, pekiştirme 5/10/15/20');
+      ok(p.gunler[4].dersler[4].arac === 'tekrar', 'Pekiştirmede 5. ders Tekrar Kartları');
+      ok(p.durum.agirlik.dikkat === 7 && p.durum.agirlik.hafiza === 5, 'En zayıf +4, ikinci +2', JSON.stringify(p.durum.agirlik));
+      const say = (tip) => p.gunler.flatMap((g) => g.dersler).filter((x) => !x.sabit && x.tip === tip).length;
+      ok(say('dikkat') > say('goz') && say('dikkat') >= say('hafiza'), 'Zayıf alan daha sık', `dikkat ${say('dikkat')}, hafıza ${say('hafiza')}, göz ${say('goz')}`);
+      const dengeli = agirlikHesapla({ okumaHizi: 50, anlama: 52, dikkat: 55, hafiza: 50, gorme: 54 }, K);
+      ok(dengeli.dikkat === 3 && dengeli.goz === 1, 'Fark <10 → ek ağırlık yok');
+      const once = JSON.stringify(p);
+      const a = oyna(p, { tarih: tarih(0), wpm: 150, anlama: 90 });
+      const b = oyna(p, { tarih: tarih(0), wpm: 150, anlama: 90 });
+      ok(JSON.stringify(p) === once, 'Girdi plan değişmedi');
+      ok(JSON.stringify(a.plan) === JSON.stringify(b.plan), 'Aynı girdi → aynı çıktı');
+      ok(a.plan.gunler[0].dersler.every((x, i) => JSON.stringify({ ...x, durum: 'bekliyor' }) === JSON.stringify(p.gunler[0].dersler[i])), 'Tamamlanan günün dersleri değişmedi');
+      ok(oyna(a.plan, { tarih: tarih(0), wpm: 150, anlama: 90 }).neden === 'takvim-siniri', 'Aynı takvim gününde ikinci kurs günü yok');
+      const yarim = dersDurumuAyarla(p, 1, 1, 'tamam');
+      ok(gunSonuGuncelle(yarim, { tarih: tarih(0), wpm: 150, anlamaYuzde: 90 }, K).neden === 'eksik-ders', 'Tek ders tamam → gün bitmiyor');
+      const anlamasiz = Object.fromEntries(p.gunler[0].dersler.map((x) => [x.sira, x.tip === 'anlama' ? 'atlandi' : 'tamam']));
+      ok(gunSonuGuncelle(p, { tarih: tarih(0), dersler: anlamasiz, wpm: 150, anlamaYuzde: 90 }, K).neden === 'anlama-eksik', 'Anlama dersi zorunlu');
+      const yuksek = yeniPlan(K, { baslangicTesti: test(360, 95) });
+      const ys = oyna(yuksek, { tarih: tarih(0), wpm: 360, anlama: 95 });
+      ok(yuksek.durum.tavanWpm === 414 && ys.karar.yeni === 367, '≥350: tavan ×1,15, artış %2', `${yuksek.durum.tavanWpm} ${ys.karar.yeni}`);
+      const cokYuksek = yeniPlan(K, { baslangicTesti: test(460, 95) });
+      ok(oyna(cokYuksek, { tarih: tarih(0), wpm: 460, anlama: 95 }).karar.yeni === 460, '≥450: artış yok');
+    },
+  },
+];
+
+/** Tüm senaryoları çalıştırır → [{ ad, aciklama, gecti, kontroller }] */
+export function testleriCalistir(K) {
+  return SENARYOLAR.map((s) => {
+    const d = denetci(K);
+    try { s.calistir(K, d); } catch (h) { d.ok(false, 'Beklenmeyen hata', `${h.message}\n${h.stack ?? ''}`); }
+    return { ad: s.ad, aciklama: s.aciklama, gecti: d.kontroller.length > 0 && d.kontroller.every((k) => k.gecti), kontroller: d.kontroller };
+  });
+}
+// --- TESTLER SONU ---
+
+const ozet = document.getElementById('ozet');
+const liste = document.getElementById('liste');
+
+function oge(ad, oz = {}, ...cocuk) {
+  const e = document.createElement(ad);
+  for (const [k, v] of Object.entries(oz)) (k === 'metin' ? (e.textContent = v) : e.setAttribute(k, v));
+  e.append(...cocuk);
+  return e;
+}
+
+async function calistir() {
+  ozet.textContent = 'Testler çalışıyor…';
+  delete ozet.dataset.durum;
+  liste.replaceChildren();
+  let K;
+  try {
+    const yanit = await fetch('./data/course-rules.json', { cache: 'no-store' });
+    if (!yanit.ok) throw new Error(`HTTP ${yanit.status}`);
+    K = await yanit.json();
+  } catch (h) {
+    ozet.textContent = `Kural dosyası okunamadı (${h.message}). Sayfayı yerel sunucuyla aç.`;
+    ozet.dataset.durum = 'kaldi';
+    return;
+  }
+  const sonuclar = testleriCalistir(K);
+  for (const s of sonuclar) {
+    const kontroller = oge('ul', { class: 'kontroller' }, ...s.kontroller.map((k) => oge('li', { class: k.gecti ? 'gecti' : 'kaldi' },
+      oge('span', { class: 'isaret', 'aria-hidden': 'true', metin: k.gecti ? '✓ ' : '✗ ' }),
+      oge('span', { metin: `${k.gecti ? 'Geçti' : 'Kaldı'}: ${k.ad}` }),
+      k.ayrinti ? oge('div', { class: 'ayrinti', metin: k.ayrinti }) : '')));
+    const detay = oge('details', {},
+      oge('summary', {}, oge('span', { class: 'isaret', 'aria-hidden': 'true', metin: s.gecti ? '✓' : '✗' }), oge('span', { metin: `${s.ad} — ${s.gecti ? 'geçti' : 'kaldı'}` })),
+      oge('p', { metin: s.aciklama }), kontroller);
+    if (!s.gecti) detay.open = true;
+    liste.append(oge('li', { class: 'senaryo', 'data-durum': s.gecti ? 'gecti' : 'kaldi' }, detay));
+  }
+  const gecen = sonuclar.filter((s) => s.gecti).length;
+  const kontrol = sonuclar.flatMap((s) => s.kontroller);
+  ozet.textContent = `${gecen} / ${sonuclar.length} senaryo geçti (${kontrol.filter((k) => k.gecti).length} / ${kontrol.length} kontrol).`;
+  ozet.dataset.durum = gecen === sonuclar.length ? 'gecti' : 'kaldi';
+}
+
+document.getElementById('calistir').addEventListener('click', calistir);
+calistir();
+</script>
+</body>
+</html>

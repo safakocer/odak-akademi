@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "sosyal-kavramlar",
+  "baslik": "Sosyal bilgiler kavramları",
+  "aciklama": "Yönetim, haklar, kültür, coğrafya ve ekonomiyle ilgili temel kavramlar.",
+  "sinif": "5-8",
+  "kartlar": [
+    {
+      "on": "Demokrasi",
+      "arka": "Halkın yönetime seçimler yoluyla katıldığı yönetim biçimi."
+    },
+    {
+      "on": "Cumhuriyet",
+      "arka": "Egemenliğin millete ait olduğu, yöneticilerin belirli süreler için seçimle belirlendiği yönetim biçimi."
+    },
+    {
+      "on": "Egemenlik",
+      "arka": "Bir ülkeyi yönetme yetkisi ve gücü.\nTürkiye’de egemenlik kayıtsız şartsız milletindir."
+    },
+    {
+      "on": "Anayasa",
+      "arka": "Devletin yönetim biçimini, temel hak ve özgürlükleri düzenleyen en üstün hukuk kuralları."
+    },
+    {
+      "on": "Hak",
+      "arka": "Kişinin doğuştan ya da hukuk kurallarıyla sahip olduğu yetki ve özgürlükler."
+    },
+    {
+      "on": "Sorumluluk",
+      "arka": "Kişinin yerine getirmesi gereken görevler ve davranışlarının sonuçlarını üstlenmesi."
+    },
+    {
+      "on": "Kültür",
+      "arka": "Bir topluluğun dili, gelenekleri, sanatı ve yaşayış biçimlerinin bütünü."
+    },
+    {
+      "on": "Kültürel miras",
+      "arka": "Geçmiş kuşaklardan kalan, korunması gereken maddi ve manevi değerler."
+    },
+    {
+      "on": "Göç",
+      "arka": "İnsanların ekonomik, sosyal ya da doğal nedenlerle yaşadıkları yeri değiştirmesi."
+    },
+    {
+      "on": "İklim",
+      "arka": "Geniş bir alanda uzun yıllar boyunca görülen hava koşullarının ortalaması."
+    },
+    {
+      "on": "Hava durumu",
+      "arka": "Kısa süre içinde, dar bir alanda görülen sıcaklık, yağış, rüzgâr gibi atmosfer olayları."
+    },
+    {
+      "on": "Harita",
+      "arka": "Yeryüzünün tamamının ya da bir bölümünün, kuşbakışı görünümünün belirli oranda küçültülerek düzleme çizilmesi."
+    },
+    {
+      "on": "Ölçek",
+      "arka": "Haritadaki uzunluk ile gerçek uzunluk arasındaki oran."
+    },
+    {
+      "on": "Doğal kaynak",
+      "arka": "Doğada kendiliğinden bulunan ve insanların yararlandığı varlıklar.\nÖrnek: su, toprak, maden."
+    },
+    {
+      "on": "Üretim",
+      "arka": "İnsan ihtiyaçlarını karşılayan mal ve hizmetlerin ortaya konması."
+    },
+    {
+      "on": "Tüketim",
+      "arka": "Mal ve hizmetlerin ihtiyaçları karşılamak için kullanılması."
+    },
+    {
+      "on": "Medeniyet",
+      "arka": "İnsanların ortaya koyduğu maddi ve manevi gelişmelerin bütünü; uygarlık."
+    },
+    {
+      "on": "Kronoloji",
+      "arka": "Olayların oluş sırasına göre dizilmesi; zamandizin."
+    },
+    {
+      "on": "Birinci el kaynak",
+      "arka": "Olayın yaşandığı döneme ait belge, eser ya da tanıklık.\nÖrnek: dönemin mektubu, fotoğrafı."
+    },
+    {
+      "on": "Sivil toplum kuruluşu",
+      "arka": "Gönüllülerin kâr amacı gütmeden ortak bir amaç için kurduğu dernek, vakıf gibi kuruluşlar."
+    }
+  ]
+}

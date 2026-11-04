@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "ingilizce-kelimeler",
+  "baslik": "İngilizce temel kelimeler",
+  "aciklama": "Günlük hayatta sık kullanılan kelimeler; arka yüzde Türkçesi ve örnek cümle.",
+  "sinif": "5-8",
+  "kartlar": [
+    {
+      "on": "library",
+      "arka": "kütüphane\nI borrow books from the library."
+    },
+    {
+      "on": "borrow",
+      "arka": "ödünç almak\nCan I borrow your pencil?"
+    },
+    {
+      "on": "weather",
+      "arka": "hava durumu\nThe weather is sunny today."
+    },
+    {
+      "on": "healthy",
+      "arka": "sağlıklı\nFruit is healthy food."
+    },
+    {
+      "on": "neighbour",
+      "arka": "komşu\nOur neighbour has a small garden."
+    },
+    {
+      "on": "careful",
+      "arka": "dikkatli\nBe careful on the stairs."
+    },
+    {
+      "on": "invite",
+      "arka": "davet etmek\nI want to invite you to my party."
+    },
+    {
+      "on": "journey",
+      "arka": "yolculuk\nThe train journey takes two hours."
+    },
+    {
+      "on": "honest",
+      "arka": "dürüst\nShe is an honest friend."
+    },
+    {
+      "on": "remember",
+      "arka": "hatırlamak\nI remember your birthday."
+    },
+    {
+      "on": "kitchen",
+      "arka": "mutfak\nMy father is cooking in the kitchen."
+    },
+    {
+      "on": "explain",
+      "arka": "açıklamak\nCan you explain the question?"
+    },
+    {
+      "on": "quiet",
+      "arka": "sessiz\nPlease be quiet in the library."
+    },
+    {
+      "on": "dangerous",
+      "arka": "tehlikeli\nIt is dangerous to swim here."
+    },
+    {
+      "on": "favourite",
+      "arka": "en sevilen, favori\nBlue is my favourite colour."
+    },
+    {
+      "on": "usually",
+      "arka": "genellikle\nI usually get up at seven."
+    },
+    {
+      "on": "homework",
+      "arka": "ev ödevi\nI do my homework after school."
+    },
+    {
+      "on": "bridge",
+      "arka": "köprü\nWe walked across the bridge."
+    },
+    {
+      "on": "polite",
+      "arka": "kibar\nIt is polite to say thank you."
+    },
+    {
+      "on": "share",
+      "arka": "paylaşmak\nLet’s share the cake."
+    }
+  ]
+}

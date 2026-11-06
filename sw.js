@@ -1,10 +1,16 @@
-// Service worker: uygulama dosyalarını önbelleğe alır, internet yokken uygulamayı açar; SURUM değişince günceller
-// ÖNEMLİ: Yayındaki bir dosyayı her değiştirdiğinde SURUM'u artır (ör. 0.1.1). Yeni dosya eklediğinde DOSYALAR'a da yaz.
+// Service worker: uygulama dosyalarını önbelleğe alır, internet yokken uygulamayı açar; SURUM değişince günceller (S26: kapsama göre önbellek adı, sürüm sorgusu, tam kabuk listesi)
+// YAYIN KURALI (S26): Yayındaki herhangi bir dosya değişince SURUM'u artır, yoksa kullanıcılar eski sürümde kalır.
+//   1.<küçük>.<yama>-s<oturum>: hata düzeltmesi → yama +1 (1.0.1), yeni özellik → küçük +1, yama 0 (1.1.0).
+//   Yeni dosya: açılışta gerekiyorsa ZORUNLU'ya, sonradan yükleniyorsa DOSYALAR'a yaz.
 
-const SURUM = '0.3.0-s20'; // v0.3
-const ONBELLEK = `odak-akademi-${SURUM}`;
+const SURUM = '1.0.0-s26'; // v1.0: ilk yayın
+const ONEK = 'odak-akademi-';
+// Aynı alan adında iki kopya (ör. /odak-akademi/ ve /odak-deneme/) birbirinin önbelleğini silmesin diye adda kapsam yolu da var
+const KAPSAM = new URL(self.registration.scope).pathname;
+const ONBELLEK = `${ONEK}${SURUM}@${KAPSAM}`;
 
-// Kabuk: biri bile eksikse kurulum başarısız sayılır (yarım kurulumla "çevrimdışı hazır" denmesin)
+// Kabuk: index.html'in yüklediği her şey ve app.js'in doğrudan içe aktardığı her modül (S26: liste açılış zinciriyle eşitlendi).
+// Biri bile eksikse kurulum başarısız sayılır (yarım kurulumla "çevrimdışı hazır" denmesin).
 const ZORUNLU = [
   './',
   './index.html',
@@ -12,7 +18,18 @@ const ZORUNLU = [
   './css/tokens.css',
   './css/base.css',
   './css/components.css',
+  './css/library.css',
+  './css/odak.css',
+  './css/lessons.css',
+  './css/srs.css',
+  './css/testler.css',
+  './css/kurs.css',
+  './css/ilerleme.css',
+  './css/rehber.css',
+  './css/veli.css',
+  './icons/fener.svg',
   './js/app.js',
+  './js/core/hata-yakala.js',
   './js/core/a11y.js',
   './js/core/ui.js',
   './js/core/utils.js',
@@ -24,11 +41,18 @@ const ZORUNLU = [
   './js/core/settings.js',
   './js/core/sound.js',
   './js/core/pwa.js',
+  './js/engine/exercise-frame.js',
+  './js/engine/celebrate.js',
+  './js/engine/eye-rest.js',
+  './js/engine/motivasyon.js',
+  './js/modules/katalog.js',
+  './js/modules/egzersiz-listesi.js',
+  './js/modules/veli/veli-veri.js',
 ];
 
 // Diğer dosyalar: tek tek eklenir; eksik olan konsola yazılır, diğerleri yine önbelleğe girer
 const DOSYALAR = [
-  './icons/fener.svg',
+  './gizlilik.html',
   './icons/uygulama-ikonu.svg',
   './icons/ikon-180.png',
   './icons/ikon-192.png',
@@ -36,16 +60,8 @@ const DOSYALAR = [
   './icons/ikon-maskable-512.png',
   './fonts/atkinson-hyperlegible-next-regular.woff2',
   './fonts/atkinson-hyperlegible-next-bold.woff2',
+  './fonts/ofl-atkinson-hyperlegible-next.txt',
   './css/exercise.css',
-  './css/library.css',
-  './css/odak.css',
-  './css/lessons.css',
-  './css/srs.css',
-  './css/testler.css',
-  './css/kurs.css',
-  './css/ilerleme.css',
-  './js/engine/exercise-frame.js',
-  './js/engine/celebrate.js',
   './js/engine/reader-engine.js',
   './js/engine/reader-modes.js',
   './js/engine/modes/rehber.js',
@@ -53,7 +69,6 @@ const DOSYALAR = [
   './js/engine/modes/serbest.js',
   './js/engine/modes/rsvp.js',
   './js/engine/reader-panel.js',
-  './js/engine/eye-rest.js',
   './js/engine/quiz-engine.js',
   './js/engine/text-bank.js',
   './js/engine/text-picker.js',
@@ -65,10 +80,7 @@ const DOSYALAR = [
   './js/engine/srs.js',
   './js/engine/radar.js',
   './js/engine/course-planner.js',
-  './js/engine/motivasyon.js',
   './js/engine/grafik.js',
-  './js/modules/katalog.js',
-  './js/modules/egzersiz-listesi.js',
   './js/modules/dikkat/hizli-dokun.js',
   './js/modules/dikkat/stroop.js',
   './js/modules/dikkat/git-dur.js',
@@ -107,6 +119,14 @@ const DOSYALAR = [
   './js/modules/kurs/kurs-sayfasi.js',
   './js/modules/ilerleme/ilerleme-veri.js',
   './js/modules/ilerleme/ilerleme-sayfasi.js',
+  './js/modules/rehber/rehber-veri.js',
+  './js/modules/rehber/rehber-icerik.js',
+  './js/modules/rehber/rehber-sayfasi.js',
+  './js/modules/rehber/cornell.js',
+  './js/modules/rehber/zihin-haritasi.js',
+  './js/modules/rehber/haftalik-plan.js',
+  './js/modules/veli/veli-disa.js',
+  './js/modules/veli/veli-sayfasi.js',
   './data/texts/sinif5.json',
   './data/texts/sinif6.json',
   './data/texts/sinif7.json',
@@ -118,10 +138,22 @@ const DOSYALAR = [
   './data/lessons/gorsellestirme.json',
   './data/lessons/anahtar-kelime.json',
   './data/lessons/gruplama.json',
+  './data/lessons/tahmin-etme.json',
+  './data/lessons/tara-sor-oku.json',
+  './data/lessons/ana-fikir.json',
+  './data/lessons/cikarim-yapma.json',
+  './data/lessons/bes-n-bir-k.json',
+  './data/lessons/soru-uretme.json',
+  './data/lessons/ozetleme.json',
+  './data/lessons/tablo-grafik.json',
   './data/decks/fen-terimleri.json',
   './data/decks/sosyal-kavramlar.json',
   './data/decks/matematik-terimleri.json',
   './data/decks/ingilizce-kelimeler.json',
+  './data/decks/sinif5-kelimeler.json',
+  './data/decks/sinif6-kelimeler.json',
+  './data/decks/sinif7-kelimeler.json',
+  './data/decks/sinif8-kelimeler.json',
   './data/tests/seviye-testi.json',
   './data/course-rules.json',
 ];
@@ -148,15 +180,18 @@ self.addEventListener('install', (olay) => {
 
 self.addEventListener('activate', (olay) => {
   olay.waitUntil((async () => {
+    // Eski sürümler silinir: bu kapsamın eski adları ve S25 öncesi kapsamsız adlar (odak-akademi-0.4.3-s25 gibi)
     const adlar = await caches.keys();
-    await Promise.all(adlar.filter((a) => a.startsWith('odak-akademi-') && a !== ONBELLEK).map((a) => caches.delete(a)));
+    const eski = (a) => a.startsWith(ONEK) && a !== ONBELLEK && (a.endsWith(`@${KAPSAM}`) || !a.includes('@'));
+    await Promise.all(adlar.filter(eski).map((a) => caches.delete(a)));
     await self.clients.claim();
   })());
 });
 
-// Sayfa "Şimdi güncelle" deyince yeni sürüm hemen devreye girer
+// Sayfa "Şimdi güncelle" deyince yeni sürüm hemen devreye girer; S26: Ayarlar'daki sürüm satırı için SURUM_SOR
 self.addEventListener('message', (olay) => {
   if (olay.data?.tip === 'BEKLEMEYI_ATLA') self.skipWaiting();
+  if (olay.data?.tip === 'SURUM_SOR') olay.ports[0]?.postMessage({ surum: SURUM });
 });
 
 async function onbellegeYaz(istek, yanit) {

@@ -1,8 +1,12 @@
-<!-- Odak Akademi tek sayfa: üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), ayarlar görünümü, alt gezinme, profiller, yedek, PWA bağlantıları -->
+<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı), alt gezinme, profiller, yedek, PWA bağlantıları -->
 <!doctype html>
 <html lang="tr">
 <head>
   <meta charset="utf-8">
+  <!-- S25: Güvenlik politikası: yalnız uygulamanın kendi dosyaları yüklenir, dış adrese istek gidemez.
+       style-src 'unsafe-inline': sayfadaki style="--yigin-bosluk…" öznitelikleri için (betik değil, yalnız stil) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' data: blob:; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'self'">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Odak Akademi</title>
   <meta name="description" content="Ortaokul öğrencileri için okuma, anlama, dikkat ve hafıza çalışmaları.">
@@ -23,6 +27,10 @@
   <link rel="stylesheet" href="css/testler.css">
   <link rel="stylesheet" href="css/kurs.css">
   <link rel="stylesheet" href="css/ilerleme.css">
+  <link rel="stylesheet" href="css/rehber.css">
+  <link rel="stylesheet" href="css/veli.css">
+  <!-- S25: Hata yakalayıcı modülden önce ve modül olmadan yüklenir: uygulama açılamazsa beyaz ekran yerine yardım ekranı çıkar -->
+  <script src="js/core/hata-yakala.js"></script>
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
@@ -79,6 +87,15 @@
   <symbol id="kelime-liste" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h7"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01" stroke-width="3.5"/></symbol>
   <symbol id="kartlar" viewBox="0 0 24 24"><rect x="2.5" y="5" width="8.5" height="13" rx="1.5"/><rect x="13" y="5" width="8.5" height="13" rx="1.5"/><path d="m6.75 9 2 2.5-2 2.5-2-2.5z"/><path d="m17.25 9 2 2.5-2 2.5-2-2.5z"/></symbol>
   <symbol id="tekrar-kart" viewBox="0 0 24 24"><rect x="3" y="8" width="13" height="13" rx="2"/><path d="M8 5V4.5A1.5 1.5 0 0 1 9.5 3H19a2 2 0 0 1 2 2v9.5a1.5 1.5 0 0 1-1.5 1.5H19"/><path d="M12.5 13.5a3 3 0 1 0-.9 2.2"/><path d="M12.8 11.2v2.3h-2.3"/></symbol>
+  <!-- S22: Çalışma Rehberi ikonları -->
+  <symbol id="arti" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="not-sayfasi" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9.5 3v14"/><path d="M4 17h16"/><path d="M12.5 7.5h4.5M12.5 11h4.5"/></symbol>
+  <symbol id="zihin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.6"/><circle cx="4.5" cy="5.5" r="2"/><circle cx="19.5" cy="6.5" r="2"/><circle cx="18" cy="19" r="2"/><circle cx="5" cy="18.5" r="2"/><path d="M10 10.3 6 7M14.2 10.8l3.6-2.8M13.8 14l2.8 3.4M10 14l-3.4 3"/></symbol>
+  <symbol id="takvim" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M7.5 14h3M13.5 14h3M7.5 17.2h3"/></symbol>
+  <symbol id="kalp" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></symbol>
+  <symbol id="aile" viewBox="0 0 24 24"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="9.5" r="2.3"/><path d="M2.5 20v-1.5a5 5 0 0 1 5-5h1a5 5 0 0 1 5 5V20"/><path d="M14.5 20v-1a3.5 3.5 0 0 1 7 0v1"/></symbol>
+  <symbol id="elma" viewBox="0 0 24 24"><path d="M12 7.5c-1.6-1-5.5-1.2-6.8 2.3-1.3 3.4.6 8.4 3.4 9.7 1.3.6 2.3-.2 3.4-.2s2.1.8 3.4.2c2.8-1.3 4.7-6.3 3.4-9.7C17.5 6.3 13.6 6.5 12 7.5z"/><path d="M12 7.5c0-2 .8-3.6 2.5-4.5"/></symbol>
+  <symbol id="ekran" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M9 20.5h6M12 16.5v4"/></symbol>
   <symbol id="akademi" viewBox="0 0 24 24"><path d="M2 9.5 12 5l10 4.5L12 14z"/><path d="M6 11.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.5"/><path d="M22 9.5V15"/></symbol>
   </svg>
 
@@ -142,6 +159,7 @@
           </div>
         </div>
         <div id="hedef-not" class="soluk"></div>
+        <p class="soluk" id="hafta-ozet" hidden></p><!-- S24: veli/öğretmenin haftalık hedefi -->
         <p class="gunluk-hedef__seviye" id="seviye-ozet"></p>
       </section>
 
@@ -193,6 +211,15 @@
           <h2 id="mola-kisayol-baslik">Ders çalışırken</h2>
         </div>
         <ul class="izgara modul-izgara" id="kisayol-kartlari" aria-labelledby="mola-kisayol-baslik"></ul>
+      </section>
+
+      <!-- S22: Çalışma Rehberi araç ve bilgi kartları; app.js'te katalog.js'ten çizilir (modul: rehber) -->
+      <section aria-labelledby="rehber-kisayol-baslik">
+        <div class="bolum-baslik">
+          <h2 id="rehber-kisayol-baslik">Çalışma Rehberi</h2>
+          <a class="btn btn--hayalet btn--kucuk" href="#/rehber"><svg class="ikon ikon--kucuk" aria-hidden="true"><use href="#pusula"/></svg>Rehberi aç</a>
+        </div>
+        <ul class="izgara modul-izgara" id="rehber-kartlari" aria-labelledby="rehber-kisayol-baslik"></ul>
       </section>
 
       <section aria-labelledby="moduller-baslik">
@@ -250,10 +277,10 @@
             </a>
           </li>
           <li>
-            <a class="kart kart--modul" href="#/rehber" data-modul="rehber" data-yakinda="Çalışma Rehberi" aria-disabled="true">
+            <a class="kart kart--modul" href="#/rehber" data-modul="rehber">
               <span class="kart__ikon" aria-hidden="true"><svg class="ikon"><use href="#pusula"/></svg></span>
-              <span class="kart__baslik">Çalışma Rehberi<span class="ekran-okuyucu"> (yakında)</span></span>
-              <span class="kart__aciklama">Ders çalışma yolları ve aile köşesi</span>
+              <span class="kart__baslik">Çalışma Rehberi</span>
+              <span class="kart__aciklama">Not, zihin haritası, plan ve aile köşesi</span>
             </a>
           </li>
         </ul>
@@ -282,6 +309,12 @@
     <!-- S20: İlerleme paneli (#/ilerleme) ve veli raporu (#/ilerleme/rapor); içerik js/modules/ilerleme/ilerleme-sayfasi.js ile çizilir -->
     <div class="yigin" id="ilerleme-sayfasi" data-rota="/ilerleme" hidden style="--yigin-bosluk: var(--b-6)"></div>
     <div class="yigin veli-raporu" id="ilerleme-rapor-sayfasi" data-rota="/ilerleme/rapor" hidden style="--yigin-bosluk: var(--b-5)"></div>
+    <!-- S22: Çalışma Rehberi (#/rehber) ve araç/bilgi sayfası (#/rehber/<sayfa>); içerik js/modules/rehber/rehber-sayfasi.js ile çizilir -->
+    <div class="yigin" id="rehber-sayfasi" data-rota="/rehber" hidden style="--yigin-bosluk: var(--b-6)"></div>
+    <div class="yigin" id="rehber-alt-sayfasi" data-rota="/rehber/:sayfa" hidden style="--yigin-bosluk: var(--b-5)"></div>
+    <!-- S24: Veli/Öğretmen alanı (#/veli, PIN korumalı) ve profil raporu (#/veli/rapor?profil=<id>); içerik js/modules/veli/veli-sayfasi.js ile çizilir -->
+    <div class="yigin veli-sayfa" id="veli-sayfasi" data-rota="/veli" hidden style="--yigin-bosluk: var(--b-5)"></div>
+    <div class="yigin veli-raporu" id="veli-rapor-sayfasi" data-rota="/veli/rapor" hidden style="--yigin-bosluk: var(--b-5)"></div>
 
     <!-- Ayarlar sayfası (#/ayarlar): seçimler etkin profile kaydedilir -->
     <div class="yigin ayarlar-sayfasi" data-rota="/ayarlar" hidden style="--yigin-bosluk: var(--b-5)">
@@ -375,11 +408,24 @@
         </div>
         <p class="alan__ipucu" id="ios-ipucu" hidden>iPhone veya iPad’de: Safari’de Paylaş düğmesine dokun, sonra “Ana Ekrana Ekle”yi seç.</p>
         <p class="alan__ipucu" id="yuklu-ipucu" hidden>Odak Akademi bu cihazda uygulama olarak açık.</p>
+        <!-- S26: çalışan sürüm (destek ve test için); service worker yanıt verince görünür -->
+        <p class="alan__ipucu" id="uygulama-surumu" hidden></p>
+      </section>
+
+      <!-- S24: Veli/Öğretmen alanına giriş (PIN korumalı) -->
+      <section class="kart ayar-bolumu" aria-labelledby="veli-giris-baslik">
+        <h2 id="veli-giris-baslik">Veli / Öğretmen alanı</h2>
+        <p class="alan__ipucu">Profil raporları, günlük süre önerisi ve haftalık hedef, sınıf modu, tüm profillerin dışa aktarımı. 4 haneli PIN ile korunur.</p>
+        <div>
+          <a class="btn btn--ikincil" href="#/veli"><svg class="ikon" aria-hidden="true"><use href="#kilit"/></svg>Veli / Öğretmen alanını aç</a>
+        </div>
       </section>
 
       <section class="kart ayar-bolumu" aria-labelledby="veri-baslik">
         <h2 id="veri-baslik">Verilerim</h2>
         <p class="alan__ipucu">Tüm bilgiler yalnızca bu cihazda tutulur. <span id="depo-kullanim"></span></p>
+        <p class="alan__ipucu"><a href="gizlilik.html">Gizlilik ve veli bilgilendirme metnini oku</a></p>
+        <div class="bildirim" id="sinif-modu-notu" hidden><p>Sınıf modu açık: yedek yükleme ve silme düğmeleri gizlendi. Veli / Öğretmen alanından sınıf modu kapatılınca görünür.</p></div>
         <div class="yedek-eylemler">
           <button class="btn btn--ikincil" id="ayar-yedek-indir" type="button">Yedeği indir</button>
           <button class="btn btn--hayalet" id="ayar-yedek-yukle" type="button">Yedeği yükle</button>
@@ -459,7 +505,7 @@
           </div>
         </div>
         <div id="karsilama-form-alani"></div>
-        <p class="alan__ipucu">Bilgilerin yalnızca bu cihazda tutulur, hiçbir yere gönderilmez.</p>
+        <p class="alan__ipucu">Bilgilerin yalnızca bu cihazda tutulur, hiçbir yere gönderilmez. <a href="gizlilik.html">Gizlilik ve veli bilgilendirme</a></p>
         <div>
           <button class="btn btn--hayalet btn--kucuk" id="karsilama-yedek" type="button">Yedeğim var, yükle</button>
         </div>

@@ -11,8 +11,16 @@ export const METIN_TURLERI = Object.freeze({
   masal: 'Masal ve fabl',
   bilgilendirici: 'Bilgilendirici',
   fen: 'Fen ve doğa',
+  tarih: 'Tarih ve kültür',
+  biyografi: 'Biyografi',
+  haber: 'Haber ve makale',
+  diyalog: 'Diyalog ve röportaj',
+  gunluk: 'Günlük hayat',
   kendi: 'Kendi metnim',
 });
+// S23a: sınıf metinlerinde isteğe bağlı zorluk (aynı sınıf içinde 1-5) ve konu etiketleri (3-5, her biri en çok 30 karakter)
+export const ZORLUK_DERECESI = 5;
+export const ETIKET_SINIR = Object.freeze({ en: 3, enCok: 5, karakter: 30 });
 // Uzunluk sınıfları (kelime). Kelime sayısı JSON'da tutulmaz, yüklemede hesaplanır
 export const UZUNLUKLAR = Object.freeze([
   { ad: 'kisa', etiket: 'Kısa (180 kelimeden az)', en: 0, enCok: 179 },
@@ -65,8 +73,13 @@ function paketDenetle(p, dosyaSinifi) {
   if (!ad) hata('ad eksik.');
   const kelime = metinKelimeSayisi(p.metin);
   if (!kelime) hata('metin boş.');
+  // Zorluk ve etiketler isteğe bağlı: hatalıysa metin atılmaz, alan boş kalır
+  const zorluk = Number.isInteger(p.zorluk) && p.zorluk >= 1 && p.zorluk <= ZORLUK_DERECESI ? p.zorluk : null;
+  const etiketler = (Array.isArray(p.etiketler) ? p.etiketler : []).map((e) => boslukTemizle(e))
+    .filter((e) => e && karakterSayisi(e) <= ETIKET_SINIR.karakter).slice(0, ETIKET_SINIR.enCok);
+  if (p.zorluk !== undefined && zorluk === null) console.warn(`[metin-bankasi] Metin "${p.kimlik}": zorluk 1-${ZORLUK_DERECESI} olmalı.`);
   return Object.freeze({
-    kimlik: p.kimlik, ad, sinif, tur: p.tur, metin: String(p.metin),
+    kimlik: p.kimlik, ad, sinif, tur: p.tur, zorluk, etiketler: Object.freeze(etiketler), metin: String(p.metin),
     sorular: sorulariDenetle(p.sorular), kelime, kaynak: 'banka',
   });
 }
@@ -88,7 +101,11 @@ export function metinBankasiYukle() {
     const liste = [];
     sonuclar.forEach((r) => {
       if (r.status === 'rejected') { hataliDosya++; console.warn('[metin-bankasi] Dosya yüklenemedi:', r.reason); return; }
-      r.value.forEach((m) => { if (!gorulen.has(m.kimlik)) { gorulen.add(m.kimlik); liste.push(m); } });
+      r.value.forEach((m) => {
+        // Kimlik bütün sınıf dosyalarında tekil olmalı; tekrarlanan metin atlanır ve hatalı sayılır
+        if (gorulen.has(m.kimlik)) { hataliMetin++; console.warn(`[metin-bankasi] Metin "${m.kimlik}" başka bir sınıf dosyasında da var; ikincisi atlandı.`); return; }
+        gorulen.add(m.kimlik); liste.push(m);
+      });
     });
     banka = Object.freeze(liste);
     durum = { yuklendi: liste.length > 0, hataliDosya, hataliMetin };
@@ -170,7 +187,7 @@ function kendiPaket(k) {
   let sorular = Object.freeze([]);
   try { if (ozSorular.length) sorular = sorulariDenetle(ozSorular.map(ozSoruyaCevir)); } catch { sorular = Object.freeze([]); }
   return Object.freeze({
-    kimlik: k.kimlik, ad: boslukTemizle(k.ad) || 'Adsız metin', sinif: null, tur: 'kendi', metin: k.metin,
+    kimlik: k.kimlik, ad: boslukTemizle(k.ad) || 'Adsız metin', sinif: null, tur: 'kendi', zorluk: null, etiketler: Object.freeze([]), metin: k.metin,
     sorular, ozSorular: Object.freeze(ozSorular), kelime: metinKelimeSayisi(k.metin), kaynak: 'kendi',
     olusturma: k.olusturma, guncelleme: k.guncelleme ?? k.olusturma,
   });
@@ -350,7 +367,8 @@ export function metinleriSuz(liste, suzgec = {}, profilId) {
     if (suzgec.durum === 'okundu' && !okundu) return false;
     if (suzgec.durum === 'okunmadi' && okundu) return false;
     if (suzgec.favori && !d.favori.includes(m.kimlik)) return false;
-    return !aranan || trKucuk(m.ad).includes(aranan) || trKucuk(m.metin).includes(aranan);
+    return !aranan || trKucuk(m.ad).includes(aranan) || trKucuk(m.metin).includes(aranan)
+      || (m.etiketler ?? []).some((e) => trKucuk(e).includes(aranan));
   }).sort((a, b) => {
     const sira = (m) => (m.kaynak === 'kendi' ? 3 : m.sinif === ps ? 0 : 1);
     return sira(a) - sira(b) || (a.sinif ?? 0) - (b.sinif ?? 0) || (a.kaynak === 'kendi' ? 0 : trSirala(a.ad, b.ad));

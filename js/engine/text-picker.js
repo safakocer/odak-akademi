@@ -2,7 +2,7 @@
 import { el } from '../core/ui.js';
 import { sayiBicimle } from '../core/utils.js';
 import {
-  tumMetinler, metinleriSuz, metinBankasiDurumu, secimAl, secimAyarla, okumaBilgisi, favoriMi, profilSinifi, METIN_TURLERI,
+  tumMetinler, metinleriSuz, metinBankasiDurumu, secimAl, secimAyarla, okumaBilgisi, favoriMi, profilSinifi, METIN_TURLERI, ZORLUK_DERECESI,
 } from './text-bank.js';
 
 // Seçici bir formun içinde durur: Enter ile egzersiz başlamasın diye arama kutusunda Enter yutulur
@@ -14,9 +14,10 @@ const GOSTER = Object.freeze([
   ['kendi', () => 'Kendi metinlerim'],
 ]);
 
-/** Metnin kısa bilgi satırı: “6. sınıf · Fen ve doğa · 175 kelime · ✓ Okundu” */
+/** Metnin kısa bilgi satırı: “6. sınıf · Fen ve doğa · zorluk 3/5 · 175 kelime · ✓ Okundu” */
 export function metinBilgiSatiri(m, profilId) {
-  const parca = [m.sinif ? `${m.sinif}. sınıf` : null, METIN_TURLERI[m.tur], `${sayiBicimle(m.kelime)} kelime`];
+  const parca = [m.sinif ? `${m.sinif}. sınıf` : null, METIN_TURLERI[m.tur], m.zorluk ? `zorluk ${m.zorluk}/${ZORLUK_DERECESI}` : null,
+    `${sayiBicimle(m.kelime)} kelime`];
   if (m.sorular.length) parca.push(`${m.sorular.length} soru`);
   if (okumaBilgisi(m.kimlik, profilId)) parca.push('✓ Okundu');
   return parca.filter(Boolean).join(' · ');

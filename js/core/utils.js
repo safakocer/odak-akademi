@@ -1,4 +1,4 @@
-// Ortak yardımcılar: Türkçe metin işlemleri, sayı/süre/tarih biçimleme, kimlik üretme (DOM'a dokunmaz)
+// Ortak yardımcılar: Türkçe metin işlemleri, sayı/süre/tarih biçimleme, CSV metni (S24), kimlik üretme (DOM'a dokunmaz)
 
 const YEREL = 'tr-TR';
 
@@ -104,6 +104,26 @@ export function gunAnahtari(tarih = new Date()) {
 /** Okunur tarih: "29 Ekim 2026" */
 export const tarihMetni = (tarih = new Date()) =>
   new Intl.DateTimeFormat(YEREL, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(tarih));
+
+// ---------- CSV (S24) ----------
+// Formül gibi başlayan metin hücreleri (= + - @) Excel’de çalışmasın diye başına ' eklenir
+const CSV_FORMUL = /^[=+\-@\t\r]/;
+function csvHucresi(v, ayirac) {
+  if (v == null) return '';
+  if (typeof v === 'number') return Number.isFinite(v) ? String(v).replace('.', ',') : '';
+  let s = String(v);
+  if (CSV_FORMUL.test(s)) s = `'${s}`;
+  return s.includes(ayirac) || /["\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+/**
+ * Satırlardan (dizi dizisi) CSV metni: “;” ayraçlı (Türkçe Excel), satır sonu CRLF, başta UTF-8 BOM (Excel Türkçe harfleri doğru açsın).
+ * Sayılarda ondalık virgül; null/undefined boş hücre.
+ */
+export function csvMetni(satirlar, { ayirac = ';', bom = true } = {}) {
+  const govde = satirlar.map((s) => s.map((v) => csvHucresi(v, ayirac)).join(ayirac)).join('\r\n');
+  return (bom ? '\uFEFF' : '') + govde + '\r\n';
+}
 
 // ---------- Diğer ----------
 /** Dizinin karıştırılmış kopyası (Fisher-Yates); asıl dizi değişmez */

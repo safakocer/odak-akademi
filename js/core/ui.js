@@ -1,4 +1,4 @@
-// Ortak arayüz davranışları: öğe oluşturma (el), sprite ikonu, modal (<dialog>), erişilebilir sekmeler ve toast bildirimleri
+// Ortak arayüz davranışları: öğe oluşturma (el), sprite ikonu, modal (<dialog>), erişilebilir sekmeler, toast bildirimleri ve dosya indirme (S24)
 
 import { acikPencereyeTasi } from './a11y.js';
 
@@ -93,6 +93,22 @@ export function sekmeleriBagla(kok) {
   });
 
   sec(sekmeler.find((s) => s.getAttribute('aria-selected') === 'true') || sekmeler[0], false);
+}
+
+/** S24: Metni (ya da Blob’u) dosya olarak indirir; açık pencere varsa bağlantı onun içine eklenir. Döner: başarılıysa true */
+export function dosyaIndir(ad, icerik, tur = 'text/plain;charset=utf-8') {
+  try {
+    const url = URL.createObjectURL(icerik instanceof Blob ? icerik : new Blob([icerik], { type: tur }));
+    const a = el('a', { href: url, download: ad, hidden: true });
+    (document.querySelector('dialog[open]') ?? document.body).append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    return true;
+  } catch (h) {
+    console.error('[ui] Dosya indirilemedi:', h);
+    return false;
+  }
 }
 
 let toastAlani = null;

@@ -10,6 +10,7 @@ export const OLAYLAR = Object.freeze({
   DEPO_HATA: 'depo:hata',                   // veri: { tur, mesaj }
   DEPO_YUKLENDI: 'depo:yuklendi',           // veri: { anahtarSayisi }
   ROTA_DEGISTI: 'rota:degisti',             // veri: { yol, parametreler, sorgu }
+  VELI_DEGISTI: 'veli:degisti',             // S24, veri: { tur: 'pin'|'sinifModu'|'hedef'|'sifirlandi', profilId? } (Veli/Öğretmen alanı)
 });
 
 const kanallar = new Map();

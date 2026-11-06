@@ -1,4 +1,4 @@
-// İlerleme paneli (S20, #/ilerleme): seviye ve XP, esnek seri, günlük hedef, haftalık/aylık grafikler, 20 rozet; yazdırılabilir veli raporu (#/ilerleme/rapor)
+// İlerleme paneli (S20, #/ilerleme): seviye ve XP, esnek seri, günlük hedef (S24: veli önerisi ve haftalık hedef), haftalık/aylık grafikler, 20 rozet; yazdırılabilir veli raporu (#/ilerleme/rapor; S24: Veli/Öğretmen alanı başka profil için de çizer)
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { duyur } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
@@ -10,6 +10,7 @@ import {
   bugunAnahtari, gunKaydir, HEDEF_SECENEKLERI, SERI, XP, ROZETLER,
 } from '../../engine/motivasyon.js';
 import { DONEMLER, OLCULER, gunListesi, olcuSerileri, donemOzeti } from './ilerleme-veri.js';
+import { veliHedefi, haftalikDurum } from '../veli/veli-veri.js';
 
 const YAZDIR_SINIFI = 'yazdir-ilerleme';
 const RAPOR_GUN = 30;
@@ -93,9 +94,20 @@ function seriKarti() {
       el('span', { metin: `En uzun seri: ${s.enUzun} gün` })));
 }
 
+// S24: veli/öğretmenin haftalık hedefi (yoksa gösterilmez)
+function haftaBilgisi(h) {
+  if (!h.hedefDk) return null;
+  const metin = `Bu hafta ${h.dk} / ${h.hedefDk} dk`;
+  return el('div', {},
+    el('div', { sinif: 'ilerleme-etiket' }, el('span', { id: 'il-hafta-etiket', metin: 'Haftalık hedef' }), el('span', { metin: `${h.dk} / ${h.hedefDk} dk` })),
+    cubuk(h.yuzde, 'il-hafta-etiket', metin, 'gunes'),
+    el('p', { sinif: 'ilerleme-kart__not', metin: h.tamam ? 'Bu haftanın hedefi tamam.' : 'Hafta pazartesi başlar; günlere yaymak tek günde yetiştirmekten iyidir.' }));
+}
+
 function bugunKarti() {
   const d = bugunDurumu();
   const mesaj = bugunlukMesaji(d);
+  const veliDk = veliHedefi().gunlukDk; // S24: belirlendiyse öğrenci değiştiremez
   const kart = el('section', { sinif: 'kart ilerleme-kart', 'aria-labelledby': 'il-bugun-baslik' },
     el('h2', { id: 'il-bugun-baslik', sinif: 'ilerleme-kart__baslik', metin: 'Bugün' }),
     el('p', { sinif: 'ilerleme-kart__deger' }, el('strong', { metin: String(d.dk) }), el('span', { metin: `/ ${d.hedefDk} dk` })),
@@ -104,12 +116,14 @@ function bugunKarti() {
     mesaj
       ? el('div', { sinif: `bildirim bildirim--${mesaj.tur}` }, el('p', {}, el('strong', { metin: `${mesaj.baslik}. ` }), mesaj.metin))
       : el('p', { sinif: 'ilerleme-kart__not', metin: d.dk === 0 ? 'Kısa bir çalışma yeterli; hedefin günde birkaç kısa tur.' : `Hedefe ${d.hedefDk - d.dk} dakika kaldı.` }),
-    el('fieldset', { sinif: 'grup' },
+    haftaBilgisi(haftalikDurum()),
+    el('fieldset', { sinif: 'grup', disabled: !!veliDk, 'aria-describedby': veliDk ? 'il-hedef-veli' : null },
       el('legend', { metin: 'Günlük hedefim' }),
       el('div', { sinif: 'segment' }, HEDEF_SECENEKLERI.map((dk) => el('label', {},
         el('input', { type: 'radio', name: 'gunluk-hedef', value: String(dk), checked: dk === d.hedefDk,
           onchange: () => hedefDegisti(kart, dk) }),
-        el('span', { metin: `${dk} dk` }))))));
+        el('span', { metin: `${dk} dk` })))),
+      veliDk && el('p', { sinif: 'alan__ipucu', id: 'il-hedef-veli', metin: `Günlük hedefini ailen ya da öğretmenin ${veliDk} dakika olarak belirledi.` })));
   return kart;
 }
 
@@ -232,7 +246,8 @@ export function ilerlemeSayfasiCiz(kap) {
 }
 
 // ---------- Veli raporu ----------
-function tablo(baslik, sutunlar, satirlar) {
+/** S24: Veli/Öğretmen alanı ek bölümlerinde de kullanılır */
+export function raporTablosu(baslik, sutunlar, satirlar) {
   return el('div', { sinif: 'rapor-tablo-kap' }, el('table', { sinif: 'rapor-tablo' },
     el('caption', { metin: baslik }),
     el('thead', {}, el('tr', {}, sutunlar.map((s) => el('th', { scope: 'col', metin: s })))),
@@ -247,12 +262,15 @@ const AILE_NOTLARI = [
   'Tek günlük düşüşler olağandır (yorgunluk, metnin zorluğu). Birkaç haftalık yöne bakmak daha anlamlıdır.',
 ];
 
-/** #/ilerleme/rapor */
-export function ilerlemeRaporuCiz(kap) {
+/**
+ * #/ilerleme/rapor. S24: { profil (vars. etkin profil), geriAdres, geriMetni, ekBolumler [Node] } ile Veli/Öğretmen alanı
+ * başka bir profilin raporunu çizer; ek bölümler rozetlerin önüne eklenir.
+ */
+export function ilerlemeRaporuCiz(kap, { profil = etkinProfil(), geriAdres = '#/ilerleme', geriMetni = 'İlerlemeye dön', ekBolumler = [] } = {}) {
   document.documentElement.classList.add(YAZDIR_SINIFI);
-  const geri = el('a', { sinif: 'btn btn--hayalet btn--kucuk geri-baglanti yazdirma-yok', href: '#/ilerleme' },
-    spriteIkon('ok-sag', 'ikon ikon--kucuk ikon--ters'), 'İlerlemeye dön');
-  const p = etkinProfil();
+  const geri = el('a', { sinif: 'btn btn--hayalet btn--kucuk geri-baglanti yazdirma-yok', href: geriAdres },
+    spriteIkon('ok-sag', 'ikon ikon--kucuk ikon--ters'), geriMetni);
+  const p = profil;
   if (!p) {
     kap.replaceChildren(geri, el('p', { sinif: 'bos-durum', metin: 'Rapor için önce bir profil oluştur.' }));
     return;
@@ -279,7 +297,7 @@ export function ilerlemeRaporuCiz(kap) {
   if (!ozet.calisilanGun) {
     parcalar.push(el('p', { sinif: 'bos-durum', metin: `Son ${RAPOR_GUN} günde kayıtlı bir çalışma yok. Çalışmalar yapıldıkça bu rapor kendiliğinden dolar.` }));
   } else {
-    parcalar.push(tablo('Genel bakış', ['Bilgi', 'Değer'], [
+    parcalar.push(raporTablosu('Genel bakış', ['Bilgi', 'Değer'], [
       ['Çalışılan gün', `${ozet.calisilanGun} / ${RAPOR_GUN}`],
       ['Toplam çalışma süresi', `${ozet.toplamDk} dk`],
       ['Çalışılan gün başına ortalama', `${ozet.ortDk} dk`],
@@ -289,7 +307,7 @@ export function ilerlemeRaporuCiz(kap) {
     ]));
     const alanSatirlari = Object.entries(ozet.alanlar).sort((a, b) => b[1].sn - a[1].sn)
       .map(([m, a]) => [modulBilgisi(m)?.baslik ?? m, a.oturum, `${Math.round(a.sn / 60)} dk`]);
-    if (alanSatirlari.length) parcalar.push(tablo('Alanlara göre çalışma', ['Alan', 'Tur', 'Süre'], alanSatirlari));
+    if (alanSatirlari.length) parcalar.push(raporTablosu('Alanlara göre çalışma', ['Alan', 'Tur', 'Süre'], alanSatirlari));
 
     const olcuSatirlari = [];
     const grafikler = [];
@@ -306,13 +324,15 @@ export function ilerlemeRaporuCiz(kap) {
         })));
       }
     }
-    parcalar.push(tablo('Ölçümler (günlük değerler)', ['Ölçü', 'İlk ölçüm günü', 'Son ölçüm günü', 'Ölçüm günü'], olcuSatirlari),
+    parcalar.push(raporTablosu('Ölçümler (günlük değerler)', ['Ölçü', 'İlk ölçüm günü', 'Son ölçüm günü', 'Ölçüm günü'], olcuSatirlari),
       el('p', { sinif: 'alan__ipucu', metin: 'Okuma ve dikkat için günün ortalaması, hafıza için günün en uzun dizisi alınır. Ölçüm günü az olan satırlar henüz bir eğilim göstermez.' }));
     if (grafikler.length) {
       parcalar.push(el('section', { sinif: 'yigin', 'aria-labelledby': 'rapor-grafik-baslik', style: '--yigin-bosluk: var(--b-3)' },
         el('h2', { id: 'rapor-grafik-baslik', metin: 'Grafikler' }), el('div', { sinif: 'grafik-izgara' }, grafikler)));
     }
   }
+
+  parcalar.push(...ekBolumler.filter(Boolean));
 
   const rozetler = rozetDurumu(p.id);
   const kazanilan = rozetler.filter((r) => r.kazanildi);

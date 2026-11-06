@@ -1,11 +1,11 @@
-// Kütüphane sayfası (#/kutuphane): sınıf metinleri ve kendi metinlerin; arama, sınıf/tür/uzunluk/durum süzgeçleri, favoriler, seviye göstergesi; kendi metnini ekle, düzenle, sil
+// Kütüphane sayfası (#/kutuphane; S25: seçicide kimlik kaçışlı): sınıf metinleri ve kendi metinlerin; arama, sınıf/tür/uzunluk/durum süzgeçleri, favoriler, seviye göstergesi; kendi metnini ekle, düzenle, sil
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { duyur, odakla } from '../../core/a11y.js';
 import { git } from '../../core/router.js';
 import { sayiBicimle, dakikaMetni, boslukTemizle } from '../../core/utils.js';
 import { okumaAyarlariniGetir, tahminiSureSn } from '../../engine/reader-engine.js';
 import {
-  metinBankasiYukle, metinBankasiDurumu, tumMetinler, metinleriSuz, METIN_TURLERI, UZUNLUKLAR, SINIF_DUZEYLERI,
+  metinBankasiYukle, metinBankasiDurumu, tumMetinler, metinleriSuz, METIN_TURLERI, UZUNLUKLAR, SINIF_DUZEYLERI, ZORLUK_DERECESI,
   favoriMi, favoriDegistir, okumaBilgisi, seviyeBilgisi, profilSinifi, secimAyarla, kendiMetniSil,
 } from '../../engine/text-bank.js';
 import { metinFormuAc } from './metin-formu.js';
@@ -63,8 +63,9 @@ function metinKarti(m, wpm) {
   const id = `metin-${m.kimlik}`;
   const kendi = m.kaynak === 'kendi';
   const sorulu = m.sorular.length > 0;
-  const bilgi = [m.sinif ? `${m.sinif}. sınıf` : null, METIN_TURLERI[m.tur], `${sayiBicimle(m.kelime)} kelime`,
-    `yaklaşık ${dakikaMetni(tahminiSureSn(m.kelime, wpm))}`].filter(Boolean).join(' · ');
+  const bilgi = [m.sinif ? `${m.sinif}. sınıf` : null, METIN_TURLERI[m.tur], m.zorluk ? `zorluk ${m.zorluk}/${ZORLUK_DERECESI}` : null,
+    `${sayiBicimle(m.kelime)} kelime`, `yaklaşık ${dakikaMetni(tahminiSureSn(m.kelime, wpm))}`].filter(Boolean).join(' · ');
+  const konular = m.etiketler?.length ? el('p', { sinif: 'metin-karti__bilgi soluk', metin: `Konular: ${m.etiketler.join(', ')}` }) : null;
   const eylemler = [
     sorulu && el('button', { type: 'button', sinif: 'btn btn--birincil btn--kucuk', 'aria-describedby': id, onclick: () => metniAc('oku-anla', m) },
       'Oku ve Anla'),
@@ -80,6 +81,7 @@ function metinKarti(m, wpm) {
     el('article', { sinif: 'kart metin-karti', 'aria-labelledby': id },
       el('div', { sinif: 'metin-karti__ust' }, el('h3', { id, sinif: 'metin-karti__baslik', metin: m.ad }), favoriDugmesi(m)),
       el('p', { sinif: 'metin-karti__bilgi', metin: bilgi }),
+      ...(konular ? [konular] : []),
       seviyeGostergesi(m),
       el('p', { sinif: 'metin-karti__ozet', metin: kisaOzet(m.metin) }),
       el('div', { sinif: 'metin-karti__durum' }, durumRozeti(m),
@@ -103,7 +105,7 @@ function kaydedildi(m, yeni) {
   if (yeni) Object.assign(suzgec, BOS_SUZGEC, { tur: 'kendi' });
   suzgecFormunuDoldur();
   listeyiCiz();
-  const kart = sayfa?.liste.querySelector(`li[data-kimlik="${m.kimlik}"] .metin-karti__eylemler .btn`);
+  const kart = sayfa?.liste.querySelector(`li[data-kimlik="${CSS.escape(m.kimlik)}"] .metin-karti__eylemler .btn`);
   if (kart) odakla(kart);
 }
 
@@ -135,7 +137,7 @@ function suzgecFormunuDoldur() {
 
 function suzgecFormu() {
   const ps = profilSinifi();
-  const arama = el('input', { type: 'search', sinif: 'girdi', id: 'kt-arama', name: 'arama', autocomplete: 'off', placeholder: 'Başlıkta ya da metinde ara' });
+  const arama = el('input', { type: 'search', sinif: 'girdi', id: 'kt-arama', name: 'arama', autocomplete: 'off', placeholder: 'Başlık, metin ya da konu ara' });
   const [sinif, sinifAlan] = secimKutusu('sinif', 'Sınıf', [['', 'Tüm sınıflar'],
     ...SINIF_DUZEYLERI.map((s) => [s, s === ps ? `${s}. sınıf (senin sınıfın)` : `${s}. sınıf`])]);
   const [tur, turAlan] = secimKutusu('tur', 'Tür', [['', 'Tüm türler'], ...Object.entries(METIN_TURLERI).map(([k, v]) => [k, k === 'kendi' ? 'Kendi metinlerim' : v])]);

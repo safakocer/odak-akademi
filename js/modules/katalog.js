@@ -67,16 +67,32 @@ const EGZERSIZLER = [
   { ad: 'eslestirme', modul: 'hafiza', baslik: 'Eşleştirme Kartları', ikon: 'kartlar', etiket: '3 zorluk',
     aciklama: 'Kartları ikişer aç, eşlerini az hamlede bul.', yukle: () => import('./hafiza/eslestirme.js') },
 ];
-// S12: Araçlar (S15: + Hafıza Teknikleri, S16: + Tekrar Kartları): egzersiz değil, kendi sayfası olan yardımcılar (çerçevede açılmaz, kaydedilmez). Kart alanları egzersiz kartıyla aynı + adres
+// S12: Araçlar (S15: + Hafıza Teknikleri, S16: + Tekrar Kartları, S21: + Okuma Stratejileri, S22: + Çalışma Rehberi kartları): egzersiz değil, kendi sayfası olan yardımcılar (çerçevede açılmaz, kaydedilmez). Kart alanları egzersiz kartıyla aynı + adres
 const ARACLAR = Object.freeze([
   { ad: 'odak', modul: 'dikkat', baslik: 'Odak Araçları', ikon: 'saat', etiket: 'Ders çalışırken', adres: '#/odak',
     aciklama: 'Ortamını hazırla, kısa bloklarla çalış, odağını günlüğe yaz.' },
   // S15: Hafıza Teknikleri Akademisi: 6 mini ders (içerik data/lessons/*.json, sayfa hafiza/teknikler.js)
   { ad: 'teknikler', modul: 'hafiza', baslik: 'Hafıza Teknikleri', ikon: 'akademi', etiket: '6 mini ders', adres: '#/teknikler',
     aciklama: 'Hikâye zinciri, yolculuk, akrostiş ve dahası: dene, öğren, ölç.' },
+  // S21: Okuma Stratejileri: 8 mini ders (içerik data/lessons/*.json, motor lesson-engine.js, sayfa hafiza/teknikler.js; adres ders sayfasının kapsayıcısını kullanır)
+  { ad: 'stratejiler', modul: 'oku', baslik: 'Okuma Stratejileri', ikon: 'akademi', etiket: '8 mini ders', adres: '#/teknikler/stratejiler',
+    aciklama: 'Tahmin, ana fikir, çıkarım, 5N1K, özet ve dahası: öğren, uygula, dene.' },
   // S16: aralıklı tekrar (5 kutulu Leitner; motor js/engine/srs.js, sayfa hafiza/tekrar.js, hazır desteler data/decks/*.json)
   { ad: 'tekrar', modul: 'hafiza', baslik: 'Tekrar Kartları', ikon: 'tekrar-kart', etiket: 'Her gün birkaç dakika', adres: '#/tekrar',
     aciklama: 'Kartları kutularla tekrar et: bildiğin seyrekleşir, zorlandığın sık gelir.' },
+  // S22: Çalışma Rehberi (#/rehber/<ad>; sayfa rehber/rehber-sayfasi.js). grup: arac (Araçlar) | bilgi (Bilgi köşesi); ana sayfadaki "Çalışma Rehberi" bölümü de buradan çizilir
+  { ad: 'cornell', modul: 'rehber', grup: 'arac', baslik: 'Cornell Notu', ikon: 'not-sayfasi', etiket: 'Yazdırılabilir', adres: '#/rehber/cornell',
+    aciklama: 'Solda sorular, sağda notlar, altta özet. Tekrar ederken kendini yokla.' },
+  { ad: 'zihin-haritasi', modul: 'rehber', grup: 'arac', baslik: 'Zihin Haritası', ikon: 'zihin', etiket: 'Sürükle, bağla', adres: '#/rehber/zihin-haritasi',
+    aciklama: 'Konuyu ortaya yaz, alt başlıkları dallar hâlinde diz; resim olarak indir.' },
+  { ad: 'haftalik-plan', modul: 'rehber', grup: 'arac', baslik: 'Haftalık Plan', ikon: 'takvim', etiket: 'Hafta sonu esnek', adres: '#/rehber/haftalik-plan',
+    aciklama: 'Her güne kısa ders blokları ve molalar koy, haftanı bir bakışta gör.' },
+  { ad: 'sinav-hazirlik', modul: 'rehber', grup: 'bilgi', baslik: 'Sınav Hazırlığı', ikon: 'test', etiket: 'LGS dahil', adres: '#/rehber/sinav-hazirlik',
+    aciklama: 'Plan, kendini yoklama, yanlış defteri ve sınav günü için öneriler.' },
+  { ad: 'saglikli-aliskanliklar', modul: 'rehber', grup: 'bilgi', baslik: 'Uyku, Beslenme, Ekran', ikon: 'kalp', etiket: 'Bilgi kartları', adres: '#/rehber/saglikli-aliskanliklar',
+    aciklama: 'Ders çalışmayı kolaylaştıran günlük alışkanlıklar için genel bilgiler.' },
+  { ad: 'aile-rehberi', modul: 'rehber', grup: 'bilgi', baslik: 'Aileler İçin', ikon: 'aile', etiket: '10 öneri', adres: '#/rehber/aile-rehberi',
+    aciklama: 'Evde baskı kurmadan nasıl destek olunur? Somut öneriler.' },
 ].map(Object.freeze));
 
 const BILGILER = new Map(EGZERSIZLER.map(({ yukle, ...b }) => [b.ad, Object.freeze(b)]));
@@ -92,7 +108,7 @@ export const modulBilgisi = (ad) => MODULLER.find((m) => m.ad === ad) ?? null;
 /** Bir alanın egzersiz kart bilgileri (katalog sırasıyla) */
 export const modulEgzersizleri = (modul) => [...BILGILER.values()].filter((b) => b.modul === modul);
 
-/** S12: Araç kartı bilgisi: { ad, modul, baslik, aciklama, ikon, etiket, adres } ya da null */
+/** S12: Araç kartı bilgisi: { ad, modul, baslik, aciklama, ikon, etiket, adres, grup? (S22) } ya da null */
 export const aracBilgisi = (ad) => ARACLAR.find((a) => a.ad === ad) ?? null;
 /** S12: Bir alanın araç kartları */
 export const modulAraclari = (modul) => ARACLAR.filter((a) => a.modul === modul);

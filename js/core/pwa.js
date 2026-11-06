@@ -1,4 +1,4 @@
-// PWA: service worker kaydı, yeni sürüm bildirimi, "Ana ekrana ekle" düğmesi, çevrimiçi/çevrimdışı durumu
+// PWA: service worker kaydı, yeni sürüm bildirimi, "Ana ekrana ekle" düğmesi, çevrimiçi/çevrimdışı durumu (S26: çalışan sürümün adı)
 import { toastGoster } from './ui.js';
 import { duyur } from './a11y.js';
 
@@ -7,6 +7,7 @@ let kurulumIstegi = null;          // beforeinstallprompt olayı (Chrome, Edge, 
 let bekleyen = null;               // yeni sürümü bekleyen service worker
 let yenileniyor = false;
 let kurulumHatasi = false;         // ilk kurulum başarısız (ör. kabuk dosyalarından biri eksik)
+let surum = null;                  // S26: sayfayı yöneten service worker'ın SURUM'u (eski sürümler yanıt vermez → null)
 const durumDinleyicileri = new Set();
 
 /** Uygulama ana ekrandan/uygulama penceresinden mi açıldı? */
@@ -25,7 +26,7 @@ export function pwaDestekleniyorMu() {
   return 'serviceWorker' in navigator && window.isSecureContext;
 }
 
-/** Durum: { destek, cevrimdisiHazir, kurulabilir, yuklu, ios, cevrimici, guncellemeVar } */
+/** Durum: { destek, cevrimdisiHazir, kurulumHatasi, kurulabilir, yuklu, ios, cevrimici, guncellemeVar, surum } */
 export function pwaDurumu() {
   return {
     destek: pwaDestekleniyorMu(),
@@ -36,6 +37,7 @@ export function pwaDurumu() {
     ios: iosMu(),
     cevrimici: navigator.onLine,
     guncellemeVar: !!bekleyen,
+    surum,
   };
 }
 
@@ -49,6 +51,17 @@ export function pwaDurumunuDinle(fn) {
 function durumBildir() {
   const d = pwaDurumu();
   durumDinleyicileri.forEach((fn) => { try { fn(d); } catch (h) { console.error('[pwa]', h); } });
+}
+
+// S26: sayfayı yöneten service worker'a sürümünü sorar (Ayarlar > Uygulama'da gösterilir)
+function surumSor() {
+  const sw = navigator.serviceWorker?.controller;
+  if (!sw) return;
+  const kanal = new MessageChannel();
+  kanal.port1.onmessage = (e) => {
+    if (typeof e.data?.surum === 'string' && e.data.surum !== surum) { surum = e.data.surum; durumBildir(); }
+  };
+  sw.postMessage({ tip: 'SURUM_SOR' }, [kanal.port2]);
 }
 
 function bekleyeniIzle(kayit) {
@@ -112,7 +125,9 @@ export function pwaBaslat({ guncellemeBandi } = {}) {
     if (yenileniyor) { location.reload(); return; }
     kurulumHatasi = false;
     durumBildir(); // ilk kurulum: artık çevrimdışı hazır
+    surumSor();
   });
+  surumSor();
 
   const kaydet = () => navigator.serviceWorker.register(SW_YOLU)
     .then((kayit) => {

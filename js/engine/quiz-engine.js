@@ -77,6 +77,9 @@ export function geriBildirimSec(tur) {
 const puanTuru = (p) => (p >= 1 ? 'dogru' : p > 0 ? 'kismen' : 'yanlis');
 const metinMi = (v) => typeof v === 'string' && v.trim() !== '';
 const dugumler = (...d) => d.filter((x) => x != null && x !== false); // replaceChildren boş değerleri metin olarak yazmasın
+// S25: işaretlemede renk ve kenar çizgisine ek olarak ekran okuyucu notu (yalnız renge dayanmaz)
+const okuyucuNotu = (metin) => el('span', { sinif: 'ekran-okuyucu', metin });
+const SONUC_ETIKETI = Object.freeze({ dogru: 'doğru', kismen: 'kısmen doğru', yanlis: 'henüz doğru değil' });
 
 // ---------- Şema denetimi ----------
 /** Soruyu denetler; hatalıysa TypeError atar. Döner: dondurulmuş kopya */
@@ -230,8 +233,8 @@ function secmeliGorunum(soru, secenekler, dogruDeger) {
     isaretle(cevap) {
       for (const l of etiketler) {
         const d = coz(l.dataset.deger);
-        if (d === dogruDeger) l.classList.add('soru__secenek--dogru');
-        else if (d === cevap) l.classList.add('soru__secenek--yanlis');
+        if (d === dogruDeger) { l.classList.add('soru__secenek--dogru'); l.append(okuyucuNotu(' (doğru cevap)')); }
+        else if (d === cevap) { l.classList.add('soru__secenek--yanlis'); l.append(okuyucuNotu(' (senin seçimin, henüz doğru değil)')); }
       }
     },
   };
@@ -251,7 +254,11 @@ function boslukGorunum(soru) {
     bosMesaj: 'Boşluğa bir kelime yaz.',
     cevapAl: () => (metinMi(girdi.value) ? girdi.value : undefined),
     kilitle: () => { girdi.readOnly = true; },
-    isaretle: (cevap) => girdi.classList.add(cevapPuanla(soru, cevap) ? 'soru__bosluk--dogru' : 'soru__bosluk--yanlis'),
+    isaretle(cevap) {
+      const dogru = cevapPuanla(soru, cevap);
+      girdi.classList.add(dogru ? 'soru__bosluk--dogru' : 'soru__bosluk--yanlis');
+      girdi.setAttribute('aria-label', `${girdi.getAttribute('aria-label')}. ${dogru ? 'Doğru.' : 'Henüz doğru değil.'}`);
+    },
   };
 }
 
@@ -297,7 +304,11 @@ function siralamaGorunum(soru) {
     bosMesaj: '',
     cevapAl: () => [...sira],
     kilitle: () => { kilitli = true; ciz(); },
-    isaretle: () => [...liste.children].forEach((li, i) => li.classList.add(Number(li.dataset.asil) === i ? 'siralama__oge--dogru' : 'siralama__oge--yanlis')),
+    isaretle: () => [...liste.children].forEach((li, i) => {
+      const dogru = Number(li.dataset.asil) === i;
+      li.classList.add(dogru ? 'siralama__oge--dogru' : 'siralama__oge--yanlis');
+      li.querySelector('.siralama__metin')?.append(okuyucuNotu(dogru ? ' (doğru sırada)' : ' (sırası farklı)'));
+    }),
   };
 }
 
@@ -489,7 +500,7 @@ export function gozdenGecirmeOlustur(sonuc) {
   const liste = el('ol', { sinif: 'soru-gozden__liste', id, hidden: true, 'aria-labelledby': baslikId },
     gosterilecek.map((r, n) => {
       const sira = sonuc.sorular.indexOf(r) + 1;
-      const h = el('h5', { metin: `Soru ${sira}` });
+      const h = el('h5', { metin: `Soru ${sira}: ${SONUC_ETIKETI[puanTuru(r.puan)]}` });
       if (n === 0) ilkBaslik.push(h);
       const kisa = r.soru.tip === 'kisa-cevap';
       return el('li', { sinif: 'soru-gozden__oge', 'data-sonuc': puanTuru(r.puan) },

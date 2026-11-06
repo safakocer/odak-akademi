@@ -1,4 +1,4 @@
-// Profil yönetimi: ilk açılış karşılaması, takma ad/sınıf/avatar seçimi, birden çok profil ve hızlı geçiş
+// Profil yönetimi: ilk açılış karşılaması, takma ad/sınıf/avatar seçimi, birden çok profil ve hızlı geçiş (S24: sınıf modunda yalnız geçiş)
 import { oku, yaz, sil, anahtarlar } from './storage.js';
 import { yay, dinle, OLAYLAR, uygulamaDurumu } from './store.js';
 import { toastGoster, el, spriteIkon } from './ui.js';
@@ -311,8 +311,13 @@ export function karsilamayiBagla({ dialog, formAlani }) {
 }
 
 // ---------- Profiller penceresi: liste, hızlı geçiş, ekle/düzenle/sil ----------
-export function profilPenceresiniBagla({ dialog, liste, ekleDugmesi, formAlani }) {
+// S24: kisitliMi() true iken (sınıf modu) yalnız geçiş yapılır: ekle/düzenle/sil gizlenir, liste büyük kutucuklar olur (data-sinif-modu).
+// Döner: { yenile() } (kısıt değişince çağrılır)
+export function profilPenceresiniBagla({ dialog, liste, ekleDugmesi, formAlani, kisitliMi = () => false }) {
   formAlani.hidden = true;
+  const kisitNotu = el('p', { sinif: 'alan__ipucu', hidden: true,
+    metin: 'Sınıf modu açık: profil eklemek, düzenlemek ya da silmek için Veli / Öğretmen alanından sınıf modunu kapatın.' });
+  ekleDugmesi.after(kisitNotu);
 
   function formuKapat() {
     delete dialog.dataset.duzenleniyor;
@@ -385,7 +390,7 @@ export function profilPenceresiniBagla({ dialog, liste, ekleDugmesi, formAlani }
         if (!sonProfil) (liste.querySelector('button') ?? ekleDugmesi).focus();
       }
     });
-    li.append(sec, duzenle, silDugmesi);
+    li.append(...(kisitliMi() ? [sec] : [sec, duzenle, silDugmesi]));
     return li;
   }
 
@@ -396,6 +401,10 @@ export function profilPenceresiniBagla({ dialog, liste, ekleDugmesi, formAlani }
     const dolu = profiller.length >= EN_FAZLA_PROFIL;
     ekleDugmesi.disabled = dolu;
     ekleDugmesi.title = dolu ? `En fazla ${EN_FAZLA_PROFIL} profil olabilir.` : '';
+    const kisitli = kisitliMi();
+    ekleDugmesi.hidden = kisitli;
+    kisitNotu.hidden = !kisitli;
+    dialog.toggleAttribute('data-sinif-modu', kisitli);
   }
 
   ekleDugmesi.addEventListener('click', () => formuAc());
@@ -403,6 +412,10 @@ export function profilPenceresiniBagla({ dialog, liste, ekleDugmesi, formAlani }
   dinle(OLAYLAR.PROFILLER_DEGISTI, () => { if (formAlani.hidden) ciz(); });
   dinle(OLAYLAR.PROFIL_DEGISTI, () => { if (formAlani.hidden) ciz(); });
   ciz();
+  return {
+    // Kısıt açıldıysa açık form kapanır
+    yenile() { if (formAlani.hidden) ciz(); else if (kisitliMi()) formuKapat(); },
+  };
 }
 
 // Üst çubuktaki profil düğmesini etkin profille günceller

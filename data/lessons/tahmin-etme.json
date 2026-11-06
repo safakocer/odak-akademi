@@ -1,0 +1,139 @@
+{
+  "surum": 1,
+  "tur": "strateji",
+  "ad": "tahmin-etme",
+  "baslik": "Başlıktan ve Görselden Tahmin",
+  "kisaAciklama": "Okumaya başlamadan önce başlığa ve görsele bak, metnin neyi anlatacağını tahmin et.",
+  "sureDk": "8-10",
+  "kazanim": "Başlık ve görsellerden yararlanarak metnin konusunu tahmin etmeyi, okuduktan sonra da tahminini metindeki bilgilerle karşılaştırmayı öğreneceksin.",
+  "anlat": {
+    "baslik": "Tahmin etmek neden işe yarar?",
+    "paragraflar": [
+      "İyi okurlar metne başlamadan önce kısa bir an durur ve ipuçlarına bakar: Başlık ne söylüyor? Görselde neler var? Bu ipuçlarından metnin konusunu tahmin ederler.",
+      "Tahmin, zihnini konuya hazırlar. Konu hakkında bildiklerini hatırlarsın, merak ettiğin şeyleri fark edersin. Okurken de “Tahminim tuttu mu?” diye metni izlersin; bu, dikkatini metinde tutar.",
+      "Tahminin tutmayabilir. Bu bir hata değildir. Önemli olan, okurken yeni ipuçlarını fark edip tahminini metindeki bilgilere göre değiştirebilmektir."
+    ],
+    "ornek": {
+      "baslik": "Kısa örnek",
+      "satirlar": [
+        "Başlık: “Çölde Bir Gece”. Görsel: kum tepeleri ve yıldızlarla dolu bir gökyüzü.",
+        "İpuçları: “gece” kelimesi ve yıldızlar zamanı, kum tepeleri yeri gösteriyor.",
+        "Tahmin: Metin, çölde geçen bir geceyi ya da o gece yaşanan bir olayı anlatıyor olabilir."
+      ]
+    },
+    "not": "Tahminlerin kaydedilmez; yalnızca bu ders boyunca ekranda durur."
+  },
+  "metin": {
+    "baslik": "Bahçedeki Gizli Misafir",
+    "gorsel": { "simgeler": ["🌙", "🥬", "🔦"], "aciklama": "Gece vakti bir sebze bahçesi: ay ışığı, marul yaprakları ve yanan bir el feneri." },
+    "onizleme": true,
+    "onizlemeYonerge": "Henüz metni okuma. Yalnızca başlığa ve görsele bak, sonra tahminini yaz.",
+    "onGorev": [
+      {
+        "tur": "not",
+        "kimlik": "tahmin",
+        "baslik": "Tahmin et",
+        "soru": "Bu metin neyi anlatıyor olabilir? Başlıktaki “gizli misafir” kim ya da ne olabilir?",
+        "ipucu": "Başlıktaki kelimeleri ve görseldeki ayrıntıları birlikte düşün: Zaman ne? Yer neresi?",
+        "yerTutucu": "Bence bu metin…"
+      }
+    ],
+    "yonerge": "Şimdi metnin tamamını oku. Okurken tahminini aklında tut ve yeni ipuçlarını fark etmeye çalış.",
+    "bolumler": [
+      {
+        "paragraflar": [
+          "Ece, dedesiyle birlikte bahçeye marul ve çilek ekmişti. Bir sabah marulların yapraklarında küçük delikler gördü. Toprakta da ışıkta parlayan ince izler vardı.",
+          "“Biri gece gelip sebzelerimizi yiyor!” dedi Ece. “Belki de bir tavşandır.”",
+          "Dedesi gülümsedi. “Tahmin etmek güzel ama önce ipuçlarına bakalım. Bir tavşan bu kadar küçük delikler açar mı? Peki bu parlak izler sence neyin izi?”",
+          "O akşam ikisi, bahçeye bakan pencerenin önüne oturdu. Hava kararınca dedesi el fenerini yaktı. Işığın altında, marulların arasında yavaşça ilerleyen salyangozlar göründü. Parlak izler onlarındı.",
+          "Biraz sonra kuru yaprakların arasından küçük, dikenli bir hayvan çıktı. Burnunu toprağa yaklaştırdı ve salyangozları birer birer yemeye başladı.",
+          "“Kirpi!” diye fısıldadı Ece. “Demek gizli misafirimiz oymuş.”",
+          "Dedesi başını salladı: “Salyangozlar marullarımızı yiyor, kirpi de salyangozları. Bu gece bahçemizin bekçisi o.”",
+          "Ertesi sabah Ece, bahçenin köşesine kirpi için küçük bir kap su bıraktı."
+        ]
+      }
+    ]
+  },
+  "gorev": {
+    "yonerge": "Okumadan önce yaptığın tahmini metinle karşılaştır, sonra iki soruyu yanıtla.",
+    "parcalar": [
+      {
+        "tur": "not",
+        "kimlik": "karsilastirma",
+        "baslik": "Karşılaştır",
+        "goster": "tahmin",
+        "gosterBaslik": "Okumadan önceki tahminin",
+        "soru": "Tahminin metinle ne kadar örtüştü? Hangi kısmı tuttu, hangi kısmını değiştirmen gerekti?",
+        "ipucu": "Tahminin tutmadıysa sorun değil; seni yanıltan ya da sana yardım eden ipucunu yaz."
+      },
+      {
+        "tur": "sorular",
+        "sorular": [
+          {
+            "kimlik": "te-g1",
+            "tip": "coktan-secmeli",
+            "katman": "cikarim",
+            "soru": "Metindeki Ece de bir tahmin yaptı. Ece’nin tahminini değiştirmesine ne yol açtı?",
+            "secenekler": [
+              "Dedesinin anlattığı eski bir masal",
+              "Gece gözlemde gördüğü salyangoz ve kirpi",
+              "Komşusunun bahçede tavşan görmesi",
+              "Sabah marulların tamamen kaybolması"
+            ],
+            "dogru": 1,
+            "aciklama": "Ece önce bir tavşan olduğunu düşündü. Gece gözlem yapınca parlak izlerin salyangozlara ait olduğunu ve kirpinin salyangozları yediğini gördü; tahminini bu yeni bilgilere göre değiştirdi."
+          },
+          {
+            "kimlik": "te-g2",
+            "tip": "dogru-yanlis",
+            "katman": "cikarim",
+            "soru": "Başlıktaki “gizli misafir”, marulları yiyen hayvandır.",
+            "dogru": false,
+            "aciklama": "Marulları salyangozlar yiyordu. Gizli misafir ise salyangozları yiyen kirpiydi. Bunu metin tek cümleyle söylemiyor; ipuçlarını birleştirerek anlıyoruz."
+          }
+        ]
+      }
+    ]
+  },
+  "sinama": {
+    "sorular": [
+      {
+        "kimlik": "te-s1",
+        "tip": "coktan-secmeli",
+        "katman": "bilgi",
+        "soru": "Tahmin stratejisini en çok ne zaman kullanırız?",
+        "secenekler": [
+          "Yalnızca metni bitirdikten sonra",
+          "Yalnızca sınavda soru çözerken",
+          "Yalnızca metin çok kısa olduğunda",
+          "Okumaya başlamadan önce ve okurken"
+        ],
+        "dogru": 3,
+        "aciklama": "Tahmin okumadan önce başlar. Okurken de yeni ipuçlarına göre tahminini kontrol eder, gerekirse değiştirirsin."
+      },
+      {
+        "kimlik": "te-s2",
+        "tip": "coktan-secmeli",
+        "katman": "cikarim",
+        "soru": "Başlık: “Sınıfımızın Yeni Üyesi”. Görsel: Sınıf rafında duran bir akvaryum ve içinde turuncu bir balık. Hangisi en iyi tahmindir?",
+        "secenekler": [
+          "Sınıfa yeni gelen bir öğrenciyle tanışmayı anlatır.",
+          "Bir balıkçının denizde geçen gününü anlatır.",
+          "Sınıfa getirilen bir balığın bakımını anlatır.",
+          "Okulun yeni spor salonunun açılışını anlatır."
+        ],
+        "dogru": 2,
+        "aciklama": "En iyi tahmin başlığı ve görseli birlikte kullanır. “Yeni üye” ifadesi ve sınıftaki akvaryum, sınıfa bir balık geldiğini düşündürür."
+      },
+      {
+        "kimlik": "te-s3",
+        "tip": "dogru-yanlis",
+        "katman": "yorum",
+        "soru": "Tahminim metinle uyuşmadıysa stratejiyi yanlış kullanmışım demektir.",
+        "dogru": false,
+        "aciklama": "Tahmin bir başlangıç noktasıdır. Tutmaması doğaldır; önemli olan, okurken tahminini metindeki bilgilerle karşılaştırıp düzeltmektir."
+      }
+    ]
+  },
+  "kapanis": "Bir sonraki okumanda metne başlamadan önce başlığa bak ve içinden kısa bir tahmin yap. Okurken tahmininin tutup tutmadığını izle."
+}

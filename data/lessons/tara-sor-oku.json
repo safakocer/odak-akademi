@@ -1,0 +1,132 @@
+{
+  "surum": 1,
+  "tur": "strateji",
+  "ad": "tara-sor-oku",
+  "baslik": "Tara, Sor, Oku, Anlat, Gözden Geçir",
+  "kisaAciklama": "Bilgi veren metinleri beş adımda oku: göz at, soru sor, oku, anlat, kontrol et.",
+  "sureDk": "8-10",
+  "kazanim": "Bilgilendirici bir metni okumadan önce gözden geçirmeyi, ara başlıklardan soru üretmeyi, okuduğunu kendi cümlelerinle anlatmayı ve sonunda gözden geçirmeyi öğreneceksin.",
+  "anlat": {
+    "baslik": "Beş adımlı okuma yolu",
+    "paragraflar": [
+      "Bilgi veren metinleri okurken beş adımlı bir yol izleyebilirsin. Bu yöntem, İngilizce adının baş harfleriyle SQ3R olarak bilinir; biz onu Türkçe adımlarla kullanacağız.",
+      "Tara: Başlığa, ara başlıklara, görsellere ve kalın yazılara hızla göz at. Sor: Ara başlıkları sorulara çevir; böylece okurken neyi aradığını bilirsin. Oku: Metni dikkatle oku ve sorularının cevaplarını ara.",
+      "Anlat: Bir bölümü bitirince metne bakmadan, öğrendiklerini kendi cümlelerinle söyle ya da yaz. Gözden geçir: Sonunda sorularına dön ve cevaplarını kontrol et; eksik kalanı metinde yeniden bul."
+    ],
+    "ornek": {
+      "baslik": "Ara başlığı soruya çevirmek",
+      "satirlar": [
+        "“Bulutların yapısı” → “Bulutlar neyden oluşur?”",
+        "“Yağmurun faydaları” → “Yağmur canlılara nasıl yarar sağlar?”",
+        "“Yağmur nasıl oluşur?” zaten bir soru; okurken cevabını ararsın."
+      ]
+    },
+    "not": "Bu derste beş adımı sırayla uygulayacaksın."
+  },
+  "metin": {
+    "baslik": "Arılar Nasıl Haberleşir?",
+    "gorsel": { "simgeler": ["🐝", "🌼", "☀️"], "aciklama": "Bir bal arısı, güneşli bir günde çiçeklerle dolu bir tarlanın üzerinde uçuyor." },
+    "onizleme": true,
+    "onizlemeYonerge": "Tara: Henüz metnin tamamını okuma. Başlığa, görsele ve ara başlıklara göz at.",
+    "onGorev": [
+      {
+        "tur": "not",
+        "kimlik": "sorum",
+        "baslik": "Sor",
+        "soru": "Ara başlıklardan birini soruya çevir: Bu metinde cevabını aramak istediğin bir soru yaz.",
+        "ipucu": "Örneğin “Yuvarlak dans” ara başlığını “Yuvarlak dans ne anlatır?” sorusuna çevirebilirsin.",
+        "yerTutucu": "Sorum: …"
+      }
+    ],
+    "yonerge": "Oku: Şimdi metnin tamamını oku ve sorunun cevabını ara.",
+    "bolumler": [
+      {
+        "araBaslik": "Kâşif arılar",
+        "paragraflar": [
+          "Bir bal arısı kovanında binlerce arı birlikte yaşar. Bu arıların bir kısmı kâşiftir: Kovandan çıkar, nektarı ve poleni bol çiçekleri ararlar. Güzel bir çiçek tarlası bulan kâşif arı kovana döner. Şimdi yapması gereken, bu yeri diğer arılara anlatmaktır. Arılar konuşamadığı için bu işi dansla yapar."
+        ]
+      },
+      {
+        "araBaslik": "Yuvarlak dans",
+        "paragraflar": [
+          "Çiçekler kovana yakınsa kâşif arı küçük daireler çizerek döner. Buna yuvarlak dans denir. Dansı izleyen arılar, kâşif arının üzerindeki çiçek kokusunu da alır. Böylece yakınlarda hangi kokuyu aramaları gerektiğini öğrenirler."
+        ]
+      },
+      {
+        "araBaslik": "Sallanma dansı",
+        "paragraflar": [
+          "Çiçekler daha uzaktaysa arı, sekiz rakamına benzeyen bir yol çizer. Yolun ortasında düz bir çizgide ilerlerken gövdesini hızla sağa sola sallar. Bu düz çizginin yönü, çiçeklerin güneşe göre hangi yönde olduğunu gösterir. Sallanma ne kadar uzun sürerse yiyecek o kadar uzaktadır. Bilim insanları bu dansı yıllarca gözlemleyerek arıların bu “dilini” çözmeye çalışmıştır."
+        ]
+      }
+    ]
+  },
+  "gorev": {
+    "yonerge": "Şimdi Anlat ve Gözden geçir adımlarını uygula.",
+    "parcalar": [
+      {
+        "tur": "not",
+        "kimlik": "cevap",
+        "baslik": "Anlat",
+        "goster": "sorum",
+        "gosterBaslik": "Okumadan önce sorduğun soru",
+        "soru": "Sorunun cevabını kendi cümlelerinle yaz. Önce metne bakmadan dene.",
+        "ipucu": "Cevap metinde yoksa bunu da yazabilirsin; bir sorunun cevabının metinde olmadığını fark etmek de öğrenmektir."
+      },
+      {
+        "tur": "eslestir",
+        "baslik": "Gözden geçir",
+        "yonerge": "Her bilginin metnin hangi bölümünde geçtiğini seç.",
+        "kategoriler": ["Kâşif arılar", "Yuvarlak dans", "Sallanma dansı"],
+        "ogeler": [
+          { "metin": "Çiçekler kovana yakınsa yapılır.", "dogru": 1 },
+          { "metin": "Kovandan çıkıp çiçek arayan arılardır.", "dogru": 0 },
+          { "metin": "Dansın yönü, çiçeklerin güneşe göre yönünü gösterir.", "dogru": 2 },
+          { "metin": "Arı, bulduğu yeri anlatmak için kovana döner.", "dogru": 0 },
+          { "metin": "Uzun süren sallanma, yiyeceğin uzak olduğunu gösterir.", "dogru": 2 }
+        ],
+        "aciklama": "Ara başlıklar metnin haritası gibidir. Bir bilgiyi ararken önce hangi bölümde olabileceğini düşünmek, gözden geçirmeyi kolaylaştırır."
+      }
+    ]
+  },
+  "sinama": {
+    "sorular": [
+      {
+        "kimlik": "ts-s1",
+        "tip": "coktan-secmeli",
+        "katman": "bilgi",
+        "soru": "Tara adımında ne yaparız?",
+        "secenekler": [
+          "Başlığa, ara başlıklara ve görsellere göz atarız.",
+          "Metni baştan sona iki kez dikkatle okuruz.",
+          "Bilmediğimiz her kelimeyi sözlükte ararız.",
+          "Öğrendiklerimizi bir arkadaşımıza anlatırız."
+        ],
+        "dogru": 0,
+        "aciklama": "Taramak, metnin tamamını okumadan önce genel bir fikir edinmektir. Başlık, ara başlıklar ve görseller bunun için yeterlidir."
+      },
+      {
+        "kimlik": "ts-s2",
+        "tip": "coktan-secmeli",
+        "katman": "cikarim",
+        "soru": "“Kutup Ayıları” adlı bir metinde “Soğuğa karşı kalın kürk” diye bir ara başlık var. Sor adımında bu ara başlıktan hangi soruyu üretmek en uygundur?",
+        "secenekler": [
+          "Kutup ayıları hangi renktedir?",
+          "Kutup ayılarını nerede görebilirim?",
+          "Kalın kürk ayıyı soğuktan nasıl korur?",
+          "Kutup ayıları kaç yıl yaşar?"
+        ],
+        "dogru": 2,
+        "aciklama": "İyi bir soru, ara başlıktaki bilgiyi hedefler. “Kalın kürk” ve “soğuk” kelimeleri, bu bölümde kürkün ayıyı nasıl koruduğunun anlatılacağını gösterir."
+      },
+      {
+        "kimlik": "ts-s3",
+        "tip": "dogru-yanlis",
+        "katman": "yorum",
+        "soru": "Anlat adımında, okuduğumuz bölümü metne bakmadan kendi cümlelerimizle anlatırız.",
+        "dogru": true,
+        "aciklama": "Kendi cümlelerinle anlatmak, gerçekten anlayıp anlamadığını gösterir. Takıldığın yer, yeniden okuman gereken yerdir."
+      }
+    ]
+  },
+  "kapanis": "Fen bilimleri ya da sosyal bilgiler kitabından bir bölüm okurken bu beş adımı dene. Ara başlıkları soruya çevirmek tek başına bile çok işe yarar."
+}

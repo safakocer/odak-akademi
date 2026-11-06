@@ -1,0 +1,151 @@
+{
+  "surum": 1,
+  "tur": "strateji",
+  "ad": "tablo-grafik",
+  "baslik": "Tablo ve Grafik Okuma",
+  "kisaAciklama": "Başlık, birim ve karşılaştırmayla tablo ve grafiklerden bilgi çıkar, metinle ilişkilendir.",
+  "sureDk": "8-10",
+  "kazanim": "Tablo ve grafiklerde verilen bilgileri okumayı, değerleri karşılaştırmayı ve görseldeki bilgiyi metindeki bilgiyle ilişkilendirmeyi öğreneceksin.",
+  "anlat": {
+    "baslik": "Tablo ve grafik nasıl okunur?",
+    "paragraflar": [
+      "Tablolar ve grafikler, çok sayıda bilgiyi az yerde gösterir. Onları okumak da bir okuma becerisidir; fen bilimleri, sosyal bilgiler ve matematik derslerinde sık sık karşına çıkar.",
+      "Okumaya her zaman başlıktan başla: Bu tablo ya da grafik neyi gösteriyor? Sonra sütun ve satır adlarına ya da grafikteki etiketlere bak. Birimi bul: kişi mi, kitap mı, dakika mı?",
+      "Ardından karşılaştır: En büyük ve en küçük değer hangisi? Değerler artıyor mu, azalıyor mu? Son olarak sonuç çıkar. Ama dikkat: Grafik çoğu zaman bir şeyin “ne kadar” olduğunu gösterir, “neden” öyle olduğunu göstermez. Nedeni metinde ararız."
+    ],
+    "ornek": {
+      "baslik": "Okuma sırası",
+      "satirlar": [
+        "1. Başlığı oku.",
+        "2. Satır, sütun ya da etiketlere bak; birimi bul.",
+        "3. Değerleri karşılaştır: en çok, en az, artış, azalış.",
+        "4. Sonuç çıkar; nedenini metinde ara."
+      ]
+    }
+  },
+  "metin": {
+    "baslik": "Kütüphane Kulübünün Raporu",
+    "yonerge": "Metni, grafiği ve tabloyu oku. Önce başlıklara, sonra birimlere dikkat et.",
+    "bolumler": [
+      {
+        "paragraflar": [
+          "Okulumuzun kütüphane kulübü, eylülden ocağa kadar her ay öğrencilerin kaç kitap ödünç aldığını kaydetti. Kasım ayında “Okuma Ayı” etkinliği yapıldı; her sınıf, okuduğu kitapları panoya astı. Ocak ayında ise yarıyıl tatili nedeniyle kütüphane iki hafta kapalı kaldı.",
+          "Kulüp, kasım ayında ödünç alınan kitapları türlerine göre de ayırdı. Sonuçlar aşağıdaki grafikte ve tabloda yer alıyor."
+        ]
+      }
+    ],
+    "grafik": {
+      "baslik": "Aylara göre ödünç alınan kitap sayısı",
+      "birim": "kitap",
+      "veriler": [
+        { "etiket": "Eylül", "deger": 40 },
+        { "etiket": "Ekim", "deger": 65 },
+        { "etiket": "Kasım", "deger": 80 },
+        { "etiket": "Aralık", "deger": 55 },
+        { "etiket": "Ocak", "deger": 30 }
+      ]
+    },
+    "tablo": {
+      "baslik": "Kasım ayında ödünç alınan kitapların türleri",
+      "sutunlar": ["Tür", "Kitap sayısı"],
+      "satirlar": [
+        ["Macera", "28"],
+        ["Bilim", "20"],
+        ["Mizah", "20"],
+        ["Şiir", "12"]
+      ]
+    }
+  },
+  "gorev": {
+    "yonerge": "Grafikten ve tablodan bilgi bul, sonra her bilginin nereden geldiğini ayırt et. Metin, grafik ve tablo açık duruyor.",
+    "metinAcik": true,
+    "parcalar": [
+      {
+        "tur": "sorular",
+        "baslik": "Bilgiyi bul",
+        "sorular": [
+          {
+            "kimlik": "tg-g1",
+            "tip": "coktan-secmeli",
+            "katman": "bilgi",
+            "soru": "Grafiğe göre en çok kitap hangi ay ödünç alınmış?",
+            "secenekler": ["Eylül", "Ekim", "Kasım", "Aralık"],
+            "dogru": 2,
+            "aciklama": "Kasım’ın çubuğu en uzun: 80 kitap. Metinde o ay “Okuma Ayı” etkinliği yapıldığı yazıyor; bu, artışın bir nedeni olabilir."
+          },
+          {
+            "kimlik": "tg-g2",
+            "tip": "bosluk",
+            "katman": "bilgi",
+            "soru": "Kasım ayında ödünç alınan bilim kitabı sayısı ___.",
+            "cevaplar": ["20", "yirmi"],
+            "aciklama": "Tablonun “Bilim” satırı ile “Kitap sayısı” sütununun kesiştiği yerde 20 yazıyor."
+          },
+          {
+            "kimlik": "tg-g3",
+            "tip": "dogru-yanlis",
+            "katman": "cikarim",
+            "soru": "Ekim ayında, eylül ayından 25 kitap daha fazla ödünç alınmıştır.",
+            "dogru": true,
+            "aciklama": "Ekim’de 65, eylülde 40 kitap ödünç alınmış: 65 − 40 = 25. İki değeri karşılaştırmak için büyükten küçüğü çıkarırız."
+          }
+        ]
+      },
+      {
+        "tur": "eslestir",
+        "baslik": "Bilgi nereden geliyor?",
+        "yonerge": "Her bilgiyi nereden öğrendiğimizi seç.",
+        "kategoriler": ["Grafikten", "Tablodan", "Metinden"],
+        "ogeler": [
+          { "metin": "Aralıkta kaç kitap ödünç alındığı", "dogru": 0 },
+          { "metin": "Kasımda en çok hangi türün okunduğu", "dogru": 1 },
+          { "metin": "Ocakta sayının neden düştüğü", "dogru": 2 },
+          { "metin": "Kasımda kaç şiir kitabı alındığı", "dogru": 1 },
+          { "metin": "Ekimden kasıma sayının arttığı", "dogru": 0 }
+        ],
+        "aciklama": "Grafik ve tablo “ne kadar” sorusunu cevaplar. Ocaktaki düşüşün nedeni (yarıyıl tatili) ise yalnızca metinde yazıyor."
+      }
+    ]
+  },
+  "sinama": {
+    "sorular": [
+      {
+        "kimlik": "tg-s1",
+        "tip": "coktan-secmeli",
+        "katman": "bilgi",
+        "soru": "Bir tablo ya da grafiği okumaya nereden başlamalıyız?",
+        "secenekler": [
+          "En büyük sayısından",
+          "Son satırından",
+          "Renklerinden",
+          "Başlığından"
+        ],
+        "dogru": 3,
+        "aciklama": "Başlık, tablonun ya da grafiğin neyi gösterdiğini söyler. Başlığı okumadan sayıların ne anlama geldiğini bilemeyiz."
+      },
+      {
+        "kimlik": "tg-s2",
+        "tip": "coktan-secmeli",
+        "katman": "cikarim",
+        "soru": "Tablo: Bir haftada sınıfa gelen ziyaretçi sayısı. Pazartesi 3, salı 5, çarşamba 2, perşembe 6. Buna göre hangisi doğrudur?",
+        "secenekler": [
+          "Çarşamba günü hiç ziyaretçi gelmemiştir.",
+          "Perşembe, pazartesiden 3 ziyaretçi fazla gelmiştir.",
+          "En çok ziyaretçi salı günü gelmiştir.",
+          "Toplam ziyaretçi sayısı 14’tür."
+        ],
+        "dogru": 1,
+        "aciklama": "Perşembe 6, pazartesi 3: 6 − 3 = 3. Çarşamba 2 ziyaretçi gelmiş, en çok ziyaretçi perşembe gelmiş, toplam ise 3 + 5 + 2 + 6 = 16."
+      },
+      {
+        "kimlik": "tg-s3",
+        "tip": "dogru-yanlis",
+        "katman": "yorum",
+        "soru": "Bir grafik, sayıların neden değiştiğini her zaman kendisi açıklar.",
+        "dogru": false,
+        "aciklama": "Grafik değişimi gösterir ama nedenini çoğu zaman göstermez. Nedeni metinde ya da başka bir kaynakta ararız; yoksa yalnızca tahmin edebiliriz."
+      }
+    ]
+  },
+  "kapanis": "Ders kitaplarındaki tabloları ve grafikleri atlamadan oku: başlık, birim, karşılaştırma, sonuç."
+}

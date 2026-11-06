@@ -1,0 +1,136 @@
+{
+  "surum": 1,
+  "tur": "strateji",
+  "ad": "ana-fikir",
+  "baslik": "Ana Fikir ve Yardımcı Fikir",
+  "kisaAciklama": "Metnin konusunu, yazarın asıl söylemek istediğini ve onu destekleyen fikirleri bul.",
+  "sureDk": "8-10",
+  "kazanim": "Bir metnin konusunu ve ana fikrini belirlemeyi, ana fikri destekleyen yardımcı fikirleri ayırt etmeyi öğreneceksin.",
+  "anlat": {
+    "baslik": "Konu, ana fikir ve yardımcı fikir",
+    "paragraflar": [
+      "Bir metnin konusu, metnin neyden söz ettiğidir. Genellikle tek bir kelimeyle ya da kısa bir söz öbeğiyle söylenir: “su tasarrufu”, “kütüphaneler” gibi.",
+      "Ana fikir, yazarın okura vermek istediği temel düşüncedir ve bir cümleyle söylenir. Konu “su tasarrufu” ise ana fikir “Temiz su kaynakları sınırlı olduğu için suyu dikkatli kullanmalıyız.” olabilir.",
+      "Yardımcı fikirler ana fikri destekler: örnekler, açıklamalar, nedenler. Bir masa düşün: Ana fikir masanın tablası, yardımcı fikirler onu taşıyan ayaklardır.",
+      "Ana fikri bulmak için kendine sor: “Yazar bana bu metinle en çok ne söylemek istiyor?” Ana fikir bazen metnin başında ya da sonunda açıkça yazar, bazen de senin bulmanı bekler."
+    ],
+    "ornek": {
+      "baslik": "Kısa örnek",
+      "satirlar": [
+        "Paragraf: Bisiklet sürmek vücudumuzu hareket ettirir. Havayı kirletmez. Üstelik kısa yollarda zaman da kazandırır.",
+        "Konu: bisiklet sürmek",
+        "Ana fikir: Bisiklet hem sağlığımız hem de çevre için yararlı bir ulaşım aracıdır.",
+        "Yardımcı fikirler: Vücudu hareket ettirir, havayı kirletmez, zaman kazandırır."
+      ]
+    }
+  },
+  "metin": {
+    "baslik": "Mahalle Kütüphanesi",
+    "yonerge": "Metni dikkatle oku. Okurken “Yazar bana en çok ne söylemek istiyor?” diye düşün.",
+    "bolumler": [
+      {
+        "paragraflar": [
+          "Birçok kişi kütüphaneyi yalnızca sessizce kitap okunan bir yer sanır. Oysa mahalle kütüphaneleri, herkesin öğrenebileceği ve bir araya gelebileceği ortak alanlardır.",
+          "Kütüphanede her yaştan okur için binlerce kitap vardır ve bu kitapları ücretsiz ödünç alabilirsiniz. Evinde çalışacak sessiz bir köşesi olmayan öğrenciler, kütüphanenin çalışma masalarında ödevlerini rahatça yapabilir.",
+          "Pek çok kütüphane okuma kulüpleri, masal saatleri ve atölyeler de düzenler. Bu etkinliklerde aynı şeyleri merak eden insanlar tanışır. Bazı kütüphanelerde ise internete bağlanabileceğiniz bilgisayarlar bulunur.",
+          "Kısacası bir kütüphane, kitaptan çok daha fazlasını sunar. Mahallenizdeki kütüphanenin kapısından bir kez girin; orada sizi bekleyen fırsatlara şaşıracaksınız."
+        ]
+      }
+    ]
+  },
+  "gorev": {
+    "yonerge": "Metnin konusunu ve ana fikrini bul, sonra yardımcı fikirleri işaretle.",
+    "parcalar": [
+      {
+        "tur": "sorular",
+        "baslik": "Konu ve ana fikir",
+        "sorular": [
+          {
+            "kimlik": "af-g1",
+            "tip": "coktan-secmeli",
+            "katman": "bilgi",
+            "soru": "Bu metnin konusu nedir?",
+            "secenekler": [
+              "Bir yazarın kitap yazma süreci",
+              "Okullardaki sessiz çalışma kuralları",
+              "Mahalle kütüphanelerinin sundukları",
+              "Bilgisayar ve internetin tarihi"
+            ],
+            "dogru": 2,
+            "aciklama": "Metnin her paragrafı kütüphanelerin bize neler sunduğundan söz ediyor. Konu, metnin neyden bahsettiğidir."
+          },
+          {
+            "kimlik": "af-g2",
+            "tip": "coktan-secmeli",
+            "katman": "cikarim",
+            "soru": "Metnin ana fikri hangisidir?",
+            "secenekler": [
+              "Kütüphaneler herkesin öğrenip buluşabildiği yerlerdir.",
+              "Kütüphanede yalnızca sessizce kitap okunabilir.",
+              "Kütüphanelerin en önemli parçası bilgisayarlardır.",
+              "Okumak için kitapları satın almak daha iyidir."
+            ],
+            "dogru": 0,
+            "aciklama": "Yazar bu düşünceyi ilk paragrafta açıkça söylüyor; diğer paragraflar onu örneklerle destekliyor, son paragraf da yeniden hatırlatıyor."
+          }
+        ]
+      },
+      {
+        "tur": "isaretle",
+        "baslik": "Yardımcı fikirleri bul",
+        "yonerge": "Aşağıdakilerden hangileri ana fikri destekleyen yardımcı fikirlerdir? Hepsini işaretle.",
+        "secenekler": [
+          "Kitaplar ücretsiz ödünç alınabilir.",
+          "Kütüphanede kitap okurken yemek yenebilir.",
+          "Öğrenciler çalışma masalarında ödev yapabilir.",
+          "Okuma kulüpleri ve atölyeler insanları buluşturur.",
+          "Kütüphaneler yalnızca yetişkinler içindir.",
+          "Bazı kütüphanelerde internete bağlı bilgisayarlar vardır."
+        ],
+        "dogru": [0, 2, 3, 5],
+        "aciklama": "Yardımcı fikirler, kütüphanenin neden herkes için bir “ortak alan” olduğunu örneklerle gösterir. Metinde hiç geçmeyen ya da metinle çelişen cümleler (yemek yemek, yalnızca yetişkinler) yardımcı fikir olamaz."
+      }
+    ]
+  },
+  "sinama": {
+    "sorular": [
+      {
+        "kimlik": "af-s1",
+        "tip": "coktan-secmeli",
+        "katman": "bilgi",
+        "soru": "Konu ile ana fikir arasındaki fark hangisinde doğru verilmiştir?",
+        "secenekler": [
+          "Konu bir cümledir, ana fikir ise tek bir kelimedir.",
+          "Konu metnin neyden söz ettiği, ana fikir asıl düşüncesidir.",
+          "Konu son cümlede, ana fikir her zaman ilk cümlededir.",
+          "Konu ile ana fikir her metinde tamamen aynı şeydir."
+        ],
+        "dogru": 1,
+        "aciklama": "Konu “neyden söz ediliyor?” sorusunun, ana fikir “yazar bize ne söylemek istiyor?” sorusunun cevabıdır. Ana fikir metnin herhangi bir yerinde olabilir ya da hiç açıkça yazmayabilir."
+      },
+      {
+        "kimlik": "af-s2",
+        "tip": "coktan-secmeli",
+        "katman": "cikarim",
+        "soru": "Paragraf: “Düzenli uyumak, gün içinde dikkatimizi toplamamıza yardım eder. İyi uyuyan öğrenciler derste daha kolay odaklanır. Uyku, öğrendiklerimizin hafızaya yerleşmesine de katkı sağlar.” Bu paragrafın ana fikri hangisidir?",
+        "secenekler": [
+          "Öğrenciler her gece aynı saatte yatmalıdır.",
+          "Ders çalışmak için en iyi zaman gece geç saatlerdir.",
+          "Hafızamız yalnızca biz uyurken çalışır.",
+          "Uyku, dikkate ve öğrenmeye destek olur."
+        ],
+        "dogru": 3,
+        "aciklama": "Üç cümle de uykunun dikkate ve öğrenmeye nasıl yardım ettiğini anlatıyor. Diğer seçenekler ya paragrafta yok ya da paragrafla çelişiyor."
+      },
+      {
+        "kimlik": "af-s3",
+        "tip": "dogru-yanlis",
+        "katman": "bilgi",
+        "soru": "Bir metindeki örnekler ve açıklamalar genellikle yardımcı fikirleri oluşturur.",
+        "dogru": true,
+        "aciklama": "Örnekler, nedenler ve açıklamalar ana fikri destekler; bu yüzden çoğunlukla yardımcı fikirlerdir."
+      }
+    ]
+  },
+  "kapanis": "Bir sonraki metninde okumayı bitirince ana fikri tek bir cümleyle söylemeyi dene: “Yazar bana … demek istiyor.”"
+}

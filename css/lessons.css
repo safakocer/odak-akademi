@@ -1,4 +1,4 @@
-/* Hafıza Teknikleri Akademisi (S15): ders listesi, adım göstergesi, çalışma/ara/hatırlama ekranları ve öncesi-sonrası karşılaştırma; renkler tokens.css'ten */
+/* Ders sayfaları: Hafıza Teknikleri (S15: liste, adım göstergesi, çalışma/ara/hatırlama, öncesi-sonrası) ve Okuma Stratejileri (S21: metin, görev parçaları, tablo, grafik); renkler tokens.css'ten */
 
 /* ---------- Ders listesi ---------- */
 .ders-listesi { list-style: none; padding: 0; margin: 0; }
@@ -51,6 +51,7 @@
 }
 
 .ders-govde { --m-zemin: var(--modul-hafiza); display: grid; gap: var(--b-4); min-width: 0; }
+.ders-govde--oku { --m-zemin: var(--modul-oku, var(--renk-yuzey-2)); } /* S21: strateji dersleri Okuma renginde */
 .ders-govde > * { margin: 0; }
 .ders-govde h2 { font-size: var(--fs-xl); }
 .ders-govde h3 { font-size: var(--fs-l); }
@@ -186,3 +187,117 @@
 }
 .ders-inceleme li[data-durum="evet"] .ders-inceleme__isaret { background: var(--renk-basari-zemin); color: var(--renk-basari); }
 .ders-inceleme li[data-durum="hayir"] { color: var(--renk-metin-soluk); }
+
+/* ---------- S21: Okuma stratejisi dersleri ---------- */
+.strateji-kazanim {
+  padding: var(--b-3) var(--b-4);
+  border-radius: var(--kose-m);
+  background: var(--renk-birincil-zemin);
+  border-inline-start: 4px solid var(--renk-birincil);
+}
+.strateji-kazanim p { margin: 0; }
+.strateji-kazanim__baslik { font-weight: 800; }
+
+/* Örnek metin: okunabilir satır uzunluğu, sakin zemin */
+.strateji-metin {
+  display: grid;
+  gap: var(--b-3);
+  max-width: 68ch;
+  padding: var(--b-4);
+  border-radius: var(--kose-m);
+  border: 1px solid var(--renk-kenar, var(--renk-kenar-guclu));
+  background: var(--renk-yuzey);
+  line-height: 1.65;
+  min-width: 0;
+}
+.strateji-metin > * { margin: 0; }
+.strateji-metin__baslik { font-size: var(--fs-l); }
+.strateji-metin h4 { font-size: var(--fs-m, var(--fs-l)); margin-top: var(--b-2); }
+.strateji-onizleme__liste { margin: 0; padding-inline-start: 1.25rem; font-weight: 700; }
+
+.strateji-gorsel { display: grid; justify-items: center; gap: var(--b-1); margin: 0; text-align: center; }
+.strateji-gorsel__simgeler { margin: 0; font-size: var(--fs-3xl); line-height: 1.2; letter-spacing: 0.15em; }
+.strateji-gorsel figcaption { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+
+/* Görevde metne yeniden bakma */
+.strateji-metin-detay summary {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--dokunma-min);
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--renk-birincil);
+}
+.strateji-metin-detay[open] summary { margin-bottom: var(--b-2); }
+
+/* Görev parçaları: her biri ince bir çizgiyle ayrılır */
+.strateji-parcalar { display: grid; gap: var(--b-5, var(--b-4)); min-width: 0; }
+.strateji-parca { --yigin-bosluk: var(--b-3); padding-top: var(--b-4); border-top: 1px solid var(--renk-kenar, var(--renk-kenar-guclu)); min-width: 0; }
+.strateji-parca:first-child { padding-top: 0; border-top: 0; }
+.strateji-parca__baslik { margin: 0; font-size: var(--fs-l); }
+.strateji-parca .soru-oturum { margin: 0; }
+
+/* İşaretleme: işaretten sonra sonuç (doğru yeşil, kaçan sarı kesik, fazla mercan kesik) */
+.strateji-isaretle { display: grid; gap: var(--b-2); min-inline-size: 0; }
+.strateji-secenek {
+  display: flex;
+  align-items: center;
+  gap: var(--b-2);
+  min-height: var(--dokunma-min);
+  padding: var(--b-2) var(--b-3);
+  border-radius: var(--kose-m);
+  border: 2px solid transparent;
+  overflow-wrap: anywhere;
+}
+.strateji-secenek > span:nth-child(2) { flex: 1; }
+.strateji-secenek__isaret { flex: none; font-weight: 800; }
+.strateji-secenek[data-sonuc="dogru"] { background: var(--renk-basari-zemin); border-color: var(--renk-basari); }
+.strateji-secenek[data-sonuc="dogru"] .strateji-secenek__isaret { color: var(--renk-basari); }
+.strateji-secenek[data-sonuc="kacan"] { border-style: dashed; border-color: var(--renk-uyari); background: var(--renk-gunes-zemin); }
+.strateji-secenek[data-sonuc="fazla"] { border-style: dashed; border-color: var(--renk-vurgu-metin, var(--renk-metin)); }
+
+/* Eşleştirme: dar ekranda etiket üstte, seçim altta */
+.strateji-eslestir { --yigin-bosluk: var(--b-3); }
+.strateji-eslestir > p { margin: 0; }
+.strateji-eslestir__satir {
+  padding: var(--b-2) var(--b-3);
+  border-radius: var(--kose-m);
+  border: 2px solid transparent;
+  background: var(--renk-yuzey-2);
+}
+.strateji-eslestir__satir select { min-height: var(--dokunma-min); width: 100%; max-width: 20rem; }
+.strateji-eslestir__satir[data-sonuc="dogru"] { border-color: var(--renk-basari); background: var(--renk-basari-zemin); }
+.strateji-eslestir__satir[data-sonuc="yanlis"] { border-style: dashed; border-color: var(--renk-vurgu-metin, var(--renk-metin)); }
+.strateji-eslestir__not { margin: var(--b-1) 0 0; font-size: var(--fs-s); font-weight: 700; }
+
+/* Tablo: kendi kutusunda yatay kayar, sayfa taşmaz */
+.strateji-tablo-kap { overflow-x: auto; max-width: 100%; border-radius: var(--kose-m); }
+.strateji-tablo-kap:focus-visible { outline: 3px solid var(--renk-birincil); outline-offset: 2px; }
+.strateji-tablo { border-collapse: collapse; min-width: 16rem; width: 100%; font-variant-numeric: tabular-nums; }
+.strateji-tablo caption { text-align: start; font-weight: 800; padding-bottom: var(--b-2); }
+.strateji-tablo th, .strateji-tablo td { padding: var(--b-2) var(--b-3); border-bottom: 1px solid var(--renk-kenar, var(--renk-kenar-guclu)); text-align: start; }
+.strateji-tablo thead th { border-bottom: 2px solid var(--renk-kenar-guclu); }
+.strateji-tablo td { text-align: end; }
+
+/* Yatay çubuk grafik: etiket | çubuk | değer */
+.strateji-grafik { margin: 0; display: grid; gap: var(--b-2); }
+.strateji-grafik__baslik { font-weight: 800; }
+.strateji-grafik__liste { display: grid; gap: var(--b-2); margin: 0; padding: 0; list-style: none; }
+.strateji-grafik__liste li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--b-2);
+  font-variant-numeric: tabular-nums;
+}
+.strateji-grafik__etiket { overflow-wrap: anywhere; }
+.strateji-grafik__cubuk { display: block; height: 1.25rem; border-radius: var(--kose-tam); background: var(--renk-yuzey-2); overflow: hidden; }
+.strateji-grafik__dolgu { display: block; height: 100%; width: var(--deger, 0%); border-radius: inherit; background: var(--renk-birincil); }
+.strateji-grafik__deger { font-weight: 700; white-space: nowrap; }
+
+.strateji-gorev-sonu { --yigin-bosluk: var(--b-3); padding-top: var(--b-4); border-top: 1px solid var(--renk-kenar, var(--renk-kenar-guclu)); }
+.strateji-gorev-sonu p { margin: 0; }
+
+@media print {
+  .strateji-grafik__dolgu { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

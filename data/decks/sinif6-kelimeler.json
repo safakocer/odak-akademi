@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "sinif6-kelimeler",
+  "baslik": "6. sınıf kelimeleri",
+  "aciklama": "6. sınıf Türkçe kavramları ve kütüphanedeki 6. sınıf metinlerinden kelimeler.",
+  "sinif": "6",
+  "kartlar": [
+    {
+      "on": "Kök",
+      "arka": "Kelimenin anlamlı, eklerine ayrılamayan en küçük parçası.\nÖrnek: gözlük → göz."
+    },
+    {
+      "on": "Yapım eki",
+      "arka": "Kelimeden yeni anlamda bir kelime türeten ek.\nÖrnek: göz → gözlük."
+    },
+    {
+      "on": "Çekim eki",
+      "arka": "Kelimenin anlamını değiştirmeden ona cümlede görev kazandıran ek.\nÖrnek: göz → gözler, gözü."
+    },
+    {
+      "on": "Sıfat",
+      "arka": "İsimlerden önce gelerek onları niteleyen ya da belirten kelime.\nÖrnek: kırmızı elma, üç kitap."
+    },
+    {
+      "on": "Zamir",
+      "arka": "İsimlerin yerini tutan kelime.\nÖrnek: ben, sen, o, bu, şunlar."
+    },
+    {
+      "on": "Edat",
+      "arka": "Tek başına anlamı olmayan, cümlede başka kelimelerle anlam kazanan kelime.\nÖrnek: gibi, için, kadar."
+    },
+    {
+      "on": "Bağlaç",
+      "arka": "Kelimeleri ya da cümleleri birbirine bağlayan kelime.\nÖrnek: ve, ama, çünkü."
+    },
+    {
+      "on": "Nesnel yargı",
+      "arka": "Doğruluğu kanıtlanabilen, kişiden kişiye değişmeyen yargı.\nÖrnek: “Piri Reis haritasını 1513’te çizdi.”"
+    },
+    {
+      "on": "Öznel yargı",
+      "arka": "Kişisel görüş ya da duygu bildiren, kanıtlanamayan yargı.\nÖrnek: “Ebru en güzel sanattır.”"
+    },
+    {
+      "on": "Benzetme",
+      "arka": "Bir varlığı, ortak bir yönü olan başka bir varlığa benzeterek anlatma.\nÖrnek: “Toprak katmanları kitap sayfaları gibidir.”"
+    },
+    {
+      "on": "Titreşim",
+      "arka": "Bir cismin hızla ileri geri hareket etmesi; sesin kaynağıdır."
+    },
+    {
+      "on": "Yankı",
+      "arka": "Sesin bir engele çarpıp geri dönmesiyle yeniden duyulması."
+    },
+    {
+      "on": "Atardamar",
+      "arka": "Kalpten çıkan kanı organlara taşıyan damar."
+    },
+    {
+      "on": "Toplardamar",
+      "arka": "Organlardan gelen kanı kalbe geri getiren damar."
+    },
+    {
+      "on": "Kılcal damar",
+      "arka": "Atardamar ile toplardamar arasında bulunan, madde alışverişinin yapıldığı çok ince damar."
+    },
+    {
+      "on": "Ebru",
+      "arka": "Koyulaştırılmış suyun üzerine serpilen boyalarla yapılan desenin kâğıda aktarıldığı geleneksel sanat."
+    },
+    {
+      "on": "Arkeoloji",
+      "arka": "Geçmişte yaşamış insanların bıraktığı izleri inceleyerek onların yaşamını araştıran bilim."
+    },
+    {
+      "on": "Doğrulama",
+      "arka": "Bir bilginin doğru olup olmadığını güvenilir kaynaklardan kontrol etme."
+    },
+    {
+      "on": "Uzlaşma",
+      "arka": "Anlaşmazlık yaşayan tarafların konuşarak ortak bir çözümde buluşması."
+    },
+    {
+      "on": "Anket",
+      "arka": "Bir konuda pek çok kişinin görüşünü öğrenmek için aynı soruların sorulduğu araştırma."
+    }
+  ]
+}

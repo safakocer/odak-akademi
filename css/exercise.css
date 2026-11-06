@@ -1,4 +1,4 @@
-/* Egzersiz çerçevesi: tam ekran katman, üst çubuk, açıklama / geri sayım / alan / sonuç / mola ekranları, duraklatma paneli, kutlama, okuma ve soru ekranları */
+/* Egzersiz çerçevesi: tam ekran katman, üst çubuk, açıklama / geri sayım / alan / sonuç / mola ekranları, duraklatma paneli, kutlama, okuma ve soru ekranları (S25: yanlış işaretinde ✗ ve kesik çizgi) */
 /* D04: durum renkleri tema belirteçlerine bağlandı (koyu temada da AA); color-mix olan yerlerde eski tarayıcılar için düz renk yedeği var */
 
 html.egz-acik { overflow: hidden; }
@@ -551,6 +551,12 @@ html.egz-acik { overflow: hidden; }
   content: "✓" / "";
   margin-inline-start: auto; font-weight: 800; color: var(--renk-basari);
 }
+/* S25: yanlış seçimde de şekil işareti (renk körlüğü); ekran okuyucu notu quiz-engine.js'te */
+.soru__secenek--yanlis::after {
+  content: "✗";
+  content: "✗" / "";
+  margin-inline-start: auto; font-weight: 800; color: var(--renk-vurgu-metin);
+}
 
 .soru__cumle { font-size: var(--fs-m); line-height: 2.2; }
 .soru__bosluk {
@@ -561,7 +567,7 @@ html.egz-acik { overflow: hidden; }
 }
 .soru__bosluk:focus-visible { outline: 3px solid var(--renk-odak); outline-offset: 2px; }
 .soru__bosluk--dogru { border-block-end-color: var(--renk-basari); }
-.soru__bosluk--yanlis { border-block-end-color: var(--renk-vurgu-metin); }
+.soru__bosluk--yanlis { border-block-end-color: var(--renk-vurgu-metin); border-block-end-style: dashed; }
 
 .siralama { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
 .siralama__oge {

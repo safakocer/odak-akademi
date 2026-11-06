@@ -6,6 +6,13 @@
       "ad": "Bahçe Nöbeti",
       "sinif": 5,
       "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "sorumluluk",
+        "iş birliği",
+        "okul bahçesi",
+        "bitkiler"
+      ],
       "metin": "Ekim ayının ilk haftasında Defne’nin sınıfı, okulun arka bahçesindeki küçük toprak parçasını temizledi. Öğretmenleri Kerem Bey, her öğrenciye bir görev verdi: Kimi taşları ayıkladı, kimi toprağı çapaladı, kimi de marul ve ıspanak tohumlarını sıra sıra ekti.\n\nİlk günlerde herkes teneffüste bahçeye koşuyordu. Ancak ikinci haftada heyecan azaldı. Yağmur da yağmayınca toprak kurudu, filizlerin uçları sarardı. Defne bir sabah bahçeye uğradığında çok üzüldü; çünkü en çok emek verdikleri sıra solmak üzereydi.\n\nO gün teneffüste arkadaşlarıyla konuştu. “Herkes ‘Nasılsa biri sular.’ diye düşündü,” dedi Arda. Defne çantasından bir kâğıt çıkardı ve bir nöbet çizelgesi hazırladı. Her gün iki öğrenci bahçeyi sulayacak, toprağın nemini parmağıyla yoklayacak ve gördüklerini sınıf defterine yazacaktı.\n\nÇizelge sınıf panosuna asıldı. Bir hafta içinde filizler yeniden dikleşti, yapraklar parlak bir yeşile döndü. Kasım sonunda ilk marulları topladıklarında Kerem Bey, öğrencilere bahçenin onlara ne öğrettiğini sordu. Defne biraz düşündükten sonra gülümsedi: “Bir işi herkes başkası yapar sanınca, kimse yapmıyor. Görevler paylaşılınca iş hem kolaylaşıyor hem de herkes sorumluluk alıyor.”",
       "sorular": [
         {
@@ -74,6 +81,13 @@
       "ad": "Sabırsız Sincap",
       "sinif": 5,
       "tur": "masal",
+      "zorluk": 1,
+      "etiketler": [
+        "sabır",
+        "dikkat",
+        "paylaşma",
+        "fabl"
+      ],
       "metin": "Ormanın kenarındaki yaşlı bir meşe ağacında Fındık adında genç bir sincap yaşarmış. Fındık çok çalışkanmış ama bir o kadar da sabırsızmış. Sonbahar gelince kış için yiyecek toplamaya başlamış.\n\nKomşusu Ceviz Nine, ağacın dibinde ağır ağır palamut topluyor, her birini evirip çevirip inceliyormuş. Fındık dalların arasından seslenmiş: “Ceviz Nine, böyle yavaş giderseniz kış gelir, siz hâlâ toplarsınız!” Ceviz Nine gülümsemiş: “Acele eden, çürük palamutu da sağlam sanır yavrum.”\n\nFındık bu sözü pek umursamamış. Gördüğü her palamutu kapmış, hiç bakmadan yuvasına doldurmuş. Birkaç gün içinde yuvası ağzına kadar dolmuş. Ceviz Nine’nin sepeti ise ancak yarıya gelmiş.\n\nKış bastırınca Fındık yuvasını açmış ve şaşırıp kalmış. Palamutların çoğu kurtlanmış, bir kısmı da küflenmiş. Yiyebileceği palamutlar bir avucu ancak geçiyormuş. Üzgün üzgün Ceviz Nine’nin kapısını çalmış.\n\nCeviz Nine onu içeri almış, sağlam palamutlarından bir kısmını onunla paylaşmış. Fındık utanarak “Haklıymışsınız,” demiş. “Çok toplamak yetmiyor; doğru toplamak gerekiyor.” O günden sonra Fındık hızlı olmayı değil, dikkatli olmayı öğrenmiş.",
       "sorular": [
         {
@@ -148,6 +162,955 @@
             "Kendi hayatımdan bir örnek verdim."
           ],
           "aciklama": "Masalın dersi “Çok toplamak yetmiyor; doğru toplamak gerekiyor.” sözünde saklı. İyi bir cevap bu fikri kendi deneyimine bağlar."
+        }
+      ]
+    },
+    {
+      "kimlik": "kayip-kitap",
+      "ad": "Kayıp Kitap",
+      "sinif": 5,
+      "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "dürüstlük",
+        "sorumluluk",
+        "kütüphane",
+        "okul"
+      ],
+      "metin": "Mert, okul kütüphanesinden aldığı kuşlarla ilgili kitabı iki haftadır okuyordu. Teslim gününden bir gün önce çantasını açtı ama kitap yerinde yoktu. Odasını, dolabını, hatta yatağının altını aradı; kitap hiçbir yerde görünmüyordu.\n\nO gece uykusu kaçtı. Aklına önce kolay bir yol geldi: Kütüphaneci Nalan Hanım’a hiçbir şey söylemeyecek, kitabın unutulmasını bekleyecekti. Ama kütüphanenin defterinde kitabın kendi adına yazılı olduğunu biliyordu. Üstelik başka bir öğrenci de o kitabı okumak için sıra bekliyordu.\n\nSabah ilk dersten önce kütüphaneye gitti. Sesi titreyerek “Kitabı kaybettim, çok üzgünüm,” dedi. Nalan Hanım kızmadı. “Doğruyu söylediğin için teşekkür ederim,” dedi. “Gel, birlikte düşünelim. Kitabı en son nerede açtın?”\n\nMert biraz düşündü. Kitabı en son, servisi beklerken bahçedeki bankta okumuştu. Birlikte okulun kayıp eşya dolabına baktılar. Kitap, mavi bir atkının altında duruyordu! Biri onu bankta bulup dolaba bırakmıştı.\n\nMert kitabı teslim ederken çok rahatlamıştı. Kitaplara ne kadar meraklı olduğunu gören Nalan Hanım, ona bir hafta boyunca teneffüslerde rafları düzenlemeye yardım etmeyi önerdi. Mert bu öneriyi sevinerek kabul etti. Raflar arasında dolaşırken düşündü: Kaybı saklasaydı hem kitap bulunmayacak hem de içi rahat etmeyecekti. Doğruyu söylemek ilk anda zordu ama sorunu çözmenin en kısa yoluydu.",
+      "sorular": [
+        {
+          "kimlik": "kitap-konusu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Mert’in kütüphaneden aldığı kitap hangi konudaydı?",
+          "secenekler": [
+            "Kuşlar",
+            "Gezegenler",
+            "Dinozorlar",
+            "Balıklar"
+          ],
+          "dogru": 0,
+          "aciklama": "Metnin ilk cümlesinde Mert’in kuşlarla ilgili bir kitap okuduğu yazıyor."
+        },
+        {
+          "kimlik": "kitabin-yeri",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kitap sonunda nerede bulundu?",
+          "secenekler": [
+            "Mert’in yatağının altında",
+            "Okulun kayıp eşya dolabında",
+            "Okul servisinin koltuğunda",
+            "Sınıftaki kitaplığın rafında"
+          ],
+          "dogru": 1,
+          "aciklama": "Mert ile Nalan Hanım kayıp eşya dolabına baktı; kitap orada, mavi bir atkının altındaydı."
+        },
+        {
+          "kimlik": "uykusuz-gece",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Mert o gece neden uyuyamadı?",
+          "secenekler": [
+            "Ertesi gün yapılacak sınava geç saate kadar çalışıyordu.",
+            "Kitabı çok sevdiği için bitirmek üzere okumayı sürdürdü.",
+            "Kitabı kaybettiği için endişelenip ne yapacağını düşünüyordu.",
+            "Kütüphaneci Nalan Hanım’ın ona çok kızdığını öğrenmişti."
+          ],
+          "dogru": 2,
+          "aciklama": "Metinde uykusunun kaçtığı ve aklına kaybı saklama fikrinin geldiği yazıyor. Bu, onun endişelendiğini ve ne yapacağını düşündüğünü gösterir."
+        },
+        {
+          "kimlik": "nalan-hanim",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Nalan Hanım’ın “Kitabı en son nerede açtın?” diye sorması neyi gösterir?",
+          "secenekler": [
+            "Mert’in yalan söylediğinden şüphelendiğini",
+            "Kitabın kaybolmasını hiç önemsemediğini",
+            "Mert’i başka bir öğrenciyle kıyasladığını",
+            "Mert’in sorunu çözmesine yardım etmek istediğini"
+          ],
+          "dogru": 3,
+          "aciklama": "Nalan Hanım kızmak yerine “Birlikte düşünelim.” diyor ve kitabı bulmak için ipucu arıyor. Amacı, sorunu birlikte çözmektir."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu hikâyenin ana fikri hangisidir?",
+          "secenekler": [
+            "Doğruyu söylemek zor olsa da sorunu çözmenin en iyi yoludur.",
+            "Kütüphaneden alınan kitaplar evden hiç çıkarılmamalıdır.",
+            "Kaybolan eşyalar her zaman kısa sürede kendiliğinden bulunur.",
+            "Okulda herkes kendi eşyasını kendisi korumayı öğrenmelidir."
+          ],
+          "dogru": 0,
+          "aciklama": "Hikâyenin sonunda Mert, doğruyu söylemenin ilk anda zor ama sorunu çözmenin en kısa yolu olduğunu düşünüyor. Ana fikir budur."
+        },
+        {
+          "kimlik": "atki",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Kitap, kayıp eşya dolabında mavi bir ___ altında duruyordu.",
+          "cevaplar": [
+            "atkının",
+            "atkı"
+          ],
+          "aciklama": "Dördüncü paragrafta kitabın mavi bir atkının altında durduğu yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "yeni-sira-arkadasi",
+      "ad": "Yeni Sıra Arkadaşı",
+      "sinif": 5,
+      "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "arkadaşlık",
+        "empati",
+        "okul",
+        "resim"
+      ],
+      "metin": "Mart ayında Zeynep’in sınıfına Elif adında yeni bir öğrenci geldi. Ailesi Trabzon’dan taşınmıştı. Öğretmen onu Zeynep’in yanına oturttu. Elif ilk günlerde neredeyse hiç konuşmadı. Teneffüslerde sınıfta kalıyor, defterinin arka sayfalarına bir şeyler çiziyordu.\n\nZeynep’in arkadaşları “Elif bizimle oynamak istemiyor herhalde,” dedi. Zeynep bundan emin değildi. Kendisi de iki yıl önce bu okula ilk geldiğinde kimseyi tanımadığı için çok çekingen davranmıştı. O günlerde birinin yanına gelip konuşmasını ne kadar istediğini hatırladı.\n\nBir gün Elif’in defterindeki çizime göz ucuyla baktı. Kâğıtta yeşil tepelerin arasına kurulmuş ahşap bir ev vardı. “Bu çok güzel,” dedi. “Burası neresi?” Elif’in yüzü aydınlandı. “Dedemin yayla evi. Yazın oraya giderdik,” diye cevap verdi. Sonra yaylada sisin nasıl bir anda bastırdığını, sabahları çan seslerinin vadide nasıl yankılandığını anlattı.\n\nErtesi gün Zeynep evden renkli kalemlerini getirdi. Teneffüste birlikte resim yaptılar. Az sonra diğer arkadaşları da merakla yanlarına geldi. Elif onlara gölgeli çizimin nasıl yapıldığını gösterdi.\n\nAy sonunda sınıf panosu için bir resim sergisi hazırlandı. Sergideki en büyük resmi Elif ile Zeynep birlikte çizmişti: yarısı Karadeniz yaylası, yarısı okul bahçesi olan bir manzara. Zeynep artık şunu daha iyi biliyordu: Birinin sessiz olması, onun arkadaşlık istemediği anlamına gelmez.",
+      "sorular": [
+        {
+          "kimlik": "sehir",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Elif’in ailesi hangi şehirden taşınmıştı?",
+          "secenekler": [
+            "Samsun",
+            "Trabzon",
+            "Erzurum",
+            "Sinop"
+          ],
+          "dogru": 1,
+          "aciklama": "Metnin başında Elif’in ailesinin Trabzon’dan taşındığı yazıyor."
+        },
+        {
+          "kimlik": "cizim",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Elif’in defterindeki çizimde ne vardı?",
+          "secenekler": [
+            "Deniz kıyısında küçük bir balıkçı teknesi",
+            "Kalabalık bir şehirde yüksek binalar",
+            "Yeşil tepeler arasında ahşap bir ev",
+            "Karla kaplı bir dağın tepesinde kulübe"
+          ],
+          "dogru": 2,
+          "aciklama": "Üçüncü paragrafta çizimde yeşil tepelerin arasına kurulmuş ahşap bir ev olduğu anlatılıyor; bu, dedesinin yayla evidir."
+        },
+        {
+          "kimlik": "zeynep-neden",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Zeynep’in, arkadaşlarının söylediğine hemen inanmamasının nedeni nedir?",
+          "secenekler": [
+            "Öğretmeni ona Elif’le ilgilenmesini özellikle tembih etmişti.",
+            "Elif’i daha önce Trabzon’daki bir yaz tatilinden tanıyordu.",
+            "Arkadaşlarının Elif’le hiç konuşmadığını kendi gözüyle görmüştü.",
+            "Kendisi de yeniyken çekingen davrandığı için Elif’i anlayabiliyordu."
+          ],
+          "dogru": 3,
+          "aciklama": "Zeynep, okula ilk geldiğinde kimseyi tanımadığı için çekingen davrandığını hatırlıyor. Bu yüzden Elif’in sessizliğinin başka bir nedeni olabileceğini düşünüyor."
+        },
+        {
+          "kimlik": "yuz-aydinlandi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Zeynep çizimi sorunca Elif’in yüzünün aydınlanması neyi gösterir?",
+          "secenekler": [
+            "Biriyle konuşmayı ve ilgi görmeyi aslında istediğini",
+            "Resim yapmayı bırakıp oyun oynamak istediğini",
+            "Zeynep’in sorusunu anlamadığı için şaşırdığını",
+            "Trabzon’a hemen geri dönmek istediğini"
+          ],
+          "dogru": 0,
+          "aciklama": "Elif soruyu duyunca sevinip yaylayı uzun uzun anlatıyor. Bu, konuşmak ve arkadaşlık kurmak istediğini, yalnızca ilk adımı atamadığını gösterir."
+        },
+        {
+          "kimlik": "ders",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu hikâyeden çıkarılabilecek en uygun ders hangisidir?",
+          "secenekler": [
+            "Yeni bir okula giden herkes ilk gün çok konuşmalıdır.",
+            "Sessiz birini yargılamadan önce onu tanımaya çalışmalıyız.",
+            "Resim yapmak, teneffüste yapılabilecek en iyi etkinliktir.",
+            "Sınıfta herkes kendi sırasında tek başına çalışmalıdır."
+          ],
+          "dogru": 1,
+          "aciklama": "Hikâyenin son cümlesi, sessizliğin arkadaşlık istememek anlamına gelmediğini söylüyor. Zeynep, Elif’i tanımaya çalışınca bir arkadaşlık başladı."
+        },
+        {
+          "kimlik": "sergi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Sergideki en büyük resmi Elif tek başına çizmişti.",
+          "dogru": false,
+          "aciklama": "Son paragrafa göre en büyük resmi Elif ile Zeynep birlikte çizmişti."
+        }
+      ]
+    },
+    {
+      "kimlik": "bulutlar-nasil-olusur",
+      "ad": "Bulutlar Nasıl Oluşur?",
+      "sinif": 5,
+      "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "su döngüsü",
+        "hava olayları",
+        "maddenin hâlleri"
+      ],
+      "metin": "Gökyüzüne baktığımızda pamuk yığınlarına benzeyen bulutlar görürüz. Bulutlar uzaktan yumuşak ve hafif görünür ama aslında çok küçük su damlacıklarından ya da buz kristallerinden oluşur. Peki bu su gökyüzüne nasıl çıkar?\n\nGüneş; denizleri, gölleri, akarsuları ve nemli toprağı ısıtır. Isınan suyun bir kısmı buharlaşarak gözle göremediğimiz su buharına dönüşür. Bitkilerin yapraklarından da havaya su buharı geçer. Isınan hava yükselir ve su buharını da beraberinde taşır.\n\nYükseklere çıktıkça hava soğur. Soğuyan su buharı; havada asılı duran toz, polen ve tuz gibi çok küçük parçacıkların çevresinde toplanarak minik su damlacıklarına dönüşür. Gazın sıvıya dönüşmesine yoğuşma denir. Milyarlarca damlacık bir araya gelince bulutu görebiliriz. Çok soğuk yüksekliklerde damlacıklar yerine buz kristalleri oluşur.\n\nBuluttaki damlacıklar birbirine çarptıkça birleşir ve büyür. Damlalar havada kalamayacak kadar ağırlaşınca yağmur olarak yere düşer. Hava soğuksa yağış kar olarak gelebilir. Yere düşen su yeniden denizlere, göllere ve toprağa karışır.\n\nBöylece su; buharlaşma, yoğuşma ve yağış yoluyla sürekli dolaşır. Bu döngüye su döngüsü denir. Bir dahaki sefere yağmur yağdığında, damlaların belki de günler önce uzak bir denizden yola çıktığını düşünebilirsin.",
+      "sorular": [
+        {
+          "kimlik": "bulut-yapisi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre bulutlar neyden oluşur?",
+          "secenekler": [
+            "Rüzgârın havaya kaldırdığı toz ve kum tanelerinden",
+            "Bitkilerin yapraklarından çıkan polen yığınlarından",
+            "Çok küçük su damlacıkları ya da buz kristallerinden",
+            "Güneş ışığının ısıttığı sıcak hava katmanlarından"
+          ],
+          "dogru": 2,
+          "aciklama": "İlk paragrafta bulutların çok küçük su damlacıklarından ya da buz kristallerinden oluştuğu yazıyor."
+        },
+        {
+          "kimlik": "dongu-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Yağmurun oluşma aşamalarını metindeki sıraya göre diz.",
+          "ogeler": [
+            "Güneş suyu ısıtır, su buharlaşır.",
+            "Su buharı ısınan havayla yükselir.",
+            "Soğuyan su buharı damlacıklara dönüşür.",
+            "Damlacıklar birleşip büyür.",
+            "Ağırlaşan damlalar yağmur olarak düşer."
+          ],
+          "aciklama": "Metin; buharlaşma, yükselme, yoğuşma, damlaların büyümesi ve yağış sırasıyla ilerliyor."
+        },
+        {
+          "kimlik": "parcaciklar",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Havada toz, polen ve tuz gibi küçük parçacıklar hiç olmasaydı ne olurdu?",
+          "secenekler": [
+            "Denizlerdeki su çok daha hızlı buharlaşırdı.",
+            "Yağmur damlaları yere daha sıcak düşerdi.",
+            "Güneş denizleri hiç ısıtamaz hâle gelirdi.",
+            "Bulut damlacıklarının oluşması zorlaşırdı."
+          ],
+          "dogru": 3,
+          "aciklama": "Metne göre su buharı bu küçük parçacıkların çevresinde toplanarak damlacığa dönüşür. Parçacıklar olmasaydı damlacıkların oluşması zorlaşırdı."
+        },
+        {
+          "kimlik": "nefes-buhari",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Soğuk bir kış sabahı soluğumuzun önümüzde küçük bir bulut gibi görünmesi, metindeki hangi olaya benzer?",
+          "secenekler": [
+            "Yoğuşma",
+            "Buharlaşma",
+            "Erime",
+            "Kaynama"
+          ],
+          "dogru": 0,
+          "aciklama": "Soluğumuzdaki su buharı soğuk havayla karşılaşınca minik damlacıklara dönüşür. Gazın sıvıya dönüşmesi, metinde anlatılan yoğuşmadır."
+        },
+        {
+          "kimlik": "son-cumle",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Yazarın son cümleyle okura asıl düşündürmek istediği hangisidir?",
+          "secenekler": [
+            "Yağmur yağarken mutlaka evde kalmak gerektiği",
+            "Yeryüzündeki suyun sürekli dolaşıp yeniden kullanıldığı",
+            "Denizlerdeki suyun yavaş yavaş tükenmekte olduğu",
+            "Bulutların yalnızca deniz kıyısında oluşabildiği"
+          ],
+          "dogru": 1,
+          "aciklama": "Son cümle, bir yağmur damlasının uzak bir denizden gelmiş olabileceğini söyleyerek suyun döngü içinde sürekli dolaştığını vurguluyor."
+        },
+        {
+          "kimlik": "yogusma",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Gazın sıvıya dönüşmesine ___ denir.",
+          "cevaplar": [
+            "yoğuşma",
+            "yogusma"
+          ],
+          "aciklama": "Üçüncü paragrafta gazın sıvıya dönüşmesine yoğuşma dendiği açıklanıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "ayin-degisen-yuzu",
+      "ad": "Ay’ın Değişen Yüzü",
+      "sinif": 5,
+      "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "Ay",
+        "Ay’ın evreleri",
+        "gökyüzü",
+        "gözlem"
+      ],
+      "metin": "Bazı akşamlar Ay gökyüzünde kocaman, yuvarlak bir tepsi gibi parlar. Birkaç gün sonra bakınca ise ince bir hilale dönüşmüş olabilir. Peki Ay gerçekten şekil mi değiştirir?\n\nAslında Ay’ın biçimi hiç değişmez; o her zaman küre şeklindedir. Ay, Güneş gibi kendi ışığını üretmez. Gökyüzünde parlak görünmesinin nedeni, Güneş’ten gelen ışığı yansıtmasıdır. Güneş, Ay’ın her zaman yarısını aydınlatır; diğer yarısı karanlıkta kalır.\n\nAy, Dünya’nın çevresinde dolanır. Ay dolandıkça Dünya’dan bakan bizler aydınlık yarının bazen tamamını, bazen bir kısmını görürüz; bazen de neredeyse hiçbir bölümünü göremeyiz. Ay’ın Dünya’dan görünen aydınlık kısmındaki bu değişimlere Ay’ın evreleri denir.\n\nAy, Dünya ile Güneş’in arasına geldiğinde aydınlık yüzü bize dönük olmaz. Bu evreye yeni ay denir ve Ay neredeyse hiç görünmez. Sonraki günlerde ince bir hilal belirir, aydınlık kısım gece gece büyür. Yaklaşık bir hafta sonra Ay’ın yarısı aydınlık görünür; buna ilk dördün denir. Bir hafta daha geçince Ay’ın bize bakan yüzünün tamamı aydınlanır ve dolunay görülür. Ardından aydınlık kısım küçülmeye başlar. Yaklaşık bir hafta sonra yine yarısı aydınlık görünür; bu evreye de son dördün denir.\n\nBu döngü yaklaşık 29,5 günde tamamlanır. Bir defter tutup her akşam Ay’ın şeklini çizersen bu değişimi kendi gözlerinle izleyebilirsin.",
+      "sorular": [
+        {
+          "kimlik": "parlama-nedeni",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre Ay’ın gökyüzünde parlak görünmesinin nedeni nedir?",
+          "secenekler": [
+            "Kendi içinde ışık üretmesi",
+            "Dünya’nın ışığını geri göndermesi",
+            "Güneş’ten gelen ışığı yansıtması",
+            "Yüzeyinin buzla kaplı olması"
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafta Ay’ın kendi ışığını üretmediği, Güneş’ten gelen ışığı yansıttığı için parlak göründüğü yazıyor."
+        },
+        {
+          "kimlik": "evre-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Ay’ın evrelerini metindeki sıraya göre diz.",
+          "ogeler": [
+            "Yeni ay",
+            "İlk dördün",
+            "Dolunay",
+            "Son dördün"
+          ],
+          "aciklama": "Dördüncü paragrafa göre yeni aydan sonra ilk dördün, ardından dolunay, en son da son dördün gelir."
+        },
+        {
+          "kimlik": "bir-hafta-sonra",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Bu akşam dolunay görüldüyse yaklaşık bir hafta sonra Ay nasıl görünür?",
+          "secenekler": [
+            "Yine tamamen yuvarlak görünür.",
+            "Neredeyse hiç görünmez.",
+            "İnce bir hilal gibi görünür.",
+            "Yarısı aydınlık görünür."
+          ],
+          "dogru": 3,
+          "aciklama": "Dolunaydan sonra aydınlık kısım küçülür ve yaklaşık bir hafta sonra, son dördünde, Ay’ın yarısı aydınlık görünür."
+        },
+        {
+          "kimlik": "kendi-isigi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ay, Güneş gibi kendi ışığını üretseydi ne olurdu?",
+          "secenekler": [
+            "Evreleri olmaz, her gece bütün yüzü parlak görünürdü.",
+            "Dünya’nın çevresinde dolanmayı bırakıp dururdu.",
+            "Her gece Dünya’dan daha küçük ve soluk görünürdü.",
+            "Dolunay yalnızca yılda bir kez, yazın görülürdü."
+          ],
+          "dogru": 0,
+          "aciklama": "Evreler, Güneş’in Ay’ın yalnızca yarısını aydınlatması yüzünden oluşur. Ay kendi ışığını üretseydi bütün yüzü parlak olurdu ve evreler görülmezdi."
+        },
+        {
+          "kimlik": "gozlem-onerisi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Yazarın son paragraftaki önerisinin amacı hangisidir?",
+          "secenekler": [
+            "Okurun Ay’ı yalnızca dolunay gecelerinde izlemesi",
+            "Okurun öğrendiklerini kendi gözlemleriyle sınaması",
+            "Okurun gözlem yaparken her zaman dürbün kullanması",
+            "Okurun Ay’ın evrelerini sırasıyla ezberlemesi"
+          ],
+          "dogru": 1,
+          "aciklama": "Yazar, her akşam Ay’ın şeklini deftere çizmeyi öneriyor. Böylece okur, metinde öğrendiklerini kendi gözlemiyle doğrulayabilir."
+        },
+        {
+          "kimlik": "donem-suresi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Ay’ın evrelerinden oluşan döngü yaklaşık 29,5 günde tamamlanır.",
+          "dogru": true,
+          "aciklama": "Son paragrafta döngünün yaklaşık 29,5 günde tamamlandığı yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "yol-ustundeki-saraylar",
+      "ad": "Yol Üstündeki Saraylar",
+      "sinif": 5,
+      "tur": "tarih",
+      "zorluk": 4,
+      "etiketler": [
+        "kervansaray",
+        "Anadolu Selçukluları",
+        "ticaret",
+        "mimari"
+      ],
+      "metin": "Yüzlerce yıl önce Anadolu’da tüccarlar mallarını develerle, atlarla ve katırlarla bir şehirden ötekine taşırdı. Bu uzun yolculuklarda en büyük sorun, geceyi güvenle geçirebilecek bir yer bulmaktı. Yollar ıssız, kışlar sertti. İşte bu ihtiyaç için yol boyunca kervansaraylar yapıldı.\n\nKervansaraylar, kervanların konakladığı büyük ve sağlam yapılardır. Anadolu Selçukluları döneminde, özellikle 13. yüzyılda, ticaret yolları üzerinde pek çok kervansaray yapıldı. Aralarındaki uzaklık genellikle bir kervanın bir günde alabileceği yol kadardı. Böylece yolcular her akşam yeni bir konak yerine ulaşabiliyordu.\n\nKervansarayların kalın taş duvarları ve tek bir büyük kapısı vardı. Gece olunca kapı kapatılır, içerideki yolcular ve yükleri korunurdu. Yapının ortasında açık bir avlu, çevresinde odalar bulunurdu. Kışın kullanılan kapalı bölümde hem insanlar hem hayvanlar soğuktan korunurdu. Pek çok kervansarayda yolcular için yemek, hayvanlar için yem, hastalar için bakım sağlanırdı. Bu hizmetlerin önemli bir bölümünü vakıflar karşılar, yolculardan çoğu zaman ücret alınmazdı.\n\nAksaray ile Konya arasındaki yol üzerinde bulunan Sultanhanı, bu yapıların en bilinen örneklerinden biridir. Görkemli taş kapısındaki süslemeler, ustaların ne kadar emek verdiğini bugün bile gösterir.\n\nKervansaraylar yalnızca birer konak yeri değildi. Farklı yerlerden gelen insanlar burada karşılaşır, haber ve bilgi paylaşırdı. Böylece ticaretle birlikte kültür de yollar boyunca yayılırdı.",
+      "sorular": [
+        {
+          "kimlik": "uzaklik",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kervansaraylar arasındaki uzaklık genellikle ne kadardı?",
+          "secenekler": [
+            "İki şehir arasındaki yolun tam yarısı kadar",
+            "Bir atlının bir saatte gidebileceği yol kadar",
+            "Bir kervanın bir günde alabileceği yol kadar",
+            "Bir kervanın bir haftada alabileceği yol kadar"
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafta kervansaraylar arasındaki uzaklığın bir kervanın bir günde alabileceği yol kadar olduğu yazıyor."
+        },
+        {
+          "kimlik": "kapi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre gece olunca kervansarayın kapısı neden kapatılırdı?",
+          "secenekler": [
+            "Yeni gelen kervanları başka yola yönlendirmek için",
+            "Avludaki hayvanların uyumasını kolaylaştırmak için",
+            "Ustaların kapıdaki süslemeleri onarabilmesi için",
+            "İçerideki yolcuları ve yüklerini korumak için"
+          ],
+          "dogru": 3,
+          "aciklama": "Üçüncü paragrafta gece kapı kapatılınca içerideki yolcuların ve yüklerinin korunduğu anlatılıyor."
+        },
+        {
+          "kimlik": "guvenlik",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kervansarayların kalın duvarlı ve tek kapılı yapılmasından o dönemle ilgili ne çıkarılabilir?",
+          "secenekler": [
+            "Yolculuklarda güvenliğin önemli bir sorun olduğu",
+            "Anadolu’da taşın çok pahalı bir malzeme olduğu",
+            "Kervanların yalnızca yaz aylarında yola çıktığı",
+            "Tüccarların hiç hayvan kullanmadan yolculuk ettiği"
+          ],
+          "dogru": 0,
+          "aciklama": "Metin, yolların ıssız olduğunu ve gece kapının yolcuları korumak için kapatıldığını anlatıyor. Sağlam yapılar, güvenliğin önemli bir ihtiyaç olduğunu gösterir."
+        },
+        {
+          "kimlik": "ucretsiz",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Yolculardan çoğu zaman ücret alınmaması ticareti nasıl etkilemiş olabilir?",
+          "secenekler": [
+            "Tüccarların uzun yolculuklardan tamamen vazgeçmesine yol açmış olabilir.",
+            "Tüccarların yola çıkmasını kolaylaştırıp ticareti artırmış olabilir.",
+            "Kervansarayların kısa sürede kullanılmaz hâle gelmesine yol açmış olabilir.",
+            "Malların yalnızca deniz yoluyla taşınmasına neden olmuş olabilir."
+          ],
+          "dogru": 1,
+          "aciklama": "Konaklama, yemek ve bakım için ödeme yapmamak yolculuğu kolaylaştırır ve ucuzlatır. Bu da daha çok tüccarın yola çıkmasını sağlamış olabilir."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Metnin ana fikri hangisidir?",
+          "secenekler": [
+            "Kervansarayların en değerli bölümü, ustaların özenle süslediği görkemli taş kapılarıdır.",
+            "Anadolu’daki ticaret yolları, kışın yağan kar nedeniyle her yıl tamamen kapanırdı.",
+            "Kervansaraylar yolculara güvenli konak sağlamış, ticaret ve kültürün yayılmasına katkı vermiştir.",
+            "Sultanhanı, Anadolu Selçukluları döneminde yapılmış tek kervansaray olarak bilinir."
+          ],
+          "dogru": 2,
+          "aciklama": "Metin, kervansarayların hem yolcuları koruduğunu hem de insanları buluşturarak ticaret ve kültürün yayılmasına yardım ettiğini anlatıyor."
+        },
+        {
+          "kimlik": "sultanhani",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Aksaray ile Konya arasındaki yol üzerinde bulunan ___, kervansarayların en bilinen örneklerinden biridir.",
+          "cevaplar": [
+            "Sultanhanı",
+            "Sultanhani"
+          ],
+          "aciklama": "Dördüncü paragrafta Sultanhanı’nın bu yapıların en bilinen örneklerinden biri olduğu yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "mimar-sinan",
+      "ad": "Taşla Düşünen Usta: Mimar Sinan",
+      "sinif": 5,
+      "tur": "biyografi",
+      "zorluk": 4,
+      "etiketler": [
+        "Mimar Sinan",
+        "mimarlık",
+        "Osmanlı",
+        "biyografi"
+      ],
+      "metin": "Mimar Sinan, yaklaşık 1490 yılında Kayseri yakınlarındaki Ağırnas köyünde doğdu. Gençliğinde İstanbul’a getirildi ve yeniçeri olarak yetiştirildi. Bu yıllarda marangozluğu ve yapı işlerini öğrendi.\n\nSinan uzun yıllar orduyla birlikte seferlere katıldı. Ordunun geçeceği köprüleri ve gereken yapıları kısa sürede kurmak onun görevlerindendi. Bir seferde Prut Nehri üzerine hızla bir köprü yaparak ordunun nehri geçmesini sağladı. Bu başarılarıyla dikkat çekti.\n\n1538 yılında Sinan, saraya bağlı mimarların başı olan mimarbaşılığa getirildi. Bu görevi yaklaşık elli yıl sürdürdü ve üç padişah döneminde çalıştı. Camiler, köprüler, hamamlar, medreseler, çeşmeler ve aşevleri dahil üç yüzü aşkın yapı onun adıyla anılır.\n\nSinan, eserleri arasında üç camiyi ayrı tutardı. İstanbul’daki Şehzade Camii’ni çıraklık, Süleymaniye Camii’ni kalfalık, Edirne’deki Selimiye Camii’ni ise ustalık eseri olarak görürdü. Selimiye’yi tamamladığında seksen yaşını geçmişti.\n\nSinan’ın yapıları yalnızca güzel değil, aynı zamanda sağlamdır. O, kubbelerin ağırlığını duvarlara ve ayaklara dengeli dağıtmak için titizlikle çalışırdı. Yapılarının pek çoğu, yüzyıllar boyunca yaşanan depremlere rağmen bugün hâlâ ayaktadır.\n\nMimar Sinan 1588’de İstanbul’da öldü. Süleymaniye Camii’nin yakınında, kendi yaptığı sade bir türbede yatmaktadır. Eserleri bugün de dünyanın dört bir yanından gelen ziyaretçileri ve mimarlık öğrencilerini kendine çekiyor.",
+      "sorular": [
+        {
+          "kimlik": "dogum-yeri",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Mimar Sinan nerede doğdu?",
+          "secenekler": [
+            "Edirne’deki Selimiye mahallesinde",
+            "İstanbul’da Süleymaniye yakınında",
+            "Prut Nehri kıyısındaki bir köyde",
+            "Kayseri yakınlarındaki Ağırnas köyünde"
+          ],
+          "dogru": 3,
+          "aciklama": "Metnin ilk cümlesinde Sinan’ın Kayseri yakınlarındaki Ağırnas köyünde doğduğu yazıyor."
+        },
+        {
+          "kimlik": "uc-eser",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Sinan’ın kendi gözünde çıraklık, kalfalık ve ustalık eserlerini bu sıraya göre diz.",
+          "ogeler": [
+            "Şehzade Camii",
+            "Süleymaniye Camii",
+            "Selimiye Camii"
+          ],
+          "aciklama": "Dördüncü paragrafa göre Sinan, Şehzade’yi çıraklık, Süleymaniye’yi kalfalık, Selimiye’yi ustalık eseri olarak görürdü."
+        },
+        {
+          "kimlik": "sefer-deneyimi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Seferlerde köprü ve yapı kurmak, Sinan’ın mimarlığına nasıl katkı sağlamış olabilir?",
+          "secenekler": [
+            "Zor koşullarda sağlam yapılar kurma deneyimi kazandırmış olabilir.",
+            "Ona yalnızca savaş gemisi yapmayı öğretmiş olabilir.",
+            "Mimarlıktan uzaklaşıp askerliğe yönelmesine neden olmuş olabilir.",
+            "Yapı işlerini bırakıp başka bir meslek seçmesine yol açmış olabilir."
+          ],
+          "dogru": 0,
+          "aciklama": "Sinan seferlerde kısa sürede köprü ve yapı kuruyordu. Bu işler, sonraki büyük yapıları için deneyim kazanmasını sağlamış olabilir."
+        },
+        {
+          "kimlik": "seksen-yas",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Sinan’ın ustalık eseri saydığı Selimiye’yi seksen yaşını geçmişken tamamlaması onun hakkında ne gösterir?",
+          "secenekler": [
+            "Gençliğinde mimarlığa hiç ilgi duymadığını",
+            "İlerleyen yaşına rağmen öğrenmeyi ve üretmeyi sürdürdüğünü",
+            "Selimiye’yi tek başına, kimseden yardım almadan yaptığını",
+            "En kolay işlerini yaşlılığına sakladığını"
+          ],
+          "dogru": 1,
+          "aciklama": "Sinan en üstün saydığı eseri hayatının son yıllarında yaptı. Bu, onun yıllar boyunca gelişmeyi ve çalışmayı sürdürdüğünü gösterir."
+        },
+        {
+          "kimlik": "ciraklik-dersi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Sinan’ın eserlerini “çıraklık, kalfalık, ustalık” diye ayırmasından hangi ders çıkarılabilir?",
+          "secenekler": [
+            "Bir işin ilk denemesi her zaman en iyisi olur.",
+            "Büyük yapılar yalnızca gençlikte yapılabilir.",
+            "Ustalık, yıllar süren emekle adım adım kazanılır.",
+            "Usta olan biri yeni şeyler öğrenmeye ihtiyaç duymaz."
+          ],
+          "dogru": 2,
+          "aciklama": "Sinan kendi gelişimini basamaklara ayırıyor: önce çırak, sonra kalfa, en son usta. Bu, ustalığın zamanla ve emekle geldiğini anlatır."
+        },
+        {
+          "kimlik": "gorev-suresi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Mimar Sinan mimarbaşılık görevini yaklaşık on yıl sürdürdü.",
+          "dogru": false,
+          "aciklama": "Üçüncü paragrafa göre Sinan bu görevi yaklaşık elli yıl sürdürdü."
+        }
+      ]
+    },
+    {
+      "kimlik": "dikenli-dost",
+      "ad": "Dikenli Dost",
+      "sinif": 5,
+      "tur": "masal",
+      "zorluk": 1,
+      "etiketler": [
+        "önyargı",
+        "yardımlaşma",
+        "dostluk",
+        "masal"
+      ],
+      "metin": "Evvel zaman içinde, yemyeşil bir ormanda Diken adında küçük bir kirpi yaşarmış. Diken çok iyi kalpliymiş ama ormandaki hayvanlar ondan uzak dururmuş. “Dikenleri batar,” derlermiş, “Onunla oynanmaz.”\n\nBir bahar günü tavşanlar, sincaplar ve kuşlar dere kenarında büyük bir şenlik düzenlemiş. Herkes çağrılmış, yalnızca Diken çağrılmamış. Diken bir ağacın gölgesinden şenliği uzun uzun izlemiş, sonra boynu bükük evine dönmüş.\n\nAkşamüstü gökyüzü birden kararmış. Şimşekler çakmış, yağmur sağanak hâlinde yağmaya başlamış. Hayvanlar telaşla yuvalarına koşmuş. Kargaşada Tavşan Ana’nın üç yavrusu yolunu kaybetmiş. Yavrular bir çalılığın dibinde titreşip ağlamaya başlamış.\n\nKirpiler geceleri dolaşmaya alışkınmış; karanlıkta yollarını burunlarıyla koklayarak bulurlarmış. Diken yavruların sesini duyunca hemen yola çıkmış. Onları bulmuş ve “Korkmayın, peşimden gelin,” demiş. Burnuyla yolu yoklaya yoklaya yavruları tavşan yuvasına kadar götürmüş.\n\nTavşan Ana yavrularını görünce sevinçten ağlamış. Ertesi sabah bütün orman olanları duymuş. Hayvanlar Diken’in kapısına gelip ondan özür dilemiş. Ormanın en yaşlısı olan Kaplumbağa Dede de şöyle demiş: “Bir kimseyi dışına bakarak tanıyamazsınız. Dikenler dışarıdadır; iyilik ise içeride.”\n\nO günden sonra ormanın her şenliğinde Diken’e de bir yer ayrılmış. Diken de şenliklere hiç gelmeyen başka bir hayvan gördüğünde, ilk onu çağırmayı adet edinmiş.",
+      "sorular": [
+        {
+          "kimlik": "uzak-durma",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Hayvanlar Diken’den neden uzak dururmuş?",
+          "secenekler": [
+            "Diken onlara hep kaba davrandığı için",
+            "Diken ormana yeni geldiği için",
+            "Diken şenliklerde çok gürültü yaptığı için",
+            "Dikenlerinin batacağını düşündükleri için"
+          ],
+          "dogru": 3,
+          "aciklama": "Masalın başında hayvanların “Dikenleri batar, onunla oynanmaz.” diyerek Diken’den uzak durduğu anlatılıyor."
+        },
+        {
+          "kimlik": "kaybolanlar",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Fırtına sırasında kimler yolunu kaybetti?",
+          "secenekler": [
+            "Tavşan Ana’nın üç yavrusu",
+            "Sincapların en küçük yavrusu",
+            "Dere kenarındaki kuş yavruları",
+            "Kaplumbağa Dede ile torunları"
+          ],
+          "dogru": 0,
+          "aciklama": "Üçüncü paragrafta kargaşada Tavşan Ana’nın üç yavrusunun yolunu kaybettiği yazıyor."
+        },
+        {
+          "kimlik": "boynu-bukuk",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Diken’in şenliği uzaktan izleyip evine boynu bükük dönmesi neyi gösterir?",
+          "secenekler": [
+            "Şenliği hiç beğenmediğini",
+            "Şenliğe çağrılmadığı için üzüldüğünü",
+            "Yağmurun yağacağını önceden bildiğini",
+            "Evde yapacak işleri olduğunu"
+          ],
+          "dogru": 1,
+          "aciklama": "“Boynu bükük” olmak üzgün olmak demektir. Diken, herkes çağrılırken kendisinin dışlanmasına üzülmüştü."
+        },
+        {
+          "kimlik": "ozur",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Hayvanlar ertesi sabah neden Diken’den özür diledi?",
+          "secenekler": [
+            "Diken onlardan özür dilemelerini istediği için",
+            "Kaplumbağa Dede onları cezalandırdığı için",
+            "Onu tanımadan dışladıklarının yanlış olduğunu anladıkları için",
+            "Yeni bir şenlik için ondan yardım istedikleri için"
+          ],
+          "dogru": 2,
+          "aciklama": "Diken’in yavruları kurtardığını duyan hayvanlar, onun iyi kalpli olduğunu gördü ve onu haksız yere dışladıklarını anladı."
+        },
+        {
+          "kimlik": "kaplumbaga-sozu",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Kaplumbağa Dede’nin sözüyle anlatılmak istenen düşünce hangisidir?",
+          "secenekler": [
+            "Fırtınalı havalarda yuvadan hiç çıkmamalıyız.",
+            "Şenliklere yalnızca yakın arkadaşlarımızı çağırmalıyız.",
+            "Dikenli hayvanlardan her zaman uzak durmalıyız.",
+            "Bir kimseyi dış görünüşüne bakarak yargılamamalıyız."
+          ],
+          "dogru": 3,
+          "aciklama": "“Dikenler dışarıdadır; iyilik ise içeride.” sözü, bir kimsenin değerinin dış görünüşünden anlaşılamayacağını anlatır."
+        },
+        {
+          "kimlik": "iyilik",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Kaplumbağa Dede’ye göre dikenler dışarıdadır; ___ ise içeride.",
+          "cevaplar": [
+            "iyilik"
+          ],
+          "aciklama": "Beşinci paragrafta Kaplumbağa Dede, dikenlerin dışarıda, iyiliğin ise içeride olduğunu söylüyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "okulda-tohum-kutuphanesi",
+      "ad": "Okulda Tohum Kütüphanesi Açıldı",
+      "sinif": 5,
+      "tur": "haber",
+      "zorluk": 3,
+      "etiketler": [
+        "haber",
+        "yerel tohum",
+        "çevre",
+        "okul kulübü"
+      ],
+      "metin": "Çınarlı Ortaokulu’nun Doğa Kulübü öğrencileri, okul kütüphanesinin bir köşesinde “tohum kütüphanesi” açtı. Geçen pazartesi düzenlenen açılışa öğrenciler, öğretmenler ve veliler katıldı.\n\nTohum kütüphanesi, kitap yerine tohum ödünç veren bir rafta kuruldu. Rafta domates, fasulye, kabak, maydanoz ve fesleğen gibi bitkilerin tohumları küçük kâğıt zarflarda duruyor. Her zarfın üzerinde bitkinin adı, ekim zamanı ve kısa bir bakım notu yazıyor.\n\nKütüphanenin işleyişi basit: Öğrenciler istedikleri tohumdan bir zarf alıp evde ya da okul bahçesinde ekiyor. Bitki büyüyüp tohum verdiğinde, aldıkları kadar tohumu kurutup rafa geri getiriyor. Böylece raf boşalmıyor, tohumlar elden ele dolaşıyor.\n\nKulübün danışman öğretmeni Cem Yılmaz, fikrin öğrencilerden çıktığını söyledi. Yılmaz, bu çalışmayla öğrencilerin bir bitkinin tohumdan tohuma bütün yaşamını izlediğini ve yerel tohumları korumayı öğrendiğini belirtti. Kulüp başkanı Duru Kaya ise ilk hafta otuzdan fazla zarfın ödünç alındığını anlattı.\n\nDoğa Kulübü, bahar sonunda bir “hasat günü” düzenlemeyi planlıyor. O gün herkes yetiştirdiği bitkinin fotoğrafını ve gözlem notlarını getirecek. Kulüp, bağış olarak gelen tohumları da rafa eklemeyi sürdürecek.",
+      "sorular": [
+        {
+          "kimlik": "nerede",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Tohum kütüphanesi nerede açıldı?",
+          "secenekler": [
+            "Okul kütüphanesinin bir köşesinde",
+            "Okul bahçesindeki bir seranın içinde",
+            "Mahallenin halk kütüphanesinde",
+            "Kulüp öğretmeninin sınıfında"
+          ],
+          "dogru": 0,
+          "aciklama": "Haberin ilk cümlesinde tohum kütüphanesinin okul kütüphanesinin bir köşesinde açıldığı yazıyor."
+        },
+        {
+          "kimlik": "geri-getirme",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Öğrenciler tohumları rafa ne zaman geri getiriyor?",
+          "secenekler": [
+            "Zarfı aldıktan bir hafta sonra",
+            "Bitki büyüyüp tohum verdiğinde",
+            "Hasat gününün sabahında",
+            "Tohumları ekmeden hemen önce"
+          ],
+          "dogru": 1,
+          "aciklama": "Üçüncü paragrafta bitki büyüyüp tohum verdiğinde aynı miktarda tohumun kurutulup rafa getirildiği anlatılıyor."
+        },
+        {
+          "kimlik": "otuz-zarf",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "İlk hafta otuzdan fazla zarfın ödünç alınması neyi gösterir?",
+          "secenekler": [
+            "Raftaki tohumların hepsinin tükendiğini",
+            "Zarfların çoğunun geri getirilmediğini",
+            "Öğrencilerin bu çalışmaya ilgi gösterdiğini",
+            "Kulübün yeni tohum almaya gerek duymadığını"
+          ],
+          "dogru": 2,
+          "aciklama": "Kısa sürede çok sayıda zarfın alınması, öğrencilerin tohum kütüphanesini merak edip kullanmak istediğini gösterir."
+        },
+        {
+          "kimlik": "hasat-gunu",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "“Hasat günü”nün amacı ne olabilir?",
+          "secenekler": [
+            "Kulübün tohum satarak para toplaması",
+            "Kütüphanenin yaz boyunca kapatılması",
+            "En büyük bitkiyi yetiştirene ödül verilmesi",
+            "Öğrencilerin yetiştirdiklerini ve gözlemlerini paylaşması"
+          ],
+          "dogru": 3,
+          "aciklama": "O gün herkes bitkisinin fotoğrafını ve gözlem notlarını getirecek. Bu, öğrencilerin deneyimlerini birbirleriyle paylaşacağını gösterir."
+        },
+        {
+          "kimlik": "haber-amaci",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu haberin yazılış amacı hangisidir?",
+          "secenekler": [
+            "Okulda yapılan bir çalışmayı duyurmak ve tanıtmak",
+            "Okurlara tohum satın almalarını önermek",
+            "Bahçe işlerinin nasıl yapılacağını adım adım öğretmek",
+            "Kulübe katılmayan öğrencileri eleştirmek"
+          ],
+          "dogru": 0,
+          "aciklama": "Haber; kim, ne, nerede, ne zaman, nasıl ve neden sorularını yanıtlayarak okuldaki yeni bir çalışmayı okurlara duyuruyor."
+        },
+        {
+          "kimlik": "fikir-kimden",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Tohum kütüphanesi fikri, kulübün danışman öğretmeninden çıkmıştır.",
+          "dogru": false,
+          "aciklama": "Dördüncü paragrafta öğretmen Cem Yılmaz’ın, fikrin öğrencilerden çıktığını söylediği yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "ormanin-bekcisiyle",
+      "ad": "Ormanın Bekçisiyle Söyleşi",
+      "sinif": 5,
+      "tur": "diyalog",
+      "zorluk": 3,
+      "etiketler": [
+        "orman",
+        "yangın önleme",
+        "meslekler",
+        "röportaj"
+      ],
+      "metin": "Okul gazetemiz için bu ay orman muhafaza memuru Leyla Aksoy ile konuştuk. Soruları 5-B sınıfından Kaan sordu.\n\nKaan: Leyla Hanım, işiniz tam olarak nedir?\n\nLeyla Aksoy: Ormanları korumak ve gözetmek. Ağaçların sağlığını izliyor, izinsiz ağaç kesilmesini önlemeye çalışıyor, ziyaretçilere ormanda nasıl davranmaları gerektiğini anlatıyoruz. Yaz aylarında en önemli işimiz yangınları önlemek.\n\nKaan: Orman yangınları nasıl başlıyor?\n\nLeyla Aksoy: Yıldırım düşmesi gibi doğal nedenler de var ama yangınların büyük bölümü insanlardan kaynaklanıyor. Söndürülmeden bırakılan bir ateş, yere atılan bir izmarit, kuru otların arasında unutulan bir cam şişe bile yangına yol açabilir.\n\nKaan: Peki biz öğrenciler ne yapabiliriz?\n\nLeyla Aksoy: Ateşi yalnızca izin verilen yerlerde yakın. Ayrılmadan önce ateşin tamamen söndüğünden emin olun; üzerine su döküp küllerini karıştırın. Çöpünüzü yanınızda geri götürün. Duman ya da ateş görürseniz hemen bir büyüğünüze haber verin ve 112’yi arayın. Ateşi kendiniz söndürmeye çalışmayın; sizin güvenliğiniz her şeyden önemli.\n\nKaan: Bu meslekte sizi en çok ne mutlu ediyor?\n\nLeyla Aksoy: Yıllar önce yanmış bir yamaçta fidanların yeniden boy verdiğini görmek. Ama bir ormanın kendini toparlaması çok uzun yıllar sürer. Bu yüzden ormanı korumak, onu yeniden yetiştirmekten çok daha kolay.\n\nKaan: Bize zaman ayırdığınız için teşekkür ederiz.\n\nLeyla Aksoy: Ben teşekkür ederim. Bir dahaki yürüyüşünüzde ormanı dinlemeyi unutmayın!",
+      "sorular": [
+        {
+          "kimlik": "yaz-gorevi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Leyla Aksoy’a göre yaz aylarında en önemli işleri nedir?",
+          "secenekler": [
+            "Yeni fidan dikmek",
+            "Yangınları önlemek",
+            "Ziyaretçi sayısını tutmak",
+            "Yaban hayvanlarını beslemek"
+          ],
+          "dogru": 1,
+          "aciklama": "Leyla Aksoy, ilk cevabında yaz aylarında en önemli işlerinin yangınları önlemek olduğunu söylüyor."
+        },
+        {
+          "kimlik": "ates-gorunce",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Söyleşiye göre duman ya da ateş gören bir öğrenci ne yapmalıdır?",
+          "secenekler": [
+            "Yanındaki suyla ateşi hemen söndürmelidir.",
+            "Ateşin büyüyüp büyümediğini yakından izlemelidir.",
+            "Bir büyüğüne haber vermeli ve 112’yi aramalıdır.",
+            "Arkadaşlarını toplayıp birlikte söndürmelidir."
+          ],
+          "dogru": 2,
+          "aciklama": "Leyla Aksoy, öğrencilerin ateşi kendilerinin söndürmeye çalışmamasını; bir büyüğe haber verip 112’yi aramasını öğütlüyor."
+        },
+        {
+          "kimlik": "onlenebilir",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Yangınların büyük bölümünün insanlardan kaynaklanması neyi düşündürür?",
+          "secenekler": [
+            "Yıldırımların hiçbir zaman yangın çıkarmadığını",
+            "Ormanlara hiç kimsenin girmemesi gerektiğini",
+            "Yangınların yalnızca kış aylarında çıktığını",
+            "Pek çok yangının dikkatli davranarak önlenebileceğini"
+          ],
+          "dogru": 3,
+          "aciklama": "Yangınların çoğu insan dikkatsizliğinden çıkıyorsa, insanlar dikkatli davranarak bu yangınların önemli bir bölümünü önleyebilir."
+        },
+        {
+          "kimlik": "fidan-mutlulugu",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Leyla Aksoy’un yanmış bir yamaçta fidanların büyümesinden mutluluk duyması onun hakkında ne söyler?",
+          "secenekler": [
+            "İşini ve doğayı içtenlikle sevdiğini",
+            "Mesleğinden sıkıldığını ve değiştirmek istediğini",
+            "Yangınları önemsiz bulduğunu",
+            "Yalnızca fidan dikmekle ilgilendiğini"
+          ],
+          "dogru": 0,
+          "aciklama": "Bir ormanın yeniden canlanmasını görmek onu en çok mutlu eden şey. Bu, onun doğaya ve işine gönülden bağlı olduğunu gösterir."
+        },
+        {
+          "kimlik": "ana-mesaj",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu söyleşinin okura vermek istediği ana mesaj hangisidir?",
+          "secenekler": [
+            "Orman muhafaza memurluğu en kolay meslektir.",
+            "Ormanları korumak için herkesin dikkatli davranması gerekir.",
+            "Ormanda yürüyüş yapmak tehlikeli olduğu için yasaktır.",
+            "Yanan ormanlar birkaç ayda kendiliğinden yenilenir."
+          ],
+          "dogru": 1,
+          "aciklama": "Söyleşide yangınların çoğunun insanlardan kaynaklandığı ve öğrencilerin neler yapabileceği anlatılıyor. Ana mesaj, ormanı korumanın herkesin görevi olduğudur."
+        },
+        {
+          "kimlik": "acil-numara",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Duman ya da ateş görülürse bir büyüğe haber verilmeli ve ___ aranmalıdır.",
+          "cevaplar": [
+            "112"
+          ],
+          "aciklama": "Leyla Aksoy, duman ya da ateş görüldüğünde 112’nin aranması gerektiğini söylüyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "harclik-defterim",
+      "ad": "Harçlık Defterim",
+      "sinif": 5,
+      "tur": "gunluk",
+      "zorluk": 2,
+      "etiketler": [
+        "para yönetimi",
+        "planlama",
+        "biriktirme",
+        "günlük hayat"
+      ],
+      "metin": "Geçen ay en sevdiğim yazarın yeni kitabı çıktı. Hemen almak istedim ama harçlığımdan hiç para kalmamıştı. Oysa ay başında elimde epey para vardı. “Bu para nereye gitti?” diye düşündüm ve bir cevap bulamadım.\n\nAblam bir öneride bulundu: “Bir hafta boyunca her harcamanı bir deftere yaz. Neye ne kadar harcadığını görmeden plan yapamazsın.” Önce bu bana sıkıcı geldi ama denemeye karar verdim. Küçük bir defterin sayfasını üç sütuna böldüm: tarih, aldığım şey ve ödediğim tutar.\n\nHafta sonunda defteri inceleyince çok şaşırdım. Okul dönüşü aldığım paketli kurabiyeler, cipsler ve gazlı içecekler tek tek küçük tutarlardı. Ama hepsi toplanınca harçlığımın neredeyse yarısını ediyordu! Üstelik bunların çoğunu acıktığım için değil, arkadaşlarım aldığı için almıştım.\n\nBunun üzerine kendime bir plan yaptım. Evden yanıma meyve ve su almaya başladım. Atıştırmalığı haftada yalnızca bir kez almaya karar verdim. Artan parayı kitap için bir kutuda biriktirdim. Her hafta kutuya ne kadar koyduğumu da deftere yazdım; biriktikçe o sayfaya bakmak çok hoşuma gidiyordu.\n\nÜç hafta sonra kitabı kendi biriktirdiğim parayla aldım. Kasada ödeme yaparken hissettiğim gurur, hiçbir atıştırmalığın tadına benzemiyordu. Artık biliyorum: Küçük harcamalar fark edilmeden büyür. Onları görebilmek için önce yazmak gerekir.",
+      "sorular": [
+        {
+          "kimlik": "abla-onerisi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Anlatıcının ablası ona ne önerdi?",
+          "secenekler": [
+            "Kitabı almak için ailesinden para istemesini",
+            "Harçlığını her gün bankaya yatırmasını",
+            "Bir hafta boyunca harcamalarını deftere yazmasını",
+            "Kitabı kütüphaneden ödünç almasını"
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafta abla, bir hafta boyunca her harcamanın deftere yazılmasını öneriyor."
+        },
+        {
+          "kimlik": "sutunlar",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Anlatıcı defterinin sayfasını hangi üç sütuna böldü?",
+          "secenekler": [
+            "Gün, saat ve harcadığı yer",
+            "Gelir, gider ve kalan para",
+            "Hafta, ay ve biriktirdiği para",
+            "Tarih, aldığı şey ve ödediği tutar"
+          ],
+          "dogru": 3,
+          "aciklama": "İkinci paragrafın sonunda sütunların tarih, alınan şey ve ödenen tutar olduğu yazıyor."
+        },
+        {
+          "kimlik": "arkadaslar-aldigi-icin",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "“Bunların çoğunu acıktığım için değil, arkadaşlarım aldığı için almıştım.” cümlesinden ne anlaşılır?",
+          "secenekler": [
+            "Harcamalarının bir kısmı ihtiyaçtan değil, çevresinden etkilenmekten doğmuştu.",
+            "Arkadaşları ona her gün atıştırmalık ısmarlıyordu.",
+            "Okul dönüşü her gün çok acıktığı için harcama yapıyordu.",
+            "Arkadaşları harçlığını ondan izinsiz harcıyordu."
+          ],
+          "dogru": 0,
+          "aciklama": "Anlatıcı acıkmadığı hâlde, arkadaşları aldığı için alışveriş yaptığını fark ediyor. Yani bazı harcamaları gerçek bir ihtiyaçtan kaynaklanmıyordu."
+        },
+        {
+          "kimlik": "uc-hafta",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Anlatıcı kitabı üç hafta içinde nasıl alabildi?",
+          "secenekler": [
+            "Ablası kitabın parasının yarısını verdiği için",
+            "Gereksiz harcamalarını azaltıp artan parayı biriktirdiği için",
+            "Kitabın fiyatı birkaç hafta içinde düştüğü için",
+            "Harçlığı ayın ortasında artırıldığı için"
+          ],
+          "dogru": 1,
+          "aciklama": "Atıştırmalıkları azaltınca para artmaya başladı ve anlatıcı bunu bir kutuda biriktirdi. Kitabı bu birikimle aldı."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu metnin ana fikri hangisidir?",
+          "secenekler": [
+            "Harçlığın tamamı her zaman kitap almak için kullanılmalıdır.",
+            "Okul dönüşü atıştırmalık almak her durumda yanlıştır.",
+            "Harcamaları kaydetmek, paranın nereye gittiğini görüp plan yapmayı sağlar.",
+            "Büyük alışverişler küçük harcamalardan daha önemlidir."
+          ],
+          "dogru": 2,
+          "aciklama": "Anlatıcı, harcamalarını yazınca küçük tutarların büyüdüğünü gördü ve plan yapabildi. Son cümleler de bu düşünceyi özetliyor."
+        },
+        {
+          "kimlik": "atistirmalik",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Anlatıcı, planını yaptıktan sonra atıştırmalık almayı tamamen bıraktı.",
+          "dogru": false,
+          "aciklama": "Dördüncü paragrafa göre anlatıcı atıştırmalığı tamamen bırakmadı; haftada yalnızca bir kez almaya karar verdi."
         }
       ]
     }

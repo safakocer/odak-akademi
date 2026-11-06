@@ -1,4 +1,4 @@
-/* Tasarım belirteçleri: renk, tipografi, boşluk, gölge, köşe, hareket (açık + koyu tema, "Fener" paleti; S19: yazdırmada açık renkler) */
+/* Tasarım belirteçleri: renk, tipografi, boşluk, gölge, köşe, hareket (açık + koyu tema, "Fener" paleti; S19: yazdırmada açık renkler; S25: form kenarı kontrastı) */
 
 /* Okuma dostu yerel yazı tipi (SIL OFL 1.1, fonts/ klasöründe; Türkçe harflerin tamamı var). Yalnızca seçilince indirilir. */
 @font-face {
@@ -38,7 +38,7 @@
   --renk-yuzey: #ffffff;
   --renk-yuzey-2: #e0ebe9;
   --renk-kenar: #c6d6d4;
-  --renk-kenar-guclu: #7b918f;
+  --renk-kenar-guclu: #687e7c; /* S25: girdi kenarı zeminde en az 3:1 (WCAG 1.4.11) */
   --renk-metin: #16262b;
   --renk-metin-soluk: #46585d;
   --renk-odak: #c2410c;
@@ -260,7 +260,7 @@
     --renk-yuzey: #ffffff;
     --renk-yuzey-2: #e0ebe9;
     --renk-kenar: #c6d6d4;
-    --renk-kenar-guclu: #7b918f;
+    --renk-kenar-guclu: #687e7c;
     --renk-metin: #16262b;
     --renk-metin-soluk: #46585d;
     --renk-basari: #1f7a3a;  --renk-basari-zemin: #dcf2e2;

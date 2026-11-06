@@ -6,6 +6,13 @@
       "ad": "Eski Radyo",
       "sinif": 7,
       "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "tamir",
+        "sabır",
+        "dede ile torun",
+        "eski eşyalar"
+      ],
       "metin": "Yaz tatilinin ilk günlerinde Emir, dedesiyle birlikte çatı katını toplamaya karar verdi. Tozlu kutuların arasından ahşap kasalı, düğmeleri sararmış eski bir radyo çıktı. Radyoyu gören dedesinin gözleri parladı: “Bu radyo, ben senin yaşındayken evimizin en değerli eşyasıydı. Akşamları hep birlikte başına toplanırdık.”\n\nEmir radyoyu hemen prize takmak istedi ama dedesi onu durdurdu: “Önce bir ustaya göstermeliyiz. Eski kablolar tehlikeli olabilir.” Ertesi gün radyoyu, apartmanlarında oturan emekli elektrik teknisyeni Nesrin Hanım’a götürdüler.\n\nNesrin Hanım, radyonun fişinin prizden çekili olduğundan emin olduktan sonra arka kapağını açtı. İçerisi toz ve örümcek ağıyla doluydu. “Sorunu bulmak için önce temizlemeliyiz,” dedi ve Emir’e yumuşak bir fırça verdi. Emir saatlerce, hiçbir parçayı zorlamadan tozları aldı. Sıkıldığı anlar oldu; bir ara fırçayı bırakıp “Bu iş hiç bitmeyecek!” diye söylendi. Nesrin Hanım sakin bir sesle, “Aceleyle yapılan tamir, yeni bir arıza demektir,” diye cevap verdi.\n\nTemizlik bitince Nesrin Hanım ölçü aletiyle parçaları tek tek denedi ve yanmış küçük bir parça buldu. Yenisini sipariş ettiler. Parça bir hafta sonra geldi. Nesrin Hanım onu yerine lehimledi, eskiyen kabloları da yenileriyle değiştirdi.\n\nRadyonun fişi takıldığında önce bir cızırtı duyuldu. Emir düğmeyi yavaşça çevirdikçe cızırtı azaldı ve odayı bir türkünün sesi doldurdu. Dedesi bir süre hiç konuşmadan dinledi, sonra Emir’in omzuna dokundu: “Bu radyoyu yalnızca tamir etmedin, eski günlerimi de geri getirdin.”\n\nO akşam Emir, defterine tamirin bütün aşamalarını resimleriyle birlikte yazdı. Artık bir şeyi onarmanın en önemli aletinin sabır olduğunu biliyordu.",
       "sorular": [
         {
@@ -88,6 +95,13 @@
       "ad": "Rüzgârı Dinleyen Değirmenci",
       "sinif": 7,
       "tur": "masal",
+      "zorluk": 3,
+      "etiketler": [
+        "rüzgâr",
+        "doğaya uyum",
+        "uyarıları dinlemek",
+        "masal"
+      ],
       "metin": "Evvel zaman içinde, yeşil tepelerle çevrili bir köyde Ilgaz adında genç bir değirmenci yaşarmış. Köyün en yüksek tepesindeki yel değirmeni, ustası Şahin Usta’dan ona kalmış. Şahin Usta, uzak bir köye yerleşmek için yola çıkmadan önce ona tek bir öğüt vermiş: “Değirmeni rüzgâr döndürür ama rüzgârı dinlemeyi bilen yönetir.”\n\nIlgaz bu söze o gün pek anlam verememiş. Hasat zamanı gelince köylüler buğdaylarını çuval çuval getirmeye başlamış. Kapıdaki sıra uzadıkça Ilgaz telaşlanmış. Değirmen daha hızlı dönsün diye kanatlardaki bezleri sonuna kadar açmış.\n\nBir sabah tepeye çıktığında rüzgârın her zamankinden farklı estiğini fark etmiş. Rüzgâr bir esip bir duruyor, sonra birden sertleşiyormuş. Kulağına ince bir ses gelmiş: “Yavaş ol, Ilgaz. Bezlerini topla; bugün huysuzum, nereye eseceğimi ben de bilmiyorum.” Ilgaz bunun bir hayal olduğunu düşünüp omuz silkmiş. Bezleri açık bırakıp işine devam etmiş.\n\nÖğleden sonra sert bir fırtına çıkmış. Kanatlar öyle hızlı dönmüş ki değirmen taşları ısınmış, ahşap mil çatırdamaya başlamış. Ilgaz koşup bezleri toplamış ama kanatlardan biri çoktan çatlamış. Değirmen günlerce çalışamamış.\n\nKöylüler yardıma gelmiş; kimi tahta taşımış, kimi çivi çakmış. Onarım sürerken Ilgaz her sabah tepeye çıkıp rüzgârı dinlemiş. Esintinin yönünü, sesini, havadaki nemi tanımayı öğrenmiş. Rüzgâr hafifken bezleri açmış, sertleşirken toplamış.\n\nDeğirmen yeniden döndüğünde eskisinden daha düzenli çalışıyormuş. Taşlar ısınmadığı için un daha ince çıkıyor, iş de aksamıyormuş. Ilgaz o zaman ustasının sözünü anlamış: Güç, ona karşı gelmekte değil, onu tanımaktaymış.\n\nGökten üç elma düşmüş: biri bu masalı anlatana, biri dinleyene, biri de rüzgârı dinlemeyi bilene.",
       "sorular": [
         {
@@ -161,6 +175,962 @@
             "O uyarıyı dikkate almanın neden önemli olduğunu açıkladım."
           ],
           "aciklama": "İyi bir cevap, masaldaki “uyarıyı dinleme” fikrini kendi deneyimine bağlar ve sonucunu açıklar."
+        }
+      ]
+    },
+    {
+      "kimlik": "sahnede-unutulan-replik",
+      "ad": "Sahnede Unutulan Replik",
+      "sinif": 7,
+      "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "sahne heyecanı",
+        "tiyatro",
+        "dayanışma",
+        "hatayla başa çıkma"
+      ],
+      "metin": "Okulun yıl sonu gösterisine yalnızca iki gün kalmıştı. Ece, oyunda kasabanın saat ustasını canlandırıyordu ve oyunun en uzun konuşması ondaydı. Haftalardır her akşam ayna karşısında çalışıyor, repliklerini annesine dinletiyordu. Yine de gösteri günü yaklaştıkça midesindeki düğüm büyüyordu.\n\nGösteri akşamı salon doluydu. Perde açıldığında Ece, sahne ışıklarının sandığından çok daha parlak olduğunu fark etti. İlk iki repliğini sorunsuz söyledi. Üçüncüsüne geldiğinde ise aklı birden bomboş oldu. Salondaki herkes ona bakıyor gibiydi. Ön sırada oturan küçük kardeşinin merakla kendisini izlediğini gördü ve elleri terlemeye başladı. Geçen birkaç saniye, dakikalar kadar uzun geldi.\n\nTam o sırada sahnede onunla birlikte olan Barış, elindeki eski cep saatini Ece’ye uzattı: “Usta, bu saat yine geri kalıyor. Dün akşamki fırtınadan beri böyle.” Bu cümle oyunda yoktu; Barış doğaçlama yapıyordu, yani o anda kendi cümlesini uyduruyordu. Ece, arkadaşının ne yapmaya çalıştığını hemen anladı. Fırtına! Konuşmasının devamı fırtınayla başlıyordu. Derin bir nefes aldı, saati ışığa doğru tuttu ve kaldığı yerden devam etti. Seyircilerin çoğu hiçbir şey fark etmedi.\n\nGösteriden sonra Ece kulise koştu ve Barış’a teşekkür etti. Kalbi hâlâ hızlı atıyordu ama yüzünde kocaman bir gülümseme vardı. “Sen olmasan orada donup kalacaktım,” dedi. Barış gülümsedi: “Provalarda sen de bana iki kez yardım etmiştin. Sahnede kimse yalnız değildir.”\n\nDrama öğretmenleri Selin Hanım da yanlarına geldi. Ece utanarak başını eğdi: “Repliğimi unuttum, her şeyi mahvediyordum.” Selin Hanım ise olanları bir başarısızlık olarak görmüyordu: “Deneyimli oyuncular da replik unutur. Önemli olan, unuttuğunda ne yaptığındır. Sen paniğe kapılmadın, arkadaşının uzattığı ipucunu yakaladın. Bu, ezberlemekten daha zor bir beceridir.”\n\nO gece Ece, defterine kısa bir not yazdı: “Bir dahaki sefere unutursam önce nefes alacağım, sonra sahnedeki ipuçlarına bakacağım.” Ertesi yıl yine oyuna katılmak için adını ilk yazdıran o oldu.",
+      "sorular": [
+        {
+          "kimlik": "canlandirilan-rol",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Ece oyunda kimi canlandırıyordu?",
+          "secenekler": [
+            "Kasabanın postacısını",
+            "Kasabanın saat ustasını",
+            "Kasabanın öğretmenini",
+            "Kasabanın fırıncısını"
+          ],
+          "dogru": 1,
+          "aciklama": "Birinci paragrafta Ece’nin oyunda kasabanın saat ustasını canlandırdığı yazıyor."
+        },
+        {
+          "kimlik": "barisin-yardimi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Barış, Ece’ye yardım etmek için ne yaptı?",
+          "secenekler": [
+            "Perdenin arkasından Ece’ye repliğini fısıldadı.",
+            "Ece’nin repliğini kendisi söyleyip oyunu sürdürdü.",
+            "Oyunda olmayan, fırtınadan söz eden bir cümle söyledi.",
+            "Seyircileri güldürüp dikkatlerini başka yöne çekti."
+          ],
+          "dogru": 2,
+          "aciklama": "Barış, oyunda olmayan bir cümleyle fırtınadan söz etti ve Ece’ye konuşmasının devamını hatırlattı."
+        },
+        {
+          "kimlik": "neden-firtina",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Barış’ın kendi cümlesinde özellikle fırtınadan söz etmesinin nedeni nedir?",
+          "secenekler": [
+            "Ece’nin konuşmasının devamı fırtınayla başladığı için ona ipucu vermek",
+            "Gösteri akşamı dışarıda gerçekten bir fırtına çıkmış olması",
+            "Seyircilere oyunun yağmurlu bir günde geçtiğini anlatmak",
+            "Elindeki cep saatinin neden bozulduğunu öğretmenine açıklamak"
+          ],
+          "dogru": 0,
+          "aciklama": "Ece “Fırtına!” diye düşünüp konuşmasının devamını hatırlıyor. Barış bu kelimeyi bilerek seçmiş, ona ipucu vermiş."
+        },
+        {
+          "kimlik": "fark-edilmedi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "“Seyircilerin çoğu hiçbir şey fark etmedi.” cümlesinden ne anlaşılır?",
+          "secenekler": [
+            "Seyirciler oyunu dikkatle izlemiyordu.",
+            "Ece repliğini aslında hiç unutmamıştı.",
+            "Salondaki ışıklar sahneyi görmeyi zorlaştırıyordu.",
+            "Ece ile Barış sorunu oyunun akışını bozmadan çözdü."
+          ],
+          "dogru": 3,
+          "aciklama": "Barış’ın ipucu ve Ece’nin sakin devamı oyunun akışını bozmadı; bu yüzden seyircilerin çoğu bir sorun olduğunu anlamadı."
+        },
+        {
+          "kimlik": "ogretmenin-sozu",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Selin Hanım’ın sözlerine en uygun düşünce hangisidir?",
+          "secenekler": [
+            "Sahneye çıkan biri hiçbir zaman hata yapmamalıdır.",
+            "Hata yapmaktan çok, hatadan sonra nasıl davrandığımız önemlidir.",
+            "Uzun replikler yalnızca deneyimli oyunculara verilmelidir.",
+            "Ezberlemek, sahnede başarılı olmak için tek başına yeterlidir."
+          ],
+          "dogru": 1,
+          "aciklama": "Selin Hanım, deneyimli oyuncuların da replik unuttuğunu ve önemli olanın unutunca ne yapıldığı olduğunu söylüyor."
+        },
+        {
+          "kimlik": "hic-calismamisti",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Ece, gösteriden önce repliklerini hiç çalışmamıştı.",
+          "dogru": false,
+          "aciklama": "Birinci paragrafa göre Ece haftalardır her akşam ayna karşısında çalışıyor, repliklerini annesine dinletiyordu."
+        }
+      ]
+    },
+    {
+      "kimlik": "patikadaki-isaretler",
+      "ad": "Patikadaki İşaretler",
+      "sinif": 7,
+      "tur": "hikaye",
+      "zorluk": 3,
+      "etiketler": [
+        "doğa yürüyüşü",
+        "takım çalışması",
+        "birlikte karar verme",
+        "güvenlik"
+      ],
+      "metin": "Yedinci sınıflar, bahar döneminde öğretmenleriyle birlikte şehrin yakınındaki ormanlık parkta doğa yürüyüşüne çıkmıştı. Yürüyüş başlamadan önce rehber öğretmen Okan Bey herkesi topladı. Her gruba bir harita ve bir düdük verdi, sonra kuralları hatırlattı: “Ağaçlardaki sarı işaretleri izleyin. Grubunuzdan kimse ayrılmasın. Nerede olduğunuzu bilemezseniz olduğunuz yerde kalın ve düdüğü üç kez çalın.”\n\nKaan, Elif, Deniz ve Mert aynı gruptaydı. Kaan haritayı hemen aldı ve en öne geçti. Konuşkan, hızlı karar veren biriydi. Deniz ise sınıfın en sessiz öğrencisiydi; yürürken sık sık durup çevresine bakıyordu.\n\nYarım saat sonra yol ikiye ayrıldı. Kaan hiç duraksamadan sağdaki geniş yola saptı. “Bu yol daha düzgün, kesin doğrusu bu,” dedi. Bir süre yürüdükten sonra Deniz çekinerek konuştu: “Epeydir hiç sarı işaret görmedim.” Kaan omuz silkti ama Elif de ağaçlara dikkatle bakınca Deniz’e hak verdi.\n\nGrup durdu. Kaan önce bunu kabullenmek istemedi; yanılmak hoşuna gitmemişti. Sonra derin bir nefes aldı ve haritayı açtı. “Peki,” dedi, “en son nerede işaret gördük?” Deniz hatırlıyordu: Yol ayrımından hemen önce, yıldırım çarpmış kocaman bir çam ağacının üzerinde. Elif de ayrımdaki küçük ahşap köprüyü haritada buldu.\n\nNerede olduklarını hâlâ biliyorlardı; geldikleri yol belliydi. Bu yüzden birbirlerinden ayrılmadan, aynı yoldan geri döndüler. Yıldırım çarpmış çamın yanına vardıklarında soldaki dar patikanın girişinde sarı işareti gördüler. İşaret, sarkan dallar yüzünden kolayca gözden kaçıyordu.\n\nVarış noktasına diğer gruplardan biraz geç ulaştılar. Okan Bey olanları dinledi ve gülümsedi: “Yolu şaşırmak her yürüyüşçünün başına gelebilir. Siz fark ettiğiniz anda durdunuz, birlikte düşündünüz ve son bildiğiniz noktaya döndünüz. Doğru olan da buydu.”\n\nDönüş yolunda haritayı Deniz taşıdı. Kaan ise bu kez en arkadan yürüdü ve her yol ayrımında, karar vermeden önce arkadaşlarına ne düşündüklerini sordu.",
+      "sorular": [
+        {
+          "kimlik": "kural-degil",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Aşağıdakilerden hangisi Okan Bey’in yürüyüş öncesi hatırlattığı kurallardan biri değildir?",
+          "secenekler": [
+            "Ağaçlardaki sarı işaretleri izlemek",
+            "Gruptaki hiç kimsenin ayrılmaması",
+            "Nerede olunduğu bilinmezse düdüğü üç kez çalmak",
+            "Yol ayrımlarında en geniş yolu seçmek"
+          ],
+          "dogru": 3,
+          "aciklama": "Okan Bey işaretleri izlemeyi, gruptan ayrılmamayı ve gerekirse düdük çalmayı hatırlatıyor. En geniş yolu seçmek Kaan’ın kendi kararıydı."
+        },
+        {
+          "kimlik": "olay-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Olayları hikâyedeki sıraya göre diz.",
+          "ogeler": [
+            "Okan Bey gruplara harita ve düdük verdi.",
+            "Kaan sağdaki geniş yola saptı.",
+            "Deniz bir süredir işaret görmediklerini söyledi.",
+            "Grup yıldırım çarpmış çamın yanına geri döndü.",
+            "Dönüş yolunda haritayı Deniz taşıdı."
+          ],
+          "aciklama": "Hikâye; hazırlık, yanlış yola sapma, fark etme, geri dönme ve dönüş yolu sırasıyla ilerliyor."
+        },
+        {
+          "kimlik": "neden-sag",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kaan’ın sağdaki yolu seçerken yaptığı hata nedir?",
+          "secenekler": [
+            "Haritayı grubun geri kalanına hiç göstermemiş olması",
+            "Düdüğü gereğinden önce ve gereksiz yere çalmış olması",
+            "Yolun görünüşüne güvenip işaretlere bakmadan karar vermesi",
+            "Gruptan ayrılıp yalnız başına ilerlemeye karar vermesi"
+          ],
+          "dogru": 2,
+          "aciklama": "Kaan “Bu yol daha düzgün” diyerek karar verdi; oysa kural sarı işaretleri izlemekti."
+        },
+        {
+          "kimlik": "kaanin-degisimi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Hikâyenin sonunda Kaan’ın davranışındaki değişiklik neyi gösterir?",
+          "secenekler": [
+            "Başkalarının görüşünü dinlemenin önemini anladığını",
+            "Doğa yürüyüşlerinden artık hiç hoşlanmadığını",
+            "Okan Bey’in kendisine kızmasından korktuğunu",
+            "Haritayı okumayı Deniz’den daha iyi bildiğini"
+          ],
+          "dogru": 0,
+          "aciklama": "Kaan en arkadan yürüyor ve her ayrımda arkadaşlarının ne düşündüğünü soruyor; bu, birlikte karar vermenin değerini anladığını gösterir."
+        },
+        {
+          "kimlik": "hikayenin-dersi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu hikâyeden çıkarılabilecek en uygun ders hangisidir?",
+          "secenekler": [
+            "Bir grupta her zaman en hızlı karar veren kişi lider olmalıdır.",
+            "Haritası olan bir grubun yolunu kaybetmesi mümkün değildir.",
+            "Sessiz kişilerin gözlemleri de değerlidir; birlikte düşünmek hataları azaltır.",
+            "Yanlış yola sapan bir grup, yürüyüşü hemen bırakmalıdır."
+          ],
+          "dogru": 2,
+          "aciklama": "Sorunu sessiz Deniz fark etti; grup birlikte düşününce doğru yolu buldu. Hikâye dinlemenin ve birlikte karar vermenin önemini anlatıyor."
+        },
+        {
+          "kimlik": "son-isaret",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Deniz’e göre son sarı işaret, yıldırım çarpmış kocaman bir ___ ağacının üzerindeydi.",
+          "cevaplar": [
+            "çam",
+            "cam"
+          ],
+          "aciklama": "Dördüncü paragrafta Deniz, son işareti yıldırım çarpmış bir çam ağacında gördüklerini hatırlıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "isik-ve-renkler",
+      "ad": "Işık ve Renkler",
+      "sinif": 7,
+      "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "ışık",
+        "renkler",
+        "yansıma",
+        "soğurma",
+        "saydamlık"
+      ],
+      "metin": "Güneşli bir yaz gününde siyah tişört giyen biri, beyaz tişört giyen arkadaşından daha çabuk ısındığını hisseder. Kırmızı bir elma neden kırmızı, yapraklar neden yeşil görünür? Bu soruların cevabı, ışık bir maddeyle karşılaştığında olanlarda saklıdır.\n\nGüneş’ten gelen beyaz ışık, aslında farklı renklerdeki ışıkların karışımıdır. Bunu deneylerle ayrıntılı biçimde gösterenlerden biri, 17. yüzyılda yaşamış bilim insanı Isaac Newton’dır. Newton, beyaz ışığı bir prizmadan geçirerek kırmızıdan mora uzanan renklere ayırmıştır. Yağmurdan sonra gökyüzünde gördüğümüz gökkuşağı da benzer bir olaydır; bu kez ışığı renklerine ayıran, havadaki su damlacıklarıdır.\n\nIşık bir cisme çarptığında üç şey olabilir: Işığın bir kısmı cisim tarafından soğurulur, yani tutulur; bir kısmı yansır, yani geri döner; bazı cisimlerde ise bir kısmı cismin içinden geçer. Bir cismin rengini, gözümüze ulaşan ışık belirler. Kırmızı elma, beyaz ışıktaki renklerin çoğunu soğurur ama kırmızı ışığı yansıtır. Gözümüze kırmızı ışık ulaştığı için elmayı kırmızı görürüz. Yapraklar da yeşil ışığı büyük ölçüde yansıttıkları için yeşil görünür.\n\nBeyaz cisimler, ışıktaki renklerin hemen hepsini yansıtır. Siyah cisimler ise renklerin hemen hepsini soğurur. Soğurulan ışık enerjisinin büyük kısmı ısıya dönüşür. Siyah tişörtün güneşte daha çabuk ısınmasının nedeni budur. Sıcak bölgelerde evlerin duvarlarının çoğunlukla açık renge boyanması da bu bilgiyle açıklanabilir.\n\nCam, temiz su ve hava gibi saydam maddeler ışığın büyük bölümünü geçirir; bu yüzden arkalarındaki cisimleri net görürüz. Buzlu cam gibi yarı saydam maddeler ışığın yalnızca bir kısmını geçirir; arkalarındaki cisimler bulanık görünür. Tahta ya da taş gibi opak maddeler ise ışığı geçirmez.\n\nKaranlık bir odada kırmızı bir elmaya bakmayı düşün. Hiç ışık yoksa elmanın rengini göremezsin, çünkü gözüne ulaşacak ışık yoktur. Yani renk, yalnızca cismin bir özelliği değil, cisim ile ışığın birlikte oluşturduğu bir sonuçtur.",
+      "sorular": [
+        {
+          "kimlik": "prizma",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre Newton beyaz ışığı neyle renklerine ayırmıştır?",
+          "secenekler": [
+            "Prizmayla",
+            "Aynayla",
+            "Mercekle",
+            "Buzlu camla"
+          ],
+          "dogru": 0,
+          "aciklama": "İkinci paragrafta Newton’ın beyaz ışığı bir prizmadan geçirerek renklerine ayırdığı yazıyor."
+        },
+        {
+          "kimlik": "siyah-cisim",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre siyah cisimler ışıktaki renklere ne yapar?",
+          "secenekler": [
+            "Renklerin hemen hepsini yansıtır.",
+            "Yalnızca kırmızı ışığı yansıtır.",
+            "Işığın büyük bölümünü içinden geçirir.",
+            "Renklerin hemen hepsini soğurur."
+          ],
+          "dogru": 3,
+          "aciklama": "Dördüncü paragrafa göre siyah cisimler ışıktaki renklerin hemen hepsini soğurur."
+        },
+        {
+          "kimlik": "mavi-kalem",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Beyaz ışık altında mavi görünen bir kalem için hangisi söylenebilir?",
+          "secenekler": [
+            "Işıktaki renklerin hepsini eşit ölçüde yansıtır.",
+            "Mavi ışığı yansıtır, diğer renklerin çoğunu soğurur.",
+            "Mavi ışığı soğurur, diğer bütün renkleri yansıtır.",
+            "Işığı geçirdiği için mavi bir renk alır."
+          ],
+          "dogru": 1,
+          "aciklama": "Elma örneğindeki kural burada da geçerli: Cisim hangi rengi yansıtırsa o renkte görünür."
+        },
+        {
+          "kimlik": "buzlu-cam",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Banyo pencerelerinde sık sık buzlu cam kullanılmasının nedeni ne olabilir?",
+          "secenekler": [
+            "Işığı hiç geçirmediği için odayı serin tuttuğu",
+            "Bütün renkleri soğurduğu için daha az kirlendiği",
+            "Işığın bir kısmını geçirirken dışarıdan bakanın içeriyi net görmesini engellediği",
+            "Işığı renklerine ayırarak odaya gökkuşağı renkleri yaydığı"
+          ],
+          "dogru": 2,
+          "aciklama": "Yarı saydam buzlu cam odaya ışık alır ama arkadaki görüntüyü bulanıklaştırır; böylece içerisi dışarıdan net görünmez."
+        },
+        {
+          "kimlik": "serin-ev",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Çok sıcak bir kasabada ev yapacak bir aileye metindeki bilgilere dayanarak hangi öneri verilebilir?",
+          "secenekler": [
+            "Evin duvarlarını koyu renge boyamaları, çünkü koyu renk ışığı yansıtır",
+            "Evin bütün duvarlarını camdan yapmaları, çünkü cam ışığı soğurur",
+            "Duvar rengini önemsememeleri, çünkü renk evin sıcaklığını etkilemez",
+            "Evin dış duvarlarını açık renge boyamaları, çünkü açık renk ışığın çoğunu yansıtır"
+          ],
+          "dogru": 3,
+          "aciklama": "Açık renkler ışığın çoğunu yansıtır ve daha az ısınır. Metin de sıcak bölgelerde duvarların açık renge boyandığını söylüyor."
+        },
+        {
+          "kimlik": "gokkusagi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Gökkuşağında ışığı renklerine ayıran, havadaki su damlacıklarıdır.",
+          "dogru": true,
+          "aciklama": "İkinci paragrafta gökkuşağında ışığı renklerine ayıranın havadaki su damlacıkları olduğu yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "mikroskobun-actigi-kapi",
+      "ad": "Mikroskobun Açtığı Kapı",
+      "sinif": 7,
+      "tur": "fen",
+      "zorluk": 4,
+      "etiketler": [
+        "hücre",
+        "mikroskop",
+        "bitki ve hayvan hücresi",
+        "bilim tarihi"
+      ],
+      "metin": "1665 yılında İngiliz bilim insanı Robert Hooke, geliştirdiği mikroskopla ince bir mantar parçasını inceledi. Bu mantar, şişe tıpası yapımında kullanılan bir ağaç kabuğuydu. Gördüğü şey Hooke’u şaşırttı: Mantar, yan yana dizilmiş küçük odacıklardan oluşuyordu. Hooke bu odacıkları küçük odalara benzetti ve onlara “cell” adını verdi. Türkçede hücre dediğimiz kavramın hikâyesi böyle başladı. Aslında Hooke’un gördüğü, ölü dokudan geriye kalan boş hücre duvarlarıydı.\n\nSonraki iki yüzyılda mikroskoplar gelişti ve bilim insanları pek çok canlıyı inceledi. 1800’lerin ortalarında vardıkları sonuç, bugün hücre teorisi olarak bilinir: Bütün canlılar bir ya da daha çok hücreden oluşur, hücre canlının temel yapı birimidir ve her hücre, var olan başka bir hücreden meydana gelir.\n\nBir hücreyi küçük bir şehre benzetebiliriz. Şehrin sınırını hücre zarı oluşturur. Hücre zarı, hangi maddelerin hücreye girip çıkacağını denetler. Zarın içini dolduran, sıvı kıvamındaki bölüme sitoplazma denir; hücrenin pek çok işi burada yürütülür. Hücrenin yönetim merkezi ise çekirdektir. Çekirdekte kalıtsal bilgi bulunur ve hücredeki olaylar buradan yönetilir. Sitoplazmada ayrıca organel denen küçük yapılar vardır. Örneğin mitokondri, besinlerden enerji elde edilmesini sağlar; bu yüzden hücrenin enerji santrali olarak anılır.\n\nBitki ve hayvan hücreleri birçok yönden benzerdir ama aralarında önemli farklar da vardır. Bitki hücresinde, hücre zarının dışında sağlam bir hücre duvarı bulunur. Hücre duvarı bitkiye destek sağlar ve şeklini korumasına yardım eder. Yeşil bitki hücrelerinde ayrıca fotosentezin gerçekleştiği kloroplastlar vardır. Hayvan hücrelerinde ise hücre duvarı ve kloroplast bulunmaz.\n\nİnsan vücudu, sayısı on trilyonlarla ifade edilen hücreden oluşur. Kas, sinir ve kan hücreleri gibi farklı hücreler, yaptıkları işe uygun biçimlere sahiptir. Örneğin sinir hücrelerinin uzun uzantıları, mesajların vücudun bir yerinden başka bir yerine iletilmesine yardım eder. Bütün bu bilgilerin ilk adımı ise merakla bir mantar parçasına bakan bir bilim insanının dikkatli gözlemiydi.",
+      "sorular": [
+        {
+          "kimlik": "hooke-ne-inceledi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Robert Hooke ilk hücre gözlemini neyi incelerken yaptı?",
+          "secenekler": [
+            "Kendi kanından aldığı bir damlayı",
+            "Bir yaprağın yüzeyini",
+            "İnce bir mantar parçasını",
+            "Bir göl suyu damlasını"
+          ],
+          "dogru": 2,
+          "aciklama": "Birinci paragrafta Hooke’un ince bir mantar parçasını incelediği yazıyor."
+        },
+        {
+          "kimlik": "teori-disi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Aşağıdakilerden hangisi metinde anlatılan hücre teorisinin maddelerinden biri değildir?",
+          "secenekler": [
+            "Bütün hücreler aynı büyüklükte ve aynı biçimdedir.",
+            "Bütün canlılar bir ya da daha çok hücreden oluşur.",
+            "Hücre, canlının temel yapı birimidir.",
+            "Her hücre, var olan başka bir hücreden meydana gelir."
+          ],
+          "dogru": 0,
+          "aciklama": "Hücre teorisinin üç maddesi ikinci paragrafta veriliyor. Son paragraf da farklı hücrelerin farklı biçimlerde olduğunu söylüyor."
+        },
+        {
+          "kimlik": "bitki-kaniti",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Hooke’un incelediği dokunun bir bitkiye ait olduğunu metindeki hangi bilgi destekler?",
+          "secenekler": [
+            "Odacıkların küçük odalara benzetilmesi",
+            "Dokunun bir mikroskopla incelenmiş olması",
+            "Gözlemin 1665 yılında yapılmış olması",
+            "Görülen yapıların hücre duvarları olması"
+          ],
+          "dogru": 3,
+          "aciklama": "Metne göre hücre duvarı bitki hücrelerinde bulunur, hayvan hücrelerinde bulunmaz. Hooke’un gördüğü de hücre duvarlarıydı."
+        },
+        {
+          "kimlik": "kas-mitokondri",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kas hücrelerinde mitokondri sayısının genellikle fazla olması neyle açıklanabilir?",
+          "secenekler": [
+            "Kas hücrelerinin fotosentez yapması gerekmesiyle",
+            "Kas hücrelerinin çalışırken çok enerjiye ihtiyaç duymasıyla",
+            "Kas hücrelerinin bir hücre duvarıyla çevrili olmasıyla",
+            "Kas hücrelerinin kalıtsal bilgi taşımamasıyla"
+          ],
+          "dogru": 1,
+          "aciklama": "Mitokondri besinlerden enerji elde edilmesini sağlar. Çok çalışan kas hücrelerinin enerji ihtiyacı fazladır."
+        },
+        {
+          "kimlik": "sehir-benzetmesi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Yazarın hücreyi bir şehre benzetmesinin en önemli amacı nedir?",
+          "secenekler": [
+            "Göz ile görülemeyen bir yapıyı tanıdık bir örnekle anlaşılır kılmak",
+            "Hücrelerin şehirler kadar büyük olabileceğini göstermek",
+            "Hücrelerin de şehirler gibi insanlar tarafından kurulduğunu söylemek",
+            "Metni okuyanları şehirlerin tarihine meraklandırmak"
+          ],
+          "dogru": 0,
+          "aciklama": "Sınır, yönetim merkezi, enerji santrali gibi tanıdık kavramlar, hücrenin bölümlerini akılda canlandırmaya yardım eder."
+        },
+        {
+          "kimlik": "cekirdek",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Hücrede kalıtsal bilginin bulunduğu ve olayların yönetildiği bölüme ___ denir.",
+          "cevaplar": [
+            "çekirdek",
+            "cekirdek"
+          ],
+          "aciklama": "Üçüncü paragrafta çekirdeğin hücrenin yönetim merkezi olduğu ve kalıtsal bilgiyi taşıdığı yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "gobeklitepe",
+      "ad": "Göbeklitepe: Taşlardaki Soru İşaretleri",
+      "sinif": 7,
+      "tur": "tarih",
+      "zorluk": 4,
+      "etiketler": [
+        "Göbeklitepe",
+        "Neolitik dönem",
+        "kültürel miras",
+        "UNESCO"
+      ],
+      "metin": "Şanlıurfa’nın yaklaşık 15 kilometre kuzeydoğusunda, çevresine göre yüksekte kalan bir tepe vardır. Bölge halkı bu yere, üzerindeki göbeğe benzeyen tümsek nedeniyle Göbeklitepe adını vermiştir. Uzun yıllar boyunca burada tarım yapıldı; toprağın altında neler olduğunu kimse bilmiyordu.\n\n1960’larda yapılan bir yüzey araştırmasında tepedeki bazı taş parçaları kayda geçirildi ama önemleri anlaşılmadı. 1990’ların ortasında Şanlıurfa Müzesi ile Alman arkeolog Klaus Schmidt’in birlikte yürüttüğü kazılar başladığında ise şaşırtıcı bir tablo ortaya çıktı. Toprağın altında, büyük dikilitaşlarla çevrili yuvarlak ve oval yapılar vardı.\n\nBu yapıların en dikkat çekici özelliği, ortalarında ve çevrelerinde yükselen T biçimli dikilitaşlardır. Bazılarının boyu beş metreyi bulur ve ağırlıkları tonlarla ölçülür. Taşların üzerinde tilki, yaban domuzu, yılan ve akbaba gibi hayvanların kabartmaları görülür. Bazı dikilitaşlara kollar ve eller de işlenmiştir; bu durum, araştırmacılara taşların insan biçimini temsil ediyor olabileceğini düşündürür.\n\nGöbeklitepe’yi bu kadar önemli yapan şey yaşıdır. Yapıların en eski bölümlerinin yaklaşık 11 bin 500 yıl önce, yani yazının, tekerleğin ve çanak çömleğin henüz kullanılmadığı bir dönemde inşa edildiği belirlenmiştir. Bu tarih, Göbeklitepe’yi bilinen en eski anıtsal yapılardan biri yapar.\n\nUzun süre, büyük yapıların ancak insanlar tarıma ve yerleşik hayata geçtikten sonra yapılabildiği düşünülüyordu. Göbeklitepe’nin yapımında ise avcı-toplayıcı toplulukların büyük rol oynadığı anlaşılıyor. Bu kadar büyük taşları kesmek, taşımak ve dikmek; çok sayıda insanın bir araya gelmesini, iş bölümü yapmasını ve bilgi paylaşmasını gerektiriyordu. Bu yüzden bazı bilim insanları, insanların bir araya gelme isteğinin yerleşik hayata geçişi hızlandırmış olabileceğini düşünüyor. Bu konu hâlâ araştırılıyor ve her yeni kazı yeni sorular ortaya çıkarıyor.\n\nGöbeklitepe 2018 yılında UNESCO Dünya Mirası Listesi’ne alındı. Bugün ziyaretçiler, yapıları koruyan büyük bir çatının altında, yürüyüş yollarından kazı alanını izleyebiliyor. Bu alan, yalnızca Türkiye’nin değil, bütün insanlığın ortak geçmişine ait bir mirastır.",
+      "sorular": [
+        {
+          "kimlik": "ad-kaynagi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Göbeklitepe adını nereden almıştır?",
+          "secenekler": [
+            "Yakınındaki bir köyün adından",
+            "Tepenin üzerindeki göbeğe benzeyen tümsekten",
+            "Kazıyı yöneten arkeoloğun önerisinden",
+            "Dikilitaşların T biçiminden"
+          ],
+          "dogru": 1,
+          "aciklama": "Birinci paragrafta bölge halkının tepeye, göbeğe benzeyen tümsek nedeniyle bu adı verdiği yazıyor."
+        },
+        {
+          "kimlik": "kabartma-disi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre aşağıdaki hayvanlardan hangisinin kabartmasından söz edilmemiştir?",
+          "secenekler": [
+            "Tilki",
+            "Akbaba",
+            "Yılan",
+            "At"
+          ],
+          "dogru": 3,
+          "aciklama": "Üçüncü paragrafta tilki, yaban domuzu, yılan ve akbaba sayılıyor; attan söz edilmiyor."
+        },
+        {
+          "kimlik": "is-bolumu",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Göbeklitepe’yi yapan toplulukların iş bölümü yaptığını düşündüren en güçlü neden nedir?",
+          "secenekler": [
+            "Dikilitaşların çok büyük ve ağır olması, tek başına taşınıp dikilememesi",
+            "Taşların üzerine hayvan kabartmaları yapılmış olması",
+            "Tepenin Şanlıurfa’ya yakın bir yerde bulunması",
+            "Alanın 2018 yılında UNESCO listesine alınmış olması"
+          ],
+          "dogru": 0,
+          "aciklama": "Tonlarca ağırlıktaki taşları kesmek, taşımak ve dikmek; çok kişinin birlikte ve görev paylaşarak çalışmasını gerektirir."
+        },
+        {
+          "kimlik": "hala-arastiriliyor",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "“Bu konu hâlâ araştırılıyor.” cümlesi okura ne anlatır?",
+          "secenekler": [
+            "Göbeklitepe’deki kazıların uzun süre önce tamamen bittiğini",
+            "Göbeklitepe’nin yaşının henüz hiç belirlenemediğini",
+            "Göbeklitepe hakkındaki bazı düşüncelerin kesinleşmediğini, yeni bulgularla değişebileceğini",
+            "Bilim insanlarının Göbeklitepe’ye artık ilgi duymadığını"
+          ],
+          "dogru": 2,
+          "aciklama": "Yazar, yerleşik hayata geçişle ilgili düşüncenin bir görüş olduğunu, yeni kazıların yeni sorular doğurduğunu belirtiyor."
+        },
+        {
+          "kimlik": "ortak-miras",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Göbeklitepe’nin bütün insanlığın ortak mirası sayılmasının en uygun gerekçesi hangisidir?",
+          "secenekler": [
+            "Türkiye’de ziyaret edilebilen tek kazı alanı olması",
+            "İnsanlık tarihinin çok erken bir dönemine ait, herkesi ilgilendiren bilgiler sunması",
+            "Ziyaretçilerin kazı alanını bir çatı altından izleyebilmesi",
+            "Taşların üzerinde yalnızca yabani hayvanların resimlerinin bulunması"
+          ],
+          "dogru": 1,
+          "aciklama": "Göbeklitepe, insanların nasıl bir araya gelip büyük işler başardığına dair çok eski bilgiler sunuyor; bu bilgiler bütün insanlığın geçmişini ilgilendiriyor."
+        },
+        {
+          "kimlik": "canak-comlek",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Göbeklitepe’deki yapılar, insanlar çanak çömlek kullanmaya başladıktan sonra inşa edilmiştir.",
+          "dogru": false,
+          "aciklama": "Dördüncü paragrafa göre yapıların en eski bölümleri çanak çömleğin henüz kullanılmadığı bir dönemde yapılmıştır."
+        }
+      ]
+    },
+    {
+      "kimlik": "cahit-arf",
+      "ad": "Cahit Arf: Anlamanın Peşindeki Matematikçi",
+      "sinif": 7,
+      "tur": "biyografi",
+      "zorluk": 4,
+      "etiketler": [
+        "Cahit Arf",
+        "matematik",
+        "bilim insanları",
+        "biyografi"
+      ],
+      "metin": "2009’da kullanılmaya başlanan 10 liralık banknotları dikkatle inceleyenler, arka yüzde bir portre ile birlikte matematik ifadeleri görür. Bu portre, adı dünyanın dört bir yanındaki matematikçilerce bilinen Türk bilim insanı Cahit Arf’a aittir.\n\nCahit Arf, 1910 yılında Selanik’te doğdu. Ailesi daha sonra İstanbul’a, ardından İzmir’e yerleşti. Küçük yaşlardan itibaren matematiğe ilgi duydu. Lise eğitimini Fransa’da tamamladı, ardından Paris’teki École Normale Supérieure adlı okula girdi. Bu okulda normalde üç yılda biten eğitimi iki yılda bitirerek 1932’de mezun oldu.\n\nTürkiye’ye döndükten sonra bir süre Galatasaray Lisesi’nde matematik öğretmenliği yaptı, ardından İstanbul Üniversitesi’nde çalışmaya başladı. 1937’de doktora yapmak için Almanya’daki Göttingen Üniversitesi’ne gitti. Orada ünlü matematikçi Helmut Hasse ile çalıştı ve 1938’de doktorasını tamamladı. Bu dönemde ulaştığı bir sonuç, bugün matematikte Hasse-Arf teoremi olarak anılır.\n\nArf’ın en tanınmış çalışması 1941’de yayımlanır. Bu çalışmada tanımladığı ve bugün “Arf değişmezi” olarak bilinen kavram, zamanla matematiğin farklı alanlarında kullanılmaya başlandı. Daha sonraki yıllarda üzerinde çalıştığı bazı yapılar da onun adıyla “Arf halkaları” diye anılır. Bir bilim insanının adının kavramlara verilmesi, çalışmalarının ne kadar önemli bulunduğunu gösterir.\n\nCahit Arf yalnızca araştırmalarıyla değil, bilimi yaygınlaştırma çabalarıyla da tanınır. 1960’larda TÜBİTAK’ın kuruluş çalışmalarında görev aldı ve uzun yıllar farklı üniversitelerde ders verdi. Öğrencilerine bir bilgiyi ezberlemek yerine onun neden doğru olduğunu düşünerek anlamalarını öğütlediği anlatılır. Ona göre matematik, kurallar listesi değil, merakla sorulan sorulardan doğan bir düşünme biçimiydi.\n\nÇalışmaları nedeniyle yaşamı boyunca önemli bilim ödüllerine layık görüldü. Cahit Arf 1997’de İstanbul’da hayatını kaybetti. Bugün onun adı, banknotların yanı sıra okullarda, yarışmalarda ve bilimsel etkinliklerde yaşıyor. Hayatı, sabırla düşünmenin ve merakın peşinden gitmenin insanı nerelere taşıyabileceğini gösteriyor.",
+      "sorular": [
+        {
+          "kimlik": "dogum-yeri",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Cahit Arf hangi şehirde doğmuştur?",
+          "secenekler": [
+            "İstanbul",
+            "İzmir",
+            "Selanik",
+            "Paris"
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafa göre Cahit Arf 1910 yılında Selanik’te doğdu."
+        },
+        {
+          "kimlik": "hayat-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Cahit Arf’ın hayatındaki olayları metindeki sıraya göre diz.",
+          "ogeler": [
+            "Selanik’te doğdu.",
+            "Paris’teki okuldan mezun oldu.",
+            "Göttingen’de doktorasını tamamladı.",
+            "Arf değişmezini tanımladığı çalışma yayımlandı.",
+            "TÜBİTAK’ın kuruluş çalışmalarında görev aldı."
+          ],
+          "aciklama": "Sıralama metindeki tarihlere dayanıyor: 1910, 1932, 1938, 1941 ve 1960’lar."
+        },
+        {
+          "kimlik": "iki-yilda",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Arf’ın üç yılda biten eğitimi iki yılda bitirmesi, onun hakkında ne düşündürür?",
+          "secenekler": [
+            "Okulu sevmediği için bir an önce ayrılmak istediğini",
+            "Fransızca bilmediği için bazı dersleri alamadığını",
+            "Okulun kurallarına uymadığı için erken uzaklaştırıldığını",
+            "Derslerinde çok başarılı ve çalışkan bir öğrenci olduğunu"
+          ],
+          "dogru": 3,
+          "aciklama": "Bir eğitimi beklenenden kısa sürede tamamlamak, derslerde yüksek başarı göstermeyi gerektirir."
+        },
+        {
+          "kimlik": "adinin-verilmesi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Metne göre bazı matematik kavramlarına Arf’ın adının verilmesi neyi gösterir?",
+          "secenekler": [
+            "Çalışmalarının matematikçiler tarafından önemli bulunduğunu",
+            "Arf’ın bu kavramları yalnızca Türkiye’de kullandığını",
+            "Kavramların Arf öldükten sonra bulunduğunu",
+            "Arf’ın matematik dışında da çalıştığını"
+          ],
+          "dogru": 0,
+          "aciklama": "Dördüncü paragrafın son cümlesi, adın kavramlara verilmesinin çalışmaların önemli bulunduğunu gösterdiğini söylüyor."
+        },
+        {
+          "kimlik": "arf-gibi-calismak",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Arf’ın öğrencilerine verdiği öğüde en uygun çalışma biçimi hangisidir?",
+          "secenekler": [
+            "Bir formülü sınavdan önceki gece defalarca yazarak ezberlemek",
+            "Bir formülün neden doğru olduğunu araştırıp kendi örnekleriyle denemek",
+            "Yalnızca öğretmenin tahtaya yazdığı soruları çözmek",
+            "Zor gelen konuları atlayıp kolay konularla yetinmek"
+          ],
+          "dogru": 1,
+          "aciklama": "Arf’ın bir bilginin neden doğru olduğunu düşünerek anlamayı öğütlediği anlatılıyor. Formülün nedenini araştırmak bu öğüde en uygun yoldur."
+        },
+        {
+          "kimlik": "arf-degismezi",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Arf’ın 1941’de yayımlanan çalışmasında tanımladığı kavram, bugün “Arf ___” olarak bilinir.",
+          "cevaplar": [
+            "değişmezi",
+            "degismezi"
+          ],
+          "aciklama": "Dördüncü paragrafta bu kavramın “Arf değişmezi” olarak bilindiği yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "saksagan-ile-kunduz",
+      "ad": "Saksağan ile Kunduz",
+      "sinif": 7,
+      "tur": "masal",
+      "zorluk": 2,
+      "etiketler": [
+        "fabl",
+        "gösteriş",
+        "emek",
+        "kalıcı işler"
+      ],
+      "metin": "Bir zamanlar, yüksek dağlardan inen bir derenin kıyısında Kunduz ile Saksağan komşu olarak yaşarmış. Kunduz, sonbahar gelmeden önce her gün sabahtan akşama kadar çalışırmış. Dişleriyle dalları keser, onları çamurla birbirine tutturarak derenin üzerine bir set örermiş.\n\nSaksağan ise günlerini parlak şeyler toplayarak geçirirmiş. Bir şişe kapağı, bir cam boncuk, kırık bir ayna parçası... Hepsini yuvasına taşır, güneş vurunca nasıl parladıklarını seyre dalarmış. Ormanın öteki hayvanları uğradığında yuvasını gururla gösterir, onların hayranlıkla bakmasından çok hoşlanırmış.\n\nBir gün Saksağan, Kunduz’un yakınındaki bir dala konmuş. “Bütün gün çamura bulanıyorsun,” demiş alaycı bir sesle. “Ördüğün o dal yığınına kimse bakmıyor bile. Benim yuvama bak; ormanda herkes onu konuşuyor.”\n\nKunduz işini bırakmadan cevap vermiş: “Benim setim bakılsın diye değil, işe yarasın diye. Bu set suyu biriktirecek. Kış gelince göletin ortasındaki yuvam hem bana hem yavrularıma sığınak olacak.”\n\nSaksağan kahkahalarla uçup gitmiş. Haftalar geçmiş, havalar soğumuş. Bir gece öyle şiddetli bir fırtına çıkmış ki rüzgâr ağaçları eğmiş, dalları kırmış. Saksağan’ın yuvasının bulunduğu kuru dal da kırılıp yere düşmüş. Parlak boncuklar, ayna parçaları çamura gömülüp kaybolmuş. Saksağan sabaha kadar sığınacak bir yer aramış.\n\nSabah olunca yorgun düşen Saksağan dere kıyısına gelmiş. Kunduz’un seti fırtınaya dayanmış; arkasında sakin bir gölet oluşmuş, göletin ortasındaki yuva da sapasağlam kalmış. Göletin kenarında, suyun beslediği sık söğütler büyümüş. Saksağan bu söğütlerden birinin dalına sığınmış.\n\nKunduz onu görünce başını sudan çıkarmış: “Bu söğütler de benim setimin biriktirdiği suyla büyüyor. İstersen yeni yuvanı buraya kur.” Saksağan bir süre sessiz kalmış, sonra utanarak teşekkür etmiş. O bahar yeni yuvasını sağlam dallardan, sabırla örmüş. Yuvasına yalnızca bir tane parlak boncuk koymuş; ona her baktığında o fırtınalı geceyi hatırlasın diye.\n\nBu fabl bize, değerin gösterişte değil, emekle yapılan kalıcı işlerde olduğunu anlatır.",
+      "sorular": [
+        {
+          "kimlik": "setin-amaci",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kunduz seti hangi amaçla yapıyordu?",
+          "secenekler": [
+            "Suyu biriktirip kış için güvenli bir yuva kurmak",
+            "Derenin kenarındaki söğütleri kesmek",
+            "Ormandaki hayvanların beğenisini kazanmak",
+            "Saksağan’ın yuvasını rüzgârdan korumak"
+          ],
+          "dogru": 0,
+          "aciklama": "Kunduz, setin suyu biriktireceğini ve göletteki yuvasının kışın sığınak olacağını söylüyor."
+        },
+        {
+          "kimlik": "yuvaya-ne-oldu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Fırtına gecesi Saksağan’ın yuvasına ne oldu?",
+          "secenekler": [
+            "Yuvayı dere suyu basıp sürükledi.",
+            "Yuvayı başka bir kuş ele geçirdi.",
+            "Yuva sağlam kaldı ama boncuklar çalındı.",
+            "Yuvanın bulunduğu kuru dal kırılıp yere düştü."
+          ],
+          "dogru": 3,
+          "aciklama": "Beşinci paragrafa göre yuvanın bulunduğu kuru dal kırılıp yere düştü, parlak eşyalar çamura gömüldü."
+        },
+        {
+          "kimlik": "alay-nedeni",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Saksağan’ın Kunduz’la alay etmesinin altında yatan düşünce nedir?",
+          "secenekler": [
+            "Kunduz’un setinin suyu fazla biriktireceğinden korkması",
+            "Bir işin değerini, başkalarının ona hayranlıkla bakmasına göre ölçmesi",
+            "Kunduz’un yavrularının kendi yuvasına zarar vermesi",
+            "Kunduz’un çok yavaş çalıştığı için seti bitiremeyeceğini bilmesi"
+          ],
+          "dogru": 1,
+          "aciklama": "Saksağan “Kimse bakmıyor bile” ve “Herkes onu konuşuyor” diyor; değeri görünüşe ve ilgiye göre ölçüyor."
+        },
+        {
+          "kimlik": "tek-boncuk",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Saksağan’ın yeni yuvasına yalnızca bir boncuk koyması neyi gösterir?",
+          "secenekler": [
+            "Diğer boncukları Kunduz’a hediye ettiğini",
+            "Parlak şeylerden artık hiç hoşlanmadığını",
+            "Yaşadığı deneyimden aldığı dersi unutmak istemediğini",
+            "Yuvasında daha fazla boncuğa yer kalmadığını"
+          ],
+          "dogru": 2,
+          "aciklama": "Metne göre boncuk, Saksağan’a fırtınalı geceyi hatırlatsın diye konmuştur."
+        },
+        {
+          "kimlik": "fabla-uygun-durum",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Aşağıdaki durumlardan hangisi bu fablın iletisine en çok uyar?",
+          "secenekler": [
+            "Konuyu gerçekten anlamak için düzenli çalışan, gösterişli bir sunum yerine sağlam bir ödev hazırlayan öğrenci",
+            "Sınıf panosuna en renkli afişi asmak için ödevin içeriğini hiç okumayan öğrenci",
+            "Arkadaşlarının beğenisini kazanmak için her gün yeni bir eşya alan öğrenci",
+            "Yarışmayı kazanmak için çalışmasını son geceye bırakan öğrenci"
+          ],
+          "dogru": 0,
+          "aciklama": "Fablın iletisi, değerin gösterişte değil emekle yapılan kalıcı işlerde olduğudur. İlk seçenekteki öğrenci tam olarak bunu yapıyor."
+        },
+        {
+          "kimlik": "izin-vermedi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Kunduz, Saksağan’ın yeni yuvasını göletin kenarına kurmasına izin vermedi.",
+          "dogru": false,
+          "aciklama": "Kunduz, Saksağan’a “İstersen yeni yuvanı buraya kur.” diyerek onu davet ediyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "okul-bahcesinde-yagmur-hasadi",
+      "ad": "Okul Bahçesinde Yağmur Hasadı",
+      "sinif": 7,
+      "tur": "haber",
+      "zorluk": 3,
+      "etiketler": [
+        "haber",
+        "su tasarrufu",
+        "okul projesi",
+        "çevre kulübü"
+      ],
+      "metin": "Fidanlık Ortaokulu öğrencileri, okul bahçesindeki sebze bahçesini sulamak için çatıdan akan yağmur suyunu biriktiren bir sistem kurdu. Yedinci sınıf öğrencilerinin oluşturduğu Çevre Kulübü’nün eylül ayında başlattığı proje, beş aylık çalışmanın ardından geçen hafta tamamlandı.\n\nProje fikri, kulübün ilk toplantısında ortaya çıktı. Kulüp üyesi Melis Aydın, yaz aylarında bahçedeki sebzelerin şebeke suyuyla sulandığını ve bunun okulun su giderini artırdığını fark etmişti. Öğrenciler, “Okulun çatısına düşen yağmur boşa akıp gidiyor. Neden onu kullanmıyoruz?” sorusundan yola çıkarak çalışmaya başladı.\n\nİlk iş olarak okulun çatı alanını ölçtüler. Fen bilimleri öğretmeni Hakan Yıldız’ın rehberliğinde yaptıkları hesaplamada şu bilgiyi kullandılar: Bir milimetrelik yağış, her metrekareye yaklaşık bir litre su bırakır. Okulun çatısı yaklaşık 300 metrekare olduğu için bir milimetrelik her yağışta çatıdan yaklaşık 300 litre su toplanabiliyordu.\n\nSistemin kurulumunda okul aile birliği ve belediye destek verdi. Yağmur olukları, filtreli bir boruyla bahçedeki 2 bin litrelik iki depoya bağlandı. Depoların ağzı, içlerine yaprak ve böcek girmesini önlemek için kapakla kapatıldı. Öğrenciler, toplanan suyun yalnızca bahçe sulamada kullanılacağını ve içilmeyeceğini belirten bir uyarı levhasını da depoların üzerine astı.\n\nKulüp üyeleri depolar ilk kez dolduğundan beri her hafta su seviyesini ölçüp bir tabloya kaydediyor. Okul müdürü Gülay Er, bu ölçümlerin önümüzdeki yaz şebeke suyundan ne kadar tasarruf edildiğini göstermek için kullanılacağını söyledi.\n\nProjede görev alan öğrencilerden Arda Kılıç, en çok ölçüm yapmayı sevdiğini anlattı: “Önce hesap yalnızca kâğıt üzerindeydi. Depoda hesapladığımıza yakın miktarda su görünce matematik ve fen derslerinde öğrendiklerimizin gerçek hayatta ne işe yaradığını anladık.”\n\nÇevre Kulübü, kurdukları sistemi ve hesaplama yöntemini bir broşürde topladı. Öğrenciler bu broşürü, benzer bir proje yapmak isteyen okullarla paylaşmayı planlıyor.",
+      "sorular": [
+        {
+          "kimlik": "suyun-kullanimi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Haberde toplanan yağmur suyunun ne için kullanılacağı söyleniyor?",
+          "secenekler": [
+            "Okulun kantininde içme suyu olarak",
+            "Okulun temizlik işlerinde",
+            "Okul bahçesindeki aracı yıkamakta",
+            "Yalnızca bahçedeki sebzeleri sulamakta"
+          ],
+          "dogru": 3,
+          "aciklama": "Dördüncü paragrafa göre su yalnızca bahçe sulamada kullanılacak ve içilmeyecek."
+        },
+        {
+          "kimlik": "kapak-nedeni",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Depoların ağzı neden kapakla kapatıldı?",
+          "secenekler": [
+            "Suyun buharlaşarak azalmasını önlemek için",
+            "İçlerine yaprak ve böcek girmesini önlemek için",
+            "Öğrencilerin suya dokunmasını engellemek için",
+            "Suyun yaz aylarında soğuk kalması için"
+          ],
+          "dogru": 1,
+          "aciklama": "Dördüncü paragrafta kapağın yaprak ve böcek girmesini önlemek için konduğu yazıyor."
+        },
+        {
+          "kimlik": "bes-milimetre",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Haberdeki hesaba göre 5 milimetrelik bir yağışta okulun çatısından yaklaşık ne kadar su toplanabilir?",
+          "secenekler": [
+            "300 litre",
+            "600 litre",
+            "1500 litre",
+            "2000 litre"
+          ],
+          "dogru": 2,
+          "aciklama": "Bir milimetrelik yağışta yaklaşık 300 litre toplanıyorsa 5 milimetrede 5 × 300 = 1500 litre toplanır."
+        },
+        {
+          "kimlik": "olcumlerin-amaci",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kulüp üyelerinin her hafta su seviyesini ölçüp kaydetmesinin en önemli yararı nedir?",
+          "secenekler": [
+            "Projenin ne kadar tasarruf sağladığını verilerle gösterebilmek",
+            "Depoların ne zaman boşaltılacağına müdürün karar vermesi",
+            "Yağmurun hangi gün yağacağını önceden tahmin etmek",
+            "Öğrencilerin kulüp toplantılarına düzenli katılmasını sağlamak"
+          ],
+          "dogru": 0,
+          "aciklama": "Okul müdürü, ölçümlerin ne kadar tasarruf edildiğini göstermek için kullanılacağını söylüyor."
+        },
+        {
+          "kimlik": "ardanin-sozu",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Arda’nın sözlerinden hangi sonuca varılabilir?",
+          "secenekler": [
+            "Okulda öğrenilen bilgilerin günlük hayatta pek kullanılmadığına",
+            "Matematik dersinin fen dersinden daha önemli olduğuna",
+            "Hesapların her zaman kâğıt üzerinde kalması gerektiğine",
+            "Derste öğrenilenleri gerçek bir sorunda kullanmanın öğrenmeyi anlamlı kıldığına"
+          ],
+          "dogru": 3,
+          "aciklama": "Arda, hesabın depoda gerçeğe dönüştüğünü görünce derste öğrendiklerinin ne işe yaradığını anladığını söylüyor."
+        },
+        {
+          "kimlik": "cevre-kulubu",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Projeyi yedinci sınıf öğrencilerinin oluşturduğu Çevre ___ başlattı.",
+          "cevaplar": [
+            "Kulübü",
+            "kulubu",
+            "Kulüp",
+            "kulup"
+          ],
+          "aciklama": "Haberin ilk paragrafında projeyi Çevre Kulübü’nün başlattığı yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "ormanin-bekcileri",
+      "ad": "Ormanın Bekçileri: Bir Orman Mühendisiyle Söyleşi",
+      "sinif": 7,
+      "tur": "diyalog",
+      "zorluk": 3,
+      "etiketler": [
+        "röportaj",
+        "meslekler",
+        "orman",
+        "yangından korunma",
+        "erozyon"
+      ],
+      "metin": "Okulumuzun gazetesi Pusula için bu ay bir orman mühendisiyle konuştuk. Aylin Demirtaş, on beş yıldır ormanların korunması ve bakımı üzerine çalışıyor. Sorularımızı gazete ekibinden Ela ve Kerem sordu.\n\nEla: Orman mühendisi ne iş yapar?\nAylin Demirtaş: Ormanları planlar, korur ve geliştiririz. Hangi alanlara yeni fidan dikileceğine, hangi türün nereye uygun olduğuna karar veririz. Her fidan her yerde yaşamaz; seçtiğimiz ağaç türü, o yerin toprağına ve iklimine uygun olmalıdır.\n\nKerem: Bir iş gününüz nasıl geçiyor?\nAylin Demirtaş: Zamanımın çoğu arazide geçer. Ağaçların sağlığını incelerim, hastalık ya da zararlı böcek belirtisi olup olmadığına bakarım. Gördüklerimi kaydederim. Ofise dönünce bu kayıtları haritalarla birleştirip sonraki çalışmaları planlarız.\n\nEla: Ağaçlandırma neden bu kadar önemli?\nAylin Demirtaş: Ormanlar pek çok canlıya yaşam alanı sağlar. Ayrıca ağaçların kökleri toprağı tutar. Bitki örtüsü olmayan eğimli bir arazide şiddetli yağmur, toprağın üst katmanını kolayca sürükleyip götürür. Buna erozyon denir. Verimli toprağın oluşması çok uzun zaman alır; kaybedildiğinde yerine kısa sürede yenisi gelmez.\n\nKerem: Orman yangınları hakkında ne söylemek istersiniz?\nAylin Demirtaş: Ülkemizde çıkan orman yangınlarının büyük bölümü insan kaynaklıdır. Söndürülmeden bırakılan bir piknik ateşi ya da dikkatsizce atılan bir sigara izmariti büyük bir yangını başlatabilir. Bu yüzden ormanda ateş yakılmamalı, çöpler geri götürülmelidir. Duman ya da ateş gören biri hemen bir yetişkine haber vermeli ve 112’yi aramalıdır. Yangını kendiniz söndürmeye çalışmayın; rüzgâr yangını çok hızlı yayabilir. Hemen uzaklaşın.\n\nEla: Mesleğinizin en güzel yanı ne?\nAylin Demirtaş: Yıllar önce fidan diktiğimiz çıplak bir yamacın bugün yeşil bir koruya dönüştüğünü görmek. Diktiğim ağaçların çoğunun en büyük hâlini belki ben göremeyeceğim. Ama bizden sonraki kuşakların görmesi bana yetiyor.\n\nKerem: Bu mesleği seçmek isteyen öğrencilere ne önerirsiniz?\nAylin Demirtaş: Fen ve matematik derslerine önem versinler, doğayı dikkatle gözlemlesinler. Bu meslek sabır ister; bir ormanın büyüdüğünü görmek için yıllarca beklemeyi göze almak gerekir.",
+      "sorular": [
+        {
+          "kimlik": "tur-secimi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Aylin Demirtaş’a göre bir alana dikilecek ağaç türü seçilirken neye dikkat edilmelidir?",
+          "secenekler": [
+            "En hızlı büyüyen tür olmasına",
+            "En çok gölge yapan tür olmasına",
+            "O yerin toprağına ve iklimine uygun olmasına",
+            "Fidanının en ucuz olmasına"
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafta seçilen türün toprağa ve iklime uygun olması gerektiği söyleniyor."
+        },
+        {
+          "kimlik": "duman-gorunce",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Aylin Demirtaş, duman ya da ateş gören birine ne yapmasını öneriyor?",
+          "secenekler": [
+            "Yangını su ve toprakla söndürmeye çalışmasını",
+            "Ateşin fotoğrafını çekip sosyal medyada paylaşmasını",
+            "Bir yetişkine haber verip 112’yi aramasını",
+            "Ormanın içine girip yangının yerini bulmasını"
+          ],
+          "dogru": 2,
+          "aciklama": "Beşinci paragrafta hemen bir yetişkine haber verilmesi ve 112’nin aranması öneriliyor."
+        },
+        {
+          "kimlik": "sondurmeyin",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Aylin Demirtaş’ın “Yangını kendiniz söndürmeye çalışmayın” demesinin nedeni nedir?",
+          "secenekler": [
+            "Yangın söndürmenin yalnızca orman mühendislerinin görevi olması",
+            "Küçük yangınların kendiliğinden söneceğinin bilinmesi",
+            "Suyun orman toprağına zarar vermesi",
+            "Yangının rüzgârla hızla yayılıp kişiyi tehlikeye sokabilmesi"
+          ],
+          "dogru": 3,
+          "aciklama": "Aylin Hanım, rüzgârın yangını çok hızlı yayabileceğini söylüyor; bu yüzden en güvenli davranış uzaklaşmaktır."
+        },
+        {
+          "kimlik": "ciplak-yamac",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ağaçları kesilmiş eğimli bir arazide şiddetli bir yağmurdan sonra ne olması beklenir?",
+          "secenekler": [
+            "Verimli toprağın yağmur suyuyla sürüklenip taşınması",
+            "Toprağın daha verimli hâle gelmesi",
+            "Yamaçta kendiliğinden yeni bir orman oluşması",
+            "Yağmur suyunun toprağın içinde birikip kalması"
+          ],
+          "dogru": 0,
+          "aciklama": "Kökler toprağı tutar. Bitki örtüsü yoksa yağmur toprağın üst katmanını sürükler; buna erozyon denir."
+        },
+        {
+          "kimlik": "gelecek-kusaklar",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Aylin Demirtaş’ın mesleğinin en güzel yanını anlatırken söyledikleri, onun hangi tutumunu gösterir?",
+          "secenekler": [
+            "İşinin sonucunu hemen görmek isteyen sabırsız bir tutum",
+            "Gelecek kuşakları düşünen, sabırlı bir tutum",
+            "Yalnızca kendi başarısını önemseyen bir tutum",
+            "Mesleğinden memnun olmadığını gösteren bir tutum"
+          ],
+          "dogru": 1,
+          "aciklama": "Diktiği ağaçların en büyük hâlini göremese de sonraki kuşakların görmesinin ona yettiğini söylüyor."
+        },
+        {
+          "kimlik": "her-fidan",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Aylin Demirtaş’a göre her fidan, her toprakta yaşayabilir.",
+          "dogru": false,
+          "aciklama": "İkinci paragrafta “Her fidan her yerde yaşamaz” deniyor; tür, toprağa ve iklime göre seçilmelidir."
+        }
+      ]
+    },
+    {
+      "kimlik": "ekran-suresi-gunlugum",
+      "ad": "Ekran Süresi Günlüğüm",
+      "sinif": 7,
+      "tur": "gunluk",
+      "zorluk": 2,
+      "etiketler": [
+        "ekran süresi",
+        "öz denetim",
+        "uyku düzeni",
+        "günlük hayat"
+      ],
+      "metin": "Pazartesi\nBugün beden eğitimi öğretmenimiz Tuncay Bey, neden bu kadar yorgun olduğumuzu sordu. Sınıfta birçok kişi gece geç saatlere kadar telefonla vakit geçirdiğini söyledi. Ben de onlardan biriydim. “Yusuf, senin de gözlerin kızarmış,” deyince yüzüm kızardı. Tuncay Bey hiçbirimize kızmadı, yasak da koymadı. Bir hafta boyunca ekran başında ne kadar zaman geçirdiğimizi not etmemizi önerdi. “Önce ölçün, sonra karar verin,” dedi.\n\nSalı\nTelefonumdaki ekran süresi göstergesine ilk kez dikkatle baktım. Dün ekranda tam dört saat on dakika geçirmişim! Bunun yarısından fazlası kısa videolarla geçmiş. Oysa bana en fazla bir saat gibi gelmişti. Videolar birbirinin ardından kendiliğinden açıldığı için zamanın nasıl geçtiğini fark etmemişim.\n\nÇarşamba\nKendime küçük bir kural koydum: Yatmadan bir saat önce telefonu salondaki şarj yerine bırakacağım. İlk akşam zor oldu; elim sürekli telefonu arıyordu. Sonunda yarım bıraktığım çizgi romanı aldım ve okurken uyuyakalmışım.\n\nPerşembe\nSabah alarm çalmadan uyandım. Bunu en son ne zaman yaşadığımı hatırlamıyorum. İlk derste esnemedim bile. Bu tek bir günün sonucu mu, yoksa gerçekten kuralım mı işe yarıyor, henüz bilmiyorum. Bunu anlamak için denemeye devam edeceğim.\n\nCuma\nBugün hafta sonu için bir plan yaptım. Ödevlerimi bitirince oyun oynamak serbest ama oyun süresini önceden belirleyip saate kuracağım. Annem de akşam yemeklerinde telefonsuz sofra önerdi. Babam, “Buna en çok ben zorlanacağım,” deyip güldü.\n\nPazar\nHaftanın sonunda tablomu inceledim. Günlük ekran sürem ortalama iki buçuk saate inmiş. Telefonu tamamen bırakmadım; arkadaşlarımla yazıştım, ödevim için araştırma yaptım, birkaç video da izledim. Ama artık ne kadar zaman geçirdiğimi bilerek kullanıyorum. Yarın Tuncay Bey’e şunu söyleyeceğim: En büyük değişiklik, süreyi görmek oldu. Görmediğim bir şeyi değiştiremiyormuşum.",
+      "sorular": [
+        {
+          "kimlik": "ogretmenin-onerisi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Tuncay Bey öğrencilere ne önerdi?",
+          "secenekler": [
+            "Telefonlarını bir hafta boyunca hiç kullanmamalarını",
+            "Her gece belirli bir saatte uyumalarını",
+            "Telefonlarını okula getirmemelerini",
+            "Bir hafta boyunca ekran sürelerini not etmelerini"
+          ],
+          "dogru": 3,
+          "aciklama": "Tuncay Bey yasak koymadan, bir hafta boyunca ekran süresini not etmeyi öneriyor."
+        },
+        {
+          "kimlik": "en-cok-ne",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Yusuf’un ilk ölçümüne göre ekran süresinin yarısından fazlası neyle geçmişti?",
+          "secenekler": [
+            "Kısa videolarla",
+            "Ödev araştırmasıyla",
+            "Arkadaşlarıyla yazışarak",
+            "Oyun oynayarak"
+          ],
+          "dogru": 0,
+          "aciklama": "Salı günkü yazıya göre sürenin yarısından fazlası kısa videolarla geçmiş."
+        },
+        {
+          "kimlik": "bir-saat-gibi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Salı günkü “Oysa bana en fazla bir saat gibi gelmişti.” cümlesi neyi gösterir?",
+          "secenekler": [
+            "Telefonun ekran süresi göstergesinin bozuk olduğunu",
+            "Kısa videoları izlemekten hiç hoşlanmadığını",
+            "Ekran başında geçen zamanı fark etmenin zor olabileceğini",
+            "O gün telefonunu başkasının kullandığını"
+          ],
+          "dogru": 2,
+          "aciklama": "Gerçek süre ile Yusuf’un tahmini arasında büyük bir fark var; zaman ekran başında fark edilmeden geçmiş."
+        },
+        {
+          "kimlik": "henuz-bilmiyorum",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Perşembe günü Yusuf’un “henüz bilmiyorum” demesi onun nasıl düşündüğünü gösterir?",
+          "secenekler": [
+            "Kuralının hiçbir işe yaramadığından emin olduğunu",
+            "Tek bir güne bakarak kesin bir sonuca varmak istemediğini",
+            "Erken uyanmaktan hiç hoşlanmadığını",
+            "Denemeyi o gün bırakmaya karar verdiğini"
+          ],
+          "dogru": 1,
+          "aciklama": "Yusuf bir günün sonucunu kesin kanıt saymıyor; anlamak için denemeyi sürdürmek istiyor."
+        },
+        {
+          "kimlik": "gormedigim-sey",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "“Görmediğim bir şeyi değiştiremiyormuşum.” sözüne en çok uyan durum hangisidir?",
+          "secenekler": [
+            "Bir film izlerken telefonunu sessize alan öğrenci",
+            "Harçlığının nereye gittiğini anlamak için bir hafta harcamalarını yazan öğrenci",
+            "Ödevini arkadaşından kopyalayan öğrenci",
+            "Sınav sonucunu öğrenmek istemeyen öğrenci"
+          ],
+          "dogru": 1,
+          "aciklama": "Harcamalarını yazan öğrenci de Yusuf gibi önce durumu ölçüp görünür hâle getiriyor; değişiklik ancak bundan sonra mümkün oluyor."
+        },
+        {
+          "kimlik": "tamamen-birakti",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Yusuf hafta sonunda telefonunu kullanmayı tamamen bıraktı.",
+          "dogru": false,
+          "aciklama": "Pazar günkü yazıda Yusuf telefonu tamamen bırakmadığını, ama artık bilerek kullandığını söylüyor."
         }
       ]
     }

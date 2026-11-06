@@ -1,0 +1,135 @@
+{
+  "surum": 1,
+  "tur": "strateji",
+  "ad": "cikarim-yapma",
+  "baslik": "Çıkarım Yapma",
+  "kisaAciklama": "Metnin açıkça söylemediğini ipuçlarından ve bildiklerinden yola çıkarak bul.",
+  "sureDk": "8-10",
+  "kazanim": "Metinde açıkça yazmayan bilgileri ipuçlarından ve kendi bildiklerinden yararlanarak çıkarmayı, çıkarımını metinden bir dayanakla göstermeyi öğreneceksin.",
+  "anlat": {
+    "baslik": "Çıkarım: ipucu + bildiklerin",
+    "paragraflar": [
+      "Yazarlar her şeyi açıkça söylemez. Bir kahramanın nasıl hissettiğini, bir olayın neden olduğunu ya da nerede geçtiğini bazen yalnızca ipuçlarıyla gösterir. Bu ipuçlarından açıkça yazmayan bilgiyi bulmaya çıkarım yapmak denir.",
+      "Çıkarım yaparken iki şeyi birleştirirsin: metindeki ipucu ve senin zaten bildiklerin. Bir dedektif gibi düşün: “Metin bana ne söylüyor? Ben bu konuda ne biliyorum? O hâlde ne anlıyorum?”",
+      "İyi bir çıkarımın mutlaka metinde bir dayanağı olur. Metinde hiç ipucu yoksa yaptığın şey çıkarım değil, yalnızca bir tahmindir."
+    ],
+    "ornek": {
+      "baslik": "Çıkarım formülü",
+      "satirlar": [
+        "Metin diyor ki: Arda içeri girince ıslak şemsiyesini kapının yanına bıraktı ve ayakkabılarındaki çamuru sildi.",
+        "Ben biliyorum ki: Şemsiyeyi yağmurda açarız; yağmur toprağı çamura çevirir.",
+        "O hâlde: Dışarıda yağmur yağıyor."
+      ]
+    }
+  },
+  "metin": {
+    "baslik": "Bilim Şenliği Sabahı",
+    "yonerge": "Metni oku. Zeynep’in nasıl hissettiği metinde hiç yazmıyor; ipuçlarını yakalamaya çalış.",
+    "bolumler": [
+      {
+        "paragraflar": [
+          "Zeynep o sabah çalar saat çalmadan uyandı. Kahvaltıda annesinin hazırladığı peynirli tostun yalnızca bir köşesini yiyebildi.",
+          "Okula giderken çantasını iki kez açıp su arıtma düzeneğinin parçalarını saydı: üç kat taş, bir kat kum, bir kat pamuk. Hepsi yerindeydi ama yine de bir kez daha baktı.",
+          "Spor salonu masalarla dolmuştu. Zeynep düzeneğini masasına kurdu, sonra anlatacaklarını fısıldayarak tekrar etti. Bir ara elindeki kartlar yere düştü; onları toplarken parmaklarının hafifçe titrediğini fark etti.",
+          "Sıra ona geldiğinde derin bir nefes aldı. Bulanık suyu düzeneğe döktü ve herkes suyun alttaki bardağa daha berrak olarak süzülmesini izledi. “Bu su yine de içilmez,” diye ekledi Zeynep, “düzenek yalnızca süzme işini gösteriyor.” Öğretmeni ve arkadaşları alkışladığında yüzüne kocaman bir gülümseme yayıldı.",
+          "Akşam, defterine o günün tarihini yazdı ve altına tek bir kelime ekledi: “Başardım.”"
+        ]
+      }
+    ]
+  },
+  "gorev": {
+    "yonerge": "İpuçlarından Zeynep’in duygularını çıkar, sonra çıkarımı metinde açıkça yazanlardan ayır.",
+    "parcalar": [
+      {
+        "tur": "sorular",
+        "baslik": "Duyguyu çıkar",
+        "sorular": [
+          {
+            "kimlik": "cy-g1",
+            "tip": "coktan-secmeli",
+            "katman": "cikarim",
+            "soru": "Zeynep şenlik sabahı büyük olasılıkla nasıl hissediyordu?",
+            "secenekler": [
+              "Sıkılmış ve isteksiz",
+              "Heyecanlı ve biraz gergin",
+              "Öfkeli ve kırgın",
+              "Uykulu ve dalgın"
+            ],
+            "dogru": 1,
+            "aciklama": "Metinde “heyecanlı” kelimesi geçmiyor. Ama erken uyanması, az yemesi, parçaları tekrar tekrar kontrol etmesi ve parmaklarının titremesi bu duyguyu gösteren ipuçlarıdır."
+          }
+        ]
+      },
+      {
+        "tur": "isaretle",
+        "baslik": "İpuçlarını bul",
+        "yonerge": "Bu çıkarımı destekleyen ipuçlarını işaretle.",
+        "secenekler": [
+          "Çalar saat çalmadan uyandı.",
+          "Tostun yalnızca bir köşesini yiyebildi.",
+          "Spor salonu masalarla dolmuştu.",
+          "Parçaları saydı, yine de bir kez daha baktı.",
+          "Parmaklarının hafifçe titrediğini fark etti.",
+          "Düzenekte bir kat kum vardı."
+        ],
+        "dogru": [0, 1, 3, 4],
+        "aciklama": "Bir duyguyu gösteren ipuçları genellikle kahramanın davranışlarıdır: ne yaptığı, ne yiyip içtiği, bedeninin nasıl tepki verdiği. Salonun dolu olması ya da düzeneğin parçaları Zeynep’in duygusunu göstermez."
+      },
+      {
+        "tur": "eslestir",
+        "baslik": "Yazıyor mu, çıkarım mı?",
+        "yonerge": "Her bilgi için seç: Metinde açıkça yazıyor mu, ipucundan mı çıkarıyoruz, yoksa metinden bilinemez mi?",
+        "kategoriler": ["Açıkça yazıyor", "Çıkarım", "Bilinemez"],
+        "ogeler": [
+          { "metin": "Düzenekte taş, kum ve pamuk vardı.", "dogru": 0 },
+          { "metin": "Zeynep sunumuna önceden hazırlanmıştı.", "dogru": 1 },
+          { "metin": "Zeynep şenlikte birinci oldu.", "dogru": 2 },
+          { "metin": "Zeynep’in sunumu iyi geçti.", "dogru": 1 },
+          { "metin": "Zeynep’in en sevdiği ders fen bilimleridir.", "dogru": 2 }
+        ],
+        "aciklama": "Çıkarımın metinde bir dayanağı vardır: Kartlar ve fısıldayarak tekrar etmesi hazırlandığını, alkış ve “Başardım” sunumun iyi geçtiğini gösterir. Birincilik ya da en sevdiği ders hakkında ise hiç ipucu yok; bunları metinden bilemeyiz."
+      }
+    ]
+  },
+  "sinama": {
+    "sorular": [
+      {
+        "kimlik": "cy-s1",
+        "tip": "coktan-secmeli",
+        "katman": "cikarim",
+        "soru": "“Ali eve girdiğinde mutfaktan tarçın ve sıcak elma kokusu geliyordu. Fırının ışığı yanıyordu.” Bu cümlelerden hangi çıkarım yapılabilir?",
+        "secenekler": [
+          "Ali’nin evi okula çok yakındır.",
+          "Ali bugün okulda sınava girmiştir.",
+          "Mutfağın duvarları yeni boyanmıştır.",
+          "Fırında elmalı bir yiyecek pişiyor."
+        ],
+        "dogru": 3,
+        "aciklama": "İpuçları: tarçın ve sıcak elma kokusu, yanan fırın ışığı. Bildiğimiz: Fırında pişen yiyeceklerin kokusu eve yayılır. O hâlde fırında elmalı bir şey pişiyor. Diğer seçenekler için metinde hiç ipucu yok."
+      },
+      {
+        "kimlik": "cy-s2",
+        "tip": "coktan-secmeli",
+        "katman": "bilgi",
+        "soru": "Çıkarım yaparken hangi ikisini birleştiririz?",
+        "secenekler": [
+          "Metindeki ipucunu ve kendi bildiklerimizi",
+          "Metnin başlığını ve sayfa sayısını",
+          "Yazarın adını ve kitabın kapağını",
+          "Metnin ilk cümlesini ve son cümlesini"
+        ],
+        "dogru": 0,
+        "aciklama": "Çıkarım = metindeki ipucu + senin bildiklerin. İkisi birleşince metnin açıkça söylemediği bilgiye ulaşırsın."
+      },
+      {
+        "kimlik": "cy-s3",
+        "tip": "dogru-yanlis",
+        "katman": "yorum",
+        "soru": "Metinde hiçbir ipucu olmasa da aklımıza gelen her düşünce bir çıkarımdır.",
+        "dogru": false,
+        "aciklama": "Çıkarımın metinde bir dayanağı olmalıdır. İpucu yoksa vardığımız düşünce yalnızca bir tahmindir; doğru da çıkabilir, yanlış da."
+      }
+    ]
+  },
+  "kapanis": "Hikâye okurken kahramanların duygularını metin söylemeden önce bulmaya çalış ve kendine sor: “Bunu metnin hangi cümlesinden anladım?”"
+}

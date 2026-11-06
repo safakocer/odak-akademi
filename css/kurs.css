@@ -1,7 +1,7 @@
 /* Akıllı Kurs (S19): özet, plan notu, gün haritası, bugünün dersleri, dersler arası mola, çerçevedeki kurs bandı, rapor, sertifika ve yazdırma. Renkler yalnız tokens.css belirteçlerinden */
 
 #kurs-sayfasi [hidden], #kurs-rapor-sayfasi [hidden] { display: none !important; }
-.kurs-kart { display: grid; gap: var(--b-4); padding: var(--b-5); border: 1px solid var(--renk-kenar); border-radius: var(--kose-l); background: var(--renk-yuzey); min-inline-size: 0; }
+.kurs-kart { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--b-4); padding: var(--b-5); border: 1px solid var(--renk-kenar); border-radius: var(--kose-l); background: var(--renk-yuzey); min-inline-size: 0; }
 .kurs-kart h2, .kurs-kart p { margin: 0; }
 .kurs-kart p { line-height: var(--sh-govde); }
 .kurs-kart h2 { font-size: var(--fs-l); }

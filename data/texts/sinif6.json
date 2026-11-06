@@ -6,6 +6,13 @@
       "ad": "Arıların Dansı",
       "sinif": 6,
       "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "arılar",
+        "hayvanlarda iletişim",
+        "iş birliği",
+        "bilim"
+      ],
       "metin": "Bal arıları kovandan çıkıp çiçek ararken bazen birkaç kilometre uzağa gider. Peki zengin bir çiçek tarlası bulan arı, bunu arkadaşlarına nasıl anlatır? Bilim insanları bu sorunun cevabını arıları uzun süre gözlemleyerek buldu. Bu davranışı ayrıntılı inceleyenlerden biri olan Karl von Frisch, çalışmaları nedeniyle 1973’te Nobel Ödülü aldı.\n\nYiyecek bulan arı kovana döner ve petekler üzerinde sekiz rakamına benzeyen bir yol çizerek dans eder. Dansın ortasında düz bir çizgi boyunca ilerlerken gövdesini sağa sola sallar. Bu sallanma bölümünün yönü, çiçeklerin Güneş’e göre hangi yönde olduğunu gösterir. Sallanmanın ne kadar sürdüğü ise yaklaşık uzaklık hakkında bilgi verir: Yiyecek ne kadar uzaktaysa sallanma o kadar uzun sürer.\n\nYiyecek kovana çok yakınsa arı uzun bir sekiz çizmez; daha kısa, daire biçiminde bir dans yapar. Bu dans, “Yiyecek yakında, çevreyi ara!” demek gibidir. Dans eden arının üzerindeki çiçek kokusu da diğer arılara ipucu verir.\n\nDiğer arılar dansı yakından izler, ardından doğru yöne uçar. Böylece kovandaki işçiler yiyeceği tek tek aramak yerine birlikte ve daha az yorularak bulur. Küçük bir böceğin bu iş birliği, doğadaki iletişimin ne kadar şaşırtıcı olabileceğini gösteriyor.",
       "sorular": [
         {
@@ -82,6 +89,13 @@
       "ad": "Kâğıdın Yolculuğu",
       "sinif": 6,
       "tur": "bilgilendirici",
+      "zorluk": 4,
+      "etiketler": [
+        "kâğıt",
+        "yazının tarihi",
+        "geri dönüşüm",
+        "üretim"
+      ],
       "metin": "Bugün defterlerimizden kitaplarımıza, paketlerden biletlere kadar her yerde kâğıt kullanıyoruz. Oysa kâğıt yokken insanlar yazılarını çok farklı malzemelere kaydediyordu. Mezopotamya’da yaşayanlar, yumuşak kil tabletlere sivri bir çubukla işaretler çizer, sonra tabletleri kuruturdu. Eski Mısır’da papirüs adı verilen bir bitkinin gövdesinden ince yapraklar hazırlanırdı. Bazı yerlerde ise hayvan derisinden yapılan parşömen kullanılırdı. Bu malzemelerin kimi ağır, kimi pahalı, kimi de hazırlaması zahmetliydi.\n\nKâğıt ilk kez yaklaşık iki bin yıl önce bugünkü Çin topraklarında geliştirildi. Bitki lifleri suyla ezilip hamur hâline getiriliyor, bu hamur ince bir elek üzerine yayılıp kurutuluyordu. Ortaya çıkan yaprak hem hafif hem de ucuzdu. Kâğıt yapımı, yüzyıllar içinde İpek Yolu üzerinden batıya doğru yayıldı. Orta Asya’daki Semerkant, kâğıdıyla ün kazanan şehirlerden biri oldu. Kâğıt yaygınlaştıkça kitaplar çoğaldı ve bilgi daha çok insana ulaşmaya başladı.\n\nGünümüzde kâğıdın büyük bölümü ağaçlardan elde edilir. Ağaçlar önce küçük parçalara ayrılır. Bu parçalar suyla ve çeşitli maddelerle karıştırılıp lif hamuru yapılır. Hamur, makinelerde ince bir tabaka hâlinde yayılır ve preslenerek suyu alınır. Son olarak tabaka kurutulur ve büyük rulolar hâline getirilir.\n\nKullanılmış kâğıt geri dönüştürülerek yeniden kâğıt yapılabilir. Bu sayede daha az ağaç kesilir, üretimde daha az su ve enerji harcanır. Ancak kâğıt sonsuza kadar geri dönüştürülemez; her seferinde lifleri biraz daha kısalır ve birkaç dönüşümden sonra kullanılamaz hâle gelir. Bu yüzden kâğıdı geri dönüşüme göndermek kadar, onu gereksiz yere harcamamak da önemlidir.",
       "sorular": [
         {
@@ -155,6 +169,962 @@
             "Önerilerden birinin neden işe yarayacağını açıkladım."
           ],
           "aciklama": "Metin hem geri dönüşümü hem de gereksiz harcamamayı öneriyor. İyi bir cevap bu iki fikirden yararlanır ve bir gerekçe verir."
+        }
+      ]
+    },
+    {
+      "kimlik": "henuz-degil",
+      "ad": "Henüz Değil",
+      "sinif": 6,
+      "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "azim",
+        "müzik",
+        "düzenli çalışma",
+        "öz değerlendirme"
+      ],
+      "metin": "Defne, yaz tatilinde dedesinin bağlamasını ilk kez eline aldığında çok heyecanlanmıştı. Eylülde okulun müzik kulübüne yazıldı. Ancak birkaç hafta sonra heyecanının yerini hayal kırıklığı aldı. Parmakları teli doğru perdeye basamıyor, çıkan ses bir türlü istediği gibi olmuyordu. Kulüpteki bazı arkadaşları ise kısa ezgileri rahatça çalıyordu. Defne onları izledikçe kendini daha da yetersiz hissediyordu.\n\nBir akşam bağlamayı kılıfına koyarken annesine “Ben bu işi beceremiyorum, bırakacağım,” dedi. Ertesi gün kulüp öğretmeni Murat Bey’e de aynı şeyi söyledi. Murat Bey onu dinledikten sonra gülümsedi: “Beceremiyorum demek yerine ‘henüz beceremiyorum’ demeyi dene. Arkadaşların senden çok daha önce başladı. Sen onların ilk haftalarını görmedin.”\n\nMurat Bey ona bir öneride de bulundu: Defne her gün uzun ve yorucu çalışmalar yerine yalnızca on beş dakika çalışacak, her hafta sonu da çaldığı ezgiyi telefonla kaydedecekti. Defne önce bu fikri pek sevmedi; kendi çalışını dinlemekten utanıyordu. İlk kaydında sesler kesik kesik, ritim düzensizdi.\n\nDört hafta sonra dördüncü kaydını ilkinin hemen ardından dinledi ve şaşırdı. Ezgi artık tanınabiliyordu; duraklamalar azalmış, parmakları perdeleri daha rahat bulmaya başlamıştı. Hâlâ hataları vardı ama ilerlediğini kendi kulağıyla duyabiliyordu. Kaydı dinleyen Murat Bey de “İşte emeğinin sesi bu,” dedi.\n\nDönem sonundaki okul konserinde Defne kısa bir türküyü arkadaşlarıyla birlikte çaldı. Seyircilerin arasındaki dedesi alkışlarken gözleri dolmuştu. Defne o akşam defterine şöyle yazdı: “Bir şeyi yapamamak ile henüz yapamamak arasında büyük fark var. Aradaki farkı küçük ama düzenli adımlar kapatıyor.”",
+      "sorular": [
+        {
+          "kimlik": "oneri",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Murat Bey, Defne’ye nasıl çalışmasını önerdi?",
+          "secenekler": [
+            "Her gün on beş dakika çalışıp her hafta sonu kayıt yapmasını",
+            "Her hafta sonu saatlerce durmadan çalışmasını",
+            "Bağlama yerine daha kolay bir çalgı seçmesini",
+            "Arkadaşlarının çalışını izleyip onları taklit etmesini"
+          ],
+          "dogru": 0,
+          "aciklama": "Üçüncü paragrafta Murat Bey’in her gün yalnızca on beş dakika çalışmayı ve her hafta sonu kayıt yapmayı önerdiği yazıyor."
+        },
+        {
+          "kimlik": "konser",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Dönem sonundaki konserde Defne ne yaptı?",
+          "secenekler": [
+            "Sahneye çıkmayıp seyircilerin arasında oturdu.",
+            "Kısa bir türküyü arkadaşlarıyla birlikte çaldı.",
+            "Uzun bir ezgiyi tek başına çaldı.",
+            "Dedesiyle birlikte bağlama çalıp türkü söyledi."
+          ],
+          "dogru": 1,
+          "aciklama": "Son paragrafta Defne’nin konserde kısa bir türküyü arkadaşlarıyla birlikte çaldığı anlatılıyor."
+        },
+        {
+          "kimlik": "ilk-haftalar",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Murat Bey’in “Sen onların ilk haftalarını görmedin.” sözüyle anlatmak istediği nedir?",
+          "secenekler": [
+            "Arkadaşlarının hiç çalışmadan bağlama çalmayı öğrendiğini",
+            "Defne’nin kulübe çok geç kaldığı için yetişemeyeceğini",
+            "Arkadaşlarının da başta zorlandığını, Defne’nin kendini haksız yere kıyasladığını",
+            "Kulübe ilk haftalarda kimsenin gelmediğini"
+          ],
+          "dogru": 2,
+          "aciklama": "Murat Bey, arkadaşlarının da ilk haftalarda zorlandığını ama Defne’nin bunu görmediğini anlatıyor. Defne, kendi başlangıcını onların bugünüyle kıyaslıyordu."
+        },
+        {
+          "kimlik": "kayit-yarari",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Haftalık kayıt yapmanın Defne’ye en önemli yararı ne oldu?",
+          "secenekler": [
+            "Kayıtları arkadaşlarına dinletip övgü aldı.",
+            "Hatalarını hiç yapmadan çalmayı öğrendi.",
+            "Kayıtlar sayesinde her gün daha uzun çalıştı.",
+            "İlerlemesini kendi kulağıyla fark etmesini sağladı."
+          ],
+          "dogru": 3,
+          "aciklama": "Dördüncü kaydı ilkiyle karşılaştıran Defne, gelişimini somut olarak duydu. Hataları sürse de ilerlediğini görmek onu cesaretlendirdi."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu hikâyenin ana fikri hangisidir?",
+          "secenekler": [
+            "Bir beceri, küçük ama düzenli çalışmayla zamanla gelişir.",
+            "Zorlanılan bir işi en kısa sürede bırakmak gerekir.",
+            "Müzik yeteneği doğuştan gelir, sonradan kazanılmaz.",
+            "Başkalarından daha geç başlayan hiçbir zaman yetişemez."
+          ],
+          "dogru": 0,
+          "aciklama": "Defne’nin son cümlesi, yapamamak ile henüz yapamamak arasındaki farkı küçük ve düzenli adımların kapattığını söylüyor. Hikâyenin ana fikri budur."
+        },
+        {
+          "kimlik": "henuz",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Murat Bey, “Beceremiyorum demek yerine ‘___ beceremiyorum’ demeyi dene.” dedi.",
+          "cevaplar": [
+            "henüz",
+            "henuz"
+          ],
+          "aciklama": "İkinci paragrafta Murat Bey, Defne’ye “henüz beceremiyorum” demeyi öneriyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "sinif-grubundaki-mesaj",
+      "ad": "Sınıf Grubundaki Mesaj",
+      "sinif": 6,
+      "tur": "hikaye",
+      "zorluk": 3,
+      "etiketler": [
+        "medya okuryazarlığı",
+        "doğrulama",
+        "sorumluluk",
+        "dijital yaşam"
+      ],
+      "metin": "Ocak ayının soğuk bir akşamı Kerem’in telefonu art arda titredi. Sınıf grubunda biri bir ekran görüntüsü paylaşmıştı: “Kar nedeniyle yarın okullar tatil!” Mesajda ne bir kaynak ne de bir açıklama vardı. Kerem hiç düşünmeden mesajı futbol takımının grubuna da gönderdi. Birkaç dakika içinde haber onlarca kişiye ulaşmıştı.\n\nKerem’in ablası Selin mesajı görünce kaşlarını çattı. “Bunu nereden öğrendin?” diye sordu. Kerem omuz silkti: “Herkes paylaşıyor.” Selin bilgisayarı açıp valiliğin resmî internet sitesine baktı. Sitede tatille ilgili hiçbir duyuru yoktu. Sonra ekran görüntüsünü dikkatle inceledi. Görüntünün köşesindeki tarih bir yıl öncesine aitti!\n\nKerem’in yüzü kızardı. Mesajı gönderdiği arkadaşlarından biri, ödevini bırakıp yatmaya hazırlandığını yazmıştı bile. Bir başkası da sabah erkenden kızağa gideceğini yazıp sevinç simgeleri göndermişti. Kerem hemen iki gruba da yeni bir mesaj yazdı: “Az önce paylaştığım haber eski. Valiliğin sitesinde tatil duyurusu yok. Yanlış bilgi verdiğim için özür dilerim.”\n\nErtesi sabah okullar açıktı. Sınıf öğretmeni Aslı Hanım, Kerem’in düzeltme mesajını gördüğünü söyledi ve ona teşekkür etti. Sonra sınıfa bir soru sordu: “Bir haberi paylaşmadan önce kendimize hangi soruları sorabiliriz?” Öğrenciler tahtaya birlikte bir liste yazdı: Haberin kaynağı kim? Ne zaman yazılmış? Resmî bir kurum bunu doğruluyor mu? Bir öğrenci de “Emin değilsek hiç paylaşmamak da bir seçenek,” diye ekledi.\n\nKerem listeyi defterine geçirdi. Artık biliyordu: Bir mesajı göndermek bir saniye sürüyordu ama yanlış bir bilgiyi düzeltmek çok daha uzun zaman alıyordu.",
+      "sorular": [
+        {
+          "kimlik": "dogrulama-yeri",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Selin, haberin doğru olup olmadığını anlamak için nereye baktı?",
+          "secenekler": [
+            "Sınıf grubundaki diğer mesajlara",
+            "Valiliğin resmî internet sitesine",
+            "Televizyondaki hava durumu haberine",
+            "Okulun giriş kapısındaki panoya"
+          ],
+          "dogru": 1,
+          "aciklama": "İkinci paragrafta Selin’in bilgisayarı açıp valiliğin resmî internet sitesine baktığı yazıyor."
+        },
+        {
+          "kimlik": "goruntu-sorunu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Paylaşılan ekran görüntüsündeki sorun neydi?",
+          "secenekler": [
+            "Başka bir şehrin okullarıyla ilgiliydi.",
+            "Görüntü bulanık olduğu için okunmuyordu.",
+            "Üzerindeki tarih bir yıl öncesine aitti.",
+            "Mesajı yazan kişinin adı yanlıştı."
+          ],
+          "dogru": 2,
+          "aciklama": "Selin görüntüyü inceleyince köşesindeki tarihin bir yıl öncesine ait olduğunu fark etti; yani haber eskiydi."
+        },
+        {
+          "kimlik": "herkes-paylasiyor",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kerem’in “Herkes paylaşıyor.” cevabı neyi gösterir?",
+          "secenekler": [
+            "Haberin doğru olduğunu önceden araştırıp öğrendiğini",
+            "Mesajı ablasından öğrendiğini söylemek istediğini",
+            "Grubun yöneticisi olduğu için paylaşmak zorunda olduğunu",
+            "Haberi kaynağını sorgulamadan, başkalarına güvenerek yaydığını"
+          ],
+          "dogru": 3,
+          "aciklama": "Kerem haberin nereden geldiğini bilmiyor; yalnızca çok kişinin paylaştığına bakarak doğru sanıyor. Bu, kaynağı sorgulamadığını gösterir."
+        },
+        {
+          "kimlik": "tesekkur",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Aslı Hanım neden Kerem’e teşekkür etti?",
+          "secenekler": [
+            "Hatasını fark edip arkadaşlarına düzeltme mesajı gönderdiği için",
+            "Haberi sınıfta herkesten önce paylaştığı için",
+            "Kar nedeniyle okula erken geldiği için",
+            "Ödevini herkesten önce teslim ettiği için"
+          ],
+          "dogru": 0,
+          "aciklama": "Kerem yanlış bilgiyi yaydığını anlayınca iki gruba da düzeltme yazıp özür diledi. Öğretmen, bu sorumlu davranış için teşekkür ediyor."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu hikâyenin ana fikri hangisidir?",
+          "secenekler": [
+            "Sınıf gruplarında hiçbir zaman mesaj paylaşmamalıyız.",
+            "Bir bilgiyi paylaşmadan önce kaynağını ve tarihini doğrulamalıyız.",
+            "Kar yağdığında okulların tatil olup olmadığını öğretmene sormalıyız.",
+            "Yanlış bir mesaj gönderen kişi gruptan çıkarılmalıdır."
+          ],
+          "dogru": 1,
+          "aciklama": "Hikâye, kaynağı belirsiz bir mesajın nasıl hızla yayıldığını ve sınıfın oluşturduğu doğrulama sorularını anlatıyor. Ana fikir, paylaşmadan önce doğrulamaktır."
+        },
+        {
+          "kimlik": "okul-acik",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Ertesi sabah kar nedeniyle okullar tatil edildi.",
+          "dogru": false,
+          "aciklama": "Dördüncü paragrafın ilk cümlesine göre ertesi sabah okullar açıktı."
+        }
+      ]
+    },
+    {
+      "kimlik": "sesin-yolculugu",
+      "ad": "Sesin Yolculuğu",
+      "sinif": 6,
+      "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "ses",
+        "titreşim",
+        "yankı",
+        "maddenin hâlleri"
+      ],
+      "metin": "Bir gitarın teline dokunduğumuzda tel hızla ileri geri hareket eder. Bu hızlı ileri geri harekete titreşim denir. Sesin kaynağı her zaman titreşen bir cisimdir. Konuşurken gırtlağımızdaki ses telleri, davul çalarken davulun derisi titreşir. Titreşim durunca ses de kesilir; çalan bir zile elimizi değdirdiğimizde sesin hemen azalması bundandır.\n\nTitreşen cisim, çevresindeki maddenin taneciklerini iter. Bu tanecikler yanındaki tanecikleri, onlar da diğerlerini iter. Böylece titreşim tanecikten taneciğe aktarılarak yayılır. Bu yüzden ses yayılmak için bir maddeye, yani bir ortama ihtiyaç duyar. Hava, su, tahta ya da metal sesi iletebilir. Uzay boşluğunda ise sesi taşıyacak tanecik yok denecek kadar azdır. Bu nedenle orada ses yayılmaz.\n\nSes her ortamda aynı hızla ilerlemez. Katılarda tanecikler birbirine çok yakın olduğu için titreşim daha hızlı aktarılır. Ses havada saniyede yaklaşık 340 metre yol alırken suda bunun dört katından fazla, çelik gibi katılarda ise daha da hızlı yayılır. Kulağını bir masaya dayadığında, arkadaşının masanın öbür ucuna hafifçe vurduğu sesi havadan geldiğinden daha net duyarsın.\n\nSes bir engele çarptığında geri dönebilir. Geniş bir vadide ya da boş bir salonda bağırdığımızda sesimizi kısa bir süre sonra yeniden duyarız. Bu olaya yankı denir. Yarasalar ve yunuslar, çıkardıkları seslerin yankısını dinleyerek çevrelerindeki nesnelerin yerini bulur.\n\nSes, yumuşak ve pürüzlü yüzeylere çarpınca daha çok soğurulur, yani yüzey tarafından tutulur. Konser salonlarının duvarlarında özel kaplamalar kullanılmasının nedeni budur. Böylece sesler birbirine karışmaz, müzik daha net duyulur.",
+      "sorular": [
+        {
+          "kimlik": "ses-kaynagi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre sesin kaynağı nedir?",
+          "secenekler": [
+            "Isınan hava",
+            "Parlayan bir ışık",
+            "Titreşen bir cisim",
+            "Esen rüzgâr"
+          ],
+          "dogru": 2,
+          "aciklama": "İlk paragrafta sesin kaynağının her zaman titreşen bir cisim olduğu yazıyor."
+        },
+        {
+          "kimlik": "kaplama",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Konser salonlarının duvarlarında neden özel kaplamalar kullanılır?",
+          "secenekler": [
+            "Salonun kışın daha sıcak kalması için",
+            "Sesin dışarıya daha uzağa yayılması için",
+            "Duvarların daha parlak görünmesi için",
+            "Seslerin birbirine karışmadan net duyulması için"
+          ],
+          "dogru": 3,
+          "aciklama": "Son paragrafa göre özel kaplamalar sesi soğurur; böylece sesler karışmaz ve müzik net duyulur."
+        },
+        {
+          "kimlik": "astronotlar",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Uzay boşluğunda yan yana duran iki astronotun kaskları birbirine değmiyorsa, biri bağırınca ne olur?",
+          "secenekler": [
+            "Diğeri onu duyamaz, çünkü aralarında sesi taşıyacak ortam yoktur.",
+            "Diğeri onu daha yüksek sesle duyar, çünkü uzayda engel yoktur.",
+            "Diğeri sesi yalnızca yankı olarak, biraz gecikmeyle duyar.",
+            "Diğeri onu duyar ama ses Dünya’dakinden daha yavaş ulaşır."
+          ],
+          "dogru": 0,
+          "aciklama": "Ses yayılmak için tanecikli bir ortama ihtiyaç duyar. Uzay boşluğunda bu tanecikler yok denecek kadar az olduğu için ses bir astronottan ötekine ulaşamaz."
+        },
+        {
+          "kimlik": "masa-deneyi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Masaya kulağını dayayan birinin vuruş sesini daha net duymasının nedeni nedir?",
+          "secenekler": [
+            "Masa sesi soğurarak daha yumuşak hâle getirir.",
+            "Ses katılarda havadakinden daha iyi ve hızlı iletilir.",
+            "Kulak masaya değince daha çok titreşim üretir.",
+            "Masanın üzerindeki hava daha sıcaktır."
+          ],
+          "dogru": 1,
+          "aciklama": "Metne göre katılarda tanecikler birbirine çok yakındır ve titreşim daha hızlı aktarılır. Bu yüzden ses tahta masadan havadakinden daha iyi ulaşır."
+        },
+        {
+          "kimlik": "yarasa-ornegi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Yazarın yarasa ve yunus örneğini vermesinin amacı hangisidir?",
+          "secenekler": [
+            "Yarasaların ve yunusların aynı ortamda yaşadığını anlatmak",
+            "Hayvanların insanlardan daha iyi duyduğunu kanıtlamak",
+            "Yankının doğada canlılar tarafından da kullanıldığını göstermek",
+            "Yankının yalnızca suyun içinde oluştuğunu belirtmek"
+          ],
+          "dogru": 2,
+          "aciklama": "Yazar yankıyı anlattıktan sonra bu iki hayvanı örnek veriyor. Böylece yankının yalnızca vadide duyulan bir olay değil, canlıların yön bulmak için kullandığı bir yol olduğunu gösteriyor."
+        },
+        {
+          "kimlik": "yanki",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Sesin bir engele çarpıp geri dönmesiyle oluşan olaya ___ denir.",
+          "cevaplar": [
+            "yankı",
+            "yanki"
+          ],
+          "aciklama": "Dördüncü paragrafta sesin engele çarpıp geri dönmesine yankı dendiği açıklanıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "hic-durmayan-pompa",
+      "ad": "Hiç Durmayan Pompa",
+      "sinif": 6,
+      "tur": "fen",
+      "zorluk": 4,
+      "etiketler": [
+        "dolaşım sistemi",
+        "kalp",
+        "damarlar",
+        "vücudumuz"
+      ],
+      "metin": "Elini göğsünün ortasına, biraz soluna koy ve bekle. Hissettiğin düzenli vuruşlar kalbinin çalıştığını gösterir. Kalbimiz, yaklaşık kendi yumruğumuz büyüklüğünde, güçlü kaslardan oluşan bir organdır. Ömrümüz boyunca hiç durmadan kasılıp gevşeyerek kanı vücudumuza pompalar. Bir yetişkinin kalbi dinlenirken dakikada ortalama 60 ile 100 kez atar; çocuklarda bu sayı genellikle biraz daha yüksektir.\n\nKalbin içinde dört oda bulunur. Üstteki iki odaya kulakçık, alttaki iki odaya karıncık denir. Kulakçıklar kalbe gelen kanı toplar, karıncıklar ise kanı güçlü bir şekilde kalpten dışarı pompalar. Odalar arasındaki kapakçıklar kanın geri kaçmasını önler ve hep aynı yönde akmasını sağlar.\n\nKan, vücudumuzda damarlar içinde dolaşır. Kalpten çıkan kanı organlara taşıyan damarlara atardamar, organlardan kalbe geri getiren damarlara toplardamar denir. Bu ikisinin arasında, saç telinden bile ince kılcal damarlar bulunur. Bu damarlar o kadar incedir ki kan hücreleri içlerinden neredeyse tek sıra hâlinde geçer. Besinler ve oksijen kılcal damarlardan hücrelere geçer; hücrelerde oluşan karbondioksit de kana karışır.\n\nKanımız iki yol izler. Küçük kan dolaşımında kan kalpten akciğerlere gider, orada karbondioksiti bırakıp oksijen alır ve kalbe döner. Büyük kan dolaşımında ise kalpten çıkan kan bütün vücuda gönderilir, hücrelere oksijen bırakır ve karbondioksitle yüklenerek kalbe geri gelir.\n\nKoşup oynadığında kalbinin daha hızlı attığını fark etmişsindir. Çalışan kaslar daha çok oksijene ihtiyaç duyar; kalp de daha hızlı atarak onlara daha çok kan gönderir. Dinlenince kalp atışı yavaş yavaş eski hızına döner. Düzenli hareket, dengeli beslenme ve yeterli uyku, kalbin sağlığını destekleyen alışkanlıklardır.",
+      "sorular": [
+        {
+          "kimlik": "kapakcik",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre kalpte kanın geri kaçmasını ne önler?",
+          "secenekler": [
+            "Kılcal damarlar",
+            "Kulakçıklar",
+            "Akciğerler",
+            "Kapakçıklar"
+          ],
+          "dogru": 3,
+          "aciklama": "İkinci paragrafta odalar arasındaki kapakçıkların kanın geri kaçmasını önlediği yazıyor."
+        },
+        {
+          "kimlik": "kucuk-dolasim",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Küçük kan dolaşımının aşamalarını metindeki sıraya göre diz.",
+          "ogeler": [
+            "Kan kalpten çıkar.",
+            "Kan akciğerlere gider.",
+            "Karbondioksit bırakılır, oksijen alınır.",
+            "Kan kalbe geri döner."
+          ],
+          "aciklama": "Dördüncü paragrafa göre küçük kan dolaşımında kan kalpten akciğerlere gider, gaz alışverişi yapar ve kalbe döner."
+        },
+        {
+          "kimlik": "kapakcik-bozuk",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kapakçıklar görevini yapamasaydı ne olurdu?",
+          "secenekler": [
+            "Kan geri kaçabilir, her zaman aynı yönde akmazdı.",
+            "Kan akciğerlere hiç uğramadan dolaşırdı.",
+            "Kalp kasılmayı tamamen bırakırdı.",
+            "Kılcal damarlar kalınlaşıp atardamara dönüşürdü."
+          ],
+          "dogru": 0,
+          "aciklama": "Kapakçıkların görevi kanın geri kaçmasını önlemek ve tek yönde akmasını sağlamaktır. Çalışmasalardı kan geri kaçabilirdi."
+        },
+        {
+          "kimlik": "akcigerden-donen",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Akciğerlerden kalbe dönen kan için hangisi söylenebilir?",
+          "secenekler": [
+            "Karbondioksitle doludur.",
+            "Oksijence zengindir.",
+            "Besinlerin tümünü taşır.",
+            "Hücrelere hiç uğramamıştır ve boştur."
+          ],
+          "dogru": 1,
+          "aciklama": "Kan akciğerlerde karbondioksiti bırakıp oksijen alır. Bu yüzden akciğerlerden kalbe dönen kan oksijence zengindir."
+        },
+        {
+          "kimlik": "giris-amaci",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Yazarın metne “Elini göğsünün ortasına, biraz soluna koy ve bekle.” diye başlamasının amacı ne olabilir?",
+          "secenekler": [
+            "Okura kalp hastalıklarını nasıl anlayacağını öğretmek",
+            "Okurun nabzını ölçüp deftere yazmasını istemek",
+            "Okuru konuya kendi bedeni üzerinden yaklaştırmak",
+            "Kalbin vücudun tam ortasında olduğunu kanıtlamak"
+          ],
+          "dogru": 2,
+          "aciklama": "Yazar, okurun kendi kalp atışını hissetmesini isteyerek konuyu onun deneyimine bağlıyor. Bu, okurun ilgisini çekmek ve konuyu somutlaştırmak içindir."
+        },
+        {
+          "kimlik": "toplardamar",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Kalpten çıkan kanı organlara taşıyan damarlara toplardamar denir.",
+          "dogru": false,
+          "aciklama": "Üçüncü paragrafa göre kalpten çıkan kanı organlara taşıyan damarlar atardamardır. Toplardamarlar kanı kalbe geri getirir."
+        }
+      ]
+    },
+    {
+      "kimlik": "suyun-ustundeki-resim",
+      "ad": "Suyun Üstündeki Resim: Ebru",
+      "sinif": 6,
+      "tur": "tarih",
+      "zorluk": 4,
+      "etiketler": [
+        "ebru",
+        "geleneksel sanatlar",
+        "kültürel miras",
+        "UNESCO"
+      ],
+      "metin": "Bir teknedeki suyun üzerine renkli boyalar damlatıldığını, sonra bu boyalarla bir resim yapıldığını düşünün. Üstelik resim, suyun üzerinden kâğıda aktarılsın. Bu, yüzyıllardır yapılan geleneksel bir sanat olan ebrudur.\n\nEbru yapmak için önce özel bir su hazırlanır. Tekne adı verilen yayvan bir kaba konan su, kitre denen bitkisel bir zamkla koyulaştırılır. Böylece boyalar dibe çökmeden suyun yüzeyinde kalabilir. Ebruda çoğunlukla topraktan elde edilen doğal boyalar kullanılır. Boyaların suyun üstünde açılıp yayılması için içlerine az miktarda öd katılır. Öd, hayvanların safra kesesinden elde edilen acı bir sıvıdır.\n\nSanatçı, at kılından yapılmış fırçalarla boyaları suyun üzerine serper. Ardından ince bir uçla boyaları çekip kıvırarak desenler oluşturur. Bu yolla dalgalar, şal desenleri, hatta lale ve karanfil gibi çiçekler yapılabilir. Resim tamamlanınca kâğıt dikkatlice suyun üzerine bırakılır ve birkaç saniye sonra kaldırılır. Boyalar kâğıda geçer, su teknede kalır.\n\nEbrunun en ilgi çekici yanı, iki ebrunun hiçbir zaman tıpatıp aynı olmamasıdır. Su ve boya her seferinde biraz farklı davranır. Bu yüzden her ebru eşsizdir. Ustalar bile beğendikleri bir deseni yeniden yapmaya çalıştıklarında ortaya biraz farklı bir ebru çıkar.\n\nEskiden ebrulu kâğıtlar kitap kaplarında ve önemli belgelerde kullanılırdı. Ebrulu kâğıdın üzerindeki bir yazıyı kazıyıp değiştirmeye çalışmak, desende hemen iz bırakırdı. Bu nedenle ebru, belgelerin değiştirilmesini zorlaştırmaya da yarardı.\n\nGeleneksel Türk ebru sanatı, 2014 yılında UNESCO’nun Somut Olmayan Kültürel Miras listesine alındı. Bugün pek çok usta ve öğrenci, bu sanatı öğrenip yaşatmak için çalışıyor.",
+      "sorular": [
+        {
+          "kimlik": "kitre",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Ebruda teknedeki suyu koyulaştırmak için ne kullanılır?",
+          "secenekler": [
+            "Öd",
+            "Toprak boya",
+            "At kılı",
+            "Kitre"
+          ],
+          "dogru": 3,
+          "aciklama": "İkinci paragrafta suyun kitre denen bitkisel bir zamkla koyulaştırıldığı yazıyor. Öd ise boyaların yayılması için boyaya katılır."
+        },
+        {
+          "kimlik": "yapim-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Bir ebrunun yapılış aşamalarını metindeki sıraya göre diz.",
+          "ogeler": [
+            "Teknedeki su kitreyle koyulaştırılır.",
+            "Boyalar fırçayla suyun üzerine serpilir.",
+            "Boyalar ince bir uçla çekilerek desen yapılır.",
+            "Kâğıt suya bırakılıp birkaç saniye sonra kaldırılır."
+          ],
+          "aciklama": "Metin önce suyun hazırlanmasını, sonra boyaların serpilmesini, desen yapılmasını ve en son kâğıda aktarmayı anlatıyor."
+        },
+        {
+          "kimlik": "koyulastirmasaydi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Teknedeki su koyulaştırılmasaydı ne olurdu?",
+          "secenekler": [
+            "Boyalar dibe çöker, yüzeyde desen yapılamazdı.",
+            "Boyalar kâğıda daha canlı renklerle geçerdi.",
+            "Fırçalar suyun içinde kolayca kırılırdı.",
+            "Kâğıt suya bırakılınca hemen batardı."
+          ],
+          "dogru": 0,
+          "aciklama": "Metne göre su koyulaştırıldığı için boyalar dibe çökmeden yüzeyde kalır. Koyulaştırılmasaydı boyalar dibe çöker ve desen yapılamazdı."
+        },
+        {
+          "kimlik": "belgeler",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ebrulu kâğıdın önemli belgelerde kullanılması o dönemle ilgili ne gösterir?",
+          "secenekler": [
+            "O dönemde düz kâğıt hiç bulunmadığını",
+            "Belgelerin değiştirilmesine karşı önlem alındığını",
+            "Belgelerin yalnızca süs için saklandığını",
+            "Ebru ustalarının belge yazdığını"
+          ],
+          "dogru": 1,
+          "aciklama": "Ebrulu kâğıtta kazıma hemen iz bıraktığı için belge üzerinde oynamak zorlaşıyordu. Bu, belgelerin güvenliğine önem verildiğini gösterir."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Metnin ana fikri hangisidir?",
+          "secenekler": [
+            "Ebru yapmak için gereken malzemeleri bulmak bugün artık imkânsızdır.",
+            "Ebru sanatında en önemli malzeme, at kılından yapılan fırçalardır.",
+            "Ebru, hem sanat hem de gündelik işlerde değeri olan ve yaşatılan geleneksel bir sanattır.",
+            "Ebru, yalnızca kitap kaplarını süslemek için ortaya çıkmış bir sanattır."
+          ],
+          "dogru": 2,
+          "aciklama": "Metin ebrunun yapılışını, eşsizliğini, belgelerdeki işlevini ve bugün yaşatılmasını anlatıyor. Ana fikir, ebrunun hem sanatsal hem işlevsel değeri olan bir miras olmasıdır."
+        },
+        {
+          "kimlik": "unesco-yili",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Geleneksel Türk ebru sanatı, ___ yılında UNESCO’nun Somut Olmayan Kültürel Miras listesine alındı.",
+          "cevaplar": [
+            "2014"
+          ],
+          "aciklama": "Son paragrafta ebrunun 2014 yılında bu listeye alındığı yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "piri-reis",
+      "ad": "Denizlerin Haritacısı: Piri Reis",
+      "sinif": 6,
+      "tur": "biyografi",
+      "zorluk": 4,
+      "etiketler": [
+        "Piri Reis",
+        "haritacılık",
+        "denizcilik",
+        "Osmanlı",
+        "biyografi"
+      ],
+      "metin": "Piri Reis, yaklaşık 1465-1470 yılları arasında Gelibolu’da doğdu. Gelibolu o dönemde önemli bir denizcilik merkeziydi; çocukluğu limanda gemileri izleyerek geçti. Gençliğinde amcası Kemal Reis’in yanında denize açıldı. Onunla birlikte yıllarca Akdeniz’de dolaştı; kıyıları, adaları, rüzgârları ve akıntıları yakından tanıdı.\n\nPiri Reis, gördüklerini yalnızca aklında tutmakla yetinmedi. Her yolculukta notlar aldı, kıyıların çizimlerini yaptı. Denizcilikte küçük bir hata bile bir geminin kayalara çarpmasına yol açabilirdi. Bu yüzden doğru ve ayrıntılı haritalar büyük önem taşıyordu. Piri Reis, denizde öğrendiklerini kâğıda dökerken her kıyıyı, her kayalığı ve her limanı olabildiğince doğru göstermeye çalıştı.\n\n1513 yılında, bugün onun adıyla anılan ünlü dünya haritasını ceylan derisi üzerine çizdi. Haritayı hazırlarken farklı dillerdeki yaklaşık yirmi kaynaktan yararlandı. Bunlar arasında Kristof Kolomb’un çizdiği bir harita da vardı. Haritada Avrupa ve Afrika kıyılarının yanı sıra, o yıllarda yeni tanınmaya başlayan Amerika kıyıları da yer alıyordu. Haritanın günümüze yalnızca bir parçası ulaştı. Bu parça 1929 yılında Topkapı Sarayı’nda bulundu ve dünyanın dikkatini çekti.\n\nPiri Reis’in bir diğer önemli eseri Kitab-ı Bahriye’dir. Bu kitapta Akdeniz’deki limanları, koyları, sığ yerleri ve gemilerin güvenle sığınabileceği noktaları anlattı; anlattığı yerlerin çizimlerini de ekledi. Kitap uzun süre denizcilere yol gösterdi. Bugün kitabın farklı kütüphanelerde saklanan pek çok el yazması kopyası bulunuyor.\n\nPiri Reis 1553 yılında öldü. Bugün haritası ve kitabı, bilgiyi gözlemle toplayıp özenle kaydetmenin ne kadar değerli olduğunu gösteren eserler olarak inceleniyor.",
+      "sorular": [
+        {
+          "kimlik": "harita-malzemesi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Piri Reis 1513’teki dünya haritasını neyin üzerine çizdi?",
+          "secenekler": [
+            "Kil tabletin",
+            "İpek kumaşın",
+            "Ahşap levhanın",
+            "Ceylan derisinin"
+          ],
+          "dogru": 3,
+          "aciklama": "Üçüncü paragrafta haritanın ceylan derisi üzerine çizildiği yazıyor."
+        },
+        {
+          "kimlik": "kitab-i-bahriye",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kitab-ı Bahriye’de neler anlatılır?",
+          "secenekler": [
+            "Akdeniz’deki limanlar, koylar ve sığ yerler",
+            "Osmanlı padişahlarının hayat öyküleri",
+            "Gemi yapımında kullanılan ağaç türleri",
+            "Amerika kıyılarındaki şehirlerin tarihi"
+          ],
+          "dogru": 0,
+          "aciklama": "Dördüncü paragrafa göre kitapta Akdeniz’deki limanlar, koylar, sığ yerler ve sığınılacak noktalar çizimleriyle anlatılır."
+        },
+        {
+          "kimlik": "kemal-reis",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kemal Reis’le yaptığı yolculuklar Piri Reis’in haritacılığına nasıl katkı sağlamış olabilir?",
+          "secenekler": [
+            "Haritacılığı bırakıp yalnızca gemi kaptanlığına yönelmesine yol açmıştır.",
+            "Kıyıları yakından gözlemleyerek doğru çizimler yapmasını sağlamıştır.",
+            "Haritalarını hiç kaynak kullanmadan hayal gücüyle çizmesine neden olmuştur.",
+            "Akdeniz yerine yalnızca okyanuslarla ilgilenmesine yol açmıştır."
+          ],
+          "dogru": 1,
+          "aciklama": "Piri Reis, amcasıyla yıllarca dolaşarak kıyıları, rüzgârları ve akıntıları yakından tanıdı ve notlar aldı. Bu gözlemler haritalarının doğruluğuna katkı sağlamıştır."
+        },
+        {
+          "kimlik": "yirmi-kaynak",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Piri Reis’in haritasını hazırlarken yaklaşık yirmi kaynaktan yararlanması onun hakkında ne gösterir?",
+          "secenekler": [
+            "Farklı dillerdeki kaynakları okuyamadığını",
+            "Haritayı aceleyle, kısa sürede bitirmek istediğini",
+            "Bilgiyi tek kaynağa bağlı kalmadan, karşılaştırarak topladığını",
+            "Kendi gözlemlerine hiç güvenmediğini"
+          ],
+          "dogru": 2,
+          "aciklama": "Farklı dillerdeki birçok kaynağı bir araya getirmek, bilgiyi karşılaştırarak ve özenle topladığını gösterir. Metinde kendi gözlemlerini de not ettiği anlatılıyor."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Metnin okura vermek istediği ana düşünce hangisidir?",
+          "secenekler": [
+            "İyi bir denizci olmak için mutlaka Gelibolu’da doğmak gerekir.",
+            "Eski haritalar bugün hiçbir işe yaramayan süs eşyalarıdır.",
+            "Bir haritanın değeri, çizildiği malzemenin pahalı olmasından gelir.",
+            "Gözlemle toplanıp özenle kaydedilen bilgi kalıcı ve değerli eserlere dönüşür."
+          ],
+          "dogru": 3,
+          "aciklama": "Son paragraf, Piri Reis’in eserlerinin bilgiyi gözlemle toplayıp özenle kaydetmenin değerini gösterdiğini söylüyor. Metnin ana düşüncesi budur."
+        },
+        {
+          "kimlik": "bulunma-yili",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Piri Reis haritasının günümüze ulaşan parçası ___ yılında Topkapı Sarayı’nda bulundu.",
+          "cevaplar": [
+            "1929"
+          ],
+          "aciklama": "Üçüncü paragrafın sonunda haritanın parçasının 1929 yılında Topkapı Sarayı’nda bulunduğu yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "kibirli-dere",
+      "ad": "Kibirli Dere",
+      "sinif": 6,
+      "tur": "masal",
+      "zorluk": 2,
+      "etiketler": [
+        "kibir",
+        "doğadaki denge",
+        "su döngüsü",
+        "fabl"
+      ],
+      "metin": "Bir zamanlar yeşil bir vadide gürül gürül akan bir dere varmış. Bahar yağmurlarıyla beslenen dere, her geçen gün biraz daha coşarmış. Kıyısındaki söğütler, otlar ve çiçekler onun suyuyla yeşerir; kurbağalar, kuşlar ve kelebekler onun çevresinde yaşarmış. Yorgun yolcular da onun serin suyundan içip kıyısında dinlenirmiş.\n\nDere bir gün kendini beğenmeye başlamış. Taşlara çarpa çarpa bağırmış: “Bu vadide en güçlü benim! Herkes bana muhtaç, benim ise kimseye ihtiyacım yok!” Yanından geçen bir bulut gülümsemiş: “Ya ben sana yağmur getirmesem?” Dere köpürerek karşılık vermiş: “Sana mı kaldım? Benim suyum hiç bitmez!”\n\nDağın yamacındaki yaşlı çınar bu konuşmayı sessizce dinlemiş. “Hiçbir su, kaynağını unutarak uzun süre akamaz,” demiş ama dere onu duymamış bile.\n\nO yıl yaz erken ve sıcak gelmiş. Bulutlar vadiye uğramaz olmuş. Dağlardaki karlar çabucak erimiş, kaynaklar incelmiş. Derenin sesi önce kısılmış, sonra fısıltıya dönmüş. Bir sabah dere, yatağında yalnızca küçük birikintiler kaldığını görmüş. Kıyıdaki otlar sararmış, kurbağalar başka sular aramaya gitmiş.\n\nDere ilk kez korkmuş. Övündüğü gücünün kendisine ait olmadığını o gün anlamış. Gökyüzüne bakıp sessizce beklemiş. Sonbahar gelince uzaktan gri bir bulut belirmiş. Bulut vadinin üstünde durup yağmurunu bırakmış. Dere yeniden akmaya başlamış ama bu kez bağırmamış. Buluta teşekkür etmiş, çınara da hak vermiş.\n\nO günden sonra dere, kıyısındaki her canlıya suyundan verirken şunu hiç unutmamış: Bu vadide herkes birbirine bağlıdır; kimse tek başına güçlü değildir.",
+      "sorular": [
+        {
+          "kimlik": "besin",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Masalın başında dere neyle beslenip coşuyordu?",
+          "secenekler": [
+            "Bahar yağmurlarıyla",
+            "Deniz suyuyla",
+            "Göl suyuyla",
+            "Kuyu suyuyla"
+          ],
+          "dogru": 0,
+          "aciklama": "İlk paragrafta derenin bahar yağmurlarıyla beslendiği yazıyor."
+        },
+        {
+          "kimlik": "olay-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Olayları masaldaki sıraya göre diz.",
+          "ogeler": [
+            "Dere kendini beğenip bulutla alay etti.",
+            "Yaşlı çınar dereyi uyardı.",
+            "Yaz sıcağında dere kurumaya başladı.",
+            "Bulut yağmur getirdi ve dere yeniden aktı."
+          ],
+          "aciklama": "Masal; derenin kibirlenmesi, çınarın uyarısı, kuraklık ve yağmurla gelen kurtuluş sırasıyla ilerliyor."
+        },
+        {
+          "kimlik": "cinar-sozu",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Yaşlı çınar “Hiçbir su, kaynağını unutarak uzun süre akamaz.” derken ne demek istiyor?",
+          "secenekler": [
+            "Derenin daha hızlı akarsa hiç kurumayacağını",
+            "Derenin suyunun yağmura ve kara bağlı olduğunu unutmaması gerektiğini",
+            "Bulutların dereye hiçbir zaman yağmur getirmeyeceğini",
+            "Dağdaki kaynakların derenin suyunu çaldığını"
+          ],
+          "dogru": 1,
+          "aciklama": "Derenin suyu yağmurdan ve dağdaki karlardan gelir. Çınar, derenin bu kaynakları küçümsememesi gerektiğini anlatıyor; yaz gelince bu uyarının haklı olduğu görülüyor."
+        },
+        {
+          "kimlik": "bagirmamasi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Derenin yeniden akmaya başladığında bağırmaması ve buluta teşekkür etmesi neyi gösterir?",
+          "secenekler": [
+            "Bulutun yağmurunu az bulduğunu",
+            "Sesinin kuraklıkta tamamen kaybolduğunu",
+            "Kibrinden vazgeçip ders aldığını",
+            "Çınara hâlâ kızgın olduğunu"
+          ],
+          "dogru": 2,
+          "aciklama": "Dere başta herkese bağırıp övünüyordu. Kuraklıktan sonra sessizce teşekkür etmesi, başkalarına ihtiyaç duyduğunu anladığını gösterir."
+        },
+        {
+          "kimlik": "hayat-ornegi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu masalın dersine en uygun gerçek hayat örneği hangisidir?",
+          "secenekler": [
+            "Yağmurlu bir günde şemsiyesini evde unutan bir öğrencinin ıslanması",
+            "Bir öğrencinin sınava çalışırken her gün aynı saatte ders çalışması",
+            "Bir ailenin yaz tatilinde deniz kenarına gitmeyi planlaması",
+            "Takımın kazandığı maçı yalnızca kendi başarısı sanan oyuncunun, arkadaşlarının katkısını fark etmesi"
+          ],
+          "dogru": 3,
+          "aciklama": "Masal, kimsenin tek başına güçlü olmadığını, herkesin birbirine bağlı olduğunu anlatıyor. Başarıyı yalnız kendine mal eden oyuncunun arkadaşlarının katkısını fark etmesi bu derse en uygun örnektir."
+        },
+        {
+          "kimlik": "kurbagalar",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Dere kuruyunca kurbağalar başka sular aramaya gitti.",
+          "dogru": true,
+          "aciklama": "Dördüncü paragrafın sonunda kurbağaların başka sular aramaya gittiği yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "okuma-molasi",
+      "ad": "Okulda Her Gün Yirmi Dakika Okuma Molası",
+      "sinif": 6,
+      "tur": "haber",
+      "zorluk": 3,
+      "etiketler": [
+        "haber",
+        "okuma alışkanlığı",
+        "anket",
+        "öğrenci meclisi"
+      ],
+      "metin": "Yeşiltepe Ortaokulunda bu dönem başlayan “Okuma Molası” uygulaması ilk ayını tamamladı. Uygulamada her gün üçüncü dersin başında yirmi dakika boyunca öğrenciler, öğretmenler ve okul çalışanları ellerindeki işi bırakıp kitap okuyor.\n\nUygulama, okulun öğrenci meclisinin önerisiyle başladı. Meclis, dönem başında okulda bir anket yaptı. Ankete katılan 420 öğrencinin yarıdan fazlası okumayı sevdiğini ama gün içinde kitap okumaya zaman bulamadığını söyledi. Öğrenci meclisi başkanı Arda Demir, “Okumak istiyorduk ama hep ertesi güne kalıyordu. Bunun için gün içinde ayrı bir zaman istedik,” dedi.\n\nOkuma molasında öğrenciler istedikleri kitabı seçebiliyor. Bu sürede ders kitabı ve telefon kullanılmıyor. Romanlar, hikâye kitapları, bilim dergileri ve çizgi romanlar en çok tercih edilenler arasında yer alıyor. Kitabı olmayan öğrenciler için her sınıfa okul kütüphanesinden küçük bir kitap kutusu konuldu. Okul müdürü Sevgi Arslan, molada öğretmenlerin de kitap okumasını önemsediklerini belirtti. Arslan, “Öğrenciler öğretmenlerini kitap okurken gördüklerinde okuma doğal bir alışkanlığa dönüşüyor,” diye konuştu.\n\nİlk ayın sonunda yapılan kısa değerlendirmede öğrencilerin çoğu molayı sevdiklerini ve daha önce yarım bıraktıkları kitapları bitirdiklerini söyledi. Bazı öğrenciler ise yirmi dakikanın kısa geldiğini, kitabı en heyecanlı yerinde bırakmak zorunda kaldıklarını anlattı. Okul kütüphanesinden ödünç alınan kitap sayısının da geçen yılın aynı ayına göre arttığı bildirildi.\n\nÖğrenci meclisi, dönem sonunda yeni bir anket yaparak uygulamayı yeniden değerlendirecek. Meclis, molanın süresiyle ilgili önerilerin de bu ankette sorulacağını açıkladı.",
+      "sorular": [
+        {
+          "kimlik": "zaman",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Okuma molası ne zaman yapılıyor ve ne kadar sürüyor?",
+          "secenekler": [
+            "Her gün üçüncü dersin başında, yirmi dakika",
+            "Her cuma son derste, kırk dakika",
+            "Her sabah ilk dersten önce, on dakika",
+            "Haftada bir öğle arasında, otuz dakika"
+          ],
+          "dogru": 0,
+          "aciklama": "Haberin ilk paragrafında molanın her gün üçüncü dersin başında yirmi dakika sürdüğü yazıyor."
+        },
+        {
+          "kimlik": "oneren",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Okuma molası uygulaması kimin önerisiyle başladı?",
+          "secenekler": [
+            "Okul müdürü Sevgi Arslan’ın",
+            "Okulun öğrenci meclisinin",
+            "Okul kütüphanecisinin",
+            "Öğrenci velilerinin"
+          ],
+          "dogru": 1,
+          "aciklama": "İkinci paragrafın ilk cümlesinde uygulamanın öğrenci meclisinin önerisiyle başladığı yazıyor."
+        },
+        {
+          "kimlik": "odunc-artisi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kütüphaneden ödünç alınan kitap sayısının artması neyi düşündürür?",
+          "secenekler": [
+            "Öğrencilerin kendi kitaplarını kaybettiğini",
+            "Kütüphanenin geçen yıl kapalı olduğunu",
+            "Uygulamanın öğrencileri kitap okumaya daha çok yönelttiğini",
+            "Öğrencilerin ders kitabı bulamadığını"
+          ],
+          "dogru": 2,
+          "aciklama": "Mola başladıktan sonra ödünç kitap sayısının artması, öğrencilerin okumaya daha çok ilgi duymaya başladığını düşündürür."
+        },
+        {
+          "kimlik": "ogretmen-okumasi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Müdürün sözlerine göre öğretmenlerin de molada kitap okumasının amacı nedir?",
+          "secenekler": [
+            "Öğretmenlerin ders anlatmaktan dinlenmesini sağlamak",
+            "Öğrencilerin hangi kitabı okuduğunu denetlemek",
+            "Kütüphanedeki kitapları önce öğretmenlerin seçmesi",
+            "Öğrencilere örnek olarak okumayı alışkanlık hâline getirmek"
+          ],
+          "dogru": 3,
+          "aciklama": "Müdür, öğrencilerin öğretmenlerini okurken görünce okumanın doğal bir alışkanlığa dönüştüğünü söylüyor. Yani öğretmenler örnek olmak için okuyor."
+        },
+        {
+          "kimlik": "farkli-gorusler",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Haberde, uygulamayı sevenlerin yanında yirmi dakikayı kısa bulan öğrencilerin görüşlerine de yer verilmesi okura ne sağlar?",
+          "secenekler": [
+            "Uygulamayı farklı yönleriyle değerlendirebilmesini",
+            "Uygulamanın kesinlikle kaldırılması gerektiğine inanmasını",
+            "Haberin bir reklam yazısı olduğunu anlamasını",
+            "Öğrencilerin okumayı sevmediği sonucuna varmasını"
+          ],
+          "dogru": 0,
+          "aciklama": "İyi bir haber, farklı görüşlere yer vererek okurun konuyu kendisinin değerlendirmesine olanak tanır. Burada hem olumlu görüşler hem de bir sorun aktarılıyor."
+        },
+        {
+          "kimlik": "anket-sayisi",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Öğrenci meclisinin dönem başında yaptığı ankete ___ öğrenci katıldı.",
+          "cevaplar": [
+            "420",
+            "dört yüz yirmi"
+          ],
+          "aciklama": "İkinci paragrafta ankete 420 öğrencinin katıldığı yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "topragin-altindaki-sayfalar",
+      "ad": "Toprağın Altındaki Sayfalar",
+      "sinif": 6,
+      "tur": "diyalog",
+      "zorluk": 3,
+      "etiketler": [
+        "arkeoloji",
+        "kazı",
+        "meslekler",
+        "röportaj",
+        "tarih"
+      ],
+      "metin": "Okulumuzun Tarih Kulübü, yaz tatilinde bir arkeolojik kazıda çalışan arkeolog Sinan Öztürk ile görüntülü bir söyleşi yaptı. Soruları kulüp üyesi Ela sordu.\n\nEla: Arkeoloji nedir, bir arkeolog ne iş yapar?\n\nSinan Öztürk: Arkeoloji, geçmişte yaşamış insanların bıraktığı izleri inceleyerek onların nasıl yaşadığını anlamaya çalışan bir bilim dalıdır. Bu izleri çoğu zaman toprağın altında buluruz: duvar kalıntıları, çanak çömlek parçaları, aletler, tohumlar…\n\nEla: Kazı yaparken nasıl çalışıyorsunuz? Filmlerdeki gibi büyük kürekler kullanıyor musunuz?\n\nSinan Öztürk: Çok az. Toprağı genellikle küçük malalarla ve fırçalarla, ince katmanlar hâlinde kaldırırız. Bir buluntuyu yerinden oynatmadan önce nerede ve hangi derinlikte durduğunu ölçer, fotoğraflar ve kaydederiz. Çünkü bir nesnenin bulunduğu yer, en az nesnenin kendisi kadar bilgi verir.\n\nEla: Bunu biraz açar mısınız?\n\nSinan Öztürk: Toprak katmanları, üst üste konmuş kitap sayfaları gibidir. Genellikle derindeki katman daha eskidir. Bir çömlek parçasını hangi katmanda bulduğumuzu bilirsek onun yaklaşık hangi dönemden kaldığını tahmin edebiliriz. Parçayı kayıt tutmadan alırsak o sayfayı yırtmış oluruz; bir daha geri getiremeyiz.\n\nEla: Bulduğunuz eserler ne oluyor?\n\nSinan Öztürk: Temizlenir, incelenir ve müzelere teslim edilir. Bu eserler hepimizin ortak mirasıdır. Bu yüzden izinsiz kazı yapmak ya da bulunan bir eseri saklamak yasaktır.\n\nEla: Arkeolog olmak isteyen bir öğrenciye ne önerirsiniz?\n\nSinan Öztürk: Merakını kaybetmesin, bol okusun ve sabırlı olmayı öğrensin. Bazen günlerce kazarız ve küçücük bir parça buluruz. Ama o küçük parça, binlerce yıl önceki bir hayatın kapısını aralayabilir.",
+      "sorular": [
+        {
+          "kimlik": "araclar",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Söyleşiye göre arkeologlar toprağı genellikle neyle kaldırır?",
+          "secenekler": [
+            "Büyük kürekler ve kazmalarla",
+            "Küçük malalar ve fırçalarla",
+            "İş makineleri ve kepçelerle",
+            "Su püskürten hortumlarla"
+          ],
+          "dogru": 1,
+          "aciklama": "Sinan Öztürk, toprağı genellikle küçük malalarla ve fırçalarla, ince katmanlar hâlinde kaldırdıklarını söylüyor."
+        },
+        {
+          "kimlik": "eserler-nereye",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kazıda bulunan eserler incelendikten sonra nereye teslim edilir?",
+          "secenekler": [
+            "Kazıyı yapan arkeologlara",
+            "Okul kütüphanelerine",
+            "Müzelere",
+            "Toprağın sahibine"
+          ],
+          "dogru": 2,
+          "aciklama": "Sinan Öztürk, eserlerin temizlenip incelendikten sonra müzelere teslim edildiğini söylüyor."
+        },
+        {
+          "kimlik": "katman-cikarimi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Bir kazıda üstteki katmanda bir sikke, daha derindeki katmanda bir taş alet bulunursa hangisi söylenebilir?",
+          "secenekler": [
+            "Sikke kesinlikle taş aletten daha eskidir.",
+            "İkisi de aynı gün toprağa düşmüştür.",
+            "Katmanlar buluntuların yaşı hakkında bilgi vermez.",
+            "Taş alet büyük olasılıkla sikkeden daha eskidir."
+          ],
+          "dogru": 3,
+          "aciklama": "Arkeologa göre genellikle derindeki katman daha eskidir. Bu yüzden derinde bulunan taş aletin büyük olasılıkla daha eski olduğu söylenebilir."
+        },
+        {
+          "kimlik": "sayfayi-yirtmak",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "“O sayfayı yırtmış oluruz” benzetmesiyle anlatılmak istenen nedir?",
+          "secenekler": [
+            "Kayıt tutmadan alınan bir buluntunun yer bilgisinin sonsuza dek kaybolacağı",
+            "Kazıda bulunan kâğıt belgelerin çok kolay yırtıldığı",
+            "Arkeologların kazı sırasında kitap okumaması gerektiği",
+            "Toprak katmanlarının kâğıttan yapıldığı"
+          ],
+          "dogru": 0,
+          "aciklama": "Katmanlar kitap sayfalarına benzetiliyor. Bir buluntu kaydedilmeden alınırsa nerede durduğu bilgisi kaybolur; yırtılan bir sayfa gibi geri getirilemez."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu söyleşiden çıkarılabilecek en önemli düşünce hangisidir?",
+          "secenekler": [
+            "Arkeologlar en değerli eserleri kendi evlerinde saklamalıdır.",
+            "Geçmişi anlamak için buluntular kadar onların yerini özenle kaydetmek de önemlidir.",
+            "Bir kazıda yalnızca büyük ve gösterişli eserler önemlidir.",
+            "Arkeoloji, filmlerde anlatıldığı gibi hızlı ve heyecanlı bir iştir."
+          ],
+          "dogru": 1,
+          "aciklama": "Söyleşide buluntunun yerinin de bilgi taşıdığı, kayıt tutmadan alınan parçanın bilgisinin kaybolacağı vurgulanıyor. Bu, arkeolojideki özenin önemini gösterir."
+        },
+        {
+          "kimlik": "kurek",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Sinan Öztürk’e göre arkeologlar toprağı çoğunlukla büyük küreklerle kaldırır.",
+          "dogru": false,
+          "aciklama": "Sinan Öztürk, büyük kürekleri çok az kullandıklarını; toprağı genellikle küçük malalar ve fırçalarla kaldırdıklarını söylüyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "odanin-ortasindaki-cizgi",
+      "ad": "Odanın Ortasındaki Çizgi",
+      "sinif": 6,
+      "tur": "gunluk",
+      "zorluk": 2,
+      "etiketler": [
+        "kardeş ilişkisi",
+        "uzlaşma",
+        "iletişim",
+        "günlük hayat"
+      ],
+      "metin": "Kardeşim Can’la aynı odayı paylaşıyoruz. Ben on iki, o dokuz yaşında. Geçen ay bir akşam masamın üstünde onun boya kalemlerini, yatağımın üstünde de oyuncak arabalarını bulunca sinirlendim. Bir rulo kâğıt bant aldım ve odanın tam ortasına bir çizgi çektim. “Bu taraf benim, o taraf senin. Çizgiyi geçmek yasak!” dedim.\n\nİlk gün kendimi kazanmış gibi hissettim. Ama ertesi gün sorun çıktı: Kapı benim tarafımdaydı, pencere ise Can’ın. Can odadan çıkmak için benim tarafımdan geçmek zorundaydı. Ben de pencereyi açmak istediğimde ondan izin almam gerekiyordu. Akşama kadar üç kez tartıştık. Her tartışmada ikimiz de yüksek sesle konuşuyor, kimse kimseyi dinlemiyordu.\n\nAnnem sesimizi duyunca ikimizi mutfak masasına oturttu. “Sırayla konuşun. Biri konuşurken diğeri sözünü kesmeyecek,” dedi. Önce ben anlattım: Ders çalışırken masamın düzeninin bozulmasından rahatsız oluyordum. Sonra Can konuştu. Onun derdi bambaşkaydı: Oyuncaklarını koyacak yeri yoktu, dolabın tamamını ben kullanıyordum. Bunu hiç düşünmemiştim. Masamdaki boya kalemlerinin de aslında başka koyacak yer bulamadığı için orada olduğunu anladım.\n\nBirlikte bir liste yaptık. Masam yalnızca benim olacaktı; Can resim yaparken mutfak masasını kullanacaktı. Dolabın alt iki rafı Can’a verilecekti. Akşam sekizden sonra odada yüksek sesle müzik açılmayacaktı. Bir kuralda anlaşamazsak yeniden mutfak masasında oturup konuşacaktık.\n\nSonra bandı birlikte söktük. Can, bandı top yapıp çöpe atarken gülüyordu. O gece şunu düşündüm: Çizgi odayı ikiye bölmüştü ama sorunlarımızı çözmemişti. Sorunu çözen, birbirimizi gerçekten dinlemek olmuştu.",
+      "sorular": [
+        {
+          "kimlik": "cizgi-araci",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Anlatıcı odanın ortasındaki çizgiyi neyle çekti?",
+          "secenekler": [
+            "Tebeşirle",
+            "Boya kalemiyle",
+            "Kâğıt bantla",
+            "İple"
+          ],
+          "dogru": 2,
+          "aciklama": "İlk paragrafta anlatıcının bir rulo kâğıt bantla odanın ortasına çizgi çektiği yazıyor."
+        },
+        {
+          "kimlik": "can-derdi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Can’ın asıl sorunu neydi?",
+          "secenekler": [
+            "Ders çalışacak bir masası olmaması",
+            "Odada yüksek sesle müzik açılması",
+            "Pencerenin hep kapalı tutulması",
+            "Oyuncaklarını koyacak yeri olmaması"
+          ],
+          "dogru": 3,
+          "aciklama": "Üçüncü paragrafta Can’ın, dolabın tamamı ablasında olduğu için oyuncaklarını koyacak yeri olmadığını anlattığı yazıyor."
+        },
+        {
+          "kimlik": "cizgi-neden",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Odanın ortasındaki çizgi neden sorunu çözmedi?",
+          "secenekler": [
+            "Kapı ve pencere gibi ortak kullanılan yerleri ikiye bölemediği için",
+            "Kâğıt bant kısa sürede koptuğu için",
+            "Annesi çizgiyi hemen söktüğü için",
+            "Can çizginin ne anlama geldiğini anlamadığı için"
+          ],
+          "dogru": 0,
+          "aciklama": "Kapı bir tarafta, pencere öbür taraftaydı. İkisinin de diğerinin tarafına geçmesi gerekiyordu; bu yüzden çizgi yeni tartışmalara yol açtı."
+        },
+        {
+          "kimlik": "soz-kesmeme",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Annenin “Biri konuşurken diğeri sözünü kesmeyecek” kuralının amacı nedir?",
+          "secenekler": [
+            "Kardeşlerin daha az konuşup erken yatması",
+            "İki kardeşin de birbirini gerçekten dinleyebilmesi",
+            "Annenin kimin haklı olduğuna tek başına karar vermesi",
+            "Konuşmanın olabildiğince kısa sürmesi"
+          ],
+          "dogru": 1,
+          "aciklama": "Sırayla ve sözü kesilmeden konuşunca anlatıcı, Can’ın hiç düşünmediği derdini öğrendi. Kuralın amacı birbirini dinlemeyi sağlamaktır."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu metnin ana fikri hangisidir?",
+          "secenekler": [
+            "Büyük kardeşin odadaki her şeye karar vermesi gerekir.",
+            "Kardeşlerin aynı odada kalması her zaman kavgaya yol açar.",
+            "Sorunlar sınır çizerek değil, birbirini dinleyip uzlaşarak çözülür.",
+            "Odanın düzenini korumanın tek yolu kurallar koymamaktır."
+          ],
+          "dogru": 2,
+          "aciklama": "Metnin sonunda anlatıcı, çizginin sorunu çözmediğini, sorunu birbirlerini dinlemenin çözdüğünü söylüyor."
+        },
+        {
+          "kimlik": "raflar",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Yapılan listeye göre dolabın alt iki rafı ___ verilecekti.",
+          "cevaplar": [
+            "Can’a",
+            "Cana",
+            "Can"
+          ],
+          "aciklama": "Dördüncü paragrafta dolabın alt iki rafının Can’a verileceği yazıyor."
         }
       ]
     }

@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "sinif8-kelimeler",
+  "baslik": "8. sınıf kelimeleri",
+  "aciklama": "8. sınıf Türkçe kavramları ve kütüphanedeki 8. sınıf metinlerinden kelimeler.",
+  "sinif": "8",
+  "kartlar": [
+    {
+      "on": "Fiilimsi",
+      "arka": "Fiil kök ya da gövdesine gelen eklerle isim, sıfat ya da zarf görevi kazanan kelime.\nÜç türü vardır: isim-fiil, sıfat-fiil, zarf-fiil."
+    },
+    {
+      "on": "İsim-fiil",
+      "arka": "Fiilden türeyip isim görevi yapan fiilimsi; -ma, -ış, -mak ekleriyle yapılır.\nÖrnek: “Okumayı çok severim.”"
+    },
+    {
+      "on": "Sıfat-fiil",
+      "arka": "Fiilden türeyip sıfat görevi yapan fiilimsi.\nÖrnek: “koşan çocuk”, “okunacak kitap”."
+    },
+    {
+      "on": "Zarf-fiil",
+      "arka": "Fiilden türeyip zarf görevi yapan fiilimsi.\nÖrnek: “Gülerek konuştu.”, “Eve gelince aradı.”"
+    },
+    {
+      "on": "Yüklem",
+      "arka": "Cümlede iş, oluş ya da durum bildiren temel öge. Yüklemsiz cümle olmaz.\nÖrnek: “Ali kitabı okudu.” → okudu"
+    },
+    {
+      "on": "Özne",
+      "arka": "Cümlede yüklemin bildirdiği işi yapan ya da durumda bulunan öge; yükleme “kim, ne” sorularıyla bulunur."
+    },
+    {
+      "on": "Nesne",
+      "arka": "Cümlede öznenin yaptığı işten etkilenen öge; yükleme “neyi, kimi, ne” sorularıyla bulunur.\nÖrnek: “Kapıyı kapattı.”"
+    },
+    {
+      "on": "Zarf tümleci",
+      "arka": "Yüklemi zaman, yer-yön, durum ya da miktar bakımından tamamlayan öge.\nÖrnek: “Yarın gideceğiz.”"
+    },
+    {
+      "on": "Edilgen fiil",
+      "arka": "Öznesi belli olmayan, işi kimin yaptığı söylenmeyen fiil.\nÖrnek: “Kapı açıldı.”, “Mektup yazıldı.”"
+    },
+    {
+      "on": "Anlatım bozukluğu",
+      "arka": "Cümlede gereksiz kelime, yanlış anlamda kelime ya da eksik öge yüzünden anlamın bozulması.\nÖrnek: “Sonunda başarıya ulaştı sonunda.”"
+    },
+    {
+      "on": "Kaldıraç",
+      "arka": "Bir destek noktası etrafında dönebilen, kuvvetin büyüklüğünü ya da yönünü değiştiren sağlam çubuk.\nÖrnek: makas, el arabası."
+    },
+    {
+      "on": "Besin zinciri",
+      "arka": "Canlılar arasındaki “kim kimi yer” ilişkisi; enerjinin üreticiden tüketicilere aktarılma yolu."
+    },
+    {
+      "on": "Ayrıştırıcı",
+      "arka": "Ölü canlıları ve atıkları parçalayarak maddeleri toprağa geri kazandıran canlı.\nÖrnek: mantarlar, bazı bakteriler."
+    },
+    {
+      "on": "Nüsha",
+      "arka": "Bir kitabın ya da yazının elle yazılmış ya da basılmış her bir kopyası."
+    },
+    {
+      "on": "Sahaf",
+      "arka": "Eski ve kullanılmış kitap alıp satan kimse ya da dükkân."
+    },
+    {
+      "on": "Rasathane",
+      "arka": "Gökyüzünü ve gök cisimlerini incelemek için kurulan gözlem yeri; gözlemevi.\nÖrnek: Uluğ Bey’in Semerkant’taki rasathanesi."
+    },
+    {
+      "on": "Medrese",
+      "arka": "Geçmişte yükseköğretim yapılan okul; bazılarında matematik ve gökbilim gibi dersler de okutulurdu."
+    },
+    {
+      "on": "Sözlü tarih",
+      "arka": "Geçmişteki olayları, onlara tanıklık etmiş kişilerin anlatımlarına dayanarak kayda geçirme yöntemi."
+    },
+    {
+      "on": "Dudak okuma",
+      "arka": "Konuşan kişinin dudak ve yüz hareketlerine bakarak söylenenleri anlama."
+    },
+    {
+      "on": "Güzergâh",
+      "arka": "Bir yerden başka bir yere gitmek için izlenen yol."
+    }
+  ]
+}

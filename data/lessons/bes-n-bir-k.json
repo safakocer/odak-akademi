@@ -1,0 +1,108 @@
+{
+  "surum": 1,
+  "tur": "strateji",
+  "ad": "bes-n-bir-k",
+  "baslik": "5N1K ile Okuma",
+  "kisaAciklama": "Ne, nerede, ne zaman, nasıl, neden ve kim sorularıyla bir olayın tam resmini çıkar.",
+  "sureDk": "8-10",
+  "kazanim": "Okuduğun bir metinle ilgili 5N1K sorularını sormayı ve cevaplamayı, metnin cevaplamadığı soruları fark etmeyi öğreneceksin.",
+  "anlat": {
+    "baslik": "Altı soru, tam bir resim",
+    "paragraflar": [
+      "5N1K, bir metni anlamak için sorulan altı sorunun kısaltmasıdır: Ne? Nerede? Ne zaman? Nasıl? Neden? Kim? Beş soru “N” harfiyle, bir soru “K” harfiyle başlar.",
+      "Bu sorular özellikle haber metinlerinde ve hikâyelerde işe yarar. Altısının cevabını bulduğunda olayın tam resmini görürsün: kimin, neyi, nerede, ne zaman, nasıl ve neden yaptığını.",
+      "Her metin altı sorunun hepsine cevap vermeyebilir. Cevabı olmayan soruyu fark etmek de önemlidir; merak ettiğin bilgiyi başka bir kaynakta arayabilirsin."
+    ],
+    "ornek": {
+      "baslik": "Kısa örnek",
+      "satirlar": [
+        "Cümle: Dün öğle arasında 7-C öğrencileri, okul bahçesine kuşlar için yemlik astı.",
+        "Kim? 7-C öğrencileri. Ne? Yemlik astılar. Nerede? Okul bahçesine. Ne zaman? Dün öğle arasında.",
+        "“Nasıl?” ve “Neden?” sorularının cevabı bu cümlede yok."
+      ]
+    }
+  },
+  "metin": {
+    "baslik": "Okul Bahçesine 30 Fidan Dikildi",
+    "yonerge": "Haberi oku. Okurken kim, ne, nerede, ne zaman, nasıl ve neden sorularının cevaplarını ara.",
+    "bolumler": [
+      {
+        "paragraflar": [
+          "Yıldıztepe Ortaokulunun 6-B sınıfı öğrencileri, geçen cuma sabahı okul bahçesine 30 fidan dikti. Çalışmaya fen bilimleri öğretmenleri Selin Hanım ve okulun bahçe görevlisi Hasan Bey de katıldı.",
+          "Öğrenciler önce beşer kişilik gruplara ayrıldı. Her grup, bahçe görevlisinin önceden işaretlediği yerlere çukurlar kazdı, fidanları yerleştirdi ve can suyunu verdi. Ardından her öğrenci bir fidanın sorumluluğunu aldı ve ona bir ad verdi.",
+          "Selin Hanım, fidanları neden diktiklerini şöyle anlattı: “Bahçemizde yaz aylarında oturabileceğimiz bir gölge yok. Birkaç yıl içinde bu ağaçlar hem gölge verecek hem de kuşlara yuva olacak.”",
+          "Öğrenciler fidanların bakımını da üstlendi. Her hafta bir grup, sulama ve kontrol için nöbet tutacak."
+        ]
+      }
+    ]
+  },
+  "gorev": {
+    "yonerge": "Haberdeki 5N1K sorularının cevaplarını bul, sonra haberin cevaplamadığı bir soru yaz.",
+    "parcalar": [
+      {
+        "tur": "eslestir",
+        "baslik": "Soruları cevaplarla eşleştir",
+        "yonerge": "Her cevabın hangi soruya ait olduğunu seç.",
+        "kategoriler": ["Kim?", "Ne?", "Nerede?", "Ne zaman?", "Nasıl?", "Neden?"],
+        "ogeler": [
+          { "metin": "Geçen cuma sabahı", "dogru": 3 },
+          { "metin": "Gruplara ayrılıp çukur kazarak, fidanları yerleştirip sulayarak", "dogru": 4 },
+          { "metin": "6-B öğrencileri, öğretmenleri ve bahçe görevlisi", "dogru": 0 },
+          { "metin": "Bahçede gölge olsun ve kuşlara yuva olsun diye", "dogru": 5 },
+          { "metin": "30 fidan diktiler.", "dogru": 1 },
+          { "metin": "Yıldıztepe Ortaokulunun bahçesinde", "dogru": 2 }
+        ],
+        "aciklama": "Haberin ilk paragrafı genellikle kim, ne, nerede ve ne zaman sorularını cevaplar. Nasıl ve neden soruları ise çoğu zaman sonraki paragraflarda açıklanır."
+      },
+      {
+        "tur": "not",
+        "kimlik": "merak",
+        "baslik": "Cevabı olmayan soru",
+        "soru": "Bu haberde cevabı olmayan ama merak ettiğin bir soru yaz.",
+        "ipucu": "Örneğin fidanların türü ya da nereden geldikleri haberde yazıyor mu? Sorunu 5N1K kelimelerinden biriyle başlatabilirsin.",
+        "yerTutucu": "Merak ettiğim: …"
+      }
+    ]
+  },
+  "sinama": {
+    "sorular": [
+      {
+        "kimlik": "bn-s1",
+        "tip": "coktan-secmeli",
+        "katman": "bilgi",
+        "soru": "“Dün akşam saat sekizde, kent meydanında gençlerin hazırladığı bir müzik dinletisi yapıldı.” Bu cümlede “Ne zaman?” sorusunun cevabı hangisidir?",
+        "secenekler": [
+          "Kent meydanında",
+          "Gençlerin hazırladığı",
+          "Bir müzik dinletisi",
+          "Dün akşam saat sekizde"
+        ],
+        "dogru": 3,
+        "aciklama": "“Ne zaman?” sorusu zamanı sorar: dün akşam saat sekizde. “Kent meydanında” yeri, “gençlerin hazırladığı” kimin yaptığını, “müzik dinletisi” ne yapıldığını gösterir."
+      },
+      {
+        "kimlik": "bn-s2",
+        "tip": "coktan-secmeli",
+        "katman": "cikarim",
+        "soru": "Bir metinde “Neden?” sorusunun cevabını ararken hangi ifadeler en çok işine yarar?",
+        "secenekler": [
+          "dün, yarın, geçen hafta",
+          "okulda, parkta, evde",
+          "çünkü, bu yüzden, … için",
+          "hızla, dikkatle, birlikte"
+        ],
+        "dogru": 2,
+        "aciklama": "“Çünkü”, “bu yüzden” ve “için” gibi ifadeler genellikle bir nedeni ya da amacı bildirir. Zaman, yer ve nasıllık bildiren kelimeler başka soruların cevabıdır."
+      },
+      {
+        "kimlik": "bn-s3",
+        "tip": "dogru-yanlis",
+        "katman": "yorum",
+        "soru": "Her metinde 5N1K sorularının altısının da cevabı bulunmak zorundadır.",
+        "dogru": false,
+        "aciklama": "Bazı metinler altı sorunun hepsini cevaplamaz. Cevapsız kalan soruyu fark etmek, iyi bir okurun becerisidir."
+      }
+    ]
+  },
+  "kapanis": "Bir haber okurken ya da bir olayı birine anlatırken 5N1K’yı kullan. Altı sorudan hangilerinin cevapsız kaldığını fark et."
+}

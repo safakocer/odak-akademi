@@ -1,0 +1,115 @@
+{
+  "surum": 1,
+  "tur": "strateji",
+  "ad": "soru-uretme",
+  "baslik": "Okurken Soru Üretme",
+  "kisaAciklama": "Üç tür soru üreterek metni farklı açılardan düşün ve dikkatini metinde tut.",
+  "sureDk": "8-10",
+  "kazanim": "Okuduğun metinle ilgili farklı türde sorular üretmeyi; cevabı metinde yazan, düşünerek bulunan ve kendi deneyiminle ilgili soruları ayırt etmeyi öğreneceksin.",
+  "anlat": {
+    "baslik": "Okurken soru sormak",
+    "paragraflar": [
+      "Soruları yalnızca öğretmenler sormaz; iyi okurlar okurken kendilerine de soru sorar. Soru sormak, metinde neyi aradığını belirler ve dikkatini metinde tutar.",
+      "Üç tür soru üretebilirsin. “Metinde yazan” sorular: Cevabı metnin tek bir yerinde açıkça vardır. “Düşün ve bul” soruları: Cevabı bulmak için metnin birkaç yerini birleştirmen ya da ipuçlarından çıkarım yapman gerekir.",
+      "“Sen ve metin” soruları: Cevabı metinde değil, senin düşüncende ve deneyiminde bulunur; metni kendi hayatınla ilişkilendirirsin. Üç türü de kullanmak, metni farklı açılardan düşünmeni sağlar."
+    ],
+    "ornek": {
+      "baslik": "Sincaplar hakkında bir metin için örnek sorular",
+      "satirlar": [
+        "Metinde yazan: Sincaplar kış için hangi yiyecekleri saklar?",
+        "Düşün ve bul: Sincabın unuttuğu fındıklar ormana nasıl yarar sağlar?",
+        "Sen ve metin: Sen kış için neler biriktirirdin, neden?"
+      ]
+    }
+  },
+  "metin": {
+    "baslik": "Ahtapotun Akıllı Kolları",
+    "yonerge": "Metni oku. Okurken aklına gelen soruları fark et.",
+    "bolumler": [
+      {
+        "paragraflar": [
+          "Ahtapotlar denizlerde yaşayan, omurgası olmayan hayvanlardır. Sekiz kolları ve üç kalpleri vardır; kanları mavi renklidir. Vücutlarında kemik olmadığı için kendilerini sıkıştırarak çok dar aralıklardan geçebilirler.",
+          "Ahtapotun en ilginç özelliklerinden biri kollarıdır. Sinir hücrelerinin önemli bir kısmı beyninde değil, kollarında bulunur. Bu yüzden her kol, dokunduğu şeyi bir ölçüde kendi başına yoklayabilir ve tutabilir. Kollardaki vantuzlar hem tutunmaya hem de dokunulan şeyin tadını almaya yarar.",
+          "Ahtapotlar renk ve desen değiştirebilir. Derilerindeki özel hücreler sayesinde kısa sürede kayalara ya da kuma benzerler. Böylece hem avlanırken hem de saklanırken kolayca fark edilmezler.",
+          "Akvaryumlarda yapılan gözlemler, ahtapotların çevrelerini merakla incelediğini gösteriyor. Bazı ahtapotların, içinde yiyecek olan kavanozların kapağını açmayı öğrendiği görülmüştür."
+        ]
+      }
+    ]
+  },
+  "gorev": {
+    "yonerge": "Önce soru türlerini tanı, sonra bu metin için kendi sorularını üret.",
+    "parcalar": [
+      {
+        "tur": "eslestir",
+        "baslik": "Soru türlerini ayır",
+        "yonerge": "Her sorunun türünü seç.",
+        "kategoriler": ["Metinde yazan", "Düşün ve bul", "Sen ve metin"],
+        "ogeler": [
+          { "metin": "Ahtapotun kaç kalbi vardır?", "dogru": 0 },
+          { "metin": "Kemiksiz bir vücut ahtapotun saklanmasına nasıl yardım eder?", "dogru": 1 },
+          { "metin": "Bir ahtapotla karşılaşsan neyi gözlemlemek isterdin?", "dogru": 2 },
+          { "metin": "Vantuzlar ne işe yarar?", "dogru": 0 },
+          { "metin": "Renk değiştirmesi ve kavanoz açması ahtapot hakkında ne düşündürüyor?", "dogru": 1 }
+        ],
+        "aciklama": "Cevap tek bir cümlede duruyorsa “metinde yazan”, birkaç bilgiyi birleştirmen gerekiyorsa “düşün ve bul”, cevap senin düşüncende ve deneyiminde ise “sen ve metin” sorusudur."
+      },
+      {
+        "tur": "not",
+        "kimlik": "dusun-bul",
+        "baslik": "Bir “düşün ve bul” sorusu yaz",
+        "soru": "Bu metin için cevabı birkaç bilgiyi birleştirmeyi gerektiren bir soru yaz.",
+        "ipucu": "“Neden … olabilir?” ya da “… ile … arasında nasıl bir ilişki var?” diye başlayabilirsin.",
+        "yerTutucu": "Sorum: …"
+      },
+      {
+        "tur": "not",
+        "kimlik": "sen-metin",
+        "baslik": "Bir “sen ve metin” sorusu yaz",
+        "soru": "Şimdi metni kendi hayatınla ilişkilendiren bir soru yaz.",
+        "ipucu": "“Sen olsan …?”, “Hiç … gördün mü?” ya da “Bu bilgi sana neyi düşündürüyor?” diye başlayabilirsin.",
+        "yerTutucu": "Sorum: …"
+      }
+    ]
+  },
+  "sinama": {
+    "sorular": [
+      {
+        "kimlik": "su-s1",
+        "tip": "coktan-secmeli",
+        "katman": "bilgi",
+        "soru": "“Kutup tilkisinin kürkü kışın beyaz, yazın kahverengidir.” Bu cümleye göre hangisi “metinde yazan” bir sorudur?",
+        "secenekler": [
+          "Kutup tilkisinin kürkü kışın ne renktir?",
+          "Sen kutupta yaşasaydın ne giyerdin?",
+          "Renk değişimi tilkiye nasıl yarar sağlar?",
+          "Kutup tilkileri neden yalnız yaşar?"
+        ],
+        "dogru": 0,
+        "aciklama": "Cevabı (beyaz) cümlede açıkça yazıyor. İkinci soru “sen ve metin”, üçüncüsü “düşün ve bul” sorusudur; dördüncünün cevabı ise metinde hiç yok."
+      },
+      {
+        "kimlik": "su-s2",
+        "tip": "coktan-secmeli",
+        "katman": "cikarim",
+        "soru": "“Kutup tilkisinin kürkü kışın beyaz, yazın kahverengidir. Kışın her yer karla kaplıdır; yazın kar erir ve toprak görünür.” Hangisi bir “düşün ve bul” sorusudur?",
+        "secenekler": [
+          "Kutup tilkisinin kürkü yazın ne renktir?",
+          "Kışın her yer neyle kaplıdır?",
+          "Sen en çok hangi mevsimi seversin?",
+          "Kürkün renk değiştirmesi tilkiye nasıl yarar?"
+        ],
+        "dogru": 3,
+        "aciklama": "Bu sorunun cevabı tek cümlede yok: Kürkün rengini ve çevrenin rengini birleştirince tilkinin her mevsimde çevresine benzeyip daha zor fark edildiğini çıkarırız."
+      },
+      {
+        "kimlik": "su-s3",
+        "tip": "dogru-yanlis",
+        "katman": "yorum",
+        "soru": "Okurken soru üretmek, dikkatimizi metinde tutmamıza ve neyi aradığımızı bilmemize yardım eder.",
+        "dogru": true,
+        "aciklama": "Kendine soru sorduğunda okumanın bir amacı olur: cevabı ararsın. Bu da metni daha dikkatli okumana yardım eder."
+      }
+    ]
+  },
+  "kapanis": "Bir sonraki okumanda en az bir “düşün ve bul” sorusu üret ve cevabını metinde ara. Bir arkadaşınla birbirinize soru sorarak da çalışabilirsiniz."
+}

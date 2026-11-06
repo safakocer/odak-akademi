@@ -1,0 +1,121 @@
+{
+  "surum": 1,
+  "tur": "strateji",
+  "ad": "ozetleme",
+  "baslik": "Üç Cümlede Özetleme",
+  "kisaAciklama": "Bir hikâyeyi başlangıç, gelişme ve sonuçla, kendi cümlelerinle kısaca anlat.",
+  "sureDk": "8-10",
+  "kazanim": "Okuduğun bir metni ana hatlarıyla ve kendi cümlelerinle özetlemeyi, önemli bilgileri ayrıntılardan ayırmayı öğreneceksin.",
+  "anlat": {
+    "baslik": "Üç cümlede özet",
+    "paragraflar": [
+      "Özet, bir metnin en önemli bilgilerini kısaca ve kendi cümlelerinle anlatmaktır. İyi bir özeti okuyan kişi, metni okumamış olsa bile ne anlatıldığını anlar.",
+      "Hikâyeleri üç cümlede özetleyebilirsin. 1. cümle: Kim, nerede ve başlangıçta durum ne? 2. cümle: Olayı değiştiren en önemli gelişme ne? 3. cümle: Olay nasıl sonuçlandı?",
+      "Özete ayrıntılar, örnekler ve kendi yorumların girmez. Bir bilginin özete girip girmeyeceğini anlamak için kendine sor: “Bunu çıkarırsam hikâye yine anlaşılır mı?” Anlaşılıyorsa o bilgi bir ayrıntıdır."
+    ],
+    "ornek": {
+      "baslik": "Kısa örnek: Kaplumbağa ile Tavşan",
+      "satirlar": [
+        "1. Kendine çok güvenen tavşan, yavaş yürüyen kaplumbağayla yarışmaya karar verir.",
+        "2. Tavşan yarışın ortasında uyurken kaplumbağa hiç durmadan yürür.",
+        "3. Kaplumbağa yarışı kazanır ve tavşan, azmin hızdan önemli olabileceğini anlar."
+      ]
+    }
+  },
+  "metin": {
+    "baslik": "Satranç Kulübünün Yeni Üyesi",
+    "yonerge": "Hikâyeyi oku. Okurken önemli gelişmeleri aklında tut.",
+    "bolumler": [
+      {
+        "paragraflar": [
+          "Deniz, dönemin ortasında yeni bir okula geldi. Çok konuşmayan, teneffüslerde kitap okuyan bir çocuktu. İlk hafta satranç kulübüne yazıldı ama kulüptekiler onu pek fark etmedi; herkes kendi tanıdığıyla oynuyordu.",
+          "Bir gün kulübün öğretmeni Ayla Hanım, okullar arası turnuvaya dört kişilik bir takımla katılacaklarını söyledi. Ne var ki turnuva günü takımdan Emre hastalanıp gelemedi. Takım eksik kalınca Ayla Hanım, Deniz’e oynamak isteyip istemediğini sordu.",
+          "Deniz kabul etti. İlk maçını kaybetti ama sonraki iki maçını kazandı. Takım turnuvayı üçüncü sırada bitirdi.",
+          "Dönüş yolunda Deniz, arkadaşlarına maçlarda kullandığı açılışı gösterdi. Herkes merakla dinledi. Ertesi hafta kulüpte Deniz’in masasının etrafı hiç boş kalmadı.",
+          "Ayla Hanım gülümseyerek şöyle dedi: “Bazen birini tanımak için ona yalnızca bir fırsat vermek gerekir.”"
+        ]
+      }
+    ]
+  },
+  "gorev": {
+    "yonerge": "Önce önemli bilgileri ayrıntılardan ayır, sonra hikâyeyi üç cümlede özetle.",
+    "parcalar": [
+      {
+        "tur": "isaretle",
+        "baslik": "Önemli olanı seç",
+        "yonerge": "Özete girmesi gereken bilgileri işaretle. Ayrıntıları işaretleme.",
+        "secenekler": [
+          "Deniz yeni okulunda satranç kulübüne katılır ama fark edilmez.",
+          "Deniz teneffüslerde kitap okur.",
+          "Takım eksik kalınca Deniz turnuvada oynar.",
+          "Turnuvaya dört kişilik takımla katılınır.",
+          "Deniz’i tanıyan kulüp üyeleri onunla yakınlaşır.",
+          "Hastalanan öğrencinin adı Emre’dir."
+        ],
+        "dogru": [0, 2, 4],
+        "aciklama": "Özete başlangıç durumu, olayı değiştiren gelişme ve sonuç girer. Kitap okuması, takımın kaç kişi olduğu ya da hastalanan öğrencinin adı çıkarılsa da hikâye anlaşılır; bunlar ayrıntıdır."
+      },
+      {
+        "tur": "sorular",
+        "baslik": "Üç cümlede özetle",
+        "sorular": [
+          {
+            "kimlik": "oz-g1",
+            "tip": "kisa-cevap",
+            "katman": "yorum",
+            "soru": "Hikâyeyi üç cümleyle özetle: başlangıç, gelişme ve sonuç.",
+            "ornekCevap": "Okula yeni gelen sessiz Deniz, satranç kulübünde başta fark edilmez. Turnuvada takım eksik kalınca Deniz takıma girer ve iki maç kazanır. Deniz’i tanıyan arkadaşları ona ilgi gösterir ve Deniz kulübün bir parçası olur.",
+            "kontrolListesi": [
+              "1. cümlede kim olduğu ve başlangıçtaki durum var.",
+              "2. cümlede olayı değiştiren gelişme var.",
+              "3. cümlede hikâyenin sonucu var.",
+              "Ayrıntı yok ve cümleler senin."
+            ],
+            "aciklama": "İyi bir özet üç bölümü de içerir ve ayrıntılara girmez. Senin cümlelerin örnektekinden farklı olabilir; önemli olan aynı ana bilgileri içermesidir."
+          }
+        ]
+      }
+    ]
+  },
+  "sinama": {
+    "sorular": [
+      {
+        "kimlik": "oz-s1",
+        "tip": "coktan-secmeli",
+        "katman": "bilgi",
+        "soru": "Hangisi iyi bir özetin özelliği değildir?",
+        "secenekler": [
+          "Metindeki bütün ayrıntıları tek tek sayar.",
+          "Kendi cümlelerimizle yazılır.",
+          "En önemli olayları içerir.",
+          "Metnin kendisinden çok daha kısadır."
+        ],
+        "dogru": 0,
+        "aciklama": "Özet ayrıntıları değil, en önemli bilgileri içerir. Bütün ayrıntıları sayarsak metni yeniden yazmış oluruz."
+      },
+      {
+        "kimlik": "oz-s2",
+        "tip": "coktan-secmeli",
+        "katman": "cikarim",
+        "soru": "“Selim, sınıfın saksı bitkisini sulamayı üstlenir ama iki hafta boyunca unutur. Bitki solmaya başlayınca bunu fark eder ve ne yapması gerektiğini araştırır. Bitkiyi düzenli sulayıp güneşe yakın bir yere koyunca bitki yeniden canlanır.” Bu metnin en iyi özeti hangisidir?",
+        "secenekler": [
+          "Selim her sabah sınıftaki bitkiyi sular.",
+          "Selim bitkiyi sulamayı unutur, bitki solunca özenle bakar ve bitki canlanır.",
+          "Sınıfta bir saksı bitkisi vardır ve güneşe yakın bir yerde durur.",
+          "Selim bitkileri çok sever, en sevdiği bitki menekşedir."
+        ],
+        "dogru": 1,
+        "aciklama": "Bu özet başlangıcı (unutması), gelişmeyi (bitkinin solması ve Selim’in özen göstermesi) ve sonucu (bitkinin canlanması) içeriyor. Diğerleri ya eksik, ya ayrıntı, ya da metinde olmayan bilgi."
+      },
+      {
+        "kimlik": "oz-s3",
+        "tip": "dogru-yanlis",
+        "katman": "yorum",
+        "soru": "Özet yazarken metne kendi yorumlarımızı ve görüşlerimizi de ekleriz.",
+        "dogru": false,
+        "aciklama": "Özet, metnin söylediklerini kısaca aktarır. Kendi görüşünü yazmak istersen bunu özetten ayrı bir bölümde yapabilirsin."
+      }
+    ]
+  },
+  "kapanis": "Okuduğun her hikâyeden sonra içinden üç cümlelik bir özet kur: başlangıç, gelişme, sonuç. Özetini kuramadığın yer, yeniden okuman gereken yerdir."
+}

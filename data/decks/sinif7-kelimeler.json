@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "sinif7-kelimeler",
+  "baslik": "7. sınıf kelimeleri",
+  "aciklama": "7. sınıf Türkçe kavramları ve kütüphanedeki 7. sınıf metinlerinden kelimeler.",
+  "sinif": "7",
+  "kartlar": [
+    {
+      "on": "Fiil",
+      "arka": "İş, oluş, hareket ya da durum bildiren kelime.\nÖrnek: koşmak, uyumak, sararmak."
+    },
+    {
+      "on": "Haber (bildirme) kipleri",
+      "arka": "Bir işin zamanını bildiren kipler: görülen geçmiş, öğrenilen geçmiş, şimdiki, gelecek ve geniş zaman.\nÖrnek: geldi, gelmiş, geliyor."
+    },
+    {
+      "on": "Dilek (tasarlama) kipleri",
+      "arka": "Bir işin yapılması için istek, gereklilik, şart ya da emir bildiren kipler.\nÖrnek: gelse, gelmeli, gelsin."
+    },
+    {
+      "on": "Zarf",
+      "arka": "Fiilleri, sıfatları ya da başka zarfları zaman, yer, durum, miktar gibi yönlerden belirten kelime.\nÖrnek: “Yavaş konuştu.”"
+    },
+    {
+      "on": "Ek fiil",
+      "arka": "İsim soylu kelimeleri yüklem yapan ya da çekimli fiillerin zamanını birleştiren ek.\nÖrnek: öğrenci-ydi, güzel-miş."
+    },
+    {
+      "on": "Neden-sonuç cümlesi",
+      "arka": "Bir yargının hangi nedenle gerçekleştiğini bildiren cümle.\nÖrnek: “Yağmur yağdığı için maç ertelendi.”"
+    },
+    {
+      "on": "Amaç-sonuç cümlesi",
+      "arka": "Bir işin hangi amaçla yapıldığını bildiren cümle.\nÖrnek: “Sınavı kazanmak için çalışıyor.”"
+    },
+    {
+      "on": "Koşul (şart) cümlesi",
+      "arka": "Bir yargının gerçekleşmesinin başka bir şarta bağlı olduğunu bildiren cümle.\nÖrnek: “Erken kalkarsan otobüse yetişirsin.”"
+    },
+    {
+      "on": "Abartma",
+      "arka": "Bir durumu olduğundan çok büyük ya da çok küçük göstererek anlatımı güçlendirme.\nÖrnek: “Gözlerimden sel gibi yaş aktı.”"
+    },
+    {
+      "on": "Biyografi",
+      "arka": "Bir kişinin hayatının başka biri tarafından belgelere dayanarak anlatıldığı yazı türü.\nKişi kendi hayatını anlatırsa otobiyografi olur."
+    },
+    {
+      "on": "Replik",
+      "arka": "Tiyatroda bir oyuncunun sırası geldiğinde söylediği söz."
+    },
+    {
+      "on": "Doğaçlama",
+      "arka": "Önceden hazırlanmadan, o anda akla gelenle konuşma ya da oynama."
+    },
+    {
+      "on": "Soğurma",
+      "arka": "Bir maddenin üzerine düşen ışığı tutması; soğurulan ışık enerjisinin çoğu ısıya dönüşür."
+    },
+    {
+      "on": "Opak madde",
+      "arka": "Işığı geçirmeyen madde.\nÖrnek: tahta, taş. Işığın çoğunu geçirenler saydam, bir kısmını geçirenler yarı saydamdır."
+    },
+    {
+      "on": "Organel",
+      "arka": "Hücrenin sitoplazmasında bulunan ve belirli bir görevi yapan küçük yapı.\nÖrnek: mitokondri."
+    },
+    {
+      "on": "Dikilitaş",
+      "arka": "Yere dik olarak yerleştirilmiş uzun, büyük taş.\nÖrnek: Göbeklitepe’deki T biçimli taşlar."
+    },
+    {
+      "on": "Avcı-toplayıcı",
+      "arka": "Tarım yapmadan, avlanarak ve doğadan bitki toplayarak geçinen topluluk."
+    },
+    {
+      "on": "Yağmur hasadı",
+      "arka": "Çatıya ya da başka yüzeylere düşen yağmur suyunu biriktirip kullanma."
+    },
+    {
+      "on": "Erozyon",
+      "arka": "Toprağın üst katmanının su ya da rüzgârla taşınması.\nBitki kökleri toprağı tutarak erozyonu azaltır."
+    },
+    {
+      "on": "Öz denetim",
+      "arka": "Kişinin kendi davranışlarını fark edip amacına uygun biçimde yönetebilmesi."
+    }
+  ]
+}

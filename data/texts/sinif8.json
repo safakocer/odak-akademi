@@ -6,6 +6,13 @@
       "ad": "Mevsimler Neden Oluşur?",
       "sinif": 8,
       "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "mevsimler",
+        "eksen eğikliği",
+        "Güneş ışınları",
+        "Dünya ve evren"
+      ],
       "metin": "Birçok insan, yazın sıcak olmasını Dünya’nın o mevsimde Güneş’e daha yakın olmasıyla açıklar. Oysa bu düşünce doğru değildir. Hatta Dünya, Güneş’e en çok ocak ayının başında yaklaşır; bu sırada Türkiye’de kış yaşanır. Peki mevsimleri oluşturan asıl neden nedir?\n\nDünya, kendi ekseni etrafında dönerken bir yandan da Güneş’in çevresinde dolanır ve bu dolanımı yaklaşık bir yılda tamamlar. Dünya’nın ekseni dik değil, yörünge düzlemine göre yaklaşık 23,5 derece eğiktir. Üstelik bu eğiklik yıl boyunca hep aynı yönü gösterir. Böylece yılın bir döneminde Kuzey Yarım Küre Güneş’e doğru eğik olur, altı ay sonra ise Güneş’ten uzağa eğik kalır.\n\nBir el fenerini masaya dik tuttuğunu düşün. Işık küçük bir alanda toplanır ve orası parlak görünür. Feneri yatırdığında aynı ışık daha geniş bir alana yayılır; her nokta daha az ışık alır. Güneş ışınları da böyledir. Güneş’e doğru eğik olan yarım küreye ışınlar daha dik açıyla gelir ve birim alana düşen enerji artar. Ayrıca bu yarım kürede gündüzler gecelerden uzun olur, yani yer daha uzun süre ısınır. Bu iki etki birleşince yaz yaşanır. Diğer yarım kürede ise ışınlar daha eğik gelir, gündüzler kısalır ve kış yaşanır.\n\nBu nedenle iki yarım kürede mevsimler birbirinin tersidir. Aralık ayında Türkiye’de insanlar kalın montlarını giyerken Avustralya’da çocuklar denize girer.\n\nYıl içinde bazı tarihler özel önem taşır. 21 Haziran, Kuzey Yarım Küre’de en uzun gündüzün yaşandığı gündür ve yaz gün dönümü olarak bilinir. 21 Aralık’ta ise en kısa gündüz yaşanır. 21 Mart ve 23 Eylül’de Güneş ışınları öğle vakti Ekvator’a dik gelir; Dünya’nın hemen her yerinde gece ile gündüz yaklaşık olarak eşit olur. Bu günlere ekinoks ya da gece gündüz eşitliği denir.\n\nEksen eğikliği olmasaydı Türkiye gibi orta kuşaktaki yerlerde belirgin mevsimler yaşanmaz, hava koşulları yıl boyunca birbirine çok daha yakın olurdu. Mevsimler; tarımdan hayvanların göçüne, giydiğimiz kıyafetlerden kutladığımız şenliklere kadar hayatımızın birçok yönünü biçimlendirir.",
       "sorular": [
         {
@@ -90,6 +97,13 @@
       "ad": "Bir Bilgiye İnanmadan Önce",
       "sinif": 8,
       "tur": "bilgilendirici",
+      "zorluk": 3,
+      "etiketler": [
+        "medya okuryazarlığı",
+        "doğrulama",
+        "eleştirel düşünme",
+        "dijital yaşam"
+      ],
       "metin": "Telefonuna bir mesaj geldiğini düşün: “Bu bitkinin çayını her gün içen kişi hiç hastalanmaz! Herkese gönder!” Mesajı gönderen yakın bir arkadaşın ve paylaşımın altında yüzlerce beğeni var. Bu bilgiye hemen inanmalı mısın?\n\nİnternet, bilgiye ulaşmayı hiç olmadığı kadar kolaylaştırdı. Ancak aynı kolaylık, yanlış bilgilerin de çok hızlı yayılmasına yol açıyor. Araştırmacılar, şaşırtıcı ve güçlü duygular uyandıran paylaşımların sakin bir dille yazılmış paylaşımlardan daha hızlı yayıldığını gözlemliyor. Bu yüzden bir bilginin çok paylaşılması, onun doğru olduğunu göstermez.\n\nBir bilgiyle karşılaştığında kendine birkaç soru sorabilirsin. İlk soru kaynakla ilgilidir: Bu bilgiyi kim söylüyor? Konunun uzmanı mı, yoksa adı bile belli olmayan bir hesap mı? İkinci soru kanıtla ilgilidir: Bilgi bir araştırmaya, ölçüme ya da güvenilir bir kuruma dayanıyor mu? “Bilim insanları kanıtladı” deyip hangi bilim insanı olduğunu söylemeyen bir paylaşım dikkatle ele alınmalıdır. Üçüncü soru tarihle ilgilidir: Haber yeni mi, yoksa yıllar önceki bir olay yeniden mi paylaşılıyor?\n\nBilgiyi başka kaynaklarla karşılaştırmak da önemlidir. Güvenilir haber kuruluşları, ansiklopediler ya da resmî kurumlar aynı bilgiyi veriyor mu? Doğru bir bilgi genellikle farklı ve birbirinden bağımsız kaynaklarda da yer alır. Yalnızca tek bir yerde görülen olağanüstü bir iddiaya karşı dikkatli olmak gerekir.\n\nFotoğraf ve videolar da yanıltıcı olabilir. Başka bir yerde ya da yıllar önce çekilmiş bir görüntü, yeni bir olaymış gibi paylaşılabilir. Bazı görüntüler ise bilgisayar programlarıyla değiştirilir. Bu nedenle “Gördüm, demek ki doğru.” diye düşünmek her zaman yeterli değildir.\n\nSon olarak kendi duygularını da gözlemle. Bir paylaşım seni çok kızdırıyor ya da aşırı heyecanlandırıyorsa bir an dur. Güçlü duygular, dikkatli düşünmeyi zorlaştırabilir. Paylaşmadan önce birkaç dakika araştırmak, hem seni hem de mesajı göndereceğin kişileri yanlış bilgiden korur.\n\nBaştaki mesaja dönelim. Hiçbir bitki tek başına insanı bütün hastalıklardan koruyamaz. Mesajda kaynak yok, kanıt yok ve “Herkese gönder!” diyerek seni acele ettiriyor. Yani bu, paylaşılmadan önce sorgulanması gereken bir mesaj.",
       "sorular": [
         {
@@ -158,6 +172,960 @@
             "Metindeki sorulardan en az ikisini kullandım (kaynak, kanıt, tarih, başka kaynaklar)."
           ],
           "aciklama": "İyi bir cevap metindeki kontrol sorularını (kaynak, kanıt, tarih, karşılaştırma) somut bir örneğe uygular."
+        }
+      ]
+    },
+    {
+      "kimlik": "yarismadan-uc-gun-once",
+      "ad": "Yarışmadan Üç Gün Önce",
+      "sinif": 8,
+      "tur": "hikaye",
+      "zorluk": 3,
+      "etiketler": [
+        "dürüstlük",
+        "sorumluluk",
+        "takım çalışması",
+        "robotik"
+      ],
+      "metin": "Okulun robotik takımı, il çapındaki yarışmaya üç gün kala son denemelerini yapıyordu. Takımın robotu Tosbağa, haftalardır üzerinde çalıştıkları engelli parkuru neredeyse kusursuz tamamlıyordu. Takım kaptanı Zehra bir gün önce herkese açıkça söylemişti: “Bu hafta robotta hiçbir şeyi değiştirmiyoruz. Robot çalışıyor; şimdi tek işimiz parkuru tekrar etmek.”\n\nSelim ise robotun biraz daha hızlı gidebileceğini düşünüyordu. O akşam herkes evine gittikten sonra laboratuvarda kalan Selim, motorlara giden gücü artırmak için ayarlarla oynadı. Robotu çalıştırdığında Tosbağa gerçekten hızlanmıştı. Ama birkaç tur sonra sol motordan ince bir yanık kokusu yükseldi ve robot olduğu yerde durdu.\n\nSelim’in yüzü bembeyaz oldu. Motoru çıkarıp baktı; içindeki sargılar yanmıştı. Laboratuvarda başka kimse yoktu. Robotu masaya bırakıp eve dönebilir, ertesi gün herkes gibi şaşırmış görünebilirdi. Eve giderken yol boyunca bunu düşündü. O gece uzun süre uyuyamadı.\n\nErtesi sabah takım laboratuvarda toplandığında Tosbağa’nın çalışmadığı hemen anlaşıldı. Herkes birbirine bakarken Selim derin bir nefes aldı: “Benim yüzümden,” dedi. “Dün akşam motor ayarlarını değiştirdim. Size sormadan yaptım. Özür dilerim.”\n\nLaboratuvarda kısa bir sessizlik oldu. Zehra önce çok kızdı; kaptan olarak aldığı karara uyulmamıştı. Sonra danışman öğretmenleri Murat Bey’e baktı. Murat Bey sakin bir sesle konuştu: “Şu an iki sorumuz var. Birincisi, robotu üç günde nasıl çalıştıracağız? İkincisi, bundan sonra kararları nasıl alacağız? Selim doğruyu söylediği için en azından neyin bozulduğunu biliyoruz. Bu da arıza aramakla geçecek bir günü bize geri kazandırdı.”\n\nTakım hemen işe koyuldu. Okulun malzeme dolabında yedek motor yoktu ama geçen yılın takımından kalan eski bir robotun motoru aynı modeldi. Selim iki gün boyunca okuldan sonra arkadaşlarıyla birlikte kalıp motoru değiştirdi, kabloları yeniden bağladı. Zehra da yeni bir kural önerdi: Robotta yapılacak her değişiklik önce takım defterine yazılacak ve en az iki kişi onaylamadan uygulanmayacaktı.\n\nYarışma günü Tosbağa parkuru eskisi kadar hızlı değil ama hatasız tamamladı. Takım dördüncü oldu. Dönüş yolunda Zehra, Selim’in yanına oturdu: “O sabah susabilirdin. Söylediğin için hâlâ bir takımız.” Selim gülümsedi. Ödül alamamışlardı ama birbirlerine güvenleri her zamankinden güçlüydü.",
+      "sorular": [
+        {
+          "kimlik": "kaptanin-karari",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Zehra, yarışmadan önceki hafta için takımla hangi kararı paylaşmıştı?",
+          "secenekler": [
+            "Robotun hızını biraz daha artırmayı",
+            "Yarışmaya yeni bir robotla katılmayı",
+            "Robotta hiçbir değişiklik yapmadan parkuru tekrar etmeyi",
+            "Laboratuvarı her akşam erken kapatmayı"
+          ],
+          "dogru": 2,
+          "aciklama": "Birinci paragrafta Zehra, robotta hiçbir şeyin değiştirilmeyeceğini ve yalnızca parkurun tekrar edileceğini söylüyor."
+        },
+        {
+          "kimlik": "yeni-motor",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Takım bozulan motorun yerine takılacak motoru nereden buldu?",
+          "secenekler": [
+            "Geçen yılın takımından kalan eski bir robottan",
+            "Okulun malzeme dolabındaki yedeklerden",
+            "Yarışmayı düzenleyen kurumdan",
+            "Murat Bey’in evindeki bir oyuncaktan"
+          ],
+          "dogru": 0,
+          "aciklama": "Altıncı paragrafa göre dolapta yedek motor yoktu; geçen yılın robotundaki aynı model motor kullanıldı."
+        },
+        {
+          "kimlik": "uyuyamadi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Selim’in o gece uzun süre uyuyamamasının en olası nedeni nedir?",
+          "secenekler": [
+            "Ertesi günkü yarışma için çok heyecanlanması",
+            "Laboratuvarda geç saate kadar kalıp çok yorulması",
+            "Robotu daha da hızlandırmanın yollarını düşünmesi",
+            "Olanları anlatıp anlatmamak konusunda kendi içinde bocalaması"
+          ],
+          "dogru": 3,
+          "aciklama": "Selim, robotu bırakıp hiçbir şey olmamış gibi davranabileceğini yol boyunca düşünüyor; doğruyu söyleyip söylememek arasında kalmış."
+        },
+        {
+          "kimlik": "pratik-yarar",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Murat Bey’e göre Selim’in doğruyu söylemesi takıma hangi somut yararı sağladı?",
+          "secenekler": [
+            "Takımın yarışmada birinci olmasını",
+            "Arızanın yeri bilindiği için zaman kazanılmasını",
+            "Okulun yeni bir motor satın almasını",
+            "Zehra’nın kaptanlığı Selim’e bırakmasını"
+          ],
+          "dogru": 1,
+          "aciklama": "Murat Bey, neyin bozulduğu bilindiği için arıza aramakla geçecek bir günün kazanıldığını söylüyor."
+        },
+        {
+          "kimlik": "hala-takimiz",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Zehra’nın “Söylediğin için hâlâ bir takımız.” sözüne en uygun düşünce hangisidir?",
+          "secenekler": [
+            "Takımda hata yapan kişi hemen takımdan çıkarılmalıdır.",
+            "Yarışmalarda kazanmak, takım arkadaşlığından daha önemlidir.",
+            "Hata yapılsa bile dürüst davranmak, ekip içindeki güveni korur.",
+            "Kaptanın her kararı tartışılmadan uygulanmalıdır."
+          ],
+          "dogru": 2,
+          "aciklama": "Zehra, Selim hata yapmış olsa da doğruyu söylediği için aralarındaki güvenin korunduğunu anlatıyor."
+        },
+        {
+          "kimlik": "birinci-oldu",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Takım yarışmada birinci oldu.",
+          "dogru": false,
+          "aciklama": "Son paragrafa göre takım dördüncü oldu ve ödül alamadı."
+        }
+      ]
+    },
+    {
+      "kimlik": "nehirle-ayni-masada",
+      "ad": "Nehir’le Aynı Masada",
+      "sinif": 8,
+      "tur": "hikaye",
+      "zorluk": 3,
+      "etiketler": [
+        "empati",
+        "işitme kaybı",
+        "arkadaşlık",
+        "iletişim"
+      ],
+      "metin": "Sekizinci sınıfın ilk haftasında sınıfımıza yeni bir öğrenci geldi. Adı Nehir’di. Öğretmenimiz Gizem Hanım onu tanıtırken Nehir’in işitme cihazı kullandığını, konuşan kişinin yüzüne bakarak dudak okumaktan da yararlandığını anlattı. Sonra bizden tek bir şey istedi: “Nehir’le konuşurken yüzünüzü ona dönün, yeter.”\n\nFen projesi için Nehir’le eşleşince ne yapacağımı bilemedim. İlk gün ona her şeyi bağırarak anlattım. Nehir sonunda gülerek elini kaldırdı: “Bora, beni hiç duymayan biri gibi düşünme. Bağırınca sesin bozuluyor, dudakların da garip şekiller alıyor. Normal konuş, yalnızca biraz yavaş ve bana bakarak.” O gün eve dönerken, iyi niyetle yaptığım bir şeyin işleri zorlaştırabileceğini ilk kez düşündüm.\n\nUtandım. Ertesi gün kütüphanede çalışırken bu kez de konuşurken sık sık başımı eğip deftere bakıyordum. Nehir birkaç kez “Anlamadım,” dedi. Sonunda nedenini fark ettim: Yüzümü göremeyince söylediklerimin yarısını kaçırıyordu. O andan sonra önce başımı kaldırıp sonra konuşmaya başladım. Bir ara kantinin gürültüsü kütüphaneye kadar gelince çalışmayı daha sessiz bir sınıfa taşıdık. Küçük bir değişiklikti ama Nehir’in yüzündeki rahatlamayı hemen gördüm.\n\nProje konumuz su arıtmaydı. Nehir son derece düzenliydi; deney adımlarını numaralandırıp tabloya dökmüştü. Ben de deney düzeneğini kurmayı seviyordum. Deney sırasında ölçümleri ona dönerek tek tek söylüyor, o da tabloya yazıyordu. Birlikte çalışınca işler hızlandı. Bir gün Nehir bana birkaç işaret öğretti: “teşekkür ederim”, “tamam”, “tekrar eder misin”. Grup çalışmalarında, ortam gürültülü olduğunda bu işaretlerle anlaşmaya başladık. Sınıftaki diğer arkadaşlarımız da merak edip öğrenmek istedi.\n\nProje sunumu günü Nehir’in konuşmasının ne kadar net olduğunu fark ettim. Sonradan bana, küçükken uzun süre bir konuşma terapistiyle çalıştığını anlattı. “Herkes sürekli zorlandığımı düşünüyor,” dedi. “Oysa çoğu zaman zorlanmamın nedeni ortam: Gürültülü bir yer, konuşurken yüzünü çeviren biri ya da aynı anda konuşan bir grup. Bunlar değişince ben de rahatlıyorum.”\n\nO günden sonra yardım etmeye bakışım değişti. Birine yardım etmek, onun yerine bir şeyler yapmak değilmiş; çoğu zaman ona neye ihtiyacı olduğunu sormak ve ortamı birlikte düzenlemekmiş. Nehir’le hâlâ aynı masada oturuyoruz. Artık konuşmaya başlamadan önce yüzümü ona dönmeyi hiç unutmuyorum.",
+      "sorular": [
+        {
+          "kimlik": "ogretmenin-istegi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Gizem Hanım, Nehir’le konuşurken sınıftan ne yapmasını istedi?",
+          "secenekler": [
+            "Her zaman yüksek sesle konuşmalarını",
+            "Ona yalnızca yazılı not vermelerini",
+            "Onunla işaret diliyle anlaşmalarını",
+            "Yüzlerini ona dönmelerini"
+          ],
+          "dogru": 3,
+          "aciklama": "Birinci paragrafta Gizem Hanım’ın tek isteği, konuşurken yüzlerini Nehir’e dönmeleridir."
+        },
+        {
+          "kimlik": "proje-konusu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Bora ile Nehir’in fen projesinin konusu neydi?",
+          "secenekler": [
+            "Ses dalgaları",
+            "Su arıtma",
+            "Bitkilerde büyüme",
+            "Elektrik devreleri"
+          ],
+          "dogru": 1,
+          "aciklama": "Dördüncü paragrafın ilk cümlesinde proje konusunun su arıtma olduğu yazıyor."
+        },
+        {
+          "kimlik": "anlamadim",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kütüphanede Nehir’in sık sık “Anlamadım.” demesinin nedeni neydi?",
+          "secenekler": [
+            "Bora başını eğerek konuştuğu için yüzünü ve dudaklarını görememesi",
+            "Kütüphanede konuşmanın yasak olması",
+            "Bora’nın konuyu yanlış anlatması",
+            "İşitme cihazının o gün hiç çalışmaması"
+          ],
+          "dogru": 0,
+          "aciklama": "Bora sonradan fark ediyor: Nehir yüzünü göremeyince dudak okuyamıyor ve söylenenlerin yarısını kaçırıyordu."
+        },
+        {
+          "kimlik": "ortamin-etkisi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Nehir’in “zorlanmamın nedeni çoğu zaman ortam” sözünden hangi sonuç çıkarılabilir?",
+          "secenekler": [
+            "Nehir’in hiçbir zaman zorlanmadığı",
+            "Nehir’in kalabalık yerlerden tamamen uzak durması gerektiği",
+            "Ortam uygun hâle getirildiğinde iletişimdeki pek çok güçlüğün azalabileceği",
+            "Sınıftaki herkesin işaret dili bilmek zorunda olduğu"
+          ],
+          "dogru": 2,
+          "aciklama": "Nehir; gürültü, yüzünü çeviren biri ya da aynı anda konuşanlar değişince rahatladığını söylüyor."
+        },
+        {
+          "kimlik": "yardim-anlayisi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Aşağıdaki davranışlardan hangisi Bora’nın hikâyenin sonunda vardığı düşünceye en çok uyar?",
+          "secenekler": [
+            "Arkadaşı istemediği hâlde onun çantasını her gün taşıyan öğrenci",
+            "Arkadaşının ödevini ona sormadan kendisi yapan öğrenci",
+            "Arkadaşının zorlandığını görünce konuyu değiştiren öğrenci",
+            "Tekerlekli sandalye kullanan arkadaşıyla gezi rotasını ona sorarak birlikte planlayan öğrenci"
+          ],
+          "dogru": 3,
+          "aciklama": "Bora, yardımın kişinin yerine iş yapmak değil, ihtiyacını sorup ortamı birlikte düzenlemek olduğunu anlıyor. Son seçenek bunu yansıtıyor."
+        },
+        {
+          "kimlik": "isaretler",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Nehir, Bora’ya “teşekkür ederim”, “tamam” ve “tekrar eder misin” anlamına gelen birkaç ___ öğretti.",
+          "cevaplar": [
+            "işaret",
+            "isaret"
+          ],
+          "aciklama": "Dördüncü paragrafta Nehir’in Bora’ya birkaç işaret öğrettiği yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "basit-makineler",
+      "ad": "Basit Makineler: Kuvvetten Kazanç, Yoldan Kayıp",
+      "sinif": 8,
+      "tur": "fen",
+      "zorluk": 4,
+      "etiketler": [
+        "basit makineler",
+        "kaldıraç",
+        "makara",
+        "eğik düzlem",
+        "iş ve kuvvet"
+      ],
+      "metin": "Bir arabanın lastiği patladığında sürücü, küçük bir kriko yardımıyla ağır aracın bir tarafını yerden kaldırabilir. Bir çocuk, tahterevallide kendisinden daha ağır bir yetişkini havaya kaldırabilir. Bunlar sihir değil, basit makinelerin işidir.\n\nBasit makineler, bir işi yaparken uyguladığımız kuvvetin büyüklüğünü ya da yönünü değiştiren araçlardır. Kaldıraç, makara, eğik düzlem, çıkrık, vida ve dişli çark en bilinen basit makinelerdir. İnsanlar bu araçları binlerce yıldır kullanmaktadır.\n\nEn yaygın örneklerden biri kaldıraçtır. Kaldıraç, bir destek noktası etrafında dönebilen sağlam bir çubuktur. Kuvveti destek noktasından ne kadar uzağa uygularsak aynı yükü kaldırmak için o kadar az kuvvet gerekir. Bu nedenle uzun bir çubuğun ucundan bastırarak ağır bir kayayı yerinden oynatabiliriz. Makas, kerpeten ve el arabası da kaldıraç ilkesine göre çalışır.\n\nMakaralar ise bir ip ve etrafında dönen bir tekerlekten oluşur. Sabit makara bir yere bağlı olarak döner; kuvvetten kazanç sağlamaz ama kuvvetin yönünü değiştirir. Bayrak direğindeki ipi aşağı çektiğimizde bayrağın yukarı çıkması böyledir. Hareketli makara ise yükle birlikte hareket eder ve yükü kaldırmak için gereken kuvveti yaklaşık yarıya indirir. İnşaat vinçlerinde birçok makara birlikte kullanılır.\n\nEğik düzlem, bir yükü dik olarak kaldırmak yerine eğimli bir yüzey üzerinde itip çekerek yukarı çıkarmamızı sağlar. Rampanın eğimi azaldıkça gereken kuvvet de azalır. Tekerlekli sandalye rampaları ve dağ yollarının dolambaçlı biçimde yapılması bu ilkeye dayanır.\n\nBasit makinelerin önemli bir kuralı vardır: Kuvvetten kazanç sağlanıyorsa yoldan kayıp yaşanır. Örneğin hareketli makarayla kuvvet yarıya iner ama yükü bir metre yükseltmek için ipi iki metre çekmek gerekir. Rampa gereken kuvveti azaltır ama yükü daha uzun bir yol boyunca taşımamız gerekir. Yani basit makineler yapılan işi azaltmaz; işi bizim için daha kolay hâle getirir. Sürtünme gibi kayıplar hesaba katıldığında aslında biraz daha fazla iş bile yapılır.\n\nGünlük hayatta kullandığımız pek çok karmaşık makine, birden fazla basit makinenin birleşmesiyle oluşur. Bisiklet buna iyi bir örnektir: Pedallar çıkrık gibi, zincirle bağlı dişliler dişli çark gibi, fren kolları ise kaldıraç gibi çalışır. Bir makineyi incelerken içindeki basit makineleri bulmak, onun nasıl çalıştığını anlamanın iyi bir yoludur.",
+      "sorular": [
+        {
+          "kimlik": "sabit-makara",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre sabit makaranın özelliği nedir?",
+          "secenekler": [
+            "Kuvvetin yönünü değiştirir ama kuvvetten kazanç sağlamaz.",
+            "Gereken kuvveti yaklaşık yarıya indirir.",
+            "Yükle birlikte yukarı aşağı hareket eder.",
+            "Yalnızca rampalarla birlikte kullanılabilir."
+          ],
+          "dogru": 0,
+          "aciklama": "Dördüncü paragrafa göre sabit makara kuvvetten kazanç sağlamaz, yalnızca kuvvetin yönünü değiştirir."
+        },
+        {
+          "kimlik": "kaldirac-degil",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Aşağıdakilerden hangisi metinde kaldıraç ilkesine göre çalışan araçlar arasında sayılmamıştır?",
+          "secenekler": [
+            "Bayrak direği",
+            "Makas",
+            "Kerpeten",
+            "El arabası"
+          ],
+          "dogru": 0,
+          "aciklama": "Üçüncü paragrafta makas, kerpeten ve el arabası sayılıyor. Bayrak direği sabit makara örneği olarak veriliyor."
+        },
+        {
+          "kimlik": "uc-metre",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Hareketli makarayla bir yükü 3 metre yükseltmek için ipin yaklaşık kaç metre çekilmesi gerekir?",
+          "secenekler": [
+            "1,5 metre",
+            "6 metre",
+            "3 metre",
+            "9 metre"
+          ],
+          "dogru": 1,
+          "aciklama": "Hareketli makarada kuvvet yarıya iner ama yol iki katına çıkar: 3 × 2 = 6 metre."
+        },
+        {
+          "kimlik": "dag-yollari",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Dağ yollarının düz bir hat yerine dolambaçlı yapılmasının nedeni nedir?",
+          "secenekler": [
+            "Yolu kısaltarak araçların daha çabuk varmasını sağlamak",
+            "Araçların daha hızlı gitmesini sağlamak",
+            "Yolun eğimini azaltıp araçların daha az kuvvetle tırmanmasını sağlamak",
+            "Sürücülerin manzarayı daha iyi görmesini sağlamak"
+          ],
+          "dogru": 2,
+          "aciklama": "Dolambaçlı yol bir eğik düzlem gibidir: Eğim azalır, gereken kuvvet azalır ama gidilen yol uzar."
+        },
+        {
+          "kimlik": "rampa-tartismasi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bir arkadaşın “Rampa kullanınca kutuyu yukarı çıkarırken daha az iş yapmış olurum.” diyor. Metne göre en doğru değerlendirme hangisidir?",
+          "secenekler": [
+            "Doğru söylüyor; rampa hem kuvveti hem de yapılan işi azaltır.",
+            "Yanılıyor; rampa gereken kuvveti azaltır ama yol uzadığı için yapılan iş azalmaz.",
+            "Yanılıyor; rampa gereken kuvveti artırır, bu yüzden daha çok iş yapılır.",
+            "Doğru söylüyor; çünkü rampada sürtünme hiç yoktur."
+          ],
+          "dogru": 1,
+          "aciklama": "Metne göre basit makineler işi azaltmaz, kolaylaştırır. Sürtünme hesaba katılırsa biraz daha fazla iş bile yapılır."
+        },
+        {
+          "kimlik": "rampa-egimi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Rampanın eğimi azaldıkça yükü çıkarmak için gereken kuvvet artar.",
+          "dogru": false,
+          "aciklama": "Beşinci paragrafa göre rampanın eğimi azaldıkça gereken kuvvet de azalır."
+        }
+      ]
+    },
+    {
+      "kimlik": "besin-zincirinde-enerji",
+      "ad": "Enerji Nereye Gider? Besin Zinciri",
+      "sinif": 8,
+      "tur": "fen",
+      "zorluk": 4,
+      "etiketler": [
+        "besin zinciri",
+        "enerji akışı",
+        "ekoloji",
+        "doğal denge"
+      ],
+      "metin": "Bir çayırda güneş ışığını kullanarak besin üreten otlar, bu otlarla beslenen çekirgeler, çekirgeleri yakalayan kurbağalar ve kurbağaları avlayan yılanlar... Canlılar arasındaki bu “kim kimi yer” ilişkisine besin zinciri denir. Besin zincirleri, enerjinin canlılar arasında nasıl aktarıldığını anlamamızı sağlar.\n\nHer besin zincirinin başında üreticiler bulunur. Bitkiler, algler ve bazı bakteriler, fotosentez yoluyla güneş enerjisini besinlerinde depolanan kimyasal enerjiye dönüştürür. Üreticilerle beslenen canlılara birincil tüketici, onları yiyenlere ikincil tüketici, onları da yiyenlere üçüncül tüketici denir. Ayrıştırıcılar ise zincirin her basamağında görev yapar. Mantarlar ve bazı bakteriler, ölü canlıları ve atıkları parçalayarak içlerindeki maddeleri toprağa geri kazandırır. Ayrıştırıcılar olmasaydı doğa atıklarla dolar, bitkiler toprakta ihtiyaç duydukları maddeleri bulamazdı.\n\nBesin zincirinde enerjiyle ilgili önemli bir durum vardır: Enerjinin tamamı bir sonraki basamağa aktarılmaz. Bir canlı, aldığı enerjinin büyük kısmını yaşamını sürdürmek için kullanır; hareket eder, büyür, vücut sıcaklığını korur. Bu sırada enerjinin önemli bir kısmı ısı olarak çevreye yayılır. Bir sonraki basamağa genellikle enerjinin yalnızca yaklaşık onda biri ulaşır. Bu oran canlıdan canlıya değişse de genel eğilim aynıdır.\n\nBu durumu basamaklardan oluşan bir piramitle gösterebiliriz. Piramidin tabanında en çok enerjiye sahip üreticiler, en üstünde ise en az enerjiye sahip son tüketiciler bulunur. Bu yüzden bir ekosistemde otların toplam miktarı genellikle otçulların toplam miktarından çok daha fazladır. Bir çayırda binlerce çekirge yaşayabilirken aynı çayırdaki yılan sayısı çok daha azdır.\n\nEnerji aktarımındaki bu kayıp, besin zincirlerinin neden genellikle dört beş basamaktan uzun olmadığını da açıklar. Üst basamaklara çıkıldıkça aktarılan enerji o kadar azalır ki daha üstte bir canlıyı besleyecek kadar enerji kalmaz.\n\nBesin zincirleri doğada tek başına bulunmaz; birbirine bağlanarak besin ağlarını oluşturur. Bir kurbağa hem çekirge hem sinek yiyebilir, bir yılan da hem kurbağa hem fare avlayabilir. Bu yüzden bir türün azalması ya da yok olması, besin ağındaki pek çok canlıyı etkileyebilir. Örneğin bir bölgede kurbağalar azalırsa çekirgelerin sayısı artabilir, kurbağayla beslenen yılanlar ise besin bulmakta zorlanabilir. Doğadaki dengeyi korumak, her canlının bu ağda bir yeri olduğunu hatırlamakla başlar.",
+      "sorular": [
+        {
+          "kimlik": "ayristiricilar",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre ayrıştırıcıların görevi nedir?",
+          "secenekler": [
+            "Ölü canlıları ve atıkları parçalayıp maddeleri toprağa geri kazandırmak",
+            "Güneş enerjisini besine dönüştürmek",
+            "Otçul hayvanları avlayarak sayılarını dengelemek",
+            "Bitkilerin tohumlarını uzak yerlere taşımak"
+          ],
+          "dogru": 0,
+          "aciklama": "İkinci paragrafa göre mantarlar ve bazı bakteriler ölü canlıları ve atıkları parçalayıp maddeleri toprağa geri kazandırır."
+        },
+        {
+          "kimlik": "aktarilan-oran",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre bir basamaktaki enerjinin genellikle ne kadarı bir sonraki basamağa ulaşır?",
+          "secenekler": [
+            "Tamamı",
+            "Yarısı",
+            "Dörtte biri",
+            "Yaklaşık onda biri"
+          ],
+          "dogru": 3,
+          "aciklama": "Üçüncü paragrafta bir sonraki basamağa genellikle enerjinin yaklaşık onda birinin ulaştığı yazıyor."
+        },
+        {
+          "kimlik": "kurbagaya-ulasan",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ot → çekirge → kurbağa zincirinde otlarda 10 000 birim enerji varsa kurbağalara yaklaşık kaç birim ulaşır?",
+          "secenekler": [
+            "1000 birim",
+            "100 birim",
+            "10 birim",
+            "5000 birim"
+          ],
+          "dogru": 1,
+          "aciklama": "Her basamakta yaklaşık onda biri aktarılır: Çekirgelere 1000, kurbağalara 100 birim ulaşır."
+        },
+        {
+          "kimlik": "az-yirtici",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Bir savanda zebraların sayısının aslanların sayısından çok daha fazla olmasının nedeni nedir?",
+          "secenekler": [
+            "Zebraların aslanlardan daha uzun yaşaması",
+            "Aslanların yalnızca geceleri avlanması",
+            "Üst basamaklara daha az enerji ulaştığı için az sayıda yırtıcının beslenebilmesi",
+            "Zebraların aslanlarla aynı besinleri tüketmesi"
+          ],
+          "dogru": 2,
+          "aciklama": "Enerji her basamakta azaldığı için piramidin üst basamaklarında daha az canlı beslenebilir."
+        },
+        {
+          "kimlik": "zararli-tur",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Metnin son paragrafına dayanarak hangi görüş savunulabilir?",
+          "secenekler": [
+            "Bir türün sayısındaki değişiklik yalnızca o türü ilgilendirir.",
+            "Besin ağında yalnızca en üstteki yırtıcılar korunmalıdır.",
+            "Ayrıştırıcıların doğadaki dengeye hiçbir katkısı yoktur.",
+            "Bir türü “işe yaramaz” diye yok etmek, ağdaki başka canlıları beklenmedik biçimde etkileyebilir."
+          ],
+          "dogru": 3,
+          "aciklama": "Son paragraf, bir türün azalmasının besin ağındaki pek çok canlıyı etkileyebileceğini kurbağa örneğiyle anlatıyor."
+        },
+        {
+          "kimlik": "ureticiler",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Fotosentez yaparak güneş enerjisini besine dönüştüren bitkiler, algler ve bazı bakteriler besin zincirinde ___ olarak adlandırılır.",
+          "cevaplar": [
+            "üretici",
+            "uretici",
+            "üreticiler",
+            "ureticiler"
+          ],
+          "aciklama": "İkinci paragrafa göre her besin zincirinin başında üreticiler bulunur."
+        }
+      ]
+    },
+    {
+      "kimlik": "divanu-lugatit-turk",
+      "ad": "Bir Sözlükten Fazlası: Divanu Lugati’t-Türk",
+      "sinif": 8,
+      "tur": "tarih",
+      "zorluk": 5,
+      "etiketler": [
+        "Kâşgarlı Mahmud",
+        "Divanu Lugati’t-Türk",
+        "Türk dili",
+        "el yazmaları"
+      ],
+      "metin": "Yaklaşık bin yıl önce, Orta Asya’dan Bağdat’a uzanan uzun yolları aşan bir bilgin, yıllarını eşsiz bir esere vermişti. Bu bilgin Kâşgarlı Mahmud, eseri ise Divanu Lugati’t-Türk’tü. Eserin adı “Türk dillerinin sözlüğü” anlamına gelir.\n\nKâşgarlı Mahmud’un hayatı hakkında bildiklerimizin çoğu, kendi eserinde yazdıklarına dayanır. 11. yüzyılda Kâşgar çevresinde yetiştiği, iyi bir eğitim aldığı ve Türk boylarının yaşadığı bölgeleri yıllarca dolaştığı anlaşılmaktadır. Gittiği yerlerde insanların nasıl konuştuğunu dinlemiş; kelimeleri, atasözlerini ve dörtlükleri derlemiştir.\n\nKâşgarlı Mahmud eserini 1072-1074 yılları arasında Bağdat’ta yazdı. O dönemde Bağdat, bilim ve kültür dünyasının önemli merkezlerinden biriydi ve Arapça yaygın bir bilim diliydi. Türklerin siyasi gücü artıyor, Türkçe öğrenmek isteyenlerin sayısı çoğalıyordu. Kâşgarlı Mahmud da Türkçenin Arapça kadar zengin bir dil olduğunu göstermek ve Araplara Türkçeyi öğretmek amacıyla eserini Arapça açıklamalarla hazırladı.\n\nDivanu Lugati’t-Türk sıradan bir kelime listesi değildir. Eserde yedi binden fazla Türkçe kelime, Arapça açıklamalarıyla yer alır. Kâşgarlı Mahmud, kelimelerin anlamlarını açıklarken sık sık örnek cümleler, atasözleri ve dörtlükler kullanmıştır. Böylece eser, dönemin Türklerinin gelenekleri, yemekleri, oyunları ve günlük yaşamı hakkında da bilgi verir. Kâşgarlı Mahmud, farklı Türk boylarının aynı şey için kullandığı kelimeleri karşılaştırmış, söyleyiş farklarını da tek tek not etmiştir. Bu yönüyle eser, Türk lehçeleri üzerine yapılmış ilk karşılaştırmalı çalışmalardan biri sayılır. Bu yüzden yalnızca dil bilimcilerin değil, tarihçilerin ve halk bilimcilerin de başvurduğu bir kaynaktır. Eserde ayrıca Türk boylarının yaşadığı bölgeleri gösteren daire biçiminde bir dünya haritası bulunur.\n\nEserin günümüze ulaşan tek nüshası, 13. yüzyılda yapılmış bir kopyadır. Bu nüsha, 20. yüzyılın başlarında İstanbul’da kitap meraklısı Ali Emirî Efendi tarafından bir sahafta bulunmuştur. Ali Emirî Efendi’nin bu kitabın değerini fark etmesi sayesinde eser bilim dünyasına kazandırıldı. Bugün bu değerli el yazması, İstanbul’daki Millet Yazma Eser Kütüphanesinde korunmaktadır.\n\nKâşgarlı Mahmud’un doğumunun bininci yılı kabul edilen 2008 yılı, UNESCO tarafından anma yılları arasına alındı ve pek çok ülkede çeşitli etkinliklerle anıldı. Bin yıl önce kelimelerin peşinden yollara düşen bir bilginin emeği, bugün hâlâ bir dilin geçmişine açılan kapı olmayı sürdürüyor.",
+      "sorular": [
+        {
+          "kimlik": "adin-anlami",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Divanu Lugati’t-Türk adı ne anlama gelir?",
+          "secenekler": [
+            "Türk boylarının haritası",
+            "Türk atasözleri kitabı",
+            "Türk dillerinin sözlüğü",
+            "Türk tarihinin özeti"
+          ],
+          "dogru": 2,
+          "aciklama": "Birinci paragrafın son cümlesinde adın “Türk dillerinin sözlüğü” anlamına geldiği yazıyor."
+        },
+        {
+          "kimlik": "nerede-yazildi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kâşgarlı Mahmud eserini nerede yazdı?",
+          "secenekler": [
+            "Kâşgar’da",
+            "İstanbul’da",
+            "Semerkant’ta",
+            "Bağdat’ta"
+          ],
+          "dogru": 3,
+          "aciklama": "Üçüncü paragrafa göre eser 1072-1074 yılları arasında Bağdat’ta yazıldı."
+        },
+        {
+          "kimlik": "arapca-aciklama",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Eserdeki açıklamaların Arapça yazılmasının en önemli nedeni nedir?",
+          "secenekler": [
+            "Eserin Araplara Türkçe öğretmeyi amaçlaması",
+            "Kâşgarlı Mahmud’un Türkçe yazmayı bilmemesi",
+            "Türkçenin o dönemde yazılı bir dil olmaması",
+            "Eserin yalnızca Bağdat’taki halife için yazılması"
+          ],
+          "dogru": 0,
+          "aciklama": "Üçüncü paragrafa göre Kâşgarlı Mahmud, Araplara Türkçeyi öğretmek amacıyla eserini Arapça açıklamalarla hazırladı."
+        },
+        {
+          "kimlik": "emiri-bulmasaydi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ali Emirî Efendi sahaftaki nüshayı fark etmeseydi ne olabilirdi?",
+          "secenekler": [
+            "Eserin başka birçok nüshası olduğu için hiçbir şey değişmezdi.",
+            "Eserdeki bilgiler bilim dünyasına çok geç ulaşabilir ya da hiç ulaşmayabilirdi.",
+            "Eser Bağdat’ta yeniden yazılırdı.",
+            "Kâşgarlı Mahmud eserini tamamlayamazdı."
+          ],
+          "dogru": 1,
+          "aciklama": "Eserin günümüze ulaşan tek nüshası bu kopyadır; fark edilmeseydi kaybolma tehlikesiyle karşı karşıya kalabilirdi."
+        },
+        {
+          "kimlik": "sozlukten-fazlasi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Metnin başlığında eserin “bir sözlükten fazlası” olarak nitelenmesinin en uygun gerekçesi hangisidir?",
+          "secenekler": [
+            "Yedi binden fazla kelime içermesi",
+            "Bin yıl önce yazılmış olması",
+            "Bir kütüphanede korunuyor olması",
+            "Kelimelerin yanında dönemin gelenekleri ve günlük yaşamı hakkında da bilgi vermesi"
+          ],
+          "dogru": 3,
+          "aciklama": "Dördüncü paragrafa göre eser örnek cümleler, atasözleri, dörtlükler ve bir haritayla dönemin yaşamını da anlatır; bu yüzden tarihçiler ve halk bilimciler de ona başvurur."
+        },
+        {
+          "kimlik": "kendi-eliyle",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Eserin, Kâşgarlı Mahmud’un kendi eliyle yazdığı nüsha günümüze ulaşmıştır.",
+          "dogru": false,
+          "aciklama": "Beşinci paragrafa göre günümüze ulaşan tek nüsha, 13. yüzyılda yapılmış bir kopyadır."
+        }
+      ]
+    },
+    {
+      "kimlik": "ali-kuscu",
+      "ad": "Ali Kuşçu: Semerkant’tan İstanbul’a Bir Gökbilimci",
+      "sinif": 8,
+      "tur": "biyografi",
+      "zorluk": 4,
+      "etiketler": [
+        "Ali Kuşçu",
+        "gökbilim",
+        "matematik",
+        "biyografi"
+      ],
+      "metin": "Bir insanın lakabı, babasının mesleğinden gelebilir mi? Ali Kuşçu’nun adı tam olarak böyle doğmuştur. Babası, Semerkant’ın hükümdarı ve aynı zamanda bir gökbilimci olan Uluğ Bey’in doğancısıydı; yani onun av kuşlarına bakıyordu. Oğlu Ali de bu yüzden “Kuşçu” lakabıyla tanındı.\n\nAli Kuşçu, 15. yüzyılın başlarında Semerkant’ta doğdu. O dönemde Semerkant, bilim insanlarının toplandığı önemli bir merkezdi. Uluğ Bey şehirde büyük bir medrese ve gökyüzünü incelemek için dev bir rasathane, yani gözlemevi kurdurmuştu. Genç Ali, burada dönemin tanınmış matematikçi ve gökbilimcilerinden ders aldı. Kaynaklara göre bir süre bilgisini artırmak için Kirman’a gitti; dönüşünde Ay’ın evreleri üzerine yazdığı bir çalışmayı Uluğ Bey’e sundu.\n\nO dönemde gökbilim yalnızca merak için yapılmıyordu. Takvim hazırlamak, yolcuların ve gemicilerin yön bulması, mevsimlerin başlangıcını belirlemek gibi işler, gök cisimlerinin hareketlerini doğru hesaplamaya bağlıydı. Bu yüzden rasathanelerde yapılan ölçümler bütün toplumu ilgilendiriyordu.\n\nAli Kuşçu, Semerkant’taki rasathanede yapılan çalışmalarda görev aldı. Burada yıllarca süren gözlemlerin sonunda yaklaşık bin yıldızın konumunu gösteren bir yıldız kataloğu hazırlandı. Bu katalog, döneminin en ayrıntılı gözlem çalışmalarından biri kabul edilir. Ancak Uluğ Bey’in ölümünden sonra Semerkant’taki bilim ortamı dağıldı. Ali Kuşçu önce Herat’a, ardından Tebriz’e gitti.\n\nTebriz’de bulunduğu sırada bir elçilik göreviyle İstanbul’a geldi. Fatih Sultan Mehmed, onun bilgisinden etkilenerek İstanbul’da kalmasını istedi. Ali Kuşçu, 1470’lerin başında ailesiyle birlikte İstanbul’a yerleşti ve Ayasofya Medresesinde ders vermeye başladı. Kısa sürede çevresinde matematik ve gökbilim öğrenmek isteyen pek çok öğrenci toplandı.\n\nAli Kuşçu’nun yazdığı matematik ve gökbilim kitapları, uzun yıllar medreselerde ders kitabı olarak okutuldu. Konuları açık ve düzenli biçimde anlatması, eserlerinin yaygınlaşmasında etkili oldu. Bazı araştırmacılar, onun gökbilimdeki hesapları gözleme ve matematiğe dayandırmanın önemini vurguladığını belirtir.\n\nAli Kuşçu 1474’te İstanbul’da hayatını kaybetti. Semerkant’tan İstanbul’a uzanan yolculuğu, bilginin bir şehirden ötekine, bir kuşaktan sonrakine nasıl taşındığını gösteren güzel bir örnektir. Onun hayatı, öğrenmenin ve öğretmenin bir ömür boyu sürebileceğini de hatırlatır. Bugün adı ülkemizde okullara, caddelere ve bilim etkinliklerine verilmektedir.",
+      "sorular": [
+        {
+          "kimlik": "lakap",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Ali Kuşçu “Kuşçu” lakabını nereden almıştır?",
+          "secenekler": [
+            "Kuşları gözlemlemeyi çok sevmesinden",
+            "Babasının Uluğ Bey’in doğancısı olmasından",
+            "Doğduğu köyün adından",
+            "Yazdığı ilk kitabın adından"
+          ],
+          "dogru": 1,
+          "aciklama": "Birinci paragrafa göre babası Uluğ Bey’in doğancısıydı, yani onun av kuşlarına bakıyordu."
+        },
+        {
+          "kimlik": "istanbul-medrese",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Ali Kuşçu İstanbul’da hangi medresede ders vermiştir?",
+          "secenekler": [
+            "Ayasofya Medresesinde",
+            "Uluğ Bey Medresesinde",
+            "Tebriz’deki bir medresede",
+            "Herat’taki bir medresede"
+          ],
+          "dogru": 0,
+          "aciklama": "Dördüncü paragrafta Ali Kuşçu’nun İstanbul’da Ayasofya Medresesinde ders verdiği yazıyor."
+        },
+        {
+          "kimlik": "semerkanttan-ayrilis",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ali Kuşçu’nun Semerkant’tan ayrılmasının en olası nedeni nedir?",
+          "secenekler": [
+            "Rasathanedeki gözlemlerin hiçbir sonuç vermemesi",
+            "Fatih Sultan Mehmed’in onu hemen İstanbul’a çağırması",
+            "Uluğ Bey’in ölümünden sonra şehirdeki bilim ortamının dağılması",
+            "Kirman’da kalıp orada ders vermek istemesi"
+          ],
+          "dogru": 2,
+          "aciklama": "Üçüncü paragrafa göre Uluğ Bey’in ölümünden sonra bilim ortamı dağıldı ve Ali Kuşçu önce Herat’a, sonra Tebriz’e gitti."
+        },
+        {
+          "kimlik": "ders-kitabi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ali Kuşçu’nun kitaplarının uzun yıllar ders kitabı olarak okutulması neyi gösterir?",
+          "secenekler": [
+            "Döneminde başka hiçbir matematik kitabı yazılmadığını",
+            "Kitaplarının yalnızca İstanbul’da okunduğunu",
+            "Kitaplarını yalnızca kendi öğrencileri için yazdığını",
+            "Eserlerinin anlaşılır bulunduğunu ve uzun süre değer gördüğünü"
+          ],
+          "dogru": 3,
+          "aciklama": "Konuları açık ve düzenli anlatması eserlerinin yaygınlaşmasını sağladı; kitapların yıllarca okutulması değerli bulunduklarını gösterir."
+        },
+        {
+          "kimlik": "bilginin-tasinmasi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "“Bilginin bir şehirden ötekine, bir kuşaktan sonrakine taşınması” düşüncesine en uygun örnek hangisidir?",
+          "secenekler": [
+            "Başka bir ülkede eğitim alan bir bilim insanının ülkesine dönüp öğrendiklerini öğrencilerine öğretmesi",
+            "Bir öğrencinin ödevini arkadaşından kopyalaması",
+            "Bir kütüphanenin eski kitaplarını kimseye göstermeden kilitli tutması",
+            "Bir bilim insanının çalışmalarını hiç yayımlamaması"
+          ],
+          "dogru": 0,
+          "aciklama": "Ali Kuşçu da Semerkant’ta öğrendiklerini İstanbul’da öğrencilerine aktardı; ilk seçenek aynı aktarımı anlatıyor."
+        },
+        {
+          "kimlik": "rasathane",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Uluğ Bey’in Semerkant’ta gökyüzünü incelemek için kurdurduğu gözlemevine ___ denir.",
+          "cevaplar": [
+            "rasathane"
+          ],
+          "aciklama": "İkinci paragrafta gözlemevinin bir diğer adının rasathane olduğu yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "zamani-satin-almak-isteyen-bey",
+      "ad": "Zamanı Satın Almak İsteyen Bey",
+      "sinif": 8,
+      "tur": "masal",
+      "zorluk": 3,
+      "etiketler": [
+        "masal",
+        "zamanın değeri",
+        "aile",
+        "paylaşmak"
+      ],
+      "metin": "Bir varmış bir yokmuş, deniz kıyısındaki büyük bir şehirde Kudret Bey adında zengin bir tüccar yaşarmış. Kudret Bey’in gemileri, depoları, sayısız alacak defteri varmış ama hiç vakti yokmuş. Gün doğmadan kalkar, gece yarısı yatarmış. Kızı ona masal okutmak istediğinde “Sonra,” der; eski dostları kapısını çaldığında “Şimdi olmaz,” dermiş.\n\nBir gün çarşıda dolaşırken kum saati yapan yaşlı bir kadının dükkânına girmiş. Herkes bu kadına Nurhan Ana dermiş. Kudret Bey kesesini tezgâha bırakmış: “Bana zaman sat. Ne kadar altın istersen veririm.” Nurhan Ana gülümseyip raftan küçük, cam bir kum saati almış. “Bu kum saatini yan yatırırsan şehirde senden başka herkes için zaman durur,” demiş. “Doğrulttuğunda her şey kaldığı yerden devam eder. Ama bil ki zaman satılmaz; ben sana yalnızca bir ders ödünç veriyorum.”\n\nKudret Bey sevinçle evine koşmuş. O gece kum saatini yan yatırmış. Bir anda bütün şehir susmuş. Rüzgâr dinmiş, dalgalar havada asılı kalmış, sokaktaki kedi sıçrarken donmuş. Kudret Bey kimse tarafından rahatsız edilmeden defterlerini bitirmiş, mektuplarını yazmış, hesaplarını yapmış. “İşte,” demiş, “sonunda yetecek kadar vaktim var.”\n\nAma ertesi gece işler değişmiş. Kum saatini yan yatırıp çalışmaya oturduğunda bir şey sormak için kâtibini çağırmış; kâtip bir kelimenin ortasında donup kalmış. Acıkmış, ocaktaki çorba kaynamıyormuş. Kızının odasına gitmiş; kız gülerken donmuş ama gülüşünün sesi yokmuş. Kudret Bey kızının yanına oturup onunla konuşmak istemiş ama kimse onu duymuyormuş. Durmuş zamanda kazandığı her saat, ona hiç olmadığı kadar yalnız geçiyormuş.\n\nKudret Bey kum saatini doğrultmuş. Şehir yeniden nefes almış; martılar bağırmış, çorba fokurdamış, kızının kahkahası odayı doldurmuş. Sabah olunca kum saatini Nurhan Ana’ya geri götürmüş. “Haklıymışsın,” demiş. “Zamanı durdurdum ama kimseyle paylaşamadım. Paylaşılmayan zaman, kazanılmış sayılmazmış.”\n\nNurhan Ana ona bu kez sıradan bir kum saati vermiş: “Bu, zamanı durdurmaz; yalnızca nasıl harcadığını görmeni sağlar.” O günden sonra Kudret Bey işlerinin bir kısmını güvendiği yardımcılarına bırakmış. Akşamları kum saatini masaya koyup kızına masal okumuş; kum bitse de çoğu zaman bir masal daha okumuş.\n\nOnlar ermiş muradına, biz çıkalım kerevetine.",
+      "sorular": [
+        {
+          "kimlik": "ne-istedi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kudret Bey, Nurhan Ana’dan ne istedi?",
+          "secenekler": [
+            "Kendisi için yeni bir gemi yapmasını",
+            "Kızına her akşam masal okumasını",
+            "Altın karşılığında kendisine zaman satmasını",
+            "Şehirdeki bütün kum saatlerini toplamasını"
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafta Kudret Bey kesesini tezgâha bırakıp “Bana zaman sat.” diyor."
+        },
+        {
+          "kimlik": "yan-yatirinca",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Nurhan Ana’ya göre ilk kum saati yan yatırılınca ne olur?",
+          "secenekler": [
+            "Kudret Bey’in zamanı iki kat hızlı geçer.",
+            "Şehirde Kudret Bey’den başka herkes için zaman durur.",
+            "Kudret Bey’in bütün borçları silinir.",
+            "Şehirde herkes Kudret Bey’in sesini duymaz olur."
+          ],
+          "dogru": 1,
+          "aciklama": "Nurhan Ana, kum saati yan yatırılınca şehirde Kudret Bey’den başka herkes için zamanın duracağını söylüyor."
+        },
+        {
+          "kimlik": "asil-sikinti",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "İkinci gece Kudret Bey’i asıl rahatsız eden şey neydi?",
+          "secenekler": [
+            "Kimseyle konuşamayıp paylaşamadığı için yalnız kalması",
+            "Defterlerindeki hesapların yanlış çıkması",
+            "Kum saatinin bozulup zamanı durduramaması",
+            "Nurhan Ana’ya çok fazla altın ödemiş olması"
+          ],
+          "dogru": 0,
+          "aciklama": "Kâtibi cevap veremiyor, kızı onu duymuyor; durmuş zamanda geçen saatler ona çok yalnız geliyor."
+        },
+        {
+          "kimlik": "ders-odunc",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Nurhan Ana’nın “Ben sana yalnızca bir ders ödünç veriyorum.” sözüyle anlatmak istediği nedir?",
+          "secenekler": [
+            "Kum saatini kısa süre sonra yüksek bir fiyata geri alacağını",
+            "Sihirli kum saatinin asıl amacının Kudret Bey’e zamanın değerini öğretmek olduğunu",
+            "Kudret Bey’in ona ders vermesi gerektiğini",
+            "Kudret Bey’in kum saatini hiç kullanmaması gerektiğini"
+          ],
+          "dogru": 1,
+          "aciklama": "Kum saati Kudret Bey’e zaman kazandırmıyor; ona zamanın neden değerli olduğunu yaşayarak öğretiyor."
+        },
+        {
+          "kimlik": "masalin-iletisi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Masalın iletisine en uygun düşünce hangisidir?",
+          "secenekler": [
+            "Zengin olan biri istediği her şeyi satın alabilir.",
+            "En verimli çalışma, herkesten uzakta yalnız yapılan çalışmadır.",
+            "Sihirli eşyalar insanlara her zaman zarar verir.",
+            "Zaman, nasıl ve kiminle harcandığına dikkat edildiğinde gerçekten değer kazanır."
+          ],
+          "dogru": 3,
+          "aciklama": "Kudret Bey, paylaşılmayan zamanın kazanılmış sayılmadığını anlıyor ve zamanını sevdikleriyle geçirmeye başlıyor."
+        },
+        {
+          "kimlik": "ikinci-sihirli",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Masalın sonunda Nurhan Ana, Kudret Bey’e zamanı durduran ikinci bir kum saati verdi.",
+          "dogru": false,
+          "aciklama": "Nurhan Ana ikinci kez sıradan bir kum saati veriyor; bu kum saati zamanı durdurmuyor, yalnızca nasıl harcandığını gösteriyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "mahallenin-hafizasi",
+      "ad": "Öğrenciler Mahallenin Hafızasını Kayda Geçirdi",
+      "sinif": 8,
+      "tur": "haber",
+      "zorluk": 3,
+      "etiketler": [
+        "haber",
+        "sözlü tarih",
+        "kuşaklar arası iletişim",
+        "okul projesi"
+      ],
+      "metin": "Çınaraltı Ortaokulu sekizinci sınıf öğrencileri, mahallede uzun yıllardır yaşayan büyüklerle söyleşiler yaparak mahallenin geçmişine ait anıları kayda geçirdi. “Mahallemizin Hafızası” adlı proje kapsamında toplanan ses kayıtları ve fotoğraflar, cumartesi günü mahalle kütüphanesinde açılan bir sergiyle ziyaretçilere sunuldu.\n\nProje, sosyal bilgiler dersinde sözlü tarih konusunun işlenmesiyle başladı. Sözlü tarih, geçmişte yaşanan olayları o olaylara tanıklık etmiş kişilerin anlatımlarına dayanarak kayda geçirme yöntemidir. Sosyal bilgiler öğretmeni Serkan Yalçın, öğrencilerin “Ders kitaplarında büyük olaylar anlatılıyor; peki bizim sokağımızda eskiden hayat nasıldı?” sorusuyla yola çıktığını söyledi.\n\nÖğrenciler önce söyleşi yapmayı öğrendi. Açık uçlu sorular hazırladılar; karşılarındaki kişinin sözünü kesmeden dinlemeyi ve not almayı birbirleriyle denediler. Her söyleşide iki öğrenci birlikte çalıştı: Biri soruları sordu, diğeri not aldı. Söyleşi yapacakları kişilere kayıtların nasıl kullanılacağını anlatıp onlardan yazılı izin aldılar. Kayıtlarının paylaşılmasını istemeyen iki kişinin anlattıkları ise yalnızca öğrencilerin kendi notlarında kaldı.\n\nÜç ay süren çalışmada 23 kişiyle söyleşi yapıldı. Anlatılanlar arasında mahallenin ilk fırını, kışın donan çeşme, sokakta oynanan oyunlar ve mahalleye ilk televizyon geldiğinde komşuların bir evde toplanması gibi anılar yer aldı. Öğrenciler, aynı olayı farklı kişilerin farklı biçimlerde hatırladığını da fark etti. Bu nedenle sergide bazı anıların yanına, aynı olayın farklı kişilerden dinlenen anlatımları birlikte konuldu.\n\nSöyleşiye katılanlardan 78 yaşındaki Hatice Demir, gençlerin kendisini dinlemesinden çok mutlu olduğunu söyledi: “Torunum yaşındaki çocuklar oturdu, hiç sıkılmadan beni dinledi. Anlatırken ben de unuttuğum şeyleri hatırladım.”\n\nProjede görev alan öğrencilerden Can Erdem ise en çok neyi öğrendiğini şöyle anlattı: “Tarih yalnızca kitaplarda değilmiş; komşularımız da tarihin bir parçasıymış. Ama bir anıyı tarih bilgisi olarak kullanmadan önce başka kaynaklarla karşılaştırmak gerektiğini de öğrendik.”\n\nSerginin açılışına katılan bazı mahalle sakinleri, kendi anılarını da eklemek istediklerini söyledi. Bunun üzerine kütüphaneye bir anı defteri bırakıldı. Öğrenciler, gelecek dönem bu defterdeki notlardan yola çıkarak yeni söyleşiler yapmayı planlıyor. Sergi bir ay boyunca kütüphanede açık kalacak. Ses kayıtları, yalnızca izin veren kişilerin anlatımlarıyla sınırlı olmak üzere kütüphanenin arşivine bağışlanacak.",
+      "sorular": [
+        {
+          "kimlik": "sozlu-tarih-tanimi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Haberde sözlü tarih nasıl tanımlanıyor?",
+          "secenekler": [
+            "Geçmişteki olayları, tanıklık etmiş kişilerin anlatımlarına dayanarak kayda geçirme yöntemi",
+            "Ders kitaplarındaki önemli olayları sesli okuma yöntemi",
+            "Eski fotoğrafları renklendirip sergileme yöntemi",
+            "Tarihî yapıların yaşını ölçme yöntemi"
+          ],
+          "dogru": 0,
+          "aciklama": "İkinci paragrafta sözlü tarihin tanıkların anlatımlarına dayanarak olayları kayda geçirme yöntemi olduğu yazıyor."
+        },
+        {
+          "kimlik": "kac-kisi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Proje boyunca kaç kişiyle söyleşi yapıldı?",
+          "secenekler": [
+            "13",
+            "32",
+            "23",
+            "78"
+          ],
+          "dogru": 2,
+          "aciklama": "Dördüncü paragrafa göre üç ay süren çalışmada 23 kişiyle söyleşi yapıldı. 78, Hatice Demir’in yaşıdır."
+        },
+        {
+          "kimlik": "yazili-izin",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Öğrencilerin söyleşi yaptıkları kişilerden yazılı izin almasının en önemli nedeni nedir?",
+          "secenekler": [
+            "Serginin daha kalabalık olmasını sağlamak",
+            "Kişilerin kendi anlatımlarının nasıl kullanılacağına karar verme hakkına saygı göstermek",
+            "Söyleşilerin daha kısa sürmesini sağlamak",
+            "Kayıtların ses kalitesini artırmak"
+          ],
+          "dogru": 1,
+          "aciklama": "İzin vermeyen iki kişinin anlattıkları paylaşılmadı; bu, kişilerin kendi anlatımları üzerindeki söz hakkına saygı gösterildiğini gösteriyor."
+        },
+        {
+          "kimlik": "farkli-anlatimlar",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Sergide bazı anıların yanına farklı kişilerin anlatımlarının birlikte konmasının amacı nedir?",
+          "secenekler": [
+            "En çok anlatılan anıyı ödüllendirmek",
+            "Söyleşi yapılan kişileri birbirleriyle yarıştırmak",
+            "Serginin daha uzun süre açık kalmasını sağlamak",
+            "Anıların kişiden kişiye değişebildiğini gösterip tek bir anlatımı kesin doğru gibi sunmamak"
+          ],
+          "dogru": 3,
+          "aciklama": "Öğrenciler aynı olayın farklı hatırlandığını fark etti; farklı anlatımları birlikte sunmak bu durumu okura dürüstçe gösteriyor."
+        },
+        {
+          "kimlik": "can-gibi",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Can Erdem’in sözlerine en uygun tutum hangisidir?",
+          "secenekler": [
+            "Büyüklerin anlattığı her şeyi hiç sorgulamadan tarih bilgisi olarak kabul etmek",
+            "Anıların tarih açısından hiçbir değeri olmadığını düşünmek",
+            "Bir büyüğün anısını değerli bulmak ama onu bilgi olarak kullanmadan önce başka kaynaklarla karşılaştırmak",
+            "Yalnızca ders kitaplarındaki bilgilere güvenmek"
+          ],
+          "dogru": 2,
+          "aciklama": "Can, komşuların da tarihin parçası olduğunu ama anıların başka kaynaklarla karşılaştırılması gerektiğini söylüyor."
+        },
+        {
+          "kimlik": "sozlu",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Proje, sosyal bilgiler dersinde ___ tarih konusunun işlenmesiyle başladı.",
+          "cevaplar": [
+            "sözlü",
+            "sozlu"
+          ],
+          "aciklama": "İkinci paragrafın ilk cümlesinde projenin sözlü tarih konusuyla başladığı yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "yarin-yagmur-yagacak-mi",
+      "ad": "Yarın Yağmur Yağacak mı? Bir Meteoroloji Mühendisiyle Söyleşi",
+      "sinif": 8,
+      "tur": "diyalog",
+      "zorluk": 4,
+      "etiketler": [
+        "röportaj",
+        "meslekler",
+        "hava tahmini",
+        "belirsizlik"
+      ],
+      "metin": "Okul gazetemizin bu sayısında meteoroloji mühendisi Kerim Aksoy ile hava tahminlerinin nasıl yapıldığını konuştuk. Sorularımızı gazete ekibinden Zeynep ve Ali sordu.\n\nZeynep: Bir hava tahmini nasıl hazırlanıyor?\nKerim Aksoy: Her şey ölçümle başlar. Yer istasyonları sıcaklığı, nemi, hava basıncını ve rüzgârı sürekli ölçer. Uydular bulutları uzaydan izler, radarlar yağışı takip eder. Balonlara bağlanan ölçüm aletleri de atmosferin üst katmanlarından bilgi gönderir. Bu veriler güçlü bilgisayarlara aktarılır. Bilgisayar programları, atmosferin fizik kurallarına göre nasıl davranacağını hesaplar. Biz de bu sonuçları deneyimimizle birlikte yorumlarız.\n\nAli: Peki tahminler neden bazen tutmuyor?\nKerim Aksoy: Atmosfer son derece karmaşık bir sistemdir. Bugün yapılan ölçümdeki çok küçük bir fark, birkaç gün sonrası için yapılan hesapta büyük bir farka dönüşebilir. Bu yüzden önümüzdeki bir iki gün için yapılan tahminler genellikle oldukça güvenilirdir ama ileriye gittikçe belirsizlik artar. Yaklaşık on günden sonrası için ayrıntılı bir tahmin yapmak çok zordur.\n\nZeynep: Tahminlerde duyduğumuz “yüzde 60 yağış olasılığı” ne anlama geliyor?\nKerim Aksoy: Kabaca şöyle düşünebilirsiniz: Benzer hava koşulları yüz kez yaşansa bunların yaklaşık altmışında o bölgede yağış görülmesi beklenir. Yani yüzde 60, yağışın kesin olduğu anlamına gelmez. O gün yağmur yağmasa bile tahmin yanlış sayılmaz, çünkü olasılık bunu da içerir. Ama şemsiyeyi yanınıza almak akıllıca olur.\n\nAli: Hava durumu ile iklim aynı şey mi?\nKerim Aksoy: Hayır. Hava durumu, dar bir bölgede birkaç gün içinde görülen koşullardır. İklim ise bir bölgede uzun yıllar boyunca görülen hava koşullarının ortalamasıdır. Bu yüzden tek bir günün soğuk ya da sıcak geçmesi, o bölgenin iklimi hakkında tek başına bilgi vermez.\n\nAli: Mesleğinizin en heyecanlı yanı nedir?\nKerim Aksoy: Şiddetli bir fırtınayı ya da sel riskini önceden görüp uyarı yayımlamak. Zamanında yapılan bir uyarı sayesinde insanlar önlem alabilir. Bu yüzden herkesin resmî kurumların yayımladığı uyarıları takip etmesini öneririm.\n\nZeynep: Bu mesleği seçmek isteyen öğrencilere ne önerirsiniz?\nKerim Aksoy: Matematik, fizik ve bilgisayar derslerine önem versinler. Bir de belirsizlikle yaşamayı öğrensinler. Biz kesinlik değil, olasılık söyleriz. Bir tahmini değerlendirirken “Tuttu mu, tutmadı mı?” diye değil, “Ne kadar olasıydı?” diye düşünmek gerekir.",
+      "sorular": [
+        {
+          "kimlik": "veri-kaynagi-degil",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Aşağıdakilerden hangisi Kerim Aksoy’un saydığı veri kaynaklarından biri değildir?",
+          "secenekler": [
+            "Uydular",
+            "Hayvanların davranışları",
+            "Yer istasyonları",
+            "Balonlara bağlanan ölçüm aletleri"
+          ],
+          "dogru": 1,
+          "aciklama": "İkinci paragrafta yer istasyonları, uydular, radarlar ve balonlardaki ölçüm aletleri sayılıyor; hayvanların davranışlarından söz edilmiyor."
+        },
+        {
+          "kimlik": "on-gun",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kerim Aksoy’a göre yaklaşık kaç günden sonrası için ayrıntılı tahmin yapmak çok zordur?",
+          "secenekler": [
+            "İki",
+            "Üç",
+            "Beş",
+            "On"
+          ],
+          "dogru": 3,
+          "aciklama": "Üçüncü paragrafta yaklaşık on günden sonrası için ayrıntılı tahminin çok zor olduğu söyleniyor."
+        },
+        {
+          "kimlik": "yagmadi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Yüzde 60 yağış olasılığı açıklanan bir gün hiç yağmur yağmadıysa ne söylenebilir?",
+          "secenekler": [
+            "Tahmin yanlış sayılmaz; çünkü yüzde 60 olasılık yağış olmama ihtimalini de içerir.",
+            "Tahmini yapan uzman mutlaka bir hata yapmıştır.",
+            "Yer istasyonlarının ölçümleri kesinlikle bozuktur.",
+            "O bölgede bir daha hiç yağış görülmeyecektir."
+          ],
+          "dogru": 0,
+          "aciklama": "Kerim Aksoy, yağmur yağmasa bile tahminin yanlış sayılmayacağını, çünkü olasılığın bunu da içerdiğini söylüyor."
+        },
+        {
+          "kimlik": "uzak-tahmin",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ölçümlerdeki küçük farkların uzun süreli tahminleri zorlaştırmasının nedeni nedir?",
+          "secenekler": [
+            "Bilgisayarların uzun hesapları yapamaması",
+            "Uyduların yalnızca birkaç gün çalışabilmesi",
+            "Bu küçük farkların zamanla büyüyerek sonucu giderek daha çok değiştirmesi",
+            "Atmosferin fizik kurallarına uymaması"
+          ],
+          "dogru": 2,
+          "aciklama": "Küçük bir fark birkaç gün sonrası için büyük bir farka dönüşebilir; bu yüzden ileriye gittikçe belirsizlik artar."
+        },
+        {
+          "kimlik": "olasilikla-dusunmek",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "“Biz kesinlik değil, olasılık söyleriz.” sözüne göre en akıllıca davranış hangisidir?",
+          "secenekler": [
+            "Yağış olasılığı yüzde 70 olsa bile pikniği hiçbir hazırlık yapmadan kesin olarak açık havada planlamak",
+            "Yağış olasılığı yüzde 70 olan bir gün için hem açık hem kapalı alana uygun bir piknik planı hazırlamak",
+            "Hava tahminlerinin bazen tutmadığını düşünüp onları hiç dinlememek",
+            "Yalnızca yüzde 100 olasılık açıklanan günlerde önlem almak"
+          ],
+          "dogru": 1,
+          "aciklama": "Olasılık kesinlik değildir; akıllıca davranış, iki duruma da hazırlıklı olmaktır."
+        },
+        {
+          "kimlik": "yuzde-altmis-kesin",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Kerim Aksoy’a göre yüzde 60 yağış olasılığı, yağışın kesin olduğu anlamına gelir.",
+          "dogru": false,
+          "aciklama": "Dördüncü paragrafta Kerim Aksoy, yüzde 60’ın yağışın kesin olduğu anlamına gelmediğini açıkça söylüyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "sehrin-obur-ucuna",
+      "ad": "Şehrin Öbür Ucuna İlk Yolculuk",
+      "sinif": 8,
+      "tur": "gunluk",
+      "zorluk": 2,
+      "etiketler": [
+        "bağımsızlık",
+        "planlama",
+        "şehir hayatı",
+        "günlük hayat"
+      ],
+      "metin": "Kuzenim Elif’in okulundaki bilim şenliğine gitmeye karar verdiğimde annem önce tereddüt etti. Şenlik şehrin öbür ucundaydı ve oraya giderken bir kez aktarma yapmak gerekiyordu. Ben artık on dört yaşındaydım ve bu yolculuğu tek başıma yapabileceğimi düşünüyordum. Uzun bir konuşmadan sonra annem bir şartla kabul etti: Gitmeden önce bir plan yapacaktım.\n\nAkşam masaya oturup güzergâhı çıkardım. Hangi otobüse bineceğimi, hangi durakta ineceğimi ve aktarma yapacağım ikinci otobüsün numarasını bir kâğıda yazdım. Durakların adlarını telefonuma da kaydettim ama annem kâğıdı da cebime koymamı istedi: “Telefonun şarjı biterse kâğıt bitmez.” Annem yolculuğun ne kadar süreceğini de sordu; hesapladım, aktarmayla birlikte yaklaşık bir saat sürecekti. Kartıma yeterince para yükledim, Elif’in ve annemin telefon numaralarını da kâğıda ekledim.\n\nSabah ilk otobüse bindim ve camdan durak tabelalarını tek tek okudum. Aktarma durağında indim. İkinci otobüs gelince numarasına bakıp bindim. On dakika sonra pencereden tanımadığım bir alışveriş merkezi gördüm. Kâğıdımdaki durak adlarından hiçbiri otobüsteki ekranda yoktu. Midem kasıldı: Aynı numaralı otobüsün ters yöne gidenine binmiştim!\n\nÖnce panikleyip hemen inmek istedim. Sonra annemin bir sözünü hatırladım: “Yolunu kaybettiğini düşünürsen dur, nefes al ve görevli birine sor.” Şoförün yanına gidip durumu anlattım. Şoför, bir sonraki durakta inip yolun karşısındaki duraktan aynı numaralı otobüse binmemi söyledi. Öyle yaptım. Annemi de arayıp ne olduğunu anlattım; annem sesimin sakin olduğunu duyunca rahatladı.\n\nŞenliğe yarım saat geç vardım. Elif kapıda bekliyordu; gülerek “Ters otobüse binmeyen kaldı mı ki?” dedi. Şenlikte robot yarışmasını izledik, mikroskopla soğan zarı inceledik. Bir standda öğrenciler güneş enerjisiyle çalışan küçük bir araba yapmıştı; nasıl çalıştığını öyle heyecanla anlatıyorlardı ki ben de soru sormaktan kendimi alamadım.\n\nDönüşte otobüse binmeden önce tabelada otobüsün nereye gittiğini yazan bölümü dikkatle okudum. Yolculuk boyunca durakları kâğıdımla karşılaştırdım. Eve vardığımda annem “Nasıldı?” diye sordu. “Bir kez yanlış otobüse bindim,” dedim, “ama nasıl düzelteceğimi biliyordum.” Annem gülümsedi. Sanırım o gün ikimiz de bir şey öğrendik: Ben tek başıma yolumu bulabileceğimi, annem de bana güvenebileceğini.",
+      "sorular": [
+        {
+          "kimlik": "annenin-sarti",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Annesi, anlatıcının tek başına gitmesine hangi şartla izin verdi?",
+          "secenekler": [
+            "Elif’in onu duraktan alması şartıyla",
+            "Yolculuk boyunca telefonla konuşması şartıyla",
+            "Şenlikten erken dönmesi şartıyla",
+            "Gitmeden önce bir plan yapması şartıyla"
+          ],
+          "dogru": 3,
+          "aciklama": "Birinci paragrafın son cümlesinde annenin şartının, gitmeden önce plan yapılması olduğu yazıyor."
+        },
+        {
+          "kimlik": "kagit-neden",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Annesi, durak adlarının yazılı olduğu kâğıdı neden cebine koymasını istedi?",
+          "secenekler": [
+            "Telefonun şarjı bitse de bilgilerin elinde kalması için",
+            "Kâğıdı şoföre göstermesi gerektiği için",
+            "Telefonda durak adlarını kaydetmenin yasak olması nedeniyle",
+            "Elif’e hediye olarak vermesi için"
+          ],
+          "dogru": 0,
+          "aciklama": "Annesi “Telefonun şarjı biterse kâğıt bitmez.” diyor."
+        },
+        {
+          "kimlik": "nasil-anladi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Anlatıcı yanlış otobüse bindiğini nasıl anladı?",
+          "secenekler": [
+            "Şoför ona yanlış otobüse bindiğini söyledi.",
+            "Annesi telefonla arayıp onu uyardı.",
+            "Gördüğü yerler ve ekrandaki duraklar, planındakilerle uyuşmuyordu.",
+            "Otobüsün numarası kâğıttakinden farklıydı."
+          ],
+          "dogru": 2,
+          "aciklama": "Tanımadığı bir alışveriş merkezini gördü ve ekrandaki duraklar kâğıdındakilerle uyuşmadı. Otobüsün numarası ise aynıydı."
+        },
+        {
+          "kimlik": "anne-rahatladi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Annesinin telefonda rahatlamasının en önemli nedeni nedir?",
+          "secenekler": [
+            "Anlatıcının yolculuktan vazgeçip eve döndüğünü öğrenmesi",
+            "Anlatıcının sakin olduğunu ve sorunu çözmek için doğru adımları attığını anlaması",
+            "Elif’in anlatıcıyı almaya gittiğini öğrenmesi",
+            "Şenliğin ertelendiğini duyması"
+          ],
+          "dogru": 1,
+          "aciklama": "Annesi, sesinin sakin olduğunu duyunca rahatlıyor; anlatıcı şoföre sorup doğru otobüse binmişti."
+        },
+        {
+          "kimlik": "ikimiz-de-ogrendik",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Son paragraftaki “ikimiz de bir şey öğrendik” düşüncesine en uygun yorum hangisidir?",
+          "secenekler": [
+            "İyi hazırlık yapmak ve sorun çıkınca doğru adımları bilmek, hem bağımsızlığı hem de güveni büyütür.",
+            "Hiç hata yapmadan tamamlanan yolculuklar güveni artırır.",
+            "Gençlerin şehirde tek başına yolculuk yapması her zaman sorun çıkarır.",
+            "Plan yapmak yolculuğu gereksiz yere uzatır."
+          ],
+          "dogru": 0,
+          "aciklama": "Anlatıcı hata yaptı ama hazırlığı ve sakin davranışı sayesinde sorunu çözdü; bu da hem kendine hem de annesinin ona olan güvenini artırdı."
+        },
+        {
+          "kimlik": "yuruyerek",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Anlatıcı yanlış otobüse bindiğini fark edince hemen indi ve şenliğe yürüyerek gitti.",
+          "dogru": false,
+          "aciklama": "Anlatıcı şoföre danıştı, bir sonraki durakta inip karşı yöndeki aynı numaralı otobüse bindi."
         }
       ]
     }

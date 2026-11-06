@@ -1,0 +1,231 @@
+/* Çalışma Rehberi (S22): ortak sayfa üstü ve listeler, bilgi kartları ve aile önerileri, Cornell notu ve boş şablon, haftalık plan, zihin haritası, yazdırma (html.yazdir-rehber) */
+
+/* ---------- Ortak ---------- */
+.rehber-ust { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--b-3); }
+.rehber-ust h1 { margin: 0; }
+.rehber-eylemler { display: flex; flex-wrap: wrap; align-items: center; gap: var(--b-2); }
+.rehber-kayit-durumu { display: inline-block; margin-top: var(--b-1); font-size: var(--fs-xs); color: var(--renk-metin-soluk); }
+.rehber-kayit-durumu[data-durum="tamam"]::before { content: "✓ "; color: var(--renk-basari); }
+.rehber-kayit-durumu[data-durum="hata"] { color: var(--renk-hata); font-weight: 700; }
+.rehber-uyari { align-items: flex-start; }
+.rehber-uyari .ikon { margin-top: 0.125rem; }
+.rehber-nasil summary { min-height: var(--dokunma-min); display: flex; align-items: center; cursor: pointer; font-weight: 700; }
+.rehber-nasil ol, .rehber-nasil ul { margin: var(--b-2) 0 0; padding-inline-start: var(--b-5); display: grid; gap: var(--b-2); }
+.yalniz-yazdir { display: none; }
+
+/* Not ve harita listeleri */
+.rehber-liste { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--b-2); }
+.rehber-liste__oge { display: flex; align-items: center; gap: var(--b-2); padding: var(--b-2) var(--b-2) var(--b-2) var(--b-4); }
+.rehber-liste__baglanti {
+  flex: 1; min-width: 0; min-height: var(--dokunma-min);
+  display: grid; align-content: center; gap: 2px;
+  color: var(--renk-metin); text-decoration: none;
+}
+.rehber-liste__baglanti:hover .rehber-liste__ad { text-decoration: underline; }
+.rehber-liste__ad { font-weight: 800; overflow-wrap: anywhere; }
+.rehber-liste__bilgi { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+
+/* ---------- Bilgi sayfaları ---------- */
+.bilgi-izgara {
+  display: grid; gap: var(--b-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  align-items: start;
+}
+.bilgi-kart { display: grid; gap: var(--b-3); }
+.bilgi-kart h2 { margin: 0; font-size: var(--fs-l); }
+.bilgi-kart p { margin: 0; }
+.bilgi-kart__liste { margin: 0; padding-inline-start: var(--b-5); display: grid; gap: var(--b-2); }
+.bilgi-kart__not {
+  display: flex; gap: var(--b-2); align-items: flex-start;
+  padding: var(--b-2) var(--b-3); border-radius: var(--kose-m);
+  background: var(--renk-yuzey-2); font-size: var(--fs-s);
+}
+.bilgi-kart__not .ikon { margin-top: 0.15rem; color: var(--renk-bilgi); }
+.bilgi-kart__baglantilar { display: flex; flex-wrap: wrap; gap: var(--b-2); }
+
+/* Aile önerileri: numaralı kartlar (sıra ol ile; görsel numara ekran okuyucuya gizli) */
+.oneri-listesi { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--b-3); }
+.oneri-listesi__oge { display: flex; gap: var(--b-4); align-items: flex-start; }
+.oneri-listesi__oge h3 { margin: 0 0 var(--b-1); font-size: var(--fs-m); }
+.oneri-listesi__oge p { margin: 0; }
+.oneri-listesi__no {
+  flex: none; display: grid; place-items: center;
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  background: var(--modul-rehber); color: var(--modul-rehber-ikon);
+  font-family: var(--font-baslik); font-weight: 800; font-size: var(--fs-l);
+}
+
+/* ---------- Cornell notu ---------- */
+.cornell { display: grid; gap: var(--b-4); }
+.cornell__ust { display: grid; gap: var(--b-3); grid-template-columns: 1fr; }
+@media (min-width: 640px) {
+  .cornell__ust { grid-template-columns: 2fr 1.4fr 1fr; }
+}
+/* Mobilde notlar önce (derste ilk doldurulan), geniş ekranda klasik düzen: solda sorular, sağda notlar, altta özet */
+.cornell__izgara {
+  display: grid; gap: var(--b-4);
+  grid-template-areas: "notlar" "ipuclari" "ozet";
+}
+.cornell__bolum--ipuclari { grid-area: ipuclari; }
+.cornell__not-sutunu { grid-area: notlar; display: grid; gap: var(--b-1); }
+.cornell__bolum--ozet { grid-area: ozet; }
+@media (min-width: 720px) {
+  .cornell__izgara {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    grid-template-areas: "ipuclari notlar" "ozet ozet";
+    gap: 0;
+    border: 2px solid var(--renk-kenar-guclu);
+    border-radius: var(--kose-l);
+    background: var(--renk-yuzey);
+    overflow: hidden;
+  }
+  .cornell__bolum, .cornell__not-sutunu { padding: var(--b-4); }
+  .cornell__bolum--ipuclari { background: var(--renk-yuzey-2); border-inline-end: 2px solid var(--renk-kenar-guclu); }
+  .cornell__bolum--ozet { border-top: 2px solid var(--renk-kenar-guclu); }
+  .cornell__not-sutunu .cornell__bolum { padding: 0; }
+}
+.cornell__bolum textarea { min-height: 8rem; line-height: var(--sh-govde); }
+.cornell__bolum--notlar textarea { min-height: 14rem; }
+.cornell__gizli-not { display: none; margin: 0; }
+.cornell[data-yokla] .cornell__bolum--notlar textarea,
+.cornell[data-yokla] .cornell__bolum--notlar .alan__ipucu { display: none; }
+.cornell[data-yokla] .cornell__gizli-not {
+  display: block; padding: var(--b-4);
+  border: 2px dashed var(--renk-kenar-guclu); border-radius: var(--kose-m);
+  color: var(--renk-metin-soluk);
+}
+.cornell__baski { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* ---------- Haftalık plan ---------- */
+.plan-ayarlar { display: grid; gap: var(--b-4); }
+@media (min-width: 720px) {
+  .plan-ayarlar { grid-template-columns: auto 1fr; align-items: start; gap: var(--b-6); }
+}
+.plan-ayarlar .segment { max-width: 18rem; }
+.plan-hafta-ozet { margin: 0; font-weight: 700; }
+.plan-izgara {
+  display: grid; gap: var(--b-3);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  align-items: start;
+}
+.plan-gun { display: grid; gap: var(--b-3); padding: var(--b-4); }
+.plan-gun[data-esnek] { border-style: dashed; border-width: 2px; border-color: var(--renk-gunes-golge); }
+.plan-gun__ust { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--b-2); }
+.plan-gun__ust h2 { margin: 0; font-size: var(--fs-l); }
+.plan-gun__esnek { margin: 0; font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+.plan-gun__ozet { font-size: var(--fs-s); }
+.plan-gun__ozet p { margin: 0; color: var(--renk-metin-soluk); }
+.plan-gun__ozet.bildirim p { color: var(--renk-metin); }
+.plan-gun__ekle { justify-self: start; }
+.plan-bloklari { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--b-2); counter-reset: blok; }
+.plan-blok { counter-increment: blok; }
+.plan-blok__satir { display: grid; grid-template-columns: minmax(0, 1fr) 5.5rem var(--dokunma-min); gap: var(--b-1); align-items: center; }
+.plan-blok__satir .girdi { padding-inline: 0.625rem; }
+.plan-blok__mola { margin: var(--b-1) 0 0; padding-inline-start: var(--b-3); font-size: var(--fs-xs); color: var(--renk-metin-soluk); }
+.plan-blok__mola::before { content: "☕ "; }
+
+/* ---------- Zihin haritası ---------- */
+.zh-ad { max-width: 28rem; }
+.zh-araclar { display: grid; gap: var(--b-3); padding: var(--b-4); }
+@media (min-width: 900px) {
+  .zh-araclar { grid-template-columns: minmax(14rem, 1fr) auto auto; align-items: end; }
+}
+.zh-araclar__dugmeler, .zh-araclar__olcek { display: flex; flex-wrap: wrap; align-items: center; gap: var(--b-2); }
+.zh-araclar__yazi .alan__ipucu { margin: 0; }
+.zh-olcek { min-width: 3.25rem; text-align: center; font-weight: 700; font-size: var(--fs-s); font-variant-numeric: tabular-nums; }
+.zh-olcek-isaret { font-size: var(--fs-xl); font-weight: 800; line-height: 1; }
+
+.zh-tuval {
+  position: relative;
+  max-height: min(70vh, 40rem);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 2px solid var(--renk-kenar);
+  border-radius: var(--kose-l);
+  background: var(--renk-yuzey);
+}
+.zh-svg { display: block; max-width: none; user-select: none; -webkit-user-select: none; }
+.zh-zemin { fill: var(--renk-yuzey); }
+
+.zh-kenar { fill: none; stroke: var(--zh-renk, var(--renk-kenar-guclu)); stroke-width: 2.5; stroke-linecap: round; }
+.zh-kenar[data-ilk] { stroke-width: 4.5; }
+
+.zh-dugum { cursor: grab; outline: none; touch-action: none; }
+.zh-dugum--tasiniyor { cursor: grabbing; }
+.zh-dugum__kutu { fill: var(--renk-yuzey); stroke: var(--zh-renk, var(--renk-kenar-guclu)); stroke-width: 2.5; }
+.zh-dugum__yazi { fill: var(--renk-metin); font-family: var(--font-govde); font-weight: 600; pointer-events: none; }
+.zh-dugum__secim { fill: none; stroke: var(--renk-metin); stroke-width: 2; stroke-dasharray: 6 4; visibility: hidden; }
+.zh-dugum[aria-pressed="true"] .zh-dugum__secim { visibility: visible; }
+.zh-dugum:focus-visible .zh-dugum__secim { visibility: visible; stroke: var(--renk-odak); stroke-width: 3.5; stroke-dasharray: none; }
+
+/* Ana konu dolu, ana dallar açık zeminli, alt dallar yalnız çerçeveli (renk tek başına anlam taşımaz; düzey kalınlık ve dolgudan da anlaşılır) */
+.zh-dugum[data-duzey="0"] .zh-dugum__kutu { fill: var(--renk-birincil); stroke: var(--renk-birincil); }
+.zh-dugum[data-duzey="0"] .zh-dugum__yazi { fill: var(--renk-birincil-uzeri); font-weight: 800; }
+.zh-dugum[data-duzey="1"] .zh-dugum__kutu { fill: var(--zh-zemin, var(--renk-yuzey-2)); stroke-width: 3; }
+.zh-dugum[data-duzey="1"] .zh-dugum__yazi { font-weight: 800; }
+
+[data-dal="0"] { --zh-renk: var(--renk-birincil); --zh-zemin: var(--renk-birincil-zemin); }
+[data-dal="1"] { --zh-renk: var(--renk-vurgu-metin); --zh-zemin: var(--renk-vurgu-zemin); }
+[data-dal="2"] { --zh-renk: var(--renk-bilgi); --zh-zemin: var(--renk-bilgi-zemin); }
+[data-dal="3"] { --zh-renk: var(--modul-goz-ikon); --zh-zemin: var(--modul-goz); }
+[data-dal="4"] { --zh-renk: var(--modul-hafiza-ikon); --zh-zemin: var(--modul-hafiza); }
+
+.zh-liste ul { margin: var(--b-2) 0 0; padding-inline-start: var(--b-5); display: grid; gap: var(--b-1); }
+.zh-liste > ul { padding-inline-start: var(--b-4); }
+
+/* ---------- Boş Cornell şablonu (yalnız yazdırmada) ---------- */
+.cornell-bos { font-size: 11pt; color: #16262b; }
+.cornell-bos__ust { display: grid; grid-template-columns: 2fr 1.5fr 1fr; gap: 6mm; margin-bottom: 4mm; }
+.cornell-bos__satir { display: flex; align-items: flex-end; gap: 2mm; font-weight: 700; }
+.cornell-bos__cizgi { flex: 1; border-bottom: 1px solid #46585d; height: 1.2em; }
+.cornell-bos__govde { display: grid; grid-template-columns: 1fr 2fr; border: 1.5px solid #46585d; border-bottom: 0; }
+.cornell-bos__kutu { display: grid; align-content: start; gap: 1mm; padding: 3mm; }
+.cornell-bos__kutu small { color: #46585d; font-size: 9pt; }
+.cornell-bos__kutu--ipucu { border-inline-end: 1.5px solid #46585d; min-height: 175mm; }
+.cornell-bos__kutu--not { min-height: 175mm; }
+.cornell-bos__kutu--ozet { border: 1.5px solid #46585d; min-height: 45mm; }
+
+/* ---------- Yazdırma (rehber sayfası açıkken; renkler tokens.css print bloğundan açık) ---------- */
+@media print {
+  html.yazdir-rehber .ust-cubuk,
+  html.yazdir-rehber .alt-gezinme,
+  html.yazdir-rehber .toast-alani,
+  html.yazdir-rehber .guncelleme-bandi,
+  html.yazdir-rehber .atla-baglanti,
+  html.yazdir-rehber .yazdirma-yok { display: none !important; }
+  html.yazdir-rehber body { background: var(--renk-yuzey); }
+  html.yazdir-rehber .ana { padding: 0; max-width: none; }
+  html.yazdir-rehber .kart { box-shadow: none; break-inside: avoid; }
+  html.yazdir-rehber .yalniz-yazdir { display: block; }
+  html.yazdir-rehber .bilgi-izgara { grid-template-columns: 1fr 1fr; }
+
+  /* Cornell: yazı alanları yerine içerikleri, iki sütunlu düzen */
+  html.yazdir-rehber .cornell textarea,
+  html.yazdir-rehber .cornell .alan__ipucu,
+  html.yazdir-rehber .cornell__gizli-not { display: none !important; }
+  html.yazdir-rehber .cornell__ust { grid-template-columns: 2fr 1.4fr 1fr; }
+  html.yazdir-rehber .cornell__izgara {
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas: "ipuclari notlar" "ozet ozet";
+    gap: 0; border: 1.5px solid #46585d; border-radius: 0;
+  }
+  html.yazdir-rehber .cornell__bolum, html.yazdir-rehber .cornell__not-sutunu { padding: 3mm; }
+  html.yazdir-rehber .cornell__not-sutunu .cornell__bolum { padding: 0; }
+  html.yazdir-rehber .cornell__bolum--ipuclari { border-inline-end: 1.5px solid #46585d; min-height: 150mm; background: none; }
+  html.yazdir-rehber .cornell__bolum--ozet { border-top: 1.5px solid #46585d; min-height: 35mm; }
+  html.yazdir-rehber .cornell[data-yokla] .cornell__bolum--notlar .cornell__baski { display: block; }
+
+  /* Yalnız boş şablon */
+  html.yazdir-bos-sablon #rehber-alt-sayfasi > :not(.cornell-bos) { display: none !important; }
+
+  /* Haftalık plan: dört sütun, düğmeler gizli */
+  html.yazdir-rehber .plan-izgara { grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+  html.yazdir-rehber .plan-gun { padding: 3mm; gap: 2mm; }
+  html.yazdir-rehber .plan-blok__satir { grid-template-columns: 1fr auto; }
+  html.yazdir-rehber .plan-blok .girdi { border-width: 1px; min-height: 0; padding: 1mm 2mm; appearance: none; -webkit-appearance: none; }
+
+  /* Zihin haritası: tüm harita sayfaya sığar */
+  html.yazdir-rehber .zh-tuval { max-height: none; overflow: visible; border: 0; }
+  html.yazdir-rehber .zh-svg { width: 100% !important; height: auto !important; max-height: 180mm; }
+  html.yazdir-rehber .zh-dugum__secim { visibility: hidden !important; }
+}

@@ -1,4 +1,4 @@
-/* Temel stiller: sıfırlama, tipografi, odak halkası, düzen yardımcıları ve uygulama kabuğu (üst çubuk, alt gezinme) */
+/* Temel stiller: sıfırlama, tipografi, odak halkası, düzen yardımcıları ve uygulama kabuğu (üst çubuk, alt gezinme; S25: odak örtülmesin) */
 
 *,
 *::before,
@@ -9,6 +9,11 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-padding-top: calc(var(--ust-cubuk-y) + var(--b-4));
+  /* S25: Tab ile gelinen öğe alttaki sabit gezinme çubuğunun arkasında kalmasın */
+  scroll-padding-bottom: calc(var(--alt-gezinme-y) + var(--b-4) + env(safe-area-inset-bottom, 0px));
+}
+@media (min-width: 900px) {
+  html { scroll-padding-bottom: var(--b-4); }
 }
 
 body {

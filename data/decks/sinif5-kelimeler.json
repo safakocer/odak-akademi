@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "sinif5-kelimeler",
+  "baslik": "5. sınıf kelimeleri",
+  "aciklama": "5. sınıf Türkçe kavramları ve kütüphanedeki 5. sınıf metinlerinden kelimeler.",
+  "sinif": "5",
+  "kartlar": [
+    {
+      "on": "Eş anlamlı kelime",
+      "arka": "Yazılışları farklı, anlamları aynı ya da çok yakın kelimeler.\nÖrnek: siyah – kara."
+    },
+    {
+      "on": "Zıt anlamlı kelime",
+      "arka": "Anlamca birbirinin karşıtı olan kelimeler.\nÖrnek: uzun – kısa."
+    },
+    {
+      "on": "Eş sesli kelime",
+      "arka": "Yazılışı ve okunuşu aynı, anlamı farklı kelimeler.\nÖrnek: yüz (sayı) – yüz (surat)."
+    },
+    {
+      "on": "Gerçek anlam",
+      "arka": "Bir kelimenin akla gelen ilk ve temel anlamı.\nÖrnek: “Soğuk su içtim.”"
+    },
+    {
+      "on": "Mecaz anlam",
+      "arka": "Kelimenin gerçek anlamından uzaklaşarak kazandığı yeni anlam.\nÖrnek: “Bana soğuk davrandı.”"
+    },
+    {
+      "on": "Deyim",
+      "arka": "Çoğunlukla gerçek anlamından farklı bir anlam taşıyan, kalıplaşmış söz öbeği.\nÖrnek: göz atmak."
+    },
+    {
+      "on": "Atasözü",
+      "arka": "Uzun deneyimlere dayanan, öğüt veren, kalıplaşmış kısa söz.\nÖrnek: Damlaya damlaya göl olur."
+    },
+    {
+      "on": "Konu",
+      "arka": "Metinde üzerinde durulan olay, durum ya da düşünce; “Metin neyi anlatıyor?” sorusunun cevabı."
+    },
+    {
+      "on": "Ana fikir",
+      "arka": "Yazarın metinle okura asıl iletmek istediği düşünce; “Yazar ne demek istiyor?” sorusunun cevabı."
+    },
+    {
+      "on": "Yardımcı fikir",
+      "arka": "Ana fikri destekleyen, açıklayan ve örneklendiren düşünceler."
+    },
+    {
+      "on": "5N1K",
+      "arka": "Ne, nerede, ne zaman, nasıl, neden ve kim sorularıyla bir metindeki temel bilgileri bulma yolu."
+    },
+    {
+      "on": "Kişileştirme",
+      "arka": "İnsan dışındaki varlıklara insana özgü özellikler verme.\nÖrnek: masallarda konuşan hayvanlar."
+    },
+    {
+      "on": "Kervansaray",
+      "arka": "Eski ticaret yolları üzerinde kervanların ve yolcuların geceyi güvenle geçirdiği büyük, sağlam yapı."
+    },
+    {
+      "on": "Vakıf",
+      "arka": "Bir kimsenin malını ya da parasını topluma hizmet için kalıcı olarak ayırmasıyla kurulan kuruluş."
+    },
+    {
+      "on": "Buharlaşma",
+      "arka": "Sıvı hâldeki bir maddenin ısı alarak gaz hâline geçmesi.\nÖrnek: ıslak çamaşırın kuruması."
+    },
+    {
+      "on": "Ay’ın evreleri",
+      "arka": "Ay’ın Dünya’dan görünen aydınlık kısmının yaklaşık 29,5 günde düzenli olarak değişmesi."
+    },
+    {
+      "on": "Çekingen",
+      "arka": "Yeni ortamlarda ya da tanımadığı kişilerin yanında rahat davranamayan, sıkılgan."
+    },
+    {
+      "on": "Empati",
+      "arka": "Kendini başkasının yerine koyarak onun duygu ve düşüncelerini anlamaya çalışma."
+    },
+    {
+      "on": "Önyargı",
+      "arka": "Bir kimse ya da şey hakkında, onu tanımadan önceden edinilen yargı."
+    },
+    {
+      "on": "Bütçe",
+      "arka": "Belirli bir süre için gelirlerin ve harcamaların önceden planlanması."
+    }
+  ]
+}

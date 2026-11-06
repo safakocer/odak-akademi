@@ -1,20 +1,21 @@
-// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
+// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
 import { temaDugmesiBagla, ayarFormuBagla, duyur } from './core/a11y.js';
-import { modalBagla, toastGoster, el } from './core/ui.js';
+import { modalBagla, modalAc, toastGoster, el } from './core/ui.js';
 import { depoBaslat, yedekIndir, yedekYukle, kullanimBayt, kaliciMi } from './core/storage.js';
 import { dinle, OLAYLAR } from './core/store.js';
 import { rotaEkle, rotaBaslat, git, etkinRota } from './core/router.js';
-import { profilBaslat, aktifProfil, karsilamayiBagla, profilPenceresiniBagla, profilDugmesiniBagla } from './core/profile.js';
+import { profilBaslat, aktifProfil, profilleriGetir, karsilamayiBagla, profilPenceresiniBagla, profilDugmesiniBagla } from './core/profile.js';
 import { ozet, kayitEkle, profilKayitlariniSil } from './core/metrics.js';
 import { ayarlarBaslat, ayarlariSifirla, tumVeriyiSil } from './core/settings.js';
 import { sesCal } from './core/sound.js';
 import { pwaBaslat, kurulumDugmesiniBagla, pwaDurumunuDinle } from './core/pwa.js';
 import { boyutMetni } from './core/utils.js';
 import { egzersizAc, egzersiziKapat, molaEsiginiAyarla } from './engine/exercise-frame.js';
-import { egzersizYukle, aracBilgisi, egzersizBilgisi } from './modules/katalog.js';
+import { egzersizYukle, aracBilgisi, egzersizBilgisi, modulAraclari } from './modules/katalog.js';
 import { modulKartlariniGuncelle, modulSayfasiCiz, egzersizlerSayfasiCiz, egzersizKarti } from './modules/egzersiz-listesi.js';
 import { gozMolasiEsiginiAyarla } from './engine/eye-rest.js';
 import { seriDurumu, bugunDurumu, bugunlukMesaji, seviyeBilgisi, ilerlemeVerisi, ilerlemeSonuclariniSil } from './engine/motivasyon.js';
+import { sinifModuAcikMi, haftalikDurum } from './modules/veli/veli-veri.js';
 
 const $ = (secici) => document.querySelector(secici);
 
@@ -62,6 +63,8 @@ rotaEkle('/modul/:ad', {
 modulKartlariniGuncelle();
 // K2: ana sayfadaki "Ders çalışırken" kısayolları (kart bilgileri yalnız katalog.js'te); S15: + Hafıza Teknikleri; S16: + Tekrar Kartları
 $('#kisayol-kartlari')?.replaceChildren(...[aracBilgisi('odak'), aracBilgisi('teknikler'), aracBilgisi('tekrar'), egzersizBilgisi('goz-molasi')].filter(Boolean).map(egzersizKarti));
+// S22: ana sayfadaki "Çalışma Rehberi" bölümü (araç ve bilgi kartları katalog.js'te, modul: rehber)
+$('#rehber-kartlari')?.replaceChildren(...modulAraclari('rehber').map(egzersizKarti));
 
 // S07: Kütüphane (#/kutuphane): ana sayfa kartından ve gezinme sekmesinden açılır; sayfa dosyası ilk açılışta yüklenir
 const kutuphaneCiz = () => import('./modules/kutuphane/kutuphane.js')
@@ -143,6 +146,34 @@ const ilerlemeKapat = () => ilerlemeModulu().then((m) => m.ilerlemeSayfasiniKapa
 rotaEkle('/ilerleme', { baslik: 'İlerleme', goster: ilerlemeCiz, gizle: ilerlemeKapat });
 rotaEkle('/ilerleme/rapor', { baslik: 'Veli raporu', goster: ilerlemeCiz, gizle: ilerlemeKapat });
 
+// S22: Çalışma Rehberi (#/rehber kartlar, #/rehber/<sayfa> Cornell notu, zihin haritası, haftalık plan ve bilgi sayfaları); ana sayfadaki bölümden ve alan kartından açılır
+const rehberModulu = () => import('./modules/rehber/rehber-sayfasi.js');
+const rehberCiz = () => rehberModulu()
+  .then((m) => {
+    const r = etkinRota();
+    if (r?.yol === '/rehber') m.rehberSayfasiCiz($('#rehber-sayfasi'));
+    else if (r?.yol.startsWith('/rehber/')) m.rehberAltSayfaCiz($('#rehber-alt-sayfasi'), r.parametreler.sayfa, r.sorgu);
+  })
+  .catch((h) => { console.error('[rehber]', h); toastGoster('Çalışma Rehberi açılamadı. Sayfayı yenileyip yeniden dene.', { tur: 'hata' }); });
+const rehberKapat = () => rehberModulu().then((m) => m.rehberSayfasiniKapat()).catch(() => {});
+rotaEkle('/rehber', { baslik: 'Çalışma Rehberi', goster: rehberCiz, gizle: rehberKapat });
+rotaEkle('/rehber/:sayfa', { baslik: 'Çalışma Rehberi', goster: rehberCiz, gizle: rehberKapat });
+
+// S24: Veli/Öğretmen alanı (#/veli PIN kapısı ve panel, #/veli/rapor?profil=<id> profil raporu); Ayarlar’daki bölümden açılır.
+// Alanın dışına çıkınca (ROTA_DEGISTI) kilitlenir; PIN olmadan içerik çizilmez
+let veliYuklendi = false;
+const veliModulu = () => import('./modules/veli/veli-sayfasi.js').then((m) => { veliYuklendi = true; return m; });
+const veliCiz = () => veliModulu()
+  .then((m) => {
+    const r = etkinRota();
+    if (r?.yol === '/veli') m.veliSayfasiCiz($('#veli-sayfasi'));
+    else if (r?.yol === '/veli/rapor') m.veliRaporuCiz($('#veli-rapor-sayfasi'), r.sorgu);
+  })
+  .catch((h) => { console.error('[veli]', h); toastGoster('Veli / Öğretmen alanı açılamadı. Sayfayı yenileyip yeniden dene.', { tur: 'hata' }); });
+const veliKapat = () => veliModulu().then((m) => m.veliSayfasiniKapat()).catch(() => {});
+rotaEkle('/veli', { baslik: 'Veli / Öğretmen alanı', goster: veliCiz, gizle: veliKapat });
+rotaEkle('/veli/rapor', { baslik: 'Profil raporu', goster: veliCiz, gizle: veliKapat });
+
 // Egzersizler: #/egzersiz/<ad> tam ekran çerçevede açılır; çıkınca gelinen sayfaya dönülür
 let sonSayfa = null; // egzersiz dışındaki son sayfa (adres doğrudan açıldıysa null)
 rotaEkle('/egzersiz/:ad', {
@@ -168,6 +199,7 @@ async function egzersiziBaslat(ad) {
 // Gezinme bağlantılarında etkin sayfayı işaretle
 dinle(OLAYLAR.ROTA_DEGISTI, ({ yol }) => {
   if (!yol.startsWith('/egzersiz/')) sonSayfa = yol;
+  if (veliYuklendi && !yol.startsWith('/veli')) veliModulu().then((m) => m.veliKilitle()).catch(() => {}); // S24
   document.querySelectorAll('.ust-gezinme a, .alt-gezinme a').forEach((a) => {
     if (a.getAttribute('href') === `#${yol}`) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
@@ -181,11 +213,12 @@ dinle(OLAYLAR.ROTA_DEGISTI, ({ yol }) => {
 const profilModal = $('#profil-modal');
 const karsilama = karsilamayiBagla({ dialog: $('#karsilama-modal'), formAlani: $('#karsilama-form-alani') });
 modalBagla($('#profil-dugmesi'), profilModal);
-profilPenceresiniBagla({
+const profilPenceresi = profilPenceresiniBagla({
   dialog: profilModal,
   liste: $('#profil-listesi'),
   ekleDugmesi: $('#profil-ekle-dugmesi'),
   formAlani: $('#profil-form-alani'),
+  kisitliMi: sinifModuAcikMi, // S24: sınıf modunda yalnız profil geçişi
 });
 profilDugmesiniBagla($('#profil-dugmesi'));
 
@@ -220,6 +253,11 @@ function gunlukHedefiGuncelle(p) {
     ? el('p', {}, el('strong', { metin: `${mesaj.baslik}. ` }), mesaj.metin)
     : el('p', { metin: d.dk === 0 ? 'Bugün birkaç kısa tur yeterli.' : `Hedefe ${d.hedefDk - d.dk} dakika kaldı.` }));
   $('#seviye-ozet').textContent = `Seviye ${s.seviye}, ${s.unvan}: ${s.xp} XP (bir sonraki seviyeye ${s.kalan} XP)`;
+  // S24: veli/öğretmenin haftalık hedefi varsa
+  const h = haftalikDurum(p.id);
+  const hafta = $('#hafta-ozet');
+  hafta.hidden = !h.hedefDk;
+  if (h.hedefDk) hafta.textContent = h.tamam ? `Bu hafta ${h.dk} dakika çalıştın; haftalık hedefin (${h.hedefDk} dk) tamam.` : `Bu hafta: ${h.dk} / ${h.hedefDk} dk (haftalık hedef).`;
 }
 // Uygulama gece yarısını geçerek açık kaldıysa “bugün” yenilensin
 document.addEventListener('visibilitychange', () => { if (!document.hidden && etkinRota()?.yol === '/') anaEkraniGuncelle(); });
@@ -233,6 +271,7 @@ dinle(OLAYLAR.PROFIL_DEGISTI, (p) => {
   if (etkinRota()?.yol === '/testler') testCiz(); // S17: o profilin test sonuçları (süren test bırakılır)
   if (etkinRota()?.yol.startsWith('/kurs')) kursCiz(); // S19: o profilin kurs planı
   if (etkinRota()?.yol.startsWith('/ilerleme')) ilerlemeCiz(); // S20: o profilin ilerlemesi
+  if (etkinRota()?.yol.startsWith('/rehber')) rehberCiz(); // S22: o profilin notları, haritaları ve planı (açık not önce kaydedilir)
   ayarSayfasiniGuncelle();
   if (p) karsilama.kapat();
   else karsilama.ac();
@@ -245,6 +284,14 @@ dinle(OLAYLAR.PROFIL_GUNCELLENDI, ({ ayarMi }) => {
   if (!ayarMi && etkinRota()?.yol === '/kutuphane') kutuphaneCiz(); // sınıf değiştiyse seviye etiketleri yenilensin
   if (!ayarMi && etkinRota()?.yol === '/ilerleme/rapor') ilerlemeCiz(); // S20: raporda takma ad ve sınıf
 });
+// S24: sınıf modu, PIN ya da hedef değişti: profil penceresi, ana sayfa, Ayarlar ve İlerleme güncellenir
+dinle(OLAYLAR.VELI_DEGISTI, () => {
+  profilPenceresi.yenile();
+  anaEkraniGuncelle();
+  ayarSayfasiniGuncelle();
+  if (etkinRota()?.yol === '/ilerleme') ilerlemeCiz();
+});
+dinle(OLAYLAR.PROFILLER_DEGISTI, () => { if (etkinRota()?.yol === '/veli') veliCiz(); });
 dinle(OLAYLAR.DEPO_YUKLENDI, () => {
   if (!aktifProfil() && profilModal.open) profilModal.close();
   profilBaslat();
@@ -255,7 +302,15 @@ function yedegiIndir() {
   if (yedekIndir()) toastGoster('Yedek dosyası indirildi.', { tur: 'basari' });
 }
 
+// S24: sınıf modunda yedek yükleme ve silme kapalı (düğmeler gizli; burada da denetlenir)
+function sinifModundaEngelle() {
+  if (!sinifModuAcikMi()) return false;
+  toastGoster('Sınıf modu açıkken bu işlem yapılamaz. Veli / Öğretmen alanından sınıf modunu kapatın.', { tur: 'uyari' });
+  return true;
+}
+
 function yedekSec() {
+  if (aktifProfil() && sinifModundaEngelle()) return;
   const girdi = document.createElement('input');
   Object.assign(girdi, { type: 'file', accept: '.json,application/json', hidden: true });
   girdi.addEventListener('change', async () => {
@@ -290,6 +345,11 @@ function ayarSayfasiniGuncelle() {
     ? `Kullanılan alan: yaklaşık ${boyutMetni(kullanimBayt())}.`
     : 'Bu tarayıcı kayıt yapmaya izin vermiyor; sayfa kapanınca bilgiler silinir.';
   $('#sonuclari-sil').disabled = !p;
+  // S24: sınıf modunda yedek yükleme ve silme düğmeleri gizli
+  const kisitli = sinifModuAcikMi();
+  ['#ayar-yedek-yukle', '#sonuclari-sil', '#tumunu-sil', '#yedek-yukle'].forEach((s) => { $(s).hidden = kisitli; });
+  $('#sinif-modu-notu').hidden = !kisitli;
+  if (kisitli && !$('#silme-onayi').hidden) silmeOnayiniKapat(false);
 }
 
 $('#ses-dene').addEventListener('click', () => {
@@ -306,6 +366,10 @@ kurulumDugmesiniBagla($('#ana-ekrana-ekle'), { ipucu: $('#ios-ipucu') });
 pwaDurumunuDinle((d) => {
   const alan = $('#cevrimdisi-durum');
   $('#yuklu-ipucu').hidden = !d.yuklu;
+  // S26: çalışan sürüm (ör. "Sürüm: 1.0.0-s26")
+  const surumSatiri = $('#uygulama-surumu');
+  surumSatiri.hidden = !d.surum;
+  if (d.surum) surumSatiri.textContent = `Sürüm: ${d.surum}`;
   if (!d.destek) {
     alan.dataset.durum = 'yok';
     alan.textContent = location.protocol === 'file:'
@@ -325,7 +389,7 @@ pwaDurumunuDinle((d) => {
 
 $('#sonuclari-sil').addEventListener('click', () => {
   const p = aktifProfil();
-  if (!p) return;
+  if (!p || sinifModundaEngelle()) return;
   if (!confirm(`${p.takmaAd} profilinin tüm çalışma sonuçları silinsin mi? “Okundu” bilgileri, odak günlüğü, seviye seçimleri, XP, seri ve rozetler de silinir; profil, kendi metinlerin ve favorilerin kalır. Bu işlem geri alınamaz.`)) return;
   profilKayitlariniSil(p.id); // sonuçlar ve seviye seçimleri
   ilerlemeSonuclariniSil(p.id); // S20: XP, seri günleri, rozetler (günlük hedef seçimi kalır)
@@ -356,6 +420,7 @@ $('#tumunu-sil-vazgec').addEventListener('click', () => silmeOnayiniKapat());
 silmeOnayi.addEventListener('keydown', (e) => { if (e.key === 'Escape') silmeOnayiniKapat(); });
 $('#tumunu-sil-onay').addEventListener('click', () => {
   silmeOnayiniKapat(false);
+  if (sinifModundaEngelle()) return;
   if (profilModal.open) profilModal.close();
   tumVeriyiSil();
   git('/', { degistir: true });
@@ -373,6 +438,8 @@ rotaBaslat({
   },
 });
 profilBaslat();
+// S24: sınıf modunda açılışta “Kim çalışıyor?” (profiller penceresi) gelir
+if (sinifModuAcikMi() && aktifProfil() && profilleriGetir().length > 1) modalAc(profilModal);
 
 // S12: süren odak zamanlayıcısı (sayfa yenilendiyse) kaldığı yerden sürer; bitiş zili ve bildirimi hangi sayfada olunursa olsun gelir
 import('./modules/odak/odak-zamanlayici.js').then((m) => m.zamanlayiciKur()).catch((h) => console.error('[odak-zamanlayici]', h));
@@ -388,3 +455,6 @@ if (['localhost', '127.0.0.1'].includes(location.hostname)) {
     kursIlerle: (gun) => import('./modules/kurs/kurs-veri.js').then((m) => m.kursDenemeIlerle(gun)),
   };
 }
+
+// S25: açılış bitti. Bundan önceki hata “Uygulama açılamadı” ekranını, sonraki hatalar kapatılabilir uyarı bandını açar (js/core/hata-yakala.js)
+document.documentElement.dataset.uygulama = 'hazir';

@@ -1,11 +1,14 @@
-// Metin bankası: sınıf metinlerini (data/texts/sinif5-8.json) yükler; öğrencinin kendi metinleri, favoriler, “okundu” bilgisi, süzgeç ve egzersize metin aktarımı
+// Metin bankası: sınıf metinlerini (data/texts/sinif<N>.json; S34a: sınıf düzeyleri js/core/siniflar.js'ten; S34b: dosya başına kelime/soru sınırı, seviye göstergesi kademe içinde; S34c: 4. sınıf) yükler; öğrencinin kendi metinleri, favoriler, “okundu” bilgisi, filtre ve egzersize metin aktarımı
 import { oku, yaz } from '../core/storage.js';
 import { dinle, OLAYLAR, etkinProfil } from '../core/store.js';
 import { kimlikUret, kelimelereBol, boslukTemizle, karakterSayisi, trKucuk, trSirala, sayi } from '../core/utils.js';
 import { metniHazirla, kelimeMi } from './reader-engine.js';
 import { sorulariDenetle, KATMANLAR, BOSLUK } from './quiz-engine.js';
+import { SINIFLAR, KADEMELER, kademe } from '../core/siniflar.js';
 
-export const SINIF_DUZEYLERI = Object.freeze([5, 6, 7, 8]);
+export const SINIF_DUZEYLERI = SINIFLAR; // S34a: metin paketinin geçerli sınıfları (2-8), tek kaynak siniflar.js
+// S34a: metin dosyası olan sınıflar (dosyası olmayan sınıf istenirse kütüphane “yüklenemedi” uyarısı verirdi). S34b: + 2, 3; S34c: + 4
+export const METIN_DOSYASI_OLAN_SINIFLAR = Object.freeze([2, 3, 4, 5, 6, 7, 8]);
 export const METIN_TURLERI = Object.freeze({
   hikaye: 'Hikâye',
   masal: 'Masal ve fabl',
@@ -21,6 +24,9 @@ export const METIN_TURLERI = Object.freeze({
 // S23a: sınıf metinlerinde isteğe bağlı zorluk (aynı sınıf içinde 1-5) ve konu etiketleri (3-5, her biri en çok 30 karakter)
 export const ZORLUK_DERECESI = 5;
 export const ETIKET_SINIR = Object.freeze({ en: 3, enCok: 5, karakter: 30 });
+// S34b: sınıf dosyası kendi sınırını taşır: { sinirlar: { kelime: [en, enCok], soru: [en, enCok] } }.
+// sinirlar yoksa soru 5-6 (S23a), kelime denetlenmez. Sınır dışı metin atılmaz; konsola uyarı yazılır (içerik hatası yayından önce görülsün).
+export const VARSAYILAN_METIN_SINIRI = Object.freeze({ kelime: null, soru: Object.freeze([5, 6]) });
 // Uzunluk sınıfları (kelime). Kelime sayısı JSON'da tutulmaz, yüklemede hesaplanır
 export const UZUNLUKLAR = Object.freeze([
   { ad: 'kisa', etiket: 'Kısa (180 kelimeden az)', en: 0, enCok: 179 },
@@ -52,7 +58,7 @@ let durum = { yuklendi: false, hataliDosya: 0, hataliMetin: 0 };
 const secimler = new Map(); // egzersiz adı → seçilen metin kimliği (sayfa açıkken)
 
 const pid = (profilId) => profilId ?? etkinProfil()?.id ?? null;
-/** Etkin profilin sınıf düzeyi (5-8) ya da null */
+/** Etkin profilin sınıf düzeyi (2-8) ya da null */
 export const profilSinifi = () => etkinProfil()?.sinif ?? null;
 
 /** Okuma motoruyla aynı kural: yalnız noktalamadan oluşan parçalar kelime sayılmaz */
@@ -63,11 +69,21 @@ export function metinKelimeSayisi(metin) {
 export const uzunlukBul = (kelime) => UZUNLUKLAR.find((u) => kelime >= u.en && kelime <= u.enCok) ?? UZUNLUKLAR[0];
 
 // ---------- Sınıf metinleri ----------
-function paketDenetle(p, dosyaSinifi) {
+const aralikOku = (a) => (Array.isArray(a) && a.length === 2 && a.every(Number.isInteger) && a[0] >= 1 && a[0] <= a[1]
+  ? Object.freeze([a[0], a[1]]) : null);
+/** Dosyanın sinirlar alanını okur (hatalı aralık denetlenmez) */
+function dosyaSiniri(veri) {
+  const s = veri?.sinirlar;
+  if (!s || typeof s !== 'object' || Array.isArray(s)) return VARSAYILAN_METIN_SINIRI;
+  return Object.freeze({ kelime: aralikOku(s.kelime), soru: aralikOku(s.soru) });
+}
+const aralikDisi = (n, a) => !!a && (n < a[0] || n > a[1]);
+
+function paketDenetle(p, dosyaSinifi, sinir = VARSAYILAN_METIN_SINIRI) {
   const hata = (m) => { throw new TypeError(`Metin "${p?.kimlik ?? '?'}": ${m}`); };
   if (!p || typeof p !== 'object' || !KIMLIK_DESENI.test(p.kimlik ?? '')) hata('kimlik eksik ya da geçersiz.');
   const sinif = Number(p.sinif ?? dosyaSinifi);
-  if (!SINIF_DUZEYLERI.includes(sinif)) hata('sinif 5-8 olmalı.');
+  if (!SINIF_DUZEYLERI.includes(sinif)) hata(`sinif ${SINIF_DUZEYLERI[0]}-${SINIF_DUZEYLERI.at(-1)} olmalı.`);
   if (!Object.hasOwn(METIN_TURLERI, p.tur) || p.tur === 'kendi') hata('tur geçersiz.');
   const ad = boslukTemizle(p.ad);
   if (!ad) hata('ad eksik.');
@@ -78,9 +94,13 @@ function paketDenetle(p, dosyaSinifi) {
   const etiketler = (Array.isArray(p.etiketler) ? p.etiketler : []).map((e) => boslukTemizle(e))
     .filter((e) => e && karakterSayisi(e) <= ETIKET_SINIR.karakter).slice(0, ETIKET_SINIR.enCok);
   if (p.zorluk !== undefined && zorluk === null) console.warn(`[metin-bankasi] Metin "${p.kimlik}": zorluk 1-${ZORLUK_DERECESI} olmalı.`);
+  const sorular = sorulariDenetle(p.sorular);
+  // S34b: sınıfa göre kelime ve soru sayısı (dosyanın sinirlar alanı); uyarı verir, metni atmaz
+  if (aralikDisi(kelime, sinir.kelime)) console.warn(`[metin-bankasi] Metin "${p.kimlik}": ${kelime} kelime; bu dosyada ${sinir.kelime[0]}-${sinir.kelime[1]} bekleniyor.`);
+  if (aralikDisi(sorular.length, sinir.soru)) console.warn(`[metin-bankasi] Metin "${p.kimlik}": ${sorular.length} soru; bu dosyada ${sinir.soru[0]}-${sinir.soru[1]} bekleniyor.`);
   return Object.freeze({
     kimlik: p.kimlik, ad, sinif, tur: p.tur, zorluk, etiketler: Object.freeze(etiketler), metin: String(p.metin),
-    sorular: sorulariDenetle(p.sorular), kelime, kaynak: 'banka',
+    sorular, kelime, kaynak: 'banka',
   });
 }
 
@@ -89,12 +109,13 @@ export function metinBankasiYukle() {
   bankaSozu ??= (async () => {
     let hataliDosya = 0;
     let hataliMetin = 0;
-    const sonuclar = await Promise.allSettled(SINIF_DUZEYLERI.map(async (s) => {
+    const sonuclar = await Promise.allSettled(METIN_DOSYASI_OLAN_SINIFLAR.map(async (s) => {
       const yanit = await fetch(dosyaAdresi(s));
       if (!yanit.ok) throw new Error(`sinif${s}.json: HTTP ${yanit.status}`);
       const veri = await yanit.json();
+      const sinir = dosyaSiniri(veri);
       return (Array.isArray(veri?.metinler) ? veri.metinler : []).flatMap((p) => {
-        try { return [paketDenetle(p, s)]; } catch (h) { hataliMetin++; console.warn('[metin-bankasi]', h.message); return []; }
+        try { return [paketDenetle(p, s, sinir)]; } catch (h) { hataliMetin++; console.warn('[metin-bankasi]', h.message); return []; }
       });
     }));
     const gorulen = new Set();
@@ -338,35 +359,41 @@ export function okunanlariSil(profilId) {
   return durumYaz(id, { favori: kutuphaneDurumu(id).favori, okunan: {} });
 }
 
-/** Seviye göstergesi: metnin sınıfı öğrencinin sınıfına göre. Döner: { derece (1-4, kendi metinde 0), etiket } */
+/**
+ * Seviye göstergesi: metnin sınıfı öğrencinin sınıfına göre.
+ * Döner: { derece, toplam, etiket }. S34b: derece metnin kendi kademesindeki sırası (ilkokul 2-4 → 1-3 / 3, ortaokul 5-8 → 1-4 / 4); kendi metinde 0 / 0.
+ */
 export function seviyeBilgisi(metin, profilSinif = profilSinifi()) {
-  if (!metin?.sinif) return { derece: 0, etiket: 'Kendi metnin' };
-  const derece = metin.sinif - 4;
-  if (!profilSinif) return { derece, etiket: `${metin.sinif}. sınıf` };
+  if (!metin?.sinif) return { derece: 0, toplam: 0, etiket: 'Kendi metnin' };
+  const kademeSiniflari = Array.isArray(KADEMELER[kademe(metin.sinif)]) ? KADEMELER[kademe(metin.sinif)] : SINIFLAR;
+  const derece = Math.max(1, kademeSiniflari.indexOf(metin.sinif) + 1);
+  const toplam = kademeSiniflari.length;
+  if (!profilSinif) return { derece, toplam, etiket: `${metin.sinif}. sınıf` };
   const fark = metin.sinif - profilSinif;
   const etiket = fark === 0 ? 'Sınıfına uygun' : fark < 0 ? 'Daha kolay' : fark === 1 ? 'Biraz zorlayıcı' : 'Zorlayıcı';
-  return { derece, etiket };
+  return { derece, toplam, etiket };
 }
 
-// ---------- Süzgeç ve sıralama ----------
+// ---------- Filtre ve sıralama ----------
 /**
- * suzgec: { arama, sinif (5-8 | ''), tur (anahtar | ''), uzunluk (ad | ''), durum ('okundu'|'okunmadi'|''), favori (bool) }
+ * filtre: { arama, sinif (2-8 | ''), tur (anahtar | ''), uzunluk (ad | ''), durum ('okundu'|'okunmadi'|''), favori (bool) }
  * Sıra: öğrencinin sınıfındaki metinler, sonra diğer sınıflar, en sonda kendi metinleri.
+ * S34b-d: kendi metinlerinin sınıfı yoktur; sınıf filtresi onları gizlemez (tür filtresiyle ayrıca seçilebilir).
  */
-export function metinleriSuz(liste, suzgec = {}, profilId) {
+export function metinleriSuz(liste, filtre = {}, profilId) {
   const id = pid(profilId);
   const d = kutuphaneDurumu(id);
-  const aranan = trKucuk(boslukTemizle(suzgec.arama));
-  const sinif = Number(suzgec.sinif) || null;
+  const aranan = trKucuk(boslukTemizle(filtre.arama));
+  const sinif = Number(filtre.sinif) || null;
   const ps = profilSinifi();
   return liste.filter((m) => {
-    if (sinif && m.sinif !== sinif) return false;
-    if (suzgec.tur && m.tur !== suzgec.tur) return false;
-    if (suzgec.uzunluk && uzunlukBul(m.kelime).ad !== suzgec.uzunluk) return false;
+    if (sinif && m.kaynak !== 'kendi' && m.sinif !== sinif) return false;
+    if (filtre.tur && m.tur !== filtre.tur) return false;
+    if (filtre.uzunluk && uzunlukBul(m.kelime).ad !== filtre.uzunluk) return false;
     const okundu = !!d.okunan[m.kimlik];
-    if (suzgec.durum === 'okundu' && !okundu) return false;
-    if (suzgec.durum === 'okunmadi' && okundu) return false;
-    if (suzgec.favori && !d.favori.includes(m.kimlik)) return false;
+    if (filtre.durum === 'okundu' && !okundu) return false;
+    if (filtre.durum === 'okunmadi' && okundu) return false;
+    if (filtre.favori && !d.favori.includes(m.kimlik)) return false;
     return !aranan || trKucuk(m.ad).includes(aranan) || trKucuk(m.metin).includes(aranan)
       || (m.etiketler ?? []).some((e) => trKucuk(e).includes(aranan));
   }).sort((a, b) => {

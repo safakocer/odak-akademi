@@ -1,5 +1,5 @@
-// Okuma modları: mod yükleme/kayıt yapısı, her mod için aynı arayüzü veren oturum (kademeli hız, süre sınırı) ve egzersiz çerçevesinde okuma sahnesi
-import { okumaMotoruOlustur, metniGrupla, okumaAyarDenetle, kademeliIzinli, kademeliTavan, KADEMELI } from './reader-engine.js';
+// Okuma modları: mod yükleme/kayıt yapısı, her mod için aynı arayüzü veren oturum (kademeli hız, süre sınırı) ve egzersiz çerçevesinde okuma sahnesi (S34a: sınıf bandına göre mod listesi)
+import { okumaMotoruOlustur, metniGrupla, okumaAyarDenetle, kademeliIzinli, kademeliTavan, KADEMELI, etkinOkumaBandi } from './reader-engine.js';
 import { gozMolasiKur } from './eye-rest.js';
 import { el } from '../core/ui.js';
 import { duyur } from '../core/a11y.js';
@@ -87,6 +87,31 @@ export function modYukle(ad) {
 export async function modlariYukle(adlar = []) {
   const liste = (await Promise.all(adlar.map(modYukle))).filter(Boolean);
   return liste.sort((a, b) => a.sira - b.sira);
+}
+
+/**
+ * S34a: Etkin profilin sınıf bandında izinli modlar (data/sinif-bantlari.json okuma.modlar; ör. 2-3. sınıfta rehber ve serbest).
+ * Bant mod listesi vermiyorsa ya da hiçbiri kalmıyorsa liste olduğu gibi döner. bant: isteğe bağlı (varsayılan etkin profilinki)
+ */
+export function sinifaUygunModlar(modlar, bant = etkinOkumaBandi()) {
+  if (!Array.isArray(modlar) || !bant?.modlar) return modlar ?? [];
+  const uygun = modlar.filter((t) => bant.modlar.includes(t.ad));
+  return uygun.length ? uygun : modlar;
+}
+
+/** S34a: Etkin profilin bandı kademeli hıza izin veriyor mu? (ilkokulda hayır) */
+export const kademeliSinifaUygunMu = (bant = etkinOkumaBandi()) => bant?.kademeli !== false;
+
+/**
+ * S34a: Ayar panelinde kademeli hız satırını gizler (bant izin vermiyorsa). Panel satırı bulunamazsa bir şey yapmaz;
+ * izin yine okumaAyarDenetle'de kapalıdır (kayıtlı “açık” değeri o sınıfta etkisizdir).
+ */
+export function kademeliSatiriniGizle(panelKok, bant = etkinOkumaBandi()) {
+  if (!panelKok || kademeliSinifaUygunMu(bant)) return;
+  panelKok.querySelectorAll('input[name*="kademeli"]').forEach((g) => {
+    const satir = g.closest('.okuma-ayar__satir') ?? g.closest('label');
+    if (satir) satir.hidden = true;
+  });
 }
 
 /** Modun o ayarla kullandığı gerçek gruplama (gruplama() ve grupSiniri uygulanmış) */

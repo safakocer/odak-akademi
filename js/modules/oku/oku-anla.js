@@ -1,17 +1,20 @@
-// Oku ve Anla (S19: kurs dersinde mod ve hedef hız kurstan gelir): kütüphaneden (ya da kendi sorulu metinlerinden) metin seç, seçilen modla oku, ardından anlama soruları; sonuçta hız, anlama %, EOH, katman özeti ve gözden geçirme
+// Oku ve Anla (S19: kurs dersinde mod ve hedef hız kurstan gelir; S34a: modlar ve kademeli hız sınıf bandına göre; S34b: soru sayısı metne göre 3-6): kütüphaneden (ya da kendi sorulu metinlerinden) metin seç, seçilen modla oku, ardından anlama soruları; sonuçta hız, anlama %, EOH, katman özeti ve gözden geçirme
 import { el } from '../../core/ui.js';
 import { sayiBicimle, sureMetni, yuzdeBicimle } from '../../core/utils.js';
 import { eohHesapla, sonAnlamaYuzde } from '../../core/metrics.js';
 import { okumaAyarlariniGetir, okumaAyarlariniKaydet, okumaAyarDenetle, tahminiSureSn } from '../../engine/reader-engine.js';
-import { modlariYukle, okumaSahnesiKur, modSeciciOlustur } from '../../engine/reader-modes.js';
+import { modlariYukle, okumaSahnesiKur, modSeciciOlustur, sinifaUygunModlar, kademeliSatiriniGizle } from '../../engine/reader-modes.js';
+import { bantlariYukle } from '../../core/siniflar.js';
 import { okumaAyarPaneliOlustur } from '../../engine/reader-panel.js';
 import { soruOturumuKur, katmanOzetiOlustur, gozdenGecirmeOlustur, ANLAMA_ESIGI } from '../../engine/quiz-engine.js';
 import { metinBankasiYukle, okunduIsaretle } from '../../engine/text-bank.js';
 import { metinSeciciOlustur, metinSecimHatasi } from '../../engine/text-picker.js';
 
 // RSVP (tek nokta) burada yok: anlamayı düşürebildiği için anlama ölçümüne uygun değil
-const MODLAR = await modlariYukle(['rehber', 'kelime-grubu', 'serbest']);
-await metinBankasiYukle(); // S07: metinler data/texts/sinif5-8.json'dan; yüklenemezse yalnız kendi sorulu metinleri seçilebilir
+const TUM_MODLAR = await modlariYukle(['rehber', 'kelime-grubu', 'serbest']);
+await bantlariYukle(); // S34a: sınıf bantları (varsayılan hız, izinli modlar, kademeli hız)
+let MODLAR = TUM_MODLAR; // S34a: her hazırlıkta etkin profilin sınıfına göre süzülür
+await metinBankasiYukle(); // S07: metinler data/texts/sinif<N>.json'dan (S34b: 2, 3 ve 5-8); yüklenemezse yalnız kendi sorulu metinleri seçilebilir
 const soruluMu = (m) => m.sorular.length > 0;
 
 const secim = { mod: 'serbest', metneBak: false }; // metne bakma varsayılan kapalı
@@ -36,6 +39,7 @@ function kursAyariniUygula(kurs) {
 }
 
 function hazirlik({ kurs } = {}) {
+  MODLAR = sinifaUygunModlar(TUM_MODLAR);
   ayar = okumaAyarlariniGetir();
   const kursta = kursAyariniUygula(kurs);
   if (!kursta) secim.mod = seciliMod()?.ad ?? secim.mod;
@@ -48,7 +52,7 @@ function hazirlik({ kurs } = {}) {
   // Okuma modu: ortak seçici
   const modSecici = modSeciciOlustur(MODLAR, {
     kimlik: 'oa', secili: secim.mod,
-    degisince(t) { secim.mod = t.ad; panel.modAyarla(t); ozetYaz(); },
+    degisince(t) { secim.mod = t.ad; panel.modAyarla(t); kademeliSatiriniGizle(panel.kok); ozetYaz(); },
   });
 
   const panel = okumaAyarPaneliOlustur({
@@ -60,6 +64,7 @@ function hazirlik({ kurs } = {}) {
     },
   });
 
+  kademeliSatiriniGizle(panel.kok); // S34a: ilkokulda kademeli hız yok
   const metneBak = el('input', { type: 'checkbox', name: 'oa-metne-bak', 'aria-describedby': 'oa-metne-bak-not' });
   metneBak.checked = secim.metneBak;
   const metneBakKutu = el('div', { sinif: 'okuma-ayar__satir' },
@@ -128,7 +133,7 @@ function degerlendir(ham) {
   const anlama = d.anlama.yuzde;
   const eoh = eohHesapla(s.wpm, anlama);
   const n = d.anlama.soruSayisi;
-  const tanim = MODLAR.find((t) => t.ad === s.mod);
+  const tanim = TUM_MODLAR.find((t) => t.ad === s.mod);
   const dusuk = anlama < ANLAMA_ESIGI;
 
   okunduIsaretle(s.metin, { anlamaYuzde: anlama }); // kütüphanede “okundu” ve en iyi anlama
@@ -169,7 +174,7 @@ export default {
   kisaAciklama: 'Metni anlayarak oku, sonra soruları yanıtla. Hız ve anlama birlikte ölçülür.',
   nasil: [
     'Bir metin, okuma modu ve hız seç. Sorularda metne yeniden bakmak istersen ayarı aç; kapalıyken ölçüm daha gerçekçidir.',
-    'Metni oku. Bitince 5-6 soru gelir: çoktan seçmeli, doğru/yanlış, boşluk doldurma, sıralama ve kısa cevap. Kendi metninde senin yazdığın sorular gelir.',
+    'Metni oku. Bitince sınıfına göre 3-6 soru gelir: çoktan seçmeli, doğru/yanlış, boşluk doldurma, sıralama ve kısa cevap. Kendi metninde senin yazdığın sorular gelir.',
     'Sonuçta okuma hızın, anlama yüzden ve Etkin Okuma Hızın (EOH) görünür. Yanlışlarını açıklamalarıyla gözden geçirebilirsin.',
   ],
   seviyeler: [{ ad: 'Oku ve Anla' }],

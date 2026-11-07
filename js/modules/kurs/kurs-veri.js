@@ -1,11 +1,13 @@
-// Kurs verisi (S18b; S19: geliştirici denemesi için tarih kaydırma): planı kurs:<profilId> anahtarında saklar; planlayıcıyı başlangıç testi, metrics kayıtları ve bugünün tarihiyle bağlar (ekran yok)
+// Kurs verisi (S18b; S19: geliştirici denemesi için tarih kaydırma; S34a: kurallar profilin sınıfına uyarlanır, sınıf değişince uyarı ve seçenek; S34d: önce kural dosyasındaki sınıf bantları işlenir, okuma hızı ölçeği testten ya da sınıf bandından): planı kurs:<profilId> anahtarında saklar; planlayıcıyı başlangıç testi, metrics kayıtları ve bugünün tarihiyle bağlar (ekran yok)
 import { oku, yaz, sil } from '../../core/storage.js';
 import { etkinProfil } from '../../core/store.js';
 import { gunAnahtari } from '../../core/utils.js';
 import { modulKayitlari } from '../../core/metrics.js';
-import { testVerisi, OLCEK } from '../testler/test-veri.js';
+import { testVerisi, sinifOlcegi, sonucOlcegi } from '../testler/test-veri.js';
+import { egzersizBilgisi, aracBilgisi, kartUygunMu } from '../katalog.js';
+import { bantlariYukle, okumaBandi, kademe } from '../../core/siniflar.js';
 import {
-  kurallariYukle, planOlustur, planDenetle, gunSonuGuncelle, atlananGunIsle, dersDurumuAyarla,
+  kurallariYukle, sinifKurallari, planOlustur, planDenetle, gunSonuGuncelle, atlananGunIsle, dersDurumuAyarla,
   yorgunModuUygula, yorgunModuKaldir, yenidenBaslat, gecmisOzeti,
 } from '../../engine/course-planner.js';
 
@@ -47,29 +49,75 @@ export function kursAnlamaSonucu(plan, gun, profilId) {
   return k && typeof k.anlamaYuzde === 'number' ? { wpm: k.wpm, anlamaYuzde: k.anlamaYuzde, eoh: k.eoh } : null;
 }
 
-/** S19: Kursun başlangıç testi: yalnız açık dönemin başlangıcı (final yapılmışsa dönem kapanmıştır, yeni kursu beslemez) */
+/** S19: Kursun başlangıç testi: yalnız açık dönemin başlangıcı (final yapılmışsa dönem kapanmıştır, yeni kursu beslemez).
+ *  S34a: test başka kademede yapıldıysa (ör. 5. sınıfta yapılmış, profil şimdi 4. sınıf) kursu beslemez; başlangıç hızı sınıftan alınır */
 export function kursBaslangicTesti(profilId) {
   const v = testVerisi(profilId);
-  return v.final ? null : v.baslangic;
+  const b = v.final ? null : v.baslangic;
+  const sinif = etkinProfil()?.sinif; // kurs her zaman etkin profil için kurulur
+  if (b && sinif && b.sinif != null && kademe(b.sinif) !== kademe(sinif)) return null;
+  return b;
 }
 
-// Kuralları yükler, yüklenemezse nazik hata döndürür
-async function kurallarVeyaHata() {
-  const sonuc = await kurallariYukle();
-  return sonuc.tamam ? { kurallar: sonuc.kurallar } : { hata: sonuc.hata };
+/**
+ * S34a: Kuralları sınıfa uyarlar (yeni nesne; kural dosyası değişmez): ders havuzlarında yalnız o sınıfa uygun egzersizler
+ * (katalog sınıf aralığı), hız ve anlama derslerinde yalnız sınıf bandının izin verdiği okuma modları. Havuz boşalırsa eski hâli kalır.
+ */
+export function kurallariSinifaUyarla(K, sinif) {
+  if (!K || !sinif) return K;
+  const izinliMod = okumaBandi(sinif)?.modlar ?? null;
+  const uygun = (ad) => kartUygunMu(egzersizBilgisi(ad), sinif);
+  const dersTipleri = Object.fromEntries(Object.entries(K.dersTipleri).map(([tip, b]) => {
+    const havuz = b.havuz.filter(uygun);
+    const yeni = { ...b, havuz: havuz.length ? havuz : [...b.havuz] };
+    if (Array.isArray(b.modlar) && izinliMod) {
+      const modlar = b.modlar.filter((m) => izinliMod.includes(m));
+      yeni.modlar = modlar.length ? modlar : izinliMod.slice(0, 1);
+    }
+    return [tip, yeni];
+  }));
+  const besinci = K.pekistirme?.besinciDers;
+  let pekistirme = K.pekistirme;
+  if (besinci && besinci.yedekEgzersiz && !uygun(besinci.yedekEgzersiz)) {
+    pekistirme = { ...K.pekistirme, besinciDers: { ...besinci, yedekEgzersiz: dersTipleri[besinci.tip]?.havuz[0] ?? besinci.yedekEgzersiz } };
+  }
+  if (besinci?.arac && !kartUygunMu(aracBilgisi(besinci.arac), sinif)) console.warn('[kurs] Pekiştirme aracı bu sınıfa uygun değil:', besinci.arac);
+  return { ...K, dersTipleri, pekistirme };
+}
+
+// Kuralları (ve sınıf bantlarını) yükler, etkin profilin sınıfına uyarlar (S34d: önce kural dosyasındaki sınıf bandı, sonra katalog ve okuma bandı süzgeci); yüklenemezse nazik hata döndürür
+async function kurallarVeyaHata(sinif = etkinProfil()?.sinif) {
+  const [sonuc] = await Promise.all([kurallariYukle(), bantlariYukle()]);
+  return sonuc.tamam ? { kurallar: kurallariSinifaUyarla(sinifKurallari(sonuc.kurallar, sinif), sinif) } : { hata: sonuc.hata };
+}
+
+/** S34d: Kursun okuma hızı ölçeği (ölçüm günlerinde eksen puanı için): başlangıç testi varsa onun ölçeği, yoksa sınıfın test ölçeği */
+const kursOlcegi = (test, sinif) => (test ? sonucOlcegi(test) : sinifOlcegi(sinif)).wpm;
+
+/**
+ * S34a: Profilin sınıfı plan yapıldığından beri değiştiyse (kurs bitmemişse): { eski, yeni, kademeDegisti } | null.
+ * Kurs sayfası bu durumda iki seçenek sunar: yeni sınıfa göre baştan (kursBaslat) ya da bu planla devam (sinifaGoreDevam).
+ */
+export function sinifDegisimi(plan, profil = etkinProfil()) {
+  if (!plan || !profil || plan.durum?.bitti) return null;
+  const eski = Number(plan.sinif);
+  const yeni = Number(profil.sinif);
+  if (!yeni || eski === yeni) return null;
+  return { eski, yeni, kademeDegisti: kademe(eski) !== kademe(yeni) };
 }
 
 /** Yeni kurs başlatır (varsa eskisi geçmişe özetlenir). secenekler: { profilDk }. Döner: { tamam, plan, kurallar } | { tamam: false, hata } */
 export async function kursBaslat({ profilDk } = {}) {
   const profil = etkinProfil();
   if (!profil) return { tamam: false, hata: 'Önce bir profil seç.' };
-  const { kurallar, hata } = await kurallarVeyaHata();
+  const { kurallar, hata } = await kurallarVeyaHata(profil.sinif);
   if (hata) return { tamam: false, hata };
   const bugun = gunAnahtari();
   const eski = kursVerisi(profil.id);
+  const baslangicTesti = kursBaslangicTesti(profil.id);
   const plan = planOlustur({
-    sinif: profil.sinif, profilDk, bugun, kurallar, olcekWpm: OLCEK.wpm,
-    baslangicTesti: kursBaslangicTesti(profil.id),
+    sinif: profil.sinif, profilDk, bugun, kurallar, olcekWpm: kursOlcegi(baslangicTesti, profil.sinif),
+    baslangicTesti,
     gecmis: eski ? [...(eski.gecmis ?? []), gecmisOzeti(eski, bugun)] : [],
   });
   const k = kursuKaydet(plan, profil.id);
@@ -114,10 +162,24 @@ export const gunuBitir = () => planiDegistir((p, K) => {
 /** “Bugün yorgunum” aç/kapat */
 export const yorgunModu = (acik = true) => planiDegistir((p, K) => (acik ? yorgunModuUygula : yorgunModuKaldir)(p, p.durum.gun, K));
 
+/**
+ * S34a: Sınıf değişti, öğrenci bu planla devam etmeyi seçti: planın sınıfı güncellenir, kaldığı günden kalibrasyonla sürer
+ * (ilk gün kendi hızında okur; tamamlanmamış günler yeni sınıfa uygun çalışmalarla yeniden üretilir, bugünkü işaretli dersler de sıfırlanır).
+ */
+export const sinifaGoreDevam = () => planiDegistir((p, K) => {
+  const profil = etkinProfil();
+  const sinif = profil?.sinif ?? p.sinif;
+  // S34d: ölçek de yeni sınıfa göre (kademe değiştiyse eski test kursu beslemez); süre profili yeni sınıfta yoksa planlayıcı varsayılana geçer
+  const yeni = yenidenBaslat({ ...p, sinif, olcekWpm: kursOlcegi(kursBaslangicTesti(), sinif) }, 'kaldigim-yerden', { bugun: gunAnahtari(), kurallar: K });
+  return { plan: yeni };
+});
+
 /** Uzun ara sonrası seçim: 'kaldigim-yerden' | 'bastan' */
 export const yenidenBaslatSec = (secim) => planiDegistir((p, K) => {
   const profil = etkinProfil();
-  const girdi = { sinif: profil?.sinif ?? p.sinif, profilDk: p.profilDk, olcekWpm: OLCEK.wpm, baslangicTesti: kursBaslangicTesti() };
+  const sinif = profil?.sinif ?? p.sinif;
+  const baslangicTesti = kursBaslangicTesti();
+  const girdi = { sinif, profilDk: p.profilDk, olcekWpm: kursOlcegi(baslangicTesti, sinif), baslangicTesti };
   return { plan: yenidenBaslat(p, secim, { bugun: gunAnahtari(), kurallar: K, girdi }) };
 });
 

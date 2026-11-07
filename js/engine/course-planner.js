@@ -1,5 +1,5 @@
-// Akıllı Kurs planlayıcı (S18b): kural tabanlı uyarlanabilir 21 günlük plan. Saf fonksiyonlar (girdi değişmez, yeni nesne döner); tüm değerler data/course-rules.json'dan
-// Kullanım: kurallariYukle() → planOlustur({ sinif, profilDk, bugun, baslangicTesti, kurallar }) → her gün: atlananGunIsle → (yorgunModuUygula) → dersDurumuAyarla → gunSonuGuncelle
+// Akıllı Kurs planlayıcı (S18b; S34a: 2-8. sınıf, sınıfa göre havuz ve modları kurs-veri.js kurallara uygular; S34d: sınıf bantları (sinifBantlari) planın sınıfına göre kurallara işlenir): kural tabanlı uyarlanabilir 21 günlük plan. Saf fonksiyonlar (girdi değişmez, yeni nesne döner); tüm değerler data/course-rules.json'dan
+// Kullanım: kurallariYukle() → (sinifKurallari(K, sinif)) → planOlustur({ sinif, profilDk, bugun, baslangicTesti, kurallar }) → her gün: atlananGunIsle → (yorgunModuUygula) → dersDurumuAyarla → gunSonuGuncelle
 
 export const PLAN_SURUMU = 1;
 const GUN_DESENI = /^\d{4}-\d{2}-\d{2}$/;
@@ -47,8 +47,8 @@ const DESTEKLENEN = {
   havuzSecimi: ['tip-sayaci-mod-havuz'], 'agirlik.yontem': ['kredili-dagitim'],
 };
 
-/** Kural nesnesindeki eksikleri listeler (boş dizi = geçerli) */
-export function kurallariDenetle(K) {
+// Tek kural nesnesinin (bantsız ya da bir sınıfa işlenmiş) eksikleri
+function temelDenetle(K) {
   if (!K || typeof K !== 'object') return ['kural dosyası'];
   const eksik = ZORUNLU_YOLLAR.filter((y) => yolAl(K, y) === undefined);
   for (const [y, degerler] of Object.entries(DESTEKLENEN)) {
@@ -60,14 +60,64 @@ export function kurallariDenetle(K) {
     if (K.olcum.dersSirasi.length !== K.kurs.gundeDers) eksik.push('olcum.dersSirasi (gundeDers kadar olmalı)');
     for (const dk of K.sureProfilleri.secenekler) if (!K.sureProfilleri[String(dk)]) eksik.push(`sureProfilleri.${dk}`);
     for (const [t, b] of Object.entries(K.dersTipleri)) if (!Array.isArray(b.havuz) || !b.havuz.length || !b.eksen) eksik.push(`dersTipleri.${t}`);
+    if (!K.sureProfilleri.secenekler.includes(K.sureProfilleri.varsayilan)) eksik.push('sureProfilleri.varsayilan (seçeneklerde olmalı)');
+    if (!K.sureProfilleri[String(K.yorgun.sureProfili)]) eksik.push(`sureProfilleri.${K.yorgun.sureProfili} (yorgun.sureProfili)`);
+    const [en, enCok] = Array.isArray(K.hedef.wpmSinir) ? K.hedef.wpmSinir : [];
+    if (!(en > 0 && enCok > en)) eksik.push('hedef.wpmSinir ([en, enCok], en < enCok)');
   }
   return eksik;
 }
 
-function kurallariAl(K) {
-  const eksik = kurallariDenetle(K);
+/** Kural nesnesindeki eksikleri listeler (boş dizi = geçerli). S34d: her sınıf bandı, işlendiği her sınıf için ayrıca denetlenir */
+export function kurallariDenetle(K) {
+  const eksik = temelDenetle(K);
+  if (eksik.length || K.bantSinifi != null || K.sinifBantlari === undefined) return eksik;
+  if (!Array.isArray(K.sinifBantlari)) return ['sinifBantlari (dizi olmalı)'];
+  K.sinifBantlari.forEach((b, i) => {
+    const ad = `sinifBantlari.${typeof b?.ad === 'string' ? b.ad : i}`;
+    if (!Array.isArray(b?.siniflar) || !b.siniflar.length || !b.siniflar.every(Number.isInteger) || !duzNesneMi(b.kurallar)) {
+      eksik.push(`${ad} (siniflar ve kurallar gerekli)`);
+      return;
+    }
+    for (const s of b.siniflar) {
+      const B = sinifKurallari(K, s);
+      const e = temelDenetle(B);
+      if (!(String(s) in B.baslangic.sinifVarsayilanWpm)) e.push(`baslangic.sinifVarsayilanWpm.${s}`);
+      if (e.length) eksik.push(`${ad} (sınıf ${s}): ${e.slice(0, 3).join(', ')}`);
+    }
+  });
+  return eksik;
+}
+
+// ---------- Sınıf bantları (S34d) ----------
+const duzNesneMi = (v) => !!v && typeof v === 'object' && !Array.isArray(v);
+// Derin birleştirme: nesneler alan alan, dizi ve tek değerler bütün olarak yer değiştirir (yeni nesne)
+function birlestir(taban, ek) {
+  const s = { ...taban };
+  for (const [k, v] of Object.entries(ek)) s[k] = duzNesneMi(v) && duzNesneMi(taban[k]) ? birlestir(taban[k], v) : kopya(v);
+  return s;
+}
+
+/**
+ * Kuralları sınıfa göre hazırlar: sinifBantlari’ndan bu sınıfı içerenler dosyadaki sırayla (ör. önce kademe, sonra sınıf) üste yazılır.
+ * Bandı olmayan sınıfta (5-8) değerler aynen kalır. Sonuç bantSinifi taşır; zaten işlenmiş nesne yeniden işlenmez (kurs-veri.js’in süzdüğü havuzlar korunur).
+ */
+export function sinifKurallari(K, sinif) {
+  const s = Number(sinif);
+  if (!duzNesneMi(K) || K.bantSinifi != null || !Number.isInteger(s)) return K;
+  let sonuc = K;
+  for (const b of Array.isArray(K.sinifBantlari) ? K.sinifBantlari : []) {
+    if (Array.isArray(b?.siniflar) && b.siniflar.includes(s) && duzNesneMi(b.kurallar)) sonuc = birlestir(sonuc, b.kurallar);
+  }
+  return { ...sonuc, bantSinifi: s };
+}
+
+// sinif verilirse kurallar o sınıfın bantlarıyla hazırlanır (S34d)
+function kurallariAl(K, sinif) {
+  const B = sinif === undefined ? K : sinifKurallari(K, sinif);
+  const eksik = kurallariDenetle(B);
   if (eksik.length) throw new TypeError(`Kurs kuralları eksik ya da hatalı: ${eksik.slice(0, 5).join(', ')}`);
-  return K;
+  return B;
 }
 
 let kuralSozu = null;
@@ -227,6 +277,8 @@ const korumaliHiz = (w, K) => yuvarla(sinirla(w, ...K.hedef.wpmSinir), K);
 // Yalnız tamamlanmamış günler (bugünkü kurs günü ve sonrası) yeniden üretilir; geçmiş günler değişmez
 function gelecekUret(p, K) {
   const d = p.durum;
+  // S34d: sınıf değişip süre profili yeni sınıfta yoksa (ör. ilkokulun 10 dk’sı) varsayılana geçilir
+  if (!K.sureProfilleri.secenekler.includes(Number(p.profilDk))) p.profilDk = K.sureProfilleri.varsayilan;
   const sim = { kredi: { ...d.kredi }, tipSayaci: { ...d.tipSayaci }, agirlik: { ...d.agirlik } };
   for (let n = d.gun; n <= K.kurs.gunSayisi; n++) {
     if (p.gunler[n - 1]?.tamamlandi) continue;
@@ -263,13 +315,13 @@ function gunAnahtariMi(g) {
 
 // ---------- Plan oluşturma ----------
 /**
- * Girdi: { sinif (5-8), profilDk (15|20|30), bugun (YYYY-AA-GG), baslangicTesti: TestSonucu | null, kurallar, olcekWpm?: [en, enCok], gecmis?: [] }
+ * Girdi: { sinif (2-8; K.baslangic.sinifVarsayilanWpm’de olmalı; S34d: kurallar bu sınıfın bantlarıyla hazırlanır), profilDk (sınıfın sureProfilleri.secenekler’inden: 5-8 15|20|30, ilkokul 10|15; değilse varsayılan), bugun (YYYY-AA-GG), baslangicTesti: TestSonucu | null, kurallar, olcekWpm?: [en, enCok], gecmis?: [] }
  * Döner: Kurs planı (PROJE_DEFTERI.md şeması). Hatalı girdi → TypeError
  */
 export function planOlustur(girdi) {
-  const K = kurallariAl(girdi?.kurallar);
+  const K = kurallariAl(girdi?.kurallar, girdi?.sinif);
   const sinif = Number(girdi.sinif);
-  if (!(String(sinif) in K.baslangic.sinifVarsayilanWpm)) throw new TypeError('planOlustur: sınıf 5-8 olmalı.');
+  if (!(String(sinif) in K.baslangic.sinifVarsayilanWpm)) throw new TypeError(`planOlustur: sınıf ${Object.keys(K.baslangic.sinifVarsayilanWpm).join(', ')} olmalı.`);
   if (!gunAnahtariMi(girdi.bugun)) throw new TypeError('planOlustur: bugun YYYY-AA-GG olmalı.');
   const profilDk = K.sureProfilleri.secenekler.includes(Number(girdi.profilDk)) ? Number(girdi.profilDk) : K.sureProfilleri.varsayilan;
   const test = girdi.baslangicTesti ?? null;
@@ -346,7 +398,7 @@ export function dersDurumuAyarla(plan, gun, sira, durum) {
  * neden: kurs-bitti | yeniden-baslat-bekliyor | tarih-gecersiz | takvim-siniri | gun-uyusmaz | eksik-ders | anlama-eksik
  */
 export function gunSonuGuncelle(plan, gunSonucu, kurallar) {
-  const K = kurallariAl(kurallar);
+  const K = kurallariAl(kurallar, plan?.sinif);
   const p = kopya(plan);
   const d = p.durum;
   const gs = gunSonucu ?? {};
@@ -493,7 +545,7 @@ export function kacirilanGun(plan, tarih) {
  * Döner: { plan, degisti, kacirilan, karar: { kod, onceki, yeni } | null }
  */
 export function atlananGunIsle(plan, tarih, kurallar) {
-  const K = kurallariAl(kurallar);
+  const K = kurallariAl(kurallar, plan?.sinif);
   const p = kopya(plan);
   const d = p.durum;
   const bos = (kacirilan = 0) => ({ plan: p, degisti: false, kacirilan, karar: null });
@@ -536,7 +588,7 @@ export function atlananGunIsle(plan, tarih, kurallar) {
  * 'bastan' için secenekler.girdi (planOlustur girdisi; bugun ve kurallar burada da verilir) gerekir; eski plan gecmis'e eklenir.
  */
 export function yenidenBaslat(plan, secim, { bugun, kurallar, girdi } = {}) {
-  const K = kurallariAl(kurallar);
+  const K = kurallariAl(kurallar, secim === 'bastan' ? undefined : plan?.sinif);
   if (!K.ara.yenidenBaslatmaSecenekleri.includes(secim)) throw new TypeError(`yenidenBaslat: seçim ${K.ara.yenidenBaslatmaSecenekleri.join(' | ')} olmalı.`);
   if (secim === 'bastan') {
     return planOlustur({ ...girdi, bugun, kurallar: K, gecmis: [...(plan.gecmis ?? []), gecmisOzeti(plan, bugun)] });
@@ -549,9 +601,9 @@ export function yenidenBaslat(plan, secim, { bugun, kurallar, girdi } = {}) {
 }
 
 // ---------- Yorgun modu ----------
-/** Bugünkü kurs gününü kısa plana çevirir (göz + anlama + 1 esnek, 15 dk süreleri). Döner: { plan, degisti, neden? } */
+/** Bugünkü kurs gününü kısa plana çevirir (göz + anlama + 1 esnek, yorgun.sureProfili süreleri: 5-8 15 dk, ilkokul 10 dk). Döner: { plan, degisti, neden? } */
 export function yorgunModuUygula(plan, gun, kurallar) {
-  const K = kurallariAl(kurallar);
+  const K = kurallariAl(kurallar, plan?.sinif);
   const p = kopya(plan);
   const d = p.durum;
   const g = p.gunler[gun - 1];
@@ -576,7 +628,7 @@ export function yorgunModuUygula(plan, gun, kurallar) {
 
 /** Yorgun modunu geri alır (henüz ders tamamlanmadıysa): gün normal plana döner */
 export function yorgunModuKaldir(plan, gun, kurallar) {
-  const K = kurallariAl(kurallar);
+  const K = kurallariAl(kurallar, plan?.sinif);
   const p = kopya(plan);
   const g = p.gunler[gun - 1];
   if (!g?.yorgun || g.tamamlandi || gun !== p.durum.gun || g.dersler.some((x) => x.durum === 'tamam')) return { plan: p, degisti: false };

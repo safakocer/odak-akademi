@@ -1,13 +1,14 @@
-// Profil yönetimi: ilk açılış karşılaması, takma ad/sınıf/avatar seçimi, birden çok profil ve hızlı geçiş (S24: sınıf modunda yalnız geçiş)
+// Profil yönetimi: ilk açılış karşılaması, takma ad/sınıf/avatar seçimi, birden çok profil ve hızlı geçiş (S24: sınıf modunda yalnız geçiş; S34a: 2-8. sınıf, sınıf listesi js/core/siniflar.js'ten)
 import { oku, yaz, sil, anahtarlar } from './storage.js';
 import { yay, dinle, OLAYLAR, uygulamaDurumu } from './store.js';
 import { toastGoster, el, spriteIkon } from './ui.js';
 import { trKucuk, boslukTemizle, karakterSayisi, kimlikUret } from './utils.js';
+import { SINIFLAR, KADEMELER, KADEME_ETIKETLERI, VARSAYILAN_SINIF, sinifGecerliMi } from './siniflar.js';
 
 const ANAHTAR_PROFILLER = 'profiller';
 const ANAHTAR_AKTIF = 'aktifProfil';
 export const EN_FAZLA_PROFIL = 6;
-export const SINIFLAR = Object.freeze([5, 6, 7, 8]);
+export { SINIFLAR }; // S34a: tek kaynak siniflar.js (eski içe aktarımlar bozulmasın diye buradan da açılır)
 export const AVATARLAR = Object.freeze([
   { id: 'yunus', emoji: '🐬', ad: 'Yunus' },
   { id: 'tilki', emoji: '🦊', ad: 'Tilki' },
@@ -53,7 +54,7 @@ function profilDuzelt(p) {
   return {
     id: p.id,
     takmaAd: takmaAdBicimHatasi(ad) ? 'Öğrenci' : ad,
-    sinif: SINIFLAR.includes(Number(p.sinif)) ? Number(p.sinif) : SINIFLAR[0],
+    sinif: sinifGecerliMi(p.sinif) ? Number(p.sinif) : VARSAYILAN_SINIF,
     avatar: avatarBul(p.avatar).id,
     olusturma: typeof p.olusturma === 'string' ? p.olusturma : new Date().toISOString(),
     ayarlar: { ...VARSAYILAN_AYARLAR, ...(p.ayarlar && typeof p.ayarlar === 'object' ? p.ayarlar : {}) },
@@ -101,7 +102,7 @@ export function profilBilgisiDenetle({ takmaAd, sinif, avatar }, haricId = null)
   if (profilleriGetir().some((p) => p.id !== haricId && trKucuk(p.takmaAd) === trKucuk(ad))) {
     return { alan: 'takmaAd', mesaj: 'Bu takma ad başka bir profilde var. Farklı bir ad dene.' };
   }
-  if (!SINIFLAR.includes(Number(sinif))) return { alan: 'sinif', mesaj: 'Sınıfını seç.' };
+  if (!sinifGecerliMi(sinif)) return { alan: 'sinif', mesaj: 'Sınıfını seç.' };
   if (!AVATARLAR.some((a) => a.id === avatar)) return { alan: 'avatar', mesaj: 'Bir avatar seç.' };
   return null;
 }
@@ -235,13 +236,19 @@ export function profilFormuOlustur({ profil = null, dugmeMetni = 'Kaydet', kayde
     el('p', { sinif: 'alan__ipucu', id: `${k}-ad-ipucu`, metin: 'Gerçek adını ve soyadını yazma; kendine bir takma ad seç. Örnek: Yıldız Avcısı' }),
     adHata);
 
-  // Sınıf
+  // Sınıf (S34a: kademe başına bir satır; aynı adlı radyolar tek grup, ok tuşları iki satırda da gezer)
   const sinifHata = hataAlani(`${k}-sinif-hata`);
-  const segment = el('div', { sinif: 'segment' }, SINIFLAR.map((s) => el('label', {},
-    el('input', { type: 'radio', name: 'sinif', value: String(s), checked: profil?.sinif === s }),
-    el('span', { metin: `${s}. sınıf` }))));
+  const kademeSatiri = (ad) => {
+    const etiketId = `${k}-kademe-${ad}`;
+    return [
+      el('p', { sinif: 'alan__ipucu', id: etiketId, metin: KADEME_ETIKETLERI[ad] }),
+      el('div', { sinif: 'segment', role: 'group', 'aria-labelledby': etiketId }, KADEMELER[ad].map((s) => el('label', {},
+        el('input', { type: 'radio', name: 'sinif', value: String(s), checked: profil?.sinif === s }),
+        el('span', { metin: `${s}. sınıf` })))),
+    ];
+  };
   const sinifGrup = el('fieldset', { sinif: 'grup', 'aria-describedby': sinifHata.id },
-    el('legend', { metin: 'Sınıfın' }), segment, sinifHata);
+    el('legend', { metin: 'Sınıfın' }), ...kademeSatiri('ilkokul'), ...kademeSatiri('ortaokul'), sinifHata);
 
   // Avatar
   const seciliAvatar = profil?.avatar ?? AVATARLAR[0].id;
@@ -266,7 +273,7 @@ export function profilFormuOlustur({ profil = null, dugmeMetni = 'Kaydet', kayde
     ad.removeAttribute('aria-invalid');
   }
   ad.addEventListener('input', () => { if (ad.hasAttribute('aria-invalid')) hatalariTemizle(); });
-  segment.addEventListener('change', () => { sinifHata.hidden = true; });
+  sinifGrup.addEventListener('change', () => { sinifHata.hidden = true; });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -280,7 +287,7 @@ export function profilFormuOlustur({ profil = null, dugmeMetni = 'Kaydet', kayde
       ad.focus();
     } else if (hata.alan === 'sinif') {
       sinifHata.textContent = hata.mesaj; sinifHata.hidden = false;
-      segment.querySelector('input')?.focus();
+      sinifGrup.querySelector('input')?.focus();
     } else {
       genelHata.textContent = hata.mesaj; genelHata.hidden = false;
     }

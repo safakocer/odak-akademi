@@ -1,7 +1,8 @@
-// Seviye testi verisi (S17): başlangıç/final sonuçlarını saklar (testler:<profilId>), 5 eksen puanı (sabit ölçek, 0-100), 21 gün kuralı, iki ölçümün karşılaştırması
+// Seviye testi verisi (S17; S34d: okuma hızı ölçeği sınıf bandından, sonuçla saklanır): başlangıç/final sonuçlarını saklar (testler:<profilId>), 5 eksen puanı (0-100), 21 gün kuralı, iki ölçümün karşılaştırması
 import { oku, yaz } from '../../core/storage.js';
 import { etkinProfil } from '../../core/store.js';
 import { sayi, sinirla, gunAnahtari, sayiBicimle, yuzdeBicimle } from '../../core/utils.js';
+import { testBandi } from '../../core/siniflar.js';
 
 const ONEK = 'testler:';
 export const TEST_SURUMU = 1;
@@ -11,7 +12,9 @@ export const GECMIS_SINIR = 10;   // kapanan dönem (başlangıç + final) sayı
 export const DEGISIM_ESIGI = 5;   // puan farkı bundan küçükse “benzer” sayılır (tek ölçüm günden güne oynar)
 
 /*
- * Ölçek sabittir ve herkes için aynıdır; amaç başkalarıyla karşılaştırmak değil, öğrencinin iki ölçümünü aynı cetvelle göstermek.
+ * Ölçek bir not değildir; amaç başkalarıyla karşılaştırmak değil, öğrencinin iki ölçümünü aynı cetvelle göstermek.
+ * S34d: okuma hızı ölçeği sınıf bandından gelir (data/sinif-bantlari.json test.olcekWpm; ilkokul 20-160, ortaokul 40-240) ve sonuçla
+ * birlikte saklanır (sonuc.olcek.wpm); final, başlangıcın ölçeğiyle hesaplanır. Aşağıdaki OLCEK bant yoksa ve eski kayıtlar için geçerlidir.
  * okumaHizi: 40 k/dk → 0, 240 k/dk → 100 | anlama: yüzde | dikkat: %70 doğruluk + %30 hız (900 ms → 0, 350 ms → 100)
  * hafiza: en uzun doğru dizi 2 → 0, 8 → 100 | gorme: flaş eşiği 400 ms → 0, 100 ms → 100
  */
@@ -30,15 +33,28 @@ export const EKSENLER = Object.freeze([
     guclu: 'Gözün ortadayken çevrede olanı hızla fark ediyorsun.', gelisim: 'Kısa flaş turları, tek bakışta görülen alanı fark etmene yardım eder.' },
 ].map(Object.freeze));
 
+const olcekGecerli = (o) => Array.isArray(o) && o.length === 2 && o.every((n) => Number.isFinite(n) && n > 0) && o[0] < o[1];
+
+/** S34d: Sınıfın test ölçeği (OLCEK’in kopyası; wpm sınıf bandından, yoksa OLCEK.wpm) */
+export function sinifOlcegi(sinif) {
+  const w = testBandi(sinif)?.olcekWpm;
+  return { ...OLCEK, wpm: olcekGecerli(w) ? [...w] : [...OLCEK.wpm] };
+}
+
+/** S34d: Bir sonucun hesaplandığı ölçek (sonuc.olcek.wpm; S34d öncesi kayıtlarda OLCEK) */
+export function sonucOlcegi(s) {
+  return olcekGecerli(s?.olcek?.wpm) ? { ...OLCEK, wpm: [...s.olcek.wpm] } : OLCEK;
+}
+
 const oran = (v, [en, enCok]) => {
   const n = sayi(v);
   return n === undefined ? 0 : Math.round(sinirla((n - en) / (enCok - en), 0, 1) * 100);
 };
 
-/** Ham ölçümlerden eksen puanları (0-100); ölçülmeyen eksen null */
+/** Ham ölçümlerden eksen puanları (0-100); ölçülmeyen eksen null. Okuma hızı sonucun kendi ölçeğiyle (S34d) */
 export function eksenPuanlari(s) {
   return {
-    okumaHizi: s.okuma ? oran(s.okuma.wpm, OLCEK.wpm) : null,
+    okumaHizi: s.okuma ? oran(s.okuma.wpm, sonucOlcegi(s).wpm) : null,
     anlama: s.anlama ? sinirla(Math.round(sayi(s.anlama.yuzde) ?? 0), 0, 100) : null,
     dikkat: s.dikkat ? Math.round(0.7 * (sayi(s.dikkat.isabet) ?? 0) + 0.3 * (s.dikkat.ortMs ? oran(s.dikkat.ortMs, OLCEK.tepkiMs) : 0)) : null,
     hafiza: s.hafiza ? oran(s.hafiza.enIyi, OLCEK.dizi) : null,

@@ -1,4 +1,4 @@
-// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28; S30: duruma göre mesaj, dokununca ipucu), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), geniş ekranda kayalıklar üstünde Fener sahnesini (S32), dinamik temada güneş ve ayı (S33), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
+// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28; S30: duruma göre mesaj, dokununca ipucu), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), geniş ekranda kayalıklar üstünde Fener sahnesini (S32), dinamik temada güneş ve ayı (S33), sınıfa göre görünüm ve kartları (S34a: 2-4. sınıfta çocuk görünümü, #/sinif-disi), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
 import { temaDugmesiBagla, ayarFormuBagla, duyur, degisinceHaberVer } from './core/a11y.js';
 import { modalBagla, modalAc, toastGoster, el } from './core/ui.js';
 import { depoBaslat, yedekIndir, yedekYukle, kullanimBayt, kaliciMi } from './core/storage.js';
@@ -8,12 +8,13 @@ import { profilBaslat, aktifProfil, profilleriGetir, karsilamayiBagla, profilPen
 import { ozet, kayitEkle, profilKayitlariniSil } from './core/metrics.js';
 import { ayarlarBaslat, ayarlariSifirla, tumVeriyiSil } from './core/settings.js';
 import { hesapBaslat, gorunumAyarla, hesapBilgisi, cocukGorunumuMu } from './core/hesap.js';
+import { bantlariYukle } from './core/siniflar.js';
 import { sesCal, dokunmaSesleriniBagla } from './core/sound.js';
 import { pwaBaslat, kurulumDugmesiniBagla, pwaDurumunuDinle } from './core/pwa.js';
 import { boyutMetni } from './core/utils.js';
 import { egzersizAc, egzersiziKapat, molaEsiginiAyarla } from './engine/exercise-frame.js';
-import { egzersizYukle, aracBilgisi, egzersizBilgisi, modulAraclari } from './modules/katalog.js';
-import { modulKartlariniGuncelle, modulSayfasiCiz, egzersizlerSayfasiCiz, egzersizKarti } from './modules/egzersiz-listesi.js';
+import { egzersizYukle, aracBilgisi, egzersizBilgisi, modulAraclari, kartUygunMu, sinifaUygunMu } from './modules/katalog.js';
+import { modulKartlariniGuncelle, modulSayfasiCiz, egzersizlerSayfasiCiz, egzersizKarti, sinifDisiSayfasiCiz, sinifDisiysaYonlendir } from './modules/egzersiz-listesi.js';
 import { gozMolasiEsiginiAyarla } from './engine/eye-rest.js';
 import { gokyuzuBaslat, gokyuzuDene } from './engine/gokyuzu.js';
 import { sahneBaslat } from './engine/fener-sahnesi.js';
@@ -29,7 +30,9 @@ const $ = (secici) => document.querySelector(secici);
 dinle(OLAYLAR.DEPO_HATA, ({ tur, mesaj }) => toastGoster(mesaj, { tur: ['kota', 'sekme'].includes(tur) ? 'uyari' : 'hata', sure: 8000 }));
 depoBaslat();
 // S27: yöneticinin verdiği görünüm (profesyonel | cocuk) profil ayarlarından önce uygulanır
-hesapBaslat();
+// S34a: kayıtlı etkin profil 2-4. sınıftaysa çocuk görünümü (veli alanında hesap görünümü); sınıf bantları arka planda yüklenir
+hesapBaslat({ sinif: aktifProfil()?.sinif });
+bantlariYukle();
 
 // 2) Kayıtlı görünüm ayarları hemen uygulanır, değişiklikler profile kaydedilir
 ayarlarBaslat();
@@ -78,11 +81,32 @@ rotaEkle('/modul/:ad', {
     document.title = `${m.baslik} | Odak Akademi`;
   },
 });
-modulKartlariniGuncelle();
-// K2: ana sayfadaki "Ders çalışırken" kısayolları (kart bilgileri yalnız katalog.js'te); S15: + Hafıza Teknikleri; S16: + Tekrar Kartları
-$('#kisayol-kartlari')?.replaceChildren(...[aracBilgisi('odak'), aracBilgisi('teknikler'), aracBilgisi('tekrar'), egzersizBilgisi('goz-molasi')].filter(Boolean).map(egzersizKarti));
-// S22: ana sayfadaki "Çalışma Rehberi" bölümü (araç ve bilgi kartları katalog.js'te, modul: rehber)
-$('#rehber-kartlari')?.replaceChildren(...modulAraclari('rehber').map(egzersizKarti));
+// S34a: sınıfa uygun olmayan çalışma, araç ya da sayfa (ör. 3. sınıfta Cornell notu): sade bilgi ve geri bağlantısı
+rotaEkle('/sinif-disi/:ad', {
+  baslik: 'Daha büyük sınıflar için',
+  goster: ({ ad }) => {
+    const kart = sinifDisiSayfasiCiz($('#sinif-disi-sayfasi'), ad);
+    if (kart) document.title = `${kart.baslik} | Odak Akademi`;
+  },
+});
+
+// Ana sayfa kartları (S34a: etkin profilin sınıfına göre; sınıf değişmedikçe yeniden çizilmez)
+let anaKartSinifi; // undefined: henüz çizilmedi
+function anaKartlariCiz(p) {
+  const sinif = p?.sinif ?? null;
+  if (sinif === anaKartSinifi) return;
+  anaKartSinifi = sinif;
+  modulKartlariniGuncelle();
+  const uygun = (k) => k && kartUygunMu(k, sinif);
+  // K2: ana sayfadaki "Ders çalışırken" kısayolları (kart bilgileri yalnız katalog.js'te); S15: + Hafıza Teknikleri; S16: + Tekrar Kartları
+  $('#kisayol-kartlari')?.replaceChildren(...[aracBilgisi('odak'), aracBilgisi('teknikler'), aracBilgisi('tekrar'), egzersizBilgisi('goz-molasi')].filter(uygun).map(egzersizKarti));
+  // S22: ana sayfadaki "Çalışma Rehberi" bölümü (araç ve bilgi kartları katalog.js'te, modul: rehber)
+  $('#rehber-kartlari')?.replaceChildren(...modulAraclari('rehber', sinif).map(egzersizKarti));
+  // S34a: index.html'deki sabit Testler kartı, sınıfa uygun değilse gizlenir (S34d'de ilkokul testi gelince açılır)
+  const testKarti = document.querySelector('a.kart[href="#/testler"]');
+  if (testKarti) (testKarti.closest('li') ?? testKarti).hidden = !sinifaUygunMu('testler', sinif);
+}
+anaKartlariCiz(aktifProfil());
 
 // S07: Kütüphane (#/kutuphane): ana sayfa kartından ve gezinme sekmesinden açılır; sayfa dosyası ilk açılışta yüklenir
 const kutuphaneCiz = () => import('./modules/kutuphane/kutuphane.js')
@@ -92,8 +116,8 @@ rotaEkle('/kutuphane', { baslik: 'Kütüphane', goster: kutuphaneCiz });
 
 // S12: Odak Araçları (#/odak): ana sayfa kartından ve Dikkat alanından açılır; sayfa dosyası ilk açılışta yüklenir
 const odakModulu = () => import('./modules/odak/odak-araclari.js');
-const odakCiz = () => odakModulu()
-  .then((m) => { if (etkinRota()?.yol === '/odak') m.odakSayfasiCiz($('#odak-sayfasi')); })
+const odakCiz = () => (sinifDisiysaYonlendir('odak') ? Promise.resolve() : odakModulu()
+  .then((m) => { if (etkinRota()?.yol === '/odak') m.odakSayfasiCiz($('#odak-sayfasi')); }))
   .catch((h) => { console.error('[odak]', h); toastGoster('Odak Araçları açılamadı. Sayfayı yenileyip yeniden dene.', { tur: 'hata' }); });
 rotaEkle('/odak', {
   baslik: 'Odak Araçları',
@@ -129,8 +153,8 @@ rotaEkle('/tekrar/:deste', { baslik: 'Deste', goster: tekrarCiz, gizle: tekrarKa
 
 // S17: Seviye Belirleme Testi (#/testler): ana sayfadaki Testler kartından açılır; sayfa dosyası ilk açılışta yüklenir
 const testModulu = () => import('./modules/testler/seviye-testi.js');
-const testCiz = () => testModulu()
-  .then((m) => { if (etkinRota()?.yol === '/testler') m.testlerSayfasiCiz($('#testler-sayfasi')); })
+const testCiz = () => (sinifDisiysaYonlendir('testler') ? Promise.resolve() : testModulu() // S34a: ilkokul testi S34d'de
+  .then((m) => { if (etkinRota()?.yol === '/testler') m.testlerSayfasiCiz($('#testler-sayfasi')); }))
   .catch((h) => { console.error('[testler]', h); toastGoster('Seviye testi açılamadı. Sayfayı yenileyip yeniden dene.', { tur: 'hata' }); });
 rotaEkle('/testler', {
   baslik: 'Seviye Testi',
@@ -211,6 +235,7 @@ async function egzersiziBaslat(ad) {
     return;
   }
   if (!tanim) { yakindaUyarisi(); don(); return; }
+  if (sinifDisiysaYonlendir(ad)) return; // S34a: bu sınıfa uygun değil → #/sinif-disi/<ad>
   await egzersizAc(tanim, { kapaninca: () => don(tanim.modul) });
 }
 
@@ -243,6 +268,7 @@ profilDugmesiniBagla($('#profil-dugmesi'));
 // Ana ekran: selamlama, kısa özet ve günlük hedef (öğrencinin kendi verisi). S20: seri esnek seridir (dinlenme hakkıyla)
 function anaEkraniGuncelle() {
   const p = aktifProfil();
+  anaKartlariCiz(p); // S34a
   $('#karsilama-baslik').textContent = p ? `Merhaba, ${p.takmaAd}!` : 'Merhaba!';
   const o = p ? ozet(p.id) : { haftaDk: 0, sonEoh: null };
   $('#ozet-seri').textContent = `${p ? seriDurumu(p.id).seri : 0} gün`;
@@ -351,8 +377,19 @@ function gunlukHedefiGuncelle(p) {
 // Uygulama gece yarısını geçerek açık kaldıysa “bugün” yenilensin
 document.addEventListener('visibilitychange', () => { if (!document.hidden && etkinRota()?.yol === '/') anaEkraniGuncelle(); });
 
+// S34a: sınıfa göre kart gösteren sayfalar profil ya da sınıf değişince aynı adresle yeniden çizilir (egzersiz adresi hariç: süren tur bozulmasın)
+const SINIFA_BAGLI = ['/egzersizler', '/modul/', '/sinif-disi/'];
+const SINIFA_BAGLI_DIGER = ['/odak', '/testler', '/rehber', '/teknikler', '/kurs']; // bunlar profil değişince zaten yenilenir
+function sinifaBagliSayfayiYenile(liste) {
+  const r = etkinRota();
+  if (!r || !liste.some((y) => r.yol === y || (y.endsWith('/') ? r.yol.startsWith(y) : r.yol.startsWith(`${y}/`)))) return;
+  const sorgu = new URLSearchParams(r.sorgu).toString();
+  git(`${r.yol}${sorgu ? `?${sorgu}` : ''}`, { degistir: true });
+}
+
 dinle(OLAYLAR.PROFIL_DEGISTI, (p) => {
   anaEkraniGuncelle();
+  sinifaBagliSayfayiYenile(SINIFA_BAGLI); // S34a
   if (etkinRota()?.yol === '/kutuphane') kutuphaneCiz(); // S07: profil değişince kütüphane o profilin metinleriyle yenilenir
   if (etkinRota()?.yol === '/odak') odakCiz(); // S12: o profilin zamanlayıcısı ve günlüğü
   if (etkinRota()?.yol.startsWith('/teknikler')) teknikCiz(); // S15: o profilin ders sonuçları (açık ders baştan başlar)
@@ -370,6 +407,7 @@ dinle(OLAYLAR.KAYIT_EKLENDI, () => { anaEkraniGuncelle(); ayarSayfasiniGuncelle(
 dinle(OLAYLAR.PROFIL_GUNCELLENDI, ({ ayarMi }) => {
   anaEkraniGuncelle();
   ayarSayfasiniGuncelle();
+  if (!ayarMi) sinifaBagliSayfayiYenile([...SINIFA_BAGLI, ...SINIFA_BAGLI_DIGER]); // S34a: sınıf değişmiş olabilir
   if (!ayarMi && etkinRota()?.yol === '/kutuphane') kutuphaneCiz(); // sınıf değiştiyse seviye etiketleri yenilensin
   if (!ayarMi && etkinRota()?.yol === '/ilerleme/rapor') ilerlemeCiz(); // S20: raporda takma ad ve sınıf
 });
@@ -548,7 +586,12 @@ const GECICI_GORUNUM_SECIMI = true;
 // S29: telefonda konsol olmadığı için görünüm Ayarlar sayfasının sonundaki kutudan değiştirilir
 function gelistiriciKutusu() {
   const durum = el('p', { sinif: 'soluk', role: 'status' });
-  const yaz = () => { durum.textContent = `Şu anki görünüm: ${cocukGorunumuMu() ? 'çocuk' : 'profesyonel'}`; };
+  // S34a: 2-4. sınıf profilinde ekran her zaman çocuk görünümündedir; kayıt yine değişir
+  const yaz = () => {
+    const kayit = hesapBilgisi().gorunum === 'cocuk' ? 'çocuk' : 'profesyonel';
+    const ekran = cocukGorunumuMu() ? 'çocuk' : 'profesyonel';
+    durum.textContent = kayit === ekran ? `Şu anki görünüm: ${ekran}` : `Hesap görünümü: ${kayit}; ekranda ${ekran} (2-4. sınıf profili)`;
+  };
   const dugme = (metin, ad) => el('button', {
     type: 'button', sinif: 'btn btn--ikincil btn--kucuk', metin,
     onclick: () => { gorunumAyarla(ad); yaz(); toastGoster(`Görünüm: ${metin}`); },
@@ -556,7 +599,7 @@ function gelistiriciKutusu() {
   yaz();
   $('.ayarlar-sayfasi')?.append(el('section', { sinif: 'kart ayar-bolumu', 'aria-labelledby': 'gelistirici-baslik' },
     el('h2', { id: 'gelistirici-baslik', metin: 'Görünüm (deneme)' }),
-    el('p', { sinif: 'alan__ipucu', metin: 'Geçici: yayına alınmadan önce kaldırılacak. Seçim bu cihazda saklanır.' }),
+    el('p', { sinif: 'alan__ipucu', metin: 'Geçici: yayına alınmadan önce kaldırılacak. Seçim bu cihazda saklanır. 2-4. sınıf profilinde ekran her zaman çocuk görünümündedir.' }),
     el('div', { sinif: 'yedek-eylemler' }, dugme('Çocuk görünümü', 'cocuk'), dugme('Profesyonel görünüm', 'profesyonel')),
     durum));
 }

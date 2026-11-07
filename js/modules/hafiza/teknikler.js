@@ -1,8 +1,9 @@
-// Ders sayfaları (S15 Hafıza Teknikleri, S21 Okuma Stratejileri): #/teknikler hafıza ders listesi, #/teknikler/stratejiler strateji ders listesi, #/teknikler/<ad> tek ders; içerik data/lessons/*.json, oynatma js/engine/lesson-engine.js
+// Ders sayfaları (S15 Hafıza Teknikleri, S21 Okuma Stratejileri): #/teknikler hafıza ders listesi, #/teknikler/stratejiler strateji ders listesi, #/teknikler/<ad> tek ders; içerik data/lessons/*.json, oynatma js/engine/lesson-engine.js (S34a: sınıfa uygun değilse #/sinif-disi)
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { etkinProfil } from '../../core/store.js';
 import { git, etkinRota } from '../../core/router.js';
 import { aracBilgisi } from '../katalog.js';
+import { sinifDisiysaYonlendir } from '../egzersiz-listesi.js';
 import { SERILER, STRATEJI_LISTESI, dersSerisi, dersYukle, dersleriYukle, dersEkraniKur, dersGecmisi } from '../../engine/lesson-engine.js';
 
 let oturum = null; // açık ders (sayaçları sayfadan çıkınca durur)
@@ -48,6 +49,7 @@ function dersKarti(ders, no, seri) {
 // Bir serinin ders listesi (kap: o anki sayfa kapsayıcısı)
 async function listeCiz(kap, seriAd) {
   const seri = SERILER[seriAd] ?? SERILER.hafiza;
+  if (sinifDisiysaYonlendir(seri.arac)) return; // S34a
   const metin = LISTE_METINLERI[seri.ad];
   const no = cizimNo;
   const bilgi = aracBilgisi(seri.arac);
@@ -88,6 +90,7 @@ export async function dersSayfasiCiz(kap, ad) {
   if (ad === STRATEJI_LISTESI) { await listeCiz(kap, 'okuma'); return; }
   const no = cizimNo;
   const seri = dersSerisi(ad) ?? SERILER.hafiza;
+  if (sinifDisiysaYonlendir(seri.arac)) return; // S34a
   if (!etkinProfil()) {
     kap.replaceChildren(geriBaglanti(seri.listeAdres, 'Tüm dersler'),
       el('p', { sinif: 'bos-durum', metin: 'Derse başlamak için önce bir profil oluştur.' }));

@@ -1,45 +1,21 @@
-// Kelime Listesi (S14b): kelimeler tek tek gösterilir; öğrenci seçeneklerden sırayla dokunarak ya da yazarak hatırlar. Kelime doğruluğu ve sıra doğruluğu ayrı hesaplanır; liste uzunluğu merdivenle uyarlanır. Kelimeler data/kelimeler.json'dan okunur
+// Kelime Listesi (S14b): kelimeler tek tek gösterilir; öğrenci seçeneklerden sırayla dokunarak ya da yazarak hatırlar. Kelime doğruluğu ve sıra doğruluğu ayrı hesaplanır; liste uzunluğu merdivenle uyarlanır. Kelimeler data/kelimeler.json'dan okunur (S34c: kelime-havuzu.js, sınıfa göre kategori)
 import { el } from '../../core/ui.js';
 import { karistir, trKucuk, yuzdeBicimle } from '../../core/utils.js';
 import { duyur } from '../../core/a11y.js';
 import { KESINTI_MS } from '../../engine/attention-core.js';
 import { yazimSadelestir } from '../../engine/flas.js';
 import { hafizaOyunu, hafizaSahnesi, hafizaBitir, bekle, ogeDuyur } from '../../engine/memory-core.js';
+import { kelimeHavuzuYukle, sinifKategorileri, havuzYeterliMi } from '../../engine/kelime-havuzu.js';
 
 const BIRIM = 'kelime';
-const VERI_ADRESI = new URL('../../../data/kelimeler.json', import.meta.url);
-const EN_AZ_KELIME = 40;
 
-// Kelime havuzu modül açılırken bir kez yüklenir; yüklenemezse oyun başlatılmaz (hazirlikDenetle uyarır)
-async function kategorileriYukle() {
-  try {
-    const yanit = await fetch(VERI_ADRESI);
-    if (!yanit.ok) throw new Error(`kelimeler.json: HTTP ${yanit.status}`);
-    const veri = await yanit.json();
-    const gorulen = new Set();
-    const liste = (Array.isArray(veri?.kategoriler) ? veri.kategoriler : []).map((k) => ({
-      ad: String(k?.ad ?? ''),
-      kelimeler: (Array.isArray(k?.kelimeler) ? k.kelimeler : [])
-        .map((w) => trKucuk(String(w ?? '').normalize('NFC').trim()))
-        .filter((w) => {
-          const anahtar = yazimSadelestir(w);
-          if (!/^\p{Ll}{2,14}$/u.test(w) || gorulen.has(anahtar)) return false; // tek kelime, küçük harf, tekrar yok
-          gorulen.add(anahtar);
-          return true;
-        }),
-    })).filter((k) => k.kelimeler.length >= 4);
-    if (liste.reduce((t, k) => t + k.kelimeler.length, 0) < EN_AZ_KELIME) throw new Error('kelimeler.json: kelime sayısı yetersiz');
-    return liste;
-  } catch (h) {
-    console.warn('[kelime-listesi] Kelime listeleri yüklenemedi:', h);
-    return null;
-  }
-}
-const KATEGORILER = await kategorileriYukle();
+// S34c: kelime havuzu ortak modülde (kelime-havuzu.js); kategoriler etkin profilin sınıfına göre seçilir (ilkokulda kısa, sık kullanılan kelimeler)
+// Havuz modül açılırken bir kez yüklenir; yüklenemezse oyun başlatılmaz (hazirlikDenetle uyarır)
+await kelimeHavuzuYukle();
 
-/** n kelimelik liste: ceil(n/2) kategoriden ikişer kelime, karışık sırada (gruplama stratejisine fırsat). kullanilan: bu turda gösterilenler */
-function listeUret(n, kullanilan) {
-  const kat = karistir(KATEGORILER).slice(0, Math.min(KATEGORILER.length, Math.ceil(n / 2)));
+/** n kelimelik liste: ceil(n/2) kategoriden ikişer kelime, karışık sırada (gruplama stratejisine fırsat). kullanilan: bu turda gösterilenler; kategoriler: sınıfa uygun kategoriler */
+function listeUret(n, kullanilan, kategoriler) {
+  const kat = karistir([...kategoriler]).slice(0, Math.min(kategoriler.length, Math.ceil(n / 2)));
   const secilen = [];
   for (let i = 0; secilen.length < n && i < n * 4; i++) {
     const k = kat[i % kat.length];
@@ -101,7 +77,7 @@ export default hafizaOyunu({
   baslangic: { sec: 4, yaz: 3 },
   sinir: { en: 3, enCok: 10 },
   deneme: 8,
-  hazirlikDenetle: () => (KATEGORILER ? undefined
+  hazirlikDenetle: () => (havuzYeterliMi() ? undefined
     : 'Kelime listeleri yüklenemedi. İnternete bağlanıp sayfayı yenile; bir kez yüklenince çevrimdışı da çalışır.'),
   puanEtiketi: 'En uzun liste',
   puanAciklama: 'Bu turda kelimelerinin hepsini hatırladığın en uzun liste.',
@@ -157,6 +133,7 @@ export default hafizaOyunu({
     ctx.alan.append(el('div', { sinif: 'hafiza-alt' }, ilerleme, eylemler, devamDugme));
 
     const kullanilan = new Set();
+    const kategoriler = sinifKategorileri(); // S34c: tur boyunca aynı sınıfın kategorileri
     const denemeler = [];
     const toplam = { kelimeDogru: 0, siraDogru: 0, kelimeToplam: 0, fazlaKelime: 0 };
     let kesinti = 0;
@@ -344,7 +321,7 @@ export default hafizaOyunu({
         sahne.asamaYaz('İzle', 'izle');
         await bekle(ctx, 700);
         if (bitti) return;
-        const liste = listeUret(n, kullanilan);
+        const liste = listeUret(n, kullanilan, kategoriler);
         const d0 = performance.now();
         const g0 = ctx.gecenSn() * 1000;
         await sun(liste);

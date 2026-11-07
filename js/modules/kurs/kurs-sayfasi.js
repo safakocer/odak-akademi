@@ -1,4 +1,4 @@
-// Akıllı Kurs ekranları (S19): #/kurs (başlangıç, gün haritası, bugünün dersleri ve akışı, aralarda mola, plan bildirimi, yorgun modu) ve #/kurs/rapor (başlangıç/final karşılaştırması, yazdırılabilir sertifika)
+// Akıllı Kurs ekranları (S19): #/kurs (başlangıç, gün haritası, bugünün dersleri ve akışı, aralarda mola, plan bildirimi, yorgun modu) ve #/kurs/rapor (başlangıç/final karşılaştırması, yazdırılabilir sertifika) (S34a: sınıf değişince uyarı ve iki seçenek; S34d: süre seçenekleri ve ders sayısı sınıfın kurallarından, test önerisi süresiz)
 import { el, spriteIkon, toastGoster, modalAc, modalKapat } from '../../core/ui.js';
 import { duyur, odakla, molaRehberiAcikMi } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
@@ -9,9 +9,9 @@ import { egzersizAc, egzersiziKapat } from '../../engine/exercise-frame.js';
 import { radarOlustur } from '../../engine/radar.js';
 import { bugununTekrari } from '../../engine/srs.js';
 import { bugunkuGun, kursOzeti, kararAciklamasi, kurallarAciklamasi, kurallariYukle, gunFarki } from '../../engine/course-planner.js';
-import { egzersizYukle, egzersizBilgisi, aracBilgisi } from '../katalog.js';
+import { egzersizYukle, egzersizBilgisi, aracBilgisi, sinifaUygunMu } from '../katalog.js';
 import { testVerisi, testDurumu, EKSENLER, karsilastir, hamMetin } from '../testler/test-veri.js';
-import { kursVerisi, kursBaslat, kursAc, dersiIsaretle, gunuBitir, yorgunModu, yenidenBaslatSec } from './kurs-veri.js';
+import { kursVerisi, kursBaslat, kursAc, dersiIsaretle, gunuBitir, yorgunModu, yenidenBaslatSec, sinifDegisimi, sinifaGoreDevam } from './kurs-veri.js';
 
 const MOLA_SN = 20;        // dersler arası mola (20-20-20: uzağa bakma)
 const GECIS_SN = 5;        // mola hatırlatıcısı kapalıyken kısa geçiş
@@ -221,11 +221,13 @@ function baslangicEkrani() {
     el('p', { metin: 'Testsiz de başlayabilirsin: ilk gün kendi hızında okursun, hedefini bu okumaya göre ayarlarız.' }),
     el('a', { sinif: 'btn btn--ikincil btn--kucuk', href: '#/testler', metin: 'Seviye testine git' }));
   let testNotu;
-  if (v.final) testNotu = testsizNot('Önceki seviye testi dönemin tamamlanmış. Bu kursun sonunda karşılaştırma yapabilmek için Testler sayfasında “Yeni dönem başlat”a basıp başlangıç testini yapman önerilir.');
+  // S34a: seviye testi bu sınıfa uygun değilse teste yönlendirilmez (S34d’den beri test 2-8; bu dal sınıf aralığı daralırsa diye kalır)
+  if (!sinifaUygunMu('testler', etkinProfil()?.sinif)) testNotu = el('p', { sinif: 'bildirim', metin: 'İlk gün kendi hızında okursun; hedefini bu okumaya göre ayarlarız.' });
+  else if (v.final) testNotu = testsizNot('Önceki seviye testi dönemin tamamlanmış. Bu kursun sonunda karşılaştırma yapabilmek için Testler sayfasında “Yeni dönem başlat”a basıp başlangıç testini yapman önerilir.');
   else if (test?.okuma?.hizliGecis) testNotu = testsizNot('Seviye testinde metin çok hızlı geçildiği için oradaki okuma hızı kursta kullanılmaz; başlangıç hedefi sınıf düzeyinden alınır.');
   else if (test?.okuma) testNotu = el('p', { sinif: 'bildirim bildirim--basari', metin: `Başlangıç hızın seviye testinden alınır: ${sayiBicimle(test.okuma.wpm)} kelime/dk.` });
   else testNotu = el('div', { sinif: 'bildirim bildirim--uyari yigin', style: '--yigin-bosluk: var(--b-2)' },
-      el('p', { metin: 'Seviye testini henüz yapmadın. Önce testi yapman önerilir (yaklaşık 10 dakika); kursun sonunda başlangıçla karşılaştırırsın.' }),
+      el('p', { metin: 'Seviye testini henüz yapmadın. Önce kısa testi yapman önerilir; kursun sonunda başlangıçla karşılaştırırsın.' }),
       el('p', { metin: 'Testsiz de başlayabilirsin: ilk gün kendi hızında okursun, hedefini bu okumaya göre ayarlarız.' }),
       el('a', { sinif: 'btn btn--ikincil btn--kucuk', href: '#/testler', metin: 'Seviye testine git' }));
   const baslat = dugme('Kursu başlat', 'btn--gunes btn--buyuk', async () => {
@@ -242,6 +244,27 @@ function baslangicEkrani() {
       el('ul', { sinif: 'kurs-kurallar' }, kurallarAciklamasi(kurallar).map((m) => el('li', { metin: m })))),
     bolum('kurs-basla-baslik', 'Başlamadan önce', testNotu, sureGrubu, el('div', { sinif: 'kurs-eylemler' }, baslat)),
   ];
+}
+
+// S34a: profilin sınıfı plan yapıldıktan sonra değişti: baştan başla ya da bu planla (kalibrasyonla) devam et
+function sinifDegisimiEkrani(plan, d) {
+  const sec = (fn, basari) => async (e) => {
+    const b = e.currentTarget; // await sonrası olay nesnesinde currentTarget boşalır
+    b.disabled = true;
+    const s = await fn();
+    if (!s.tamam) { b.disabled = false; toastGoster(s.hata, { tur: 'hata' }); return; }
+    toastGoster(basari, { tur: 'basari' });
+    await sayfaCiz({ odak: 'kurs-bugun-baslik' });
+  };
+  return bolum('kurs-sinif-baslik', 'Sınıfın değişti',
+    el('p', { metin: `Bu kurs ${d.eski}. sınıfa göre hazırlanmıştı; profilin şimdi ${d.yeni}. sınıf.${d.kademeDegisti ? ' Okul kademen de değiştiği için yeni sınıfına göre baştan başlaman önerilir.' : ''}` }),
+    el('ul', { sinif: 'kurs-secenekler' },
+      el('li', {}, dugme(`${d.yeni}. sınıfa göre baştan başla`, d.kademeDegisti ? 'btn--birincil btn--blok' : 'btn--ikincil btn--blok',
+        sec(() => kursBaslat({ profilDk: plan.profilDk }), 'Yeni kurs başladı.')),
+      el('p', { metin: 'Yeni bir 21 gün başlar; eski kursun özeti saklanır.' })),
+      el('li', {}, dugme(`Bu planla devam et (Gün ${plan.durum.gun})`, d.kademeDegisti ? 'btn--ikincil btn--blok' : 'btn--birincil btn--blok',
+        sec(sinifaGoreDevam, 'Kaldığın yerden devam ediyorsun.')),
+      el('p', { metin: 'İlk gün kendi hızında okursun; hedefin bu okumaya göre ayarlanır ve dersler yeni sınıfına uygun çalışmalardan seçilir.' }))));
 }
 
 function yenidenBaslatEkrani(plan) {
@@ -443,7 +466,9 @@ async function sayfaCiz({ odak } = {}) {
   }
 
   let parcalar;
+  const sinifFarki = sinifDegisimi(plan, profil); // S34a
   if (!plan) parcalar = baslangicEkrani();
+  else if (sinifFarki) parcalar = [sayfaUst('Akıllı Kurs', kurallar.yontemAdi, 'kurs-baslik'), sinifDegisimiEkrani(plan, sinifFarki)];
   else if (plan.durum.yenidenBaslatmaOnerisi) parcalar = [sayfaUst('Akıllı Kurs', kurallar.yontemAdi, 'kurs-baslik'), yenidenBaslatEkrani(plan)];
   else {
     const oz = kursOzeti(plan, gunAnahtari(), kurallar);

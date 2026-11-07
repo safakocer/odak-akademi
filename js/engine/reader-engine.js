@@ -1,12 +1,13 @@
-// Okuma motoru: Türkçe metin ön işleme, kelime/karakter gruplama, rAF zamanlayıcı, WPM ölçümü, kademeli hız kuralları, okuma ayarları ve okuma alanı
+// Okuma motoru: Türkçe metin ön işleme, kelime/karakter gruplama, rAF zamanlayıcı, WPM ölçümü, kademeli hız kuralları, okuma ayarları ve okuma alanı (S34a: WPM alt sınırı 30, kayıtlı hız yoksa sınıf bandından varsayılan, bant izin vermiyorsa kademeli hız kapalı)
 import { kelimelereBol, kelimeGruplari, karakterSayisi, boslukTemizle, sinirla, sayi } from '../core/utils.js';
 import { oku, yazmaDene, sil, depoUyar } from '../core/storage.js';
 import { dinle, OLAYLAR, etkinProfil } from '../core/store.js';
 import { hareketAzaltilmisMi } from '../core/a11y.js';
 import { el } from '../core/ui.js';
+import { okumaBandi } from '../core/siniflar.js';
 
 // ---------- Sabitler ----------
-export const WPM_SINIR = Object.freeze({ en: 60, enCok: 500, adim: 10 });
+export const WPM_SINIR = Object.freeze({ en: 30, enCok: 500, adim: 10 }); // S34a: alt sınır 60 → 30 (2-4. sınıf)
 export const GRUP_SINIR = Object.freeze({
   kelime: Object.freeze({ en: 1, enCok: 4, adim: 1, varsayilan: 2 }),
   karakter: Object.freeze({ en: 12, enCok: 20, adim: 2, varsayilan: 16 }),
@@ -267,8 +268,12 @@ const bellek = new Map(); // profil yoksa ya da yazılamazsa ayarlar burada kal�
 const ayarAnahtari = (id) => `okuma:${id}`;
 const aktifProfilId = () => etkinProfil()?.id ?? null;
 
-/** Ayar nesnesini şemaya göre temizler; eksik/geçersiz alan varsayılan olur */
-export function okumaAyarDenetle(ham) {
+/** Etkin profilin okuma bandı (data/sinif-bantlari.json; yüklenmediyse ilkokulda güvenli yedek, ortaokulda null) */
+export const etkinOkumaBandi = () => okumaBandi(etkinProfil()?.sinif);
+
+/** Ayar nesnesini şemaya göre temizler; eksik/geçersiz alan varsayılan olur.
+ *  S34a: bant { varsayilanWpm, kademeli }: kayıtlı hız yoksa bandın hızı; bant kademeliye izin vermiyorsa kademeli her zaman kapalı */
+export function okumaAyarDenetle(ham, bant = etkinOkumaBandi()) {
   const a = ham && typeof ham === 'object' ? ham : {};
   const v = VARSAYILAN_OKUMA_AYARLARI;
   const sec = (deger, liste, vars) => (liste.includes(deger) ? deger : vars);
@@ -276,14 +281,14 @@ export function okumaAyarDenetle(ham) {
   const s = GRUP_SINIR[grupTuru];
   const boyut = Math.round(sayi(a.grupBoyutu) ?? NaN);
   return {
-    wpm: wpmDenetle(a.wpm),
+    wpm: wpmDenetle(sayi(a.wpm) === undefined && bant?.varsayilanWpm ? bant.varsayilanWpm : a.wpm),
     grupBoyutu: boyut >= s.en && boyut <= s.enCok ? boyut : s.varsayilan,
     grupTuru,
     yaziBoyutu: sec(a.yaziBoyutu, OKUMA_SECENEKLERI.yaziBoyutu, v.yaziBoyutu),
     satirAraligi: sec(sayi(a.satirAraligi), OKUMA_SECENEKLERI.satirAraligi, v.satirAraligi),
     font: sec(a.font, OKUMA_SECENEKLERI.font, v.font),
     tema: sec(a.tema, OKUMA_SECENEKLERI.tema, v.tema),
-    kademeli: a.kademeli === true || a.kademeli === 'true',
+    kademeli: bant?.kademeli !== false && (a.kademeli === true || a.kademeli === 'true'),
     gozMolasi: !(a.gozMolasi === false || a.gozMolasi === 'false'),
   };
 }
@@ -406,4 +411,5 @@ export function okumaAlaniOlustur(gruplar, { ayar, gorunum = 'metin', etiket = '
  * okumaAlaniOlustur(gruplar, {ayar, gorunum}) / okumaGorunumuUygula
  * wpmHesapla, wpmDenetle, tahminiSureSn, kelimeMi; WPM_SINIR, GRUP_SINIR, OKUMA_SECENEKLERI, VARSAYILAN_OKUMA_AYARLARI
  * S05b: kademeliIzinli(anlamaYuzde), kademeliTavan(baslangic), KADEMELI; ayarlarda kademeli ve gozMolasi (true/false)
+ * S34a: okumaAyarDenetle(ham, bant?), etkinOkumaBandi(); WPM_SINIR.en 30
  */

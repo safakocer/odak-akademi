@@ -1,4 +1,5 @@
 // Seviye Belirleme Testi sayfası (S17, #/testler): 5 adım (okuma+anlama, Dokun ya da Bekle, Rakam Dizisi, Görme Alanı Flaşı, odak öz değerlendirmesi), profil radarı, başlangıç/final karşılaştırması
+// S34d: 2-8. sınıf; kademe akışı data/tests/seviye-testi.json akislar’dan (ilkokulda kısa yönergeli 3-4 adım), egzersizi sınıfa uygun olmayan adım atlanır, okuma hızı ölçeği sınıf bandından
 import { el } from '../../core/ui.js';
 import { odakla, duyur } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
@@ -8,15 +9,16 @@ import { eohHesapla } from '../../core/metrics.js';
 import { metniGrupla, okumaMotoruOlustur, okumaAlaniOlustur, okumaAyarlariniGetir, WPM_SINIR } from '../../engine/reader-engine.js';
 import { soruOturumuKur, ANLAMA_ESIGI } from '../../engine/quiz-engine.js';
 import { radarOlustur } from '../../engine/radar.js';
-import { egzersizYukle, egzersizBilgisi } from '../katalog.js';
+import { egzersizYukle, egzersizBilgisi, aracBilgisi, kartUygunMu } from '../katalog.js';
+import { bantlariYukle } from '../../core/siniflar.js';
 import {
-  EKSENLER, OLCEK, FINAL_GUN, YENILEME_GUN, testDurumu, sonucKaydet, yeniDonem, guclulukOzeti, karsilastir, hamMetin,
+  EKSENLER, OLCEK, FINAL_GUN, YENILEME_GUN, testDurumu, sonucKaydet, yeniDonem, guclulukOzeti, karsilastir, hamMetin, sinifOlcegi, sonucOlcegi,
 } from './test-veri.js';
 
 const OKUMA_EN_AZ_MS = 8000;     // bundan önce “Bitirdim” okumayı bitirmez (yanlışlıkla dokunma)
 const OKUMA_SINIR_MS = 240000;   // 4 dk: test 12 dakikayı aşmasın; dolunca okuma biter, sorular gelir
 
-// Ölçüm adımları: egzersiz dosyaları olduğu gibi kullanılır; olcum alanı sabit ayar verir (önceki kayıtlar kullanılmaz, final aynı koşulda yapılır)
+// Varsayılan akış (5-8. sınıf). Ölçüm adımları: egzersiz dosyaları olduğu gibi kullanılır; olcum alanı sabit ayar verir (önceki kayıtlar kullanılmaz, final aynı koşulda yapılır)
 const ADIMLAR = Object.freeze([
   { ad: 'okuma', baslik: 'Oku ve anla', sure: '3-4 dk', kisa: 'Kısa bir metin ve 4 soru',
     aciklama: 'Kısa bir metni her zamanki hızında, anlayarak oku. Bitirince “Bitirdim”e bas; ardından 4 soru gelecek.',
@@ -34,6 +36,16 @@ const ADIMLAR = Object.freeze([
     aciklama: 'Ders çalışırken nasıl olduğunu düşün. Doğru ya da yanlış cevap yok; sana en uygun olanı seç.',
     ipuclari: ['Bu bölüm radara girmez, ayrıca gösterilir.'] },
 ].map(Object.freeze));
+
+// Varsayılan akışın sayfa metinleri ({gun}: final günü); kademe akışı (seviye-testi.json akislar) bunları değiştirebilir
+const AKIS_METINLERI = Object.freeze({
+  sure: 'yaklaşık 10 dakika',
+  giris: 'Kısa adımlarla okuma, anlama, dikkat, hafıza ve görme alanındaki bugünkü noktanı görürsün. {gun} gün sonra aynı testi yeniden yapıp yalnızca kendi sonuçlarınla karşılaştırırsın.',
+  hazirlik: 'Sessiz bir yer seç, bildirimleri kapat. Her adımdan önce hazır olduğunda “Başla”ya basarsın; zorlandığın bir adımı atlayabilirsin.',
+  adimNotu: 'Hazır olduğunda başla. Adımlar arasında istediğin kadar dinlenebilirsin.',
+});
+// Akış dosyasının bir adımda değiştirebileceği alanlar ve türleri (egzersiz adı değiştirilemez)
+const ADIM_ALANLARI = Object.freeze({ baslik: 'metin', sure: 'metin', kisa: 'metin', aciklama: 'metin', ipuclari: 'liste', zorluk: 'sayi', olcum: 'nesne' });
 
 const OZ_SORULAR = Object.freeze([
   { metin: 'Ders çalışırken aklım başka şeylere kayar.', ters: true },
@@ -68,19 +80,55 @@ function tanimStili(tanim) {
   document.head.append(el('style', { 'data-test-stil': tanim.egzersiz, metin: tanim.stil }));
 }
 
-let metinSozu = null;
-function testMetinleri() {
-  metinSozu ??= fetch(new URL('../../../data/tests/seviye-testi.json', import.meta.url))
+// Test dosyası: { metinler: [], akislar: {} } (yüklenemezse boş; okuma adımı atlanır, varsayılan akış kullanılır)
+let dosyaSozu = null;
+let dosya = null;
+function testDosyasi() {
+  dosyaSozu ??= fetch(new URL('../../../data/tests/seviye-testi.json', import.meta.url))
     .then((y) => { if (!y.ok) throw new Error(`HTTP ${y.status}`); return y.json(); })
-    .then((v) => (Array.isArray(v?.metinler) ? v.metinler : []))
-    .catch((h) => { console.error('[seviye-testi] metinler yüklenemedi:', h); metinSozu = null; return []; });
-  return metinSozu;
+    .then((v) => ({
+      metinler: Array.isArray(v?.metinler) ? v.metinler : [],
+      akislar: v?.akislar && typeof v.akislar === 'object' ? v.akislar : {},
+    }))
+    .catch((h) => { console.error('[seviye-testi] test dosyası yüklenemedi:', h); dosyaSozu = null; return { metinler: [], akislar: {} }; });
+  return dosyaSozu.then((d) => { dosya = d; return d; });
 }
 
 /** Final başlangıçtaki metni kullanır; yoksa profilin sınıfına uygun metin */
-async function testMetni(kimlik, sinif) {
-  const liste = await testMetinleri();
-  return liste.find((m) => m.kimlik === kimlik) ?? liste.find((m) => m.sinif === sinif) ?? liste[0] ?? null;
+function testMetni(d, kimlik, sinif) {
+  const liste = d.metinler;
+  return liste.find((m) => m.kimlik === kimlik) ?? liste.find((m) => m.sinif === Number(sinif)) ?? liste[0] ?? null;
+}
+
+const turUygun = (v, tur) => (tur === 'metin' ? typeof v === 'string' && v.trim() !== ''
+  : tur === 'liste' ? Array.isArray(v) && v.every((x) => typeof x === 'string')
+    : tur === 'sayi' ? Number.isInteger(v) && v >= 1
+      : !!v && typeof v === 'object' && !Array.isArray(v));
+
+/**
+ * S34d: Sınıfın test akışı: { sure, giris, hazirlik, adimNotu, adimlar }. Akış dosyasında sınıfı içeren akış varsa adımları ve metinleri ondan
+ * (yazılmayan alan varsayılandan; olcum alan alan birleşir), yoksa varsayılan 5 adım. Egzersizi bu sınıfa uygun olmayan adım (katalog aralığı) çıkar.
+ */
+function akisKur(d, sinif) {
+  const ek = Object.values(d?.akislar ?? {}).find((a) => Array.isArray(a?.siniflar) && a.siniflar.includes(Number(sinif))) ?? null;
+  const metin = (k) => (turUygun(ek?.[k], 'metin') ? ek[k] : AKIS_METINLERI[k]);
+  let adimlar = ADIMLAR;
+  if (Array.isArray(ek?.adimlar)) {
+    const ozel = ek.adimlar.map((a) => {
+      const temel = ADIMLAR.find((x) => x.ad === a?.ad);
+      if (!temel) return null;
+      const y = { ...temel };
+      for (const [k, tur] of Object.entries(ADIM_ALANLARI)) {
+        if (a[k] === undefined) continue;
+        if (!turUygun(a[k], tur)) { console.warn('[seviye-testi] akış alanı yok sayıldı:', a.ad, k); continue; }
+        y[k] = k === 'olcum' ? Object.freeze({ ...(temel.olcum ?? {}), ...a.olcum }) : a[k];
+      }
+      return Object.freeze(y);
+    }).filter(Boolean);
+    if (ozel.length) adimlar = ozel;
+  }
+  adimlar = adimlar.filter((a) => !a.egzersiz || kartUygunMu(egzersizBilgisi(a.egzersiz), sinif));
+  return { sure: metin('sure'), giris: metin('giris'), hazirlik: metin('hazirlik'), adimNotu: metin('adimNotu'), adimlar };
 }
 
 // ---------- Egzersizleri çerçeve dışında çalıştıran küçük bağlam ----------
@@ -154,7 +202,7 @@ function adimBaglami({ alan, seviye, zorluk, olcum }) {
 }
 
 // ---------- Adım ekranları ----------
-function adimGirisi(govde, adim, calisma, onceki) {
+function adimGirisi(govde, adim, calisma, onceki, adimNotu) {
   return new Promise((coz) => {
     const bitir = (secim) => { calisma.durdur = null; coz(secim); };
     calisma.durdur = () => bitir('iptal');
@@ -164,7 +212,7 @@ function adimGirisi(govde, adim, calisma, onceki) {
       baslik,
       el('p', { metin: adim.aciklama }),
       el('ul', {}, adim.ipuclari.map((m) => el('li', { metin: m }))),
-      el('p', { sinif: 'test-not', metin: 'Hazır olduğunda başla. Adımlar arasında istediğin kadar dinlenebilirsin.' }),
+      el('p', { sinif: 'test-not', metin: adimNotu }),
       el('div', { sinif: 'test-eylemler' },
         el('button', { type: 'button', sinif: 'btn btn--birincil btn--buyuk', metin: 'Başla', onclick: () => bitir('basla') }),
         el('button', { type: 'button', sinif: 'btn btn--hayalet', metin: 'Bu adımı atla', onclick: () => bitir('atla') }))));
@@ -315,15 +363,20 @@ async function testiCalistir(kap, tur) {
   const durum = testDurumu(p.id);
   const calisma = { profilId: p.id, bitti: false, durdur: null };
   oturum = calisma;
-  const metin = await testMetni(tur === 'final' ? durum.veri.baslangic?.metin : null, p.sinif);
+  const [d] = await Promise.all([testDosyasi(), bantlariYukle()]);
   if (calisma.bitti) return;
+  // Final, başlangıçla aynı koşulda: aynı metin, başlangıcın sınıfının akışı ve ölçeği
+  const b = tur === 'final' ? durum.veri.baslangic : null;
+  const metin = testMetni(d, b?.metin ?? null, p.sinif);
+  const akis = akisKur(d, b?.sinif ?? p.sinif);
+  const ADIM = akis.adimlar;
 
   const t0 = Date.now();
-  const sonuc = { sinif: p.sinif, metin: metin?.kimlik ?? null, atlanan: [] };
+  const sonuc = { sinif: p.sinif, metin: metin?.kimlik ?? null, atlanan: [], olcek: { wpm: (b ? sonucOlcegi(b) : sinifOlcegi(p.sinif)).wpm } };
   const baslik = el('h1', { metin: tur === 'final' ? 'Final testi' : 'Başlangıç testi' });
   const etiket = el('span', { id: `test-ilerleme-${++sayac}` });
   const dolgu = el('span', { sinif: 'ilerleme__dolgu' });
-  const cubuk = el('div', { sinif: 'ilerleme', role: 'progressbar', 'aria-labelledby': etiket.id, 'aria-valuemin': '0', 'aria-valuemax': String(ADIMLAR.length) }, dolgu);
+  const cubuk = el('div', { sinif: 'ilerleme', role: 'progressbar', 'aria-labelledby': etiket.id, 'aria-valuemin': '0', 'aria-valuemax': String(ADIM.length) }, dolgu);
   const govde = el('div', { sinif: 'test-govde' });
   const cik = el('button', { type: 'button', sinif: 'btn btn--hayalet btn--kucuk', metin: 'Testten çık', onclick: () => {
     if (!confirm('Test yarıda bırakılsın mı? Bu testteki yanıtlar kaydedilmez; istediğin zaman baştan başlayabilirsin.')) return;
@@ -335,14 +388,14 @@ async function testiCalistir(kap, tur) {
     govde));
 
   let onceki = '';
-  for (let i = 0; i < ADIMLAR.length; i++) {
-    const adim = ADIMLAR[i];
-    etiket.textContent = `Adım ${i + 1} / ${ADIMLAR.length}: ${adim.baslik}`;
-    dolgu.style.setProperty('--deger', `${(i * 100) / ADIMLAR.length}%`);
+  for (let i = 0; i < ADIM.length; i++) {
+    const adim = ADIM[i];
+    etiket.textContent = `Adım ${i + 1} / ${ADIM.length}: ${adim.baslik}`;
+    dolgu.style.setProperty('--deger', `${(i * 100) / ADIM.length}%`);
     cubuk.setAttribute('aria-valuenow', String(i));
-    cubuk.setAttribute('aria-valuetext', `${ADIMLAR.length} adımdan ${i} tamamlandı`);
+    cubuk.setAttribute('aria-valuetext', `${ADIM.length} adımdan ${i} tamamlandı`);
 
-    const secim = await adimGirisi(govde, adim, calisma, onceki);
+    const secim = await adimGirisi(govde, adim, calisma, onceki, akis.adimNotu);
     if (calisma.bitti || secim === 'iptal') return;
     if (secim === 'atla') { sonuc.atlanan.push(adim.ad); onceki = `${adim.baslik} adımını atladın.`; continue; }
 
@@ -383,27 +436,27 @@ function testiDurdur() {
 }
 
 // ---------- Sayfa (testin dışında) ----------
-function girisBolumu() {
+function girisBolumu(akis) {
   return el('div', { sinif: 'test-giris' },
     el('h1', { metin: 'Seviye Belirleme Testi' }),
     el('p', { sinif: 'test-giris__vurgu', metin: 'Yarış değil, başlangıç noktan.' }),
-    el('p', { metin: `Kısa adımlarla okuma, anlama, dikkat, hafıza ve görme alanındaki bugünkü noktanı görürsün. ${FINAL_GUN} gün sonra aynı testi yeniden yapıp yalnızca kendi sonuçlarınla karşılaştırırsın.` }));
+    el('p', { metin: String(akis?.giris ?? AKIS_METINLERI.giris).replace('{gun}', String(FINAL_GUN)) }));
 }
 
-function baslangicKarti(kap) {
+function baslangicKarti(kap, akis) {
   return el('section', { sinif: 'test-kart', 'aria-labelledby': 'test-adimlar-baslik' },
-    el('h2', { id: 'test-adimlar-baslik', metin: 'Test 5 adım, yaklaşık 10 dakika' }),
-    el('ol', { sinif: 'test-adimlar' }, ADIMLAR.map((a) => el('li', {},
+    el('h2', { id: 'test-adimlar-baslik', metin: `Test ${akis.adimlar.length} adım, ${akis.sure}` }),
+    el('ol', { sinif: 'test-adimlar' }, akis.adimlar.map((a) => el('li', {},
       el('span', {}, el('strong', { metin: a.baslik }), el('small', { metin: a.kisa })),
       el('span', { sinif: 'test-adimlar__sure', metin: a.sure })))),
-    el('p', { metin: 'Sessiz bir yer seç, bildirimleri kapat. Her adımdan önce hazır olduğunda “Başla”ya basarsın; zorlandığın bir adımı atlayabilirsin.' }),
+    el('p', { metin: akis.hazirlik }),
     el('div', { sinif: 'test-eylemler' },
       el('button', { type: 'button', sinif: 'btn btn--gunes btn--buyuk', metin: 'Teste başla', onclick: () => testiCalistir(kap, 'baslangic') })));
 }
 
 function egzersizBaglantisi(eksen) {
   const b = egzersizBilgisi(eksen.egzersiz);
-  return b ? el('a', { sinif: 'btn btn--ikincil btn--kucuk', href: `#/egzersiz/${b.ad}`, metin: `${b.baslik} ile çalış` }) : null;
+  return b && kartUygunMu(b, etkinProfil()?.sinif) ? el('a', { sinif: 'btn btn--ikincil btn--kucuk', href: `#/egzersiz/${b.ad}`, metin: `${b.baslik} ile çalış` }) : null;
 }
 
 // Tek ölçüm: güçlü yön ve gelişim alanı
@@ -430,11 +483,12 @@ function ozetListesi(s) {
       el('p', { metin: 'Okuma hızın olağan aralığın üstünde ölçüldü. Bir sonraki testte metni anlayarak sonuna kadar oku.' })));
   }
   if (s.oz) {
+    const odak = aracBilgisi('odak');
     ogeler.push(el('li', {}, el('h3', { metin: `Odak öz değerlendirmen: ${s.oz.puan}/100` }),
       el('p', { metin: s.oz.puan >= 67
         ? 'Çalışırken odağını korumakta kendini iyi görüyorsun.'
         : 'Kısa çalışma blokları ve telefonu uzağa koymak odağını kolaylaştırabilir.' }),
-      el('a', { sinif: 'btn btn--ikincil btn--kucuk', href: '#/odak', metin: 'Odak Araçları' })));
+      odak && kartUygunMu(odak, etkinProfil()?.sinif) ? el('a', { sinif: 'btn btn--ikincil btn--kucuk', href: odak.adres, metin: odak.baslik }) : null));
   }
   return el('ul', { sinif: 'test-ozet' }, ogeler);
 }
@@ -483,16 +537,18 @@ function tablo(b, f) {
       f ? el('td', {}, el('span', { sinif: 'test-fark', 'data-yon': x.yon ?? '', metin: farkMetni(x) })) : null)))));
 }
 
-function olcekAciklamasi() {
+// s: başlangıç sonucu (okuma hızı ölçeği onunla saklanır; final aynı ölçeği kullanır)
+function olcekAciklamasi(s) {
+  const wpm = sonucOlcegi(s).wpm;
   return el('details', { sinif: 'test-olcek' },
     el('summary', { metin: 'Puanlar nasıl hesaplanıyor?' }),
     el('ul', {},
-      el('li', { metin: `Okuma hızı: ${OLCEK.wpm[0]} kelime/dk → 0, ${OLCEK.wpm[1]} kelime/dk ve üstü → 100.` }),
+      el('li', { metin: `Okuma hızı: ${wpm[0]} kelime/dk → 0, ${wpm[1]} kelime/dk ve üstü → 100.` }),
       el('li', { metin: 'Anlama: doğru cevap yüzdesi.' }),
       el('li', { metin: `Dikkat: doğruluğun %70’i + tepki hızının %30’u (${OLCEK.tepkiMs[0]} ms → 0, ${OLCEK.tepkiMs[1]} ms → 100).` }),
       el('li', { metin: `Hafıza: doğru hatırlanan en uzun dizi (${OLCEK.dizi[0]} rakam → 0, ${OLCEK.dizi[1]} rakam → 100).` }),
       el('li', { metin: `Görme alanı: doğru görülen flaş süresi (${OLCEK.flasMs[0]} ms → 0, ${OLCEK.flasMs[1]} ms → 100).` })),
-    el('p', { metin: 'Bu ölçek sabittir ve bir not ya da sıralama değildir. Yalnızca senin iki ölçümünü aynı cetvelle göstermek için kullanılır.' }));
+    el('p', { metin: 'Bu ölçek bir not ya da sıralama değildir. Başlangıç ve final aynı cetvelle hesaplanır; yalnızca senin iki ölçümünü karşılaştırmak için kullanılır.' }));
 }
 
 function durumKarti(kap, d) {
@@ -541,19 +597,25 @@ function sonucBolumu(d) {
         : 'Bu, sıralama değil; kendi gelişimini izlemek için bir başlangıç çizgisi.' })),
     el('div', { sinif: 'test-sonuc__duzen' }, radar, f ? degisimListesi(b, f) : ozetListesi(b)),
     tablo(b, f),
-    olcekAciklamasi());
+    olcekAciklamasi(b));
 }
 
-function sayfaCiz(kap, { yeniTur = null, hata = null } = {}) {
+// S34d: akış verisi gerektiği için önce test dosyası beklenir (önbellekte; ikinci çizimde hemen gelir). Bu arada test başladıysa çizilmez
+let cizimNo = 0;
+async function sayfaCiz(kap, { yeniTur = null, hata = null } = {}) {
+  const no = ++cizimNo;
+  const d0 = dosya ?? await testDosyasi();
+  if (no !== cizimNo || oturum || !kap.isConnected) return;
   const p = etkinProfil();
   if (!p) {
-    kap.replaceChildren(girisBolumu(), el('p', { metin: 'Testi yapmak için önce bir profil oluştur.' }));
+    kap.replaceChildren(girisBolumu(null), el('p', { metin: 'Testi yapmak için önce bir profil oluştur.' }));
     return;
   }
   const d = testDurumu(p.id);
-  const parcalar = [girisBolumu()];
+  const akis = akisKur(d0, d.veri.baslangic && !d.veri.final ? d.veri.baslangic.sinif ?? p.sinif : p.sinif);
+  const parcalar = [girisBolumu(akis)];
   if (hata) parcalar.push(el('p', { sinif: 'test-oz__hata', role: 'alert', metin: hata }));
-  if (d.asama === 'yok') parcalar.push(baslangicKarti(kap));
+  if (d.asama === 'yok') parcalar.push(baslangicKarti(kap, akis));
   else parcalar.push(sonucBolumu(d), durumKarti(kap, d));
   kap.replaceChildren(...parcalar);
   if (yeniTur) {

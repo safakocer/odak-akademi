@@ -1,4 +1,4 @@
-// Tekrar Kartları (S16; S28: boş durumlarda çocuk görünümünde Fener balonu): #/tekrar (bugünün tekrarı, Leitner kutuları, desteler, hazır desteler, CSV, ayarlar) ve #/tekrar/<deste> (kartlar); geri çağırma oturumu sayfa içinde açılır. Motor: js/engine/srs.js
+// Tekrar Kartları (S16; S28: boş durumlarda çocuk görünümünde Fener balonu; S34c: hazır desteler öğrencinin kademesine göre, diğerleri kapalı bölümde): #/tekrar (bugünün tekrarı, Leitner kutuları, desteler, hazır desteler, CSV, ayarlar) ve #/tekrar/<deste> (kartlar); geri çağırma oturumu sayfa içinde açılır. Motor: js/engine/srs.js
 import { el, spriteIkon, toastGoster, modalAc, modalKapat } from '../../core/ui.js';
 import { duyur, odakla } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
@@ -6,6 +6,7 @@ import { git } from '../../core/router.js';
 import { boslukTemizle, trKucuk, sayiBicimle, gunAnahtari } from '../../core/utils.js';
 import { aracBilgisi } from '../katalog.js';
 import { bosDurum } from '../../engine/fener.js';
+import { kademe, KADEMELER, TUM_ARALIK } from '../../core/siniflar.js';
 import {
   GUNLUK_SINIR, ARALIK_SINIRI, SINIRLAR, VARSAYILAN_ARALIKLAR, ICE_AKTARILAN_DESTE,
   srsAyarlari, srsAyarKaydet, desteOzetleri, desteBul, desteKartlari, desteOlustur, desteYenidenAdlandir, desteSil,
@@ -275,15 +276,30 @@ function destelerBolumu(ciz) {
       : bosDurum('Henüz desten yok. Hazır destelerden birini ekle ya da “Yeni deste” ile kendi kartlarını yaz.'));
 }
 
+// S34c: hazır destenin sınıfı "4" ya da "5-8" → [en, enCok] (okunamazsa tüm sınıflar)
+function desteAraligi(sinif) {
+  const m = /^(\d)(?:\s*-\s*(\d))?$/.exec(String(sinif ?? '').trim());
+  return m ? [Number(m[1]), Number(m[2] ?? m[1])] : TUM_ARALIK;
+}
+// S34c: deste öğrencinin kademesine (ilkokul 2-4, ortaokul 5-8) uygun mu; profil yoksa hepsi uygun
+function desteKademedeMi(h, sinif) {
+  const ad = kademe(sinif);
+  if (!ad) return true;
+  const [en, enCok] = desteAraligi(h.sinif);
+  const ks = KADEMELER[ad];
+  return enCok >= ks[0] && en <= ks[ks.length - 1];
+}
+
 function hazirBolumu(ciz) {
   const no = cizimNo;
   const liste = el('ul', { sinif: 'tekrar-hazir-listesi', 'aria-labelledby': 'tekrar-hazir-baslik' },
     el('li', {}, el('p', { sinif: 'soluk', role: 'status', metin: 'Yükleniyor…' })));
+  const digerKap = el('div', { hidden: true }); // S34c: diğer kademenin desteleri kapalı bir bölümde
   hazirDesteleriYukle().then((hazirlar) => {
     if (no !== cizimNo) return;
     if (!hazirlar.length) { liste.replaceChildren(el('li', {}, bosDurum('Hazır desteler şu an açılamadı. Sayfayı yenileyip yeniden dene.'))); return; }
     const eklenenler = new Set(desteOzetleri().map((d) => d.hazirAd).filter(Boolean));
-    liste.replaceChildren(...hazirlar.map((h) => el('li', { sinif: 'kart tekrar-hazir' },
+    const kart = (h) => el('li', { sinif: 'kart tekrar-hazir' },
       el('div', { sinif: 'tekrar-hazir__metin' },
         el('h3', { metin: h.baslik }),
         el('p', { sinif: 'soluk', metin: h.aciklama }),
@@ -299,10 +315,24 @@ function hazirBolumu(ciz) {
           if (!s.tamam) { d.disabled = false; toastGoster(s.hata, { tur: 'uyari' }); return; }
           toastGoster(`${s.deste.ad} eklendi: ${s.eklenen} kart. Yeni kartlar günlük sınırına göre sırayla gelir.`, { tur: 'basari', sure: 6000 });
           ciz('#tekrar-desteler-baslik');
-        } }, 'Desteme ekle', el('span', { sinif: 'ekran-okuyucu', metin: `: ${h.baslik}` })))));
+        } }, 'Desteme ekle', el('span', { sinif: 'ekran-okuyucu', metin: `: ${h.baslik}` })));
+    // S34c: önce öğrencinin kademesindeki desteler (kendi sınıfının destesi başta); diğerleri “Diğer sınıfların desteleri” içinde
+    const sinif = Number(etkinProfil()?.sinif) || null;
+    let uygun = hazirlar.filter((h) => desteKademedeMi(h, sinif));
+    let diger = hazirlar.filter((h) => !desteKademedeMi(h, sinif));
+    if (!uygun.length) { uygun = hazirlar; diger = []; }
+    const kendiMi = (h) => { const [en, enCok] = desteAraligi(h.sinif); return en === sinif && enCok === sinif; };
+    uygun = [...uygun.filter(kendiMi), ...uygun.filter((h) => !kendiMi(h))];
+    liste.replaceChildren(...uygun.map(kart));
+    if (diger.length) {
+      digerKap.replaceChildren(el('details', { sinif: 'tekrar-hazir-diger' },
+        el('summary', { sinif: 'btn btn--hayalet btn--kucuk', metin: `Diğer sınıfların desteleri (${diger.length})` }),
+        el('ul', { sinif: 'tekrar-hazir-listesi', 'aria-label': 'Diğer sınıfların desteleri' }, diger.map(kart))));
+      digerKap.hidden = false;
+    }
   }).catch((h) => { console.error('[tekrar]', h); });
   return bolum('tekrar-hazir-baslik', 'Hazır desteler', null,
-    el('p', { sinif: 'soluk', metin: 'Eklediğin deste senin olur: kartlarını düzenleyebilir, silebilir, yenilerini ekleyebilirsin.' }), liste);
+    el('p', { sinif: 'soluk', metin: 'Eklediğin deste senin olur: kartlarını düzenleyebilir, silebilir, yenilerini ekleyebilirsin.' }), liste, digerKap);
 }
 
 function aktarBolumu(ciz) {

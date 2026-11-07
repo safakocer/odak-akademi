@@ -1,8 +1,9 @@
-// Çalışma Rehberi (S22): #/rehber araç ve bilgi kartları, #/rehber/<sayfa> araç (Cornell, zihin haritası, haftalık plan) ya da bilgi sayfası; ortak sayfa üstü, ders adı listesi ve yazdırma (html.yazdir-rehber)
+// Çalışma Rehberi (S22): #/rehber araç ve bilgi kartları, #/rehber/<sayfa> araç (Cornell, zihin haritası, haftalık plan) ya da bilgi sayfası; ortak sayfa üstü, ders adı listesi ve yazdırma (html.yazdir-rehber); S34a: kartlar etkin profilin sınıfına göre, uygun olmayan sayfa #/sinif-disi
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { git } from '../../core/router.js';
 import { aracBilgisi, modulAraclari } from '../katalog.js';
-import { egzersizKarti } from '../egzersiz-listesi.js';
+import { egzersizKarti, sinifDisiysaYonlendir } from '../egzersiz-listesi.js';
+import { etkinProfil } from '../../core/store.js';
 import { BILGI_SAYFALARI, DERS_ONERILERI } from './rehber-icerik.js';
 
 const YAZDIR_SINIFI = 'yazdir-rehber';
@@ -52,16 +53,25 @@ export function rehberSayfasiniKapat() {
 export function rehberSayfasiCiz(kap) {
   rehberSayfasiniKapat();
   if (!kap) return;
-  const kartlar = modulAraclari('rehber');
-  const bolum = (id, baslik, grup) => el('section', { 'aria-labelledby': id },
-    el('div', { sinif: 'bolum-baslik' }, el('h2', { id, metin: baslik })),
-    el('ul', { sinif: 'izgara modul-izgara', 'aria-labelledby': id }, kartlar.filter((k) => k.grup === grup).map(egzersizKarti)));
-  kap.replaceChildren(
+  const kartlar = modulAraclari('rehber', etkinProfil()?.sinif); // S34a: yalnız sınıfa uygun kartlar
+  // S34a: sınıfa uygun kartı olmayan bölüm hiç çizilmez (ör. 2. sınıfta Araçlar)
+  const bolum = (id, baslik, grup) => {
+    const liste = kartlar.filter((k) => k.grup === grup);
+    return liste.length > 0 && el('section', { 'aria-labelledby': id },
+      el('div', { sinif: 'bolum-baslik' }, el('h2', { id, metin: baslik })),
+      el('ul', { sinif: 'izgara modul-izgara', 'aria-labelledby': id }, liste.map(egzersizKarti)));
+  };
+  // S34a: sınav dili yalnız Sınav Hazırlığı kartı görünüyorsa
+  const sinavVar = kartlar.some((k) => k.ad === 'sinav-hazirlik');
+  kap.replaceChildren(...[
     geriBaglanti('#/', 'Ana sayfa'),
-    sayfaUst('pusula', 'Çalışma Rehberi', 'Not tut, konuyu haritala, haftanı planla. Bilgi köşesinde sınav, sağlık ve aile önerileri var.'),
+    sayfaUst('pusula', 'Çalışma Rehberi', sinavVar
+      ? 'Not tut, konuyu haritala, haftanı planla. Bilgi köşesinde sınav, sağlık ve aile önerileri var.'
+      : 'Çalışmanı kolaylaştıran araçlar ve bilgi köşesi: sağlıklı alışkanlıklar ve aileler için öneriler.'),
     bolum('rehber-arac-baslik', 'Araçlar', 'arac'),
     bolum('rehber-bilgi-baslik', 'Bilgi köşesi', 'bilgi'),
-    el('p', { sinif: 'alan__ipucu', metin: 'Notların, haritaların ve planın yalnızca bu cihazda, bu profilde saklanır. Yedek indirildiğinde onlar da yedeğe girer.' }));
+    el('p', { sinif: 'alan__ipucu', metin: 'Notların, haritaların ve planın yalnızca bu cihazda, bu profilde saklanır. Yedek indirildiğinde onlar da yedeğe girer.' }),
+  ].filter(Boolean));
 }
 
 // ---------- #/rehber/<sayfa> ----------
@@ -74,6 +84,7 @@ export async function rehberAltSayfaCiz(kap, ad, sorgu = {}) {
     git('/rehber', { degistir: true });
     return;
   }
+  if (sinifDisiysaYonlendir(ad)) return; // S34a: ör. ilkokulda Sınav Hazırlığı
   document.title = `${kart.baslik} | Odak Akademi`;
   document.documentElement.classList.add(YAZDIR_SINIFI);
   if (BILGI_SAYFALARI[ad]) { bilgiSayfasiCiz(kap, kart, BILGI_SAYFALARI[ad]); return; }

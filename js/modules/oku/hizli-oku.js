@@ -1,8 +1,9 @@
-// Hızlı Oku (deneme; S19: kurs hız dersinde mod ve hız kurstan gelir): kütüphaneden ya da kendi metinlerinden metin seçimi (ortak metin seçici), okuma modu (Rehberli işaretçi, Kelime grubu, Serbest okuma, RSVP denemesi), ayar paneli, okuma ve hız ölçümü
+// Hızlı Oku (deneme; S19: kurs hız dersinde mod ve hız kurstan gelir): kütüphaneden ya da kendi metinlerinden metin seçimi (ortak metin seçici), okuma modu (Rehberli işaretçi, Kelime grubu, Serbest okuma, RSVP denemesi), ayar paneli, okuma ve hız ölçümü (S34a: modlar ve kademeli hız sınıf bandına göre; 2-3. sınıfta rehber ve serbest)
 import { el } from '../../core/ui.js';
 import { sayiBicimle, sureMetni } from '../../core/utils.js';
 import { metniGrupla, okumaAyarlariniGetir, okumaAyarlariniKaydet, okumaAyarDenetle, tahminiSureSn } from '../../engine/reader-engine.js';
-import { modlariYukle, etkinGruplama, okumaSahnesiKur, modSeciciOlustur } from '../../engine/reader-modes.js';
+import { modlariYukle, etkinGruplama, okumaSahnesiKur, modSeciciOlustur, sinifaUygunModlar, kademeliSatiriniGizle } from '../../engine/reader-modes.js';
+import { bantlariYukle } from '../../core/siniflar.js';
 import { okumaAyarPaneliOlustur } from '../../engine/reader-panel.js';
 import { sonAnlamaYuzde } from '../../core/metrics.js';
 import { metinBankasiYukle, okunduIsaretle } from '../../engine/text-bank.js';
@@ -11,7 +12,9 @@ import { metinSeciciOlustur, metinSecimHatasi } from '../../engine/text-picker.j
 const COK_HIZLI_SERBEST = 350; // serbest okumada bunun üstü göz gezdirme olabilir; nazik not gösterilir
 
 // Bu ekranda sunulan modlar (js/engine/modes/<ad>.js). Yeni mod: dosyasını yaz, adını buraya ekle
-const MODLAR = await modlariYukle(['rehber', 'kelime-grubu', 'serbest', 'rsvp']);
+const TUM_MODLAR = await modlariYukle(['rehber', 'kelime-grubu', 'serbest', 'rsvp']);
+await bantlariYukle(); // S34a: sınıf bantları (varsayılan hız, izinli modlar, kademeli hız)
+let MODLAR = TUM_MODLAR; // S34a: her hazırlıkta etkin profilin sınıfına göre süzülür
 
 await metinBankasiYukle(); // S07: metinler kütüphaneden (data/texts) ve öğrencinin kendi metinlerinden
 
@@ -39,6 +42,7 @@ const dakikaKisa = (sn) => `${Math.round(sn / 60)} dk`;
 
 // Açıklama ekranına eklenen ayarlar (çerçevenin formunun içinde)
 function hazirlik({ kurs } = {}) {
+  MODLAR = sinifaUygunModlar(TUM_MODLAR);
   ayar = okumaAyarlariniGetir();
   const kursta = kursAyariniUygula(kurs);
   if (!kursta) secim.mod = seciliMod()?.ad ?? secim.mod;
@@ -51,7 +55,7 @@ function hazirlik({ kurs } = {}) {
   // Okuma modu: ortak seçici (uyarısı olan mod seçilince uyarı görünür)
   const modSecici = modSeciciOlustur(MODLAR, {
     kimlik: 'ok', secili: secim.mod,
-    degisince(t) { secim.mod = t.ad; panel.modAyarla(t); ozetYaz(); },
+    degisince(t) { secim.mod = t.ad; panel.modAyarla(t); kademeliSatiriniGizle(panel.kok); ozetYaz(); },
   });
 
   // Ayar paneli: hız, gruplar, kademeli hız, yazı, renk, göz molası + canlı önizleme; değişince profile kaydedilir
@@ -64,6 +68,7 @@ function hazirlik({ kurs } = {}) {
     },
   });
 
+  kademeliSatiriniGizle(panel.kok); // S34a: ilkokulda kademeli hız yok
   const ozet = el('p', { sinif: 'okuma-ayar__ozet' });
   // S19: kurs dersinde mod ve hız kilitli; yalnız metin seçilebilir
   const kap = kursta ? el('div', { sinif: 'okuma-ayar' }, secici.kok, ozet) : el('div', { sinif: 'okuma-ayar' }, secici.kok, modSecici.kok, panel.kok, ozet);
@@ -100,7 +105,7 @@ function baslat(ctx) {
 function degerlendir(ham) {
   const s = ham.ekstra ?? {};
   if (typeof s.wpm !== 'number') return { puan: 0, ilerle: false, mesaj: 'Okuma tamamlanmadı.' };
-  const tanim = MODLAR.find((t) => t.ad === s.mod);
+  const tanim = TUM_MODLAR.find((t) => t.ad === s.mod);
   const serbest = s.motor === 'serbest';
   const yarim = s.kelime < s.toplamKelime;
   if (!yarim) okunduIsaretle(s.metin); // sonuna kadar okunduysa kütüphanede “okundu”

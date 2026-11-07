@@ -1,4 +1,4 @@
-<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı), alt gezinme, profiller, yedek, PWA bağlantıları -->
+<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı), çocuk görünümü stili (S27), alt gezinme, profiller, yedek, PWA bağlantıları -->
 <!doctype html>
 <html lang="tr">
 <head>
@@ -29,6 +29,8 @@
   <link rel="stylesheet" href="css/ilerleme.css">
   <link rel="stylesheet" href="css/rehber.css">
   <link rel="stylesheet" href="css/veli.css">
+  <!-- S27: Çocuk görünümü (yalnız html[data-gorunum="cocuk"] iken etkili; en sonda yüklenir ki diğer stillerin üstüne yazsın) -->
+  <link rel="stylesheet" href="css/cocuk.css">
   <!-- S25: Hata yakalayıcı modülden önce ve modül olmadan yüklenir: uygulama açılamazsa beyaz ekran yerine yardım ekranı çıkar -->
   <script src="js/core/hata-yakala.js"></script>
   <script type="module" src="js/app.js"></script>
@@ -362,8 +364,22 @@
         <section class="kart ayar-bolumu" aria-labelledby="ses-hareket-baslik">
           <h2 id="ses-hareket-baslik">Ses ve hareket</h2>
           <label class="anahtar">
-            <span>Ses efektleri <small class="soluk">(doğru, yanlış ve bitiş sesleri)</small></span>
+            <span>Ses efektleri <small class="soluk">(doğru, “henüz değil”, sonuç ve geri sayım sesleri; her sesin ekranda karşılığı vardır)</small></span>
             <input type="checkbox" role="switch" name="ses">
+            <span class="anahtar__ray" aria-hidden="true"></span>
+          </label>
+          <!-- S29: ses düzeyi ve egzersizde yalnız geri bildirim sesleri. Profil ayarları: sesDuzeyi, sesYalnizGeriBildirim -->
+          <div class="alan">
+            <label class="alan__etiket" for="ayar-ses-duzeyi">Ses düzeyi</label>
+            <select class="girdi" id="ayar-ses-duzeyi" name="sesDuzeyi">
+              <option value="kisik">Kısık</option>
+              <option value="orta">Orta</option>
+              <option value="yuksek">Yüksek</option>
+            </select>
+          </div>
+          <label class="anahtar">
+            <span>Egzersizde yalnız geri bildirim sesleri <small class="soluk">(doğru, “henüz değil” ve sonuç sesleri çalar; geri sayım ve dokunma sesleri susar)</small></span>
+            <input type="checkbox" role="switch" name="sesYalnizGeriBildirim">
             <span class="anahtar__ray" aria-hidden="true"></span>
           </label>
           <div>

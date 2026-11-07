@@ -1,8 +1,12 @@
-// Basit kutlama animasyonu: kısa konfeti; "hareketi azalt" açıksa (ayar ya da sistem tercihi) hiç çizilmez
+// Kutlamalar: kutla() profesyonel görünümün kısa konfetisi (değişmedi); S28: çocuk görünümünde kutlama ekranı (Fener + başlık + konfeti ve yıldız patlaması, en çok 1,5 sn, dokununca ya da tuşla kapanır).
+// "Hareketi azalt" açıkken (ayar ya da sistem tercihi) hiçbiri çizilmez. Kutlama katmanı ekran okuyucuya gizlidir: duyurular çerçevede, metinler değişmedi.
 import { hareketAzaltilmisMi } from '../core/a11y.js';
+import { el, spriteIkon } from '../core/ui.js';
+import { fenerCiz } from './fener.js';
 
 const RENKLER = ['var(--renk-gunes)', 'var(--renk-birincil)', 'var(--renk-vurgu)', 'var(--renk-bilgi)']; // yalnız tokens.css belirteçleri
 const SURE_MS = 1900; // en uzun parça: gecikme + düşüş
+const rastgele = (en, enCok) => en + Math.random() * (enCok - en);
 
 /**
  * Kapsayıcının üstünde kısa konfeti gösterir (stil: css/exercise.css, .kutlama).
@@ -10,7 +14,6 @@ const SURE_MS = 1900; // en uzun parça: gecikme + düşüş
  */
 export function kutla(kapsayici = document.body, { adet = 40 } = {}) {
   if (!kapsayici || hareketAzaltilmisMi()) return false;
-  const rastgele = (en, enCok) => en + Math.random() * (enCok - en);
   const katman = document.createElement('div');
   katman.className = 'kutlama';
   katman.setAttribute('aria-hidden', 'true');
@@ -24,4 +27,79 @@ export function kutla(kapsayici = document.body, { adet = 40 } = {}) {
   kapsayici.append(katman);
   setTimeout(() => katman.remove(), SURE_MS + 300);
   return true;
+}
+
+// ---------- S28: Çocuk görünümü kutlama ekranı ----------
+export const COCUK_KUTLAMA_MS = 1500; // görünür kalma süresinin tamamı (giriş + bekleme + çıkış)
+const KONFETI_RENKLERI = ['kirmizi', 'sari', 'yesil', 'mavi', 'mor', 'pembe', 'turuncu', 'turkuaz']; // css/cocuk.css --ck-*
+const SEKILLER = ['serit', 'daire', 'yildiz'];
+
+/**
+ * Sonuçtan kutlama türünü seçer (öncelik: rozet > seviye > rekor > hedef). Kutlanacak bir şey yoksa null.
+ * kazanim: motivasyon.kazanimAl() çıktısı ya da null. Döner: { tur, baslik, alt, ikon, ekler[] } | null
+ */
+export function kutlamaSec({ yeniRekor = false, kazanim = null } = {}) {
+  const liste = [];
+  const rozetler = kazanim?.yeniRozetler ?? [];
+  if (rozetler.length) {
+    liste.push({ tur: 'rozet', baslik: rozetler.length > 1 ? 'Yeni rozetler!' : 'Yeni rozet!', kisa: 'Yeni rozet',
+      alt: rozetler.map((r) => r.ad).join(', '), ikon: rozetler[0].ikon || 'onay' });
+  }
+  if (kazanim?.seviyeAtladi) {
+    liste.push({ tur: 'seviye', baslik: `Seviye ${kazanim.seviye.seviye}!`, kisa: 'Yeni seviye', alt: kazanim.seviye.unvan, ikon: 'isik' });
+  }
+  if (yeniRekor) liste.push({ tur: 'rekor', baslik: 'Yeni kişisel rekor!', kisa: 'Kişisel rekor', alt: 'Kendi en iyi sonucunu geçtin.', ikon: 'hedef' });
+  if (kazanim?.hedefYeni) liste.push({ tur: 'hedef', baslik: 'Günlük hedef tamam!', kisa: 'Günlük hedef', alt: 'Bugünlük yeter diyebilirsin.', ikon: 'saat' });
+  if (!liste.length) return null;
+  const [ilk, ...diger] = liste;
+  return { ...ilk, ekler: diger.slice(0, 2).map((k) => k.kisa) };
+}
+
+/**
+ * Çocuk görünümü kutlama ekranı (stil: css/cocuk.css, .c-kutlama). kapsayici: egzersiz kökü (tam ekranda da görünsün diye).
+ * Konfeti + tek bir yıldız patlaması (yanıp sönme yok) + Fener kartı. Dokunma/tıklama, Esc ya da herhangi bir tuş kapatır; Esc egzersizi kapatmaz.
+ * Döner: kapatma fonksiyonu | null (hareket azaltılmışsa ya da kutlanacak bir şey yoksa)
+ */
+export function cocukKutla(kapsayici, secim, { adet = 36 } = {}) {
+  if (!kapsayici || !secim || hareketAzaltilmisMi()) return null;
+  const konfeti = Array.from({ length: adet }, (_, i) => {
+    const parca = el('span', { sinif: `c-kutlama__parca c-kutlama__parca--${SEKILLER[i % SEKILLER.length]}` });
+    parca.style.cssText = `--x:${rastgele(3, 97)}%;--kayma:${rastgele(-70, 70)}px;--donus:${rastgele(-480, 480)}deg;`
+      + `--gecikme:${rastgele(0, 150)}ms;--sure:${rastgele(1000, 1300)}ms;--renk:var(--ck-${KONFETI_RENKLERI[i % KONFETI_RENKLERI.length]})`;
+    return parca;
+  });
+  const isinlar = Array.from({ length: 8 }, (_, i) => {
+    const isin = el('span', { sinif: 'c-kutlama__isin' });
+    isin.style.setProperty('--aci', `${i * 45}deg`);
+    return isin;
+  });
+  const katman = el('div', { sinif: 'c-kutlama', 'data-tur': secim.tur, 'aria-hidden': 'true' },
+    el('div', { sinif: 'c-kutlama__konfeti' }, konfeti),
+    el('div', { sinif: 'c-kutlama__kart' },
+      el('div', { sinif: 'c-kutlama__patlama' }, isinlar),
+      el('div', { sinif: 'c-kutlama__gorsel' },
+        fenerCiz('sevinc', { sinif: 'c-kutlama__fener' }),
+        secim.ikon && el('span', { sinif: 'c-kutlama__ikon' }, spriteIkon(secim.ikon, 'ikon'))),
+      el('p', { sinif: 'c-kutlama__baslik', metin: secim.baslik }),
+      secim.alt && el('p', { sinif: 'c-kutlama__alt', metin: secim.alt }),
+      secim.ekler?.length > 0 && el('p', { sinif: 'c-kutlama__ekler' }, secim.ekler.map((e) => el('span', { metin: `+ ${e}` })))));
+
+  let kapandi = false;
+  let sayac = 0;
+  const tus = (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); } // yalnız kutlamayı kapatır
+    kapat();
+  };
+  function kapat() {
+    if (kapandi) return;
+    kapandi = true;
+    clearTimeout(sayac);
+    window.removeEventListener('keydown', tus, true);
+    katman.remove();
+  }
+  katman.addEventListener('pointerdown', (e) => { e.preventDefault(); kapat(); });
+  window.addEventListener('keydown', tus, true); // yakalama aşaması: egzersizin Esc dinleyicisinden önce
+  sayac = setTimeout(kapat, COCUK_KUTLAMA_MS);
+  kapsayici.append(katman);
+  return kapat;
 }

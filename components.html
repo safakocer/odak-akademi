@@ -1,4 +1,4 @@
-<!-- Bileşen vitrini: tasarım sistemindeki tüm renk, yazı ve bileşenleri açık/koyu temada gösterir -->
+<!-- Bileşen vitrini: tasarım sistemindeki tüm renk, yazı ve bileşenleri açık/koyu temada gösterir (S28: ikon seti index.html ile eşitlendi; çocuk görünümü vitrini: renkli ikonlar, Fener’in ifadeleri, balon, kutlama) -->
 <!doctype html>
 <html lang="tr">
 <head>
@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/library.css">
   <link rel="stylesheet" href="css/exercise.css">
+  <link rel="stylesheet" href="css/cocuk.css">
   <style>
     /* Yalnızca vitrine özel küçük düzenlemeler */
     .vitrin-bolum { padding-block: var(--b-5); border-top: 1px solid var(--renk-kenar); }
@@ -20,6 +21,12 @@
     .renk-ornek { display: grid; gap: var(--b-1); font-size: var(--fs-xs); }
     .renk-ornek__kutu { height: 3.5rem; border-radius: var(--kose-m); border: 1px solid var(--renk-kenar); }
     .ana { padding-bottom: var(--b-8); }
+    .vitrin-ikonlar { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); gap: var(--b-2); list-style: none; padding: 0; margin: 0; }
+    .vitrin-ikonlar li { display: grid; justify-items: center; gap: var(--b-1); padding: var(--b-2); border: 1px solid var(--renk-kenar); border-radius: var(--kose-m); font-size: var(--fs-xs); text-align: center; overflow-wrap: anywhere; }
+    .vitrin-ikonlar .ikon { width: 2rem; height: 2rem; }
+    .vitrin-fenerler { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: var(--b-3); list-style: none; padding: 0; margin: 0; }
+    .vitrin-fenerler figure { display: grid; justify-items: center; gap: var(--b-1); margin: 0; font-size: var(--fs-xs); text-align: center; }
+    .vitrin-fenerler figure > svg { width: 6rem; }
   </style>
 </head>
 <body>
@@ -54,7 +61,38 @@
   <symbol id="yenile" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></symbol>
   <symbol id="ses" viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
   <symbol id="bilgi" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></symbol>
+  <symbol id="izgara" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16"/></symbol>
+  <symbol id="yorunge" viewBox="0 0 24 24"><path d="M12 12c-2-2.5-3.5-4-5.5-4a4 4 0 0 0 0 8c2 0 3.5-1.5 5.5-4s3.5-4 5.5-4a4 4 0 0 1 0 8c-2 0-3.5-1.5-5.5-4z"/><circle cx="17.5" cy="8" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="satirlar" viewBox="0 0 24 24"><path d="M4 6h16M4 11h16M4 16h9"/><path d="m16 14 3 2.5-3 2.5"/></symbol>
+  <symbol id="cevre" viewBox="0 0 24 24"><path d="M12 10v4M10 12h4"/><rect x="3" y="3" width="5" height="4" rx="1"/><rect x="16" y="3" width="5" height="4" rx="1"/><rect x="3" y="17" width="5" height="4" rx="1"/><rect x="16" y="17" width="5" height="4" rx="1"/></symbol>
+  <symbol id="grup-flas" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="9" rx="2"/><path d="M6.5 12.5h4M13 12.5h4.5"/><path d="M12 2.5v3M5.5 4l1.5 2.2M18.5 4 17 6.2"/></symbol>
+  <symbol id="piramit" viewBox="0 0 24 24"><path d="M10 5h4M7.5 10h9M5 15h14M3 20h18"/></symbol>
+  <symbol id="sekil" viewBox="0 0 24 24"><path d="M12 3 20 12l-8 9-8-9z"/><path d="M9.5 10h5M8 13.5h8"/></symbol>
+  <symbol id="fark" viewBox="0 0 24 24"><rect x="2.5" y="5" width="8.5" height="14" rx="1.5"/><rect x="13" y="5" width="8.5" height="14" rx="1.5"/><circle cx="6.75" cy="12" r="2"/><path d="m15.5 10 3.5 4M19 10l-3.5 4"/></symbol>
+  <symbol id="arama" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/><path d="m10.5 7.5 1 2 2 .3-1.5 1.4.4 2-1.9-1-1.9 1 .4-2-1.5-1.4 2-.3z"/></symbol>
+  <symbol id="simge" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 12h18M12 4v16"/><circle cx="7.5" cy="8" r="1.6"/><path d="m16.5 6.4 1.7 3h-3.4z"/><path d="M7.5 14.5v3M16.5 14.5v3"/></symbol>
+  <symbol id="ayna" viewBox="0 0 24 24"><path d="M12 3v18" stroke-dasharray="2 2.5"/><path d="M9.5 7H4.5v10h3v-4h2z"/><path d="M14.5 7h5v10h-3v-4h-2z"/></symbol>
+  <symbol id="uzak" viewBox="0 0 24 24"><path d="M2.5 19 8 11.5l4 5 3-3 6.5 5.5"/><circle cx="17" cy="6.5" r="2.2"/><path d="M2.5 21.5h19"/></symbol>
   <symbol id="isik" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v2M12 20.5v2M1.5 12h2M20.5 12h2"/></symbol>
+  <symbol id="renk-kelime" viewBox="0 0 24 24"><path d="M3.5 18 8 6l4.5 12"/><path d="M5.2 13.5h5.6"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15 14h5.5M15 18h5.5"/></symbol>
+  <symbol id="nefes" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2.5"/><path d="M4 13V9" stroke-width="3.5"/><circle cx="4" cy="9" r="1.8" fill="currentColor"/></symbol>
+  <symbol id="git-dur" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="3"/><circle cx="12" cy="7.5" r="2"/><circle cx="12" cy="16.5" r="2" fill="currentColor"/></symbol>
+  <symbol id="rakam-dizi" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M5.5 10 7 9v6"/><path d="M10 10a1.5 1.5 0 0 1 3 .2c0 1.6-3 2.8-3 4.8h3"/><path d="M15.5 9h3l-1.6 2.2a1.7 1.7 0 1 1-1.6 2.9"/></symbol>
+  <symbol id="bloklar" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="6" height="6" rx="1.2"/><rect x="15.5" y="4.5" width="6" height="6" rx="1.2"/><rect x="8.5" y="15.5" width="6" height="6" rx="1.2"/><path d="M8.5 5.5h7M17.5 10.5l-4.5 5" stroke-dasharray="1.6 2"/></symbol>
+  <symbol id="n-geri" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="9" rx="1.5"/><path d="M5.5 7.5h2M16 6.5h3M16 8.5h3"/><path d="M19 18H6"/><path d="m9 15-3 3 3 3"/></symbol>
+  <symbol id="kelime-liste" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h7"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01" stroke-width="3.5"/></symbol>
+  <symbol id="kartlar" viewBox="0 0 24 24"><rect x="2.5" y="5" width="8.5" height="13" rx="1.5"/><rect x="13" y="5" width="8.5" height="13" rx="1.5"/><path d="m6.75 9 2 2.5-2 2.5-2-2.5z"/><path d="m17.25 9 2 2.5-2 2.5-2-2.5z"/></symbol>
+  <symbol id="tekrar-kart" viewBox="0 0 24 24"><rect x="3" y="8" width="13" height="13" rx="2"/><path d="M8 5V4.5A1.5 1.5 0 0 1 9.5 3H19a2 2 0 0 1 2 2v9.5a1.5 1.5 0 0 1-1.5 1.5H19"/><path d="M12.5 13.5a3 3 0 1 0-.9 2.2"/><path d="M12.8 11.2v2.3h-2.3"/></symbol>
+  <!-- S22: Çalışma Rehberi ikonları -->
+  <symbol id="arti" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="not-sayfasi" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9.5 3v14"/><path d="M4 17h16"/><path d="M12.5 7.5h4.5M12.5 11h4.5"/></symbol>
+  <symbol id="zihin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.6"/><circle cx="4.5" cy="5.5" r="2"/><circle cx="19.5" cy="6.5" r="2"/><circle cx="18" cy="19" r="2"/><circle cx="5" cy="18.5" r="2"/><path d="M10 10.3 6 7M14.2 10.8l3.6-2.8M13.8 14l2.8 3.4M10 14l-3.4 3"/></symbol>
+  <symbol id="takvim" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M7.5 14h3M13.5 14h3M7.5 17.2h3"/></symbol>
+  <symbol id="kalp" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></symbol>
+  <symbol id="aile" viewBox="0 0 24 24"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="9.5" r="2.3"/><path d="M2.5 20v-1.5a5 5 0 0 1 5-5h1a5 5 0 0 1 5 5V20"/><path d="M14.5 20v-1a3.5 3.5 0 0 1 7 0v1"/></symbol>
+  <symbol id="elma" viewBox="0 0 24 24"><path d="M12 7.5c-1.6-1-5.5-1.2-6.8 2.3-1.3 3.4.6 8.4 3.4 9.7 1.3.6 2.3-.2 3.4-.2s2.1.8 3.4.2c2.8-1.3 4.7-6.3 3.4-9.7C17.5 6.3 13.6 6.5 12 7.5z"/><path d="M12 7.5c0-2 .8-3.6 2.5-4.5"/></symbol>
+  <symbol id="ekran" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M9 20.5h6M12 16.5v4"/></symbol>
+  <symbol id="akademi" viewBox="0 0 24 24"><path d="M2 9.5 12 5l10 4.5L12 14z"/><path d="M6 11.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.5"/><path d="M22 9.5V15"/></symbol>
   </svg>
 
   <a class="atla-baglanti" href="#ana-icerik">İçeriğe atla</a>
@@ -80,6 +118,7 @@
     <nav aria-label="Vitrin bölümleri">
       <ul class="vitrin-icindekiler">
         <li><a class="cip" href="#marka">Marka</a></li>
+        <li><a class="cip" href="#cocuk">Çocuk görünümü</a></li>
         <li><a class="cip" href="#renkler">Renkler</a></li>
         <li><a class="cip" href="#yazi">Yazı</a></li>
         <li><a class="cip" href="#butonlar">Butonlar</a></li>
@@ -311,6 +350,31 @@
         </div>
       </div>
     </section>
+
+    <!-- S28: Çocuk görünümü vitrini. Düğme yalnız bu sayfada görünümü değiştirir; hiçbir şey kaydedilmez (uygulamada görünümü yönetici belirler) -->
+    <section class="vitrin-bolum" id="cocuk" aria-labelledby="b-cocuk">
+      <h2 id="b-cocuk">Çocuk görünümü (S28)</h2>
+      <div class="yigin">
+        <p class="soluk">Bu düğme yalnız vitrinde görünümü değiştirir ve kaydetmez. Fener çizimleri ve kutlamalar yalnız çocuk görünümünde görünür; “hareketi azalt” açıkken durur ya da hiç çizilmez.</p>
+        <div class="satir">
+          <button class="btn btn--birincil" type="button" id="vitrin-gorunum" aria-pressed="false">Çocuk görünümünü dene</button>
+        </div>
+        <h3>Fener’in ifadeleri</h3>
+        <ul class="vitrin-fenerler" id="vitrin-fenerler"></ul>
+        <h3>Konuşma balonu ve boş durum</h3>
+        <div class="yigin" id="vitrin-balonlar"></div>
+        <h3>Kutlama ekranı</h3>
+        <div class="satir" id="vitrin-kutlamalar">
+          <button class="btn btn--ikincil" type="button" data-kutlama="rozet">Rozet</button>
+          <button class="btn btn--ikincil" type="button" data-kutlama="seviye">Seviye atlama</button>
+          <button class="btn btn--ikincil" type="button" data-kutlama="rekor">Yeni rekor</button>
+          <button class="btn btn--ikincil" type="button" data-kutlama="hedef">Günlük hedef</button>
+        </div>
+        <h3>İkon seti</h3>
+        <p class="soluk">Çocuk görünümünde renkli setteki ikonlar değişir; diğerleri (kapat, ok, artı, duraklat…) kalın çizgi kalır.</p>
+        <ul class="vitrin-ikonlar" id="vitrin-ikonlar"></ul>
+      </div>
+    </section>
   </main>
 
   <div class="toast-alani" role="status" aria-live="polite"></div>
@@ -333,9 +397,12 @@
   </dialog>
 
   <script type="module">
-    // Vitrin etkileşimleri: tema, sekme, modal, toast ve çip örnekleri
-    import { temaDugmesiBagla } from './js/core/a11y.js';
-    import { modalBagla, sekmeleriBagla, toastGoster } from './js/core/ui.js';
+    // Vitrin etkileşimleri: tema, sekme, modal, toast ve çip örnekleri; S28: çocuk görünümü (kaydedilmez)
+    import { temaDugmesiBagla, ayarlariUygula } from './js/core/a11y.js';
+    import { modalBagla, sekmeleriBagla, toastGoster, el, spriteIkon } from './js/core/ui.js';
+    import { ikonSetiniUygula } from './js/core/ikon-seti.js';
+    import { fenerCiz, fenerBalonu, bosDurum, FENER_IFADELERI } from './js/engine/fener.js';
+    import { cocukKutla, kutlamaSec } from './js/engine/celebrate.js';
 
     temaDugmesiBagla(document.getElementById('tema-dugmesi'));
     sekmeleriBagla(document.getElementById('ornek-sekmeler'));
@@ -349,6 +416,45 @@
     };
     document.querySelectorAll('[data-toast]').forEach((d) =>
       d.addEventListener('click', () => toastGoster(mesajlar[d.dataset.toast], { tur: d.dataset.toast })));
+
+    // S28: çocuk görünümü vitrini
+    const kok = document.documentElement;
+    const gorunumDugme = document.getElementById('vitrin-gorunum');
+    document.getElementById('vitrin-ikonlar').replaceChildren(...[...document.querySelectorAll('symbol[id]')].map((s) =>
+      el('li', {}, spriteIkon(s.id, 'ikon'), el('code', { metin: s.id }))));
+    function cocukCiz() {
+      const cocuk = kok.dataset.gorunum === 'cocuk';
+      document.getElementById('vitrin-fenerler').replaceChildren(...(cocuk
+        ? Object.entries(FENER_IFADELERI).map(([ad, aciklama]) =>
+          el('li', {}, el('figure', {}, fenerCiz(ad, { etiket: aciklama }), el('figcaption', {}, el('code', { metin: ad }), ` · ${aciklama}`))))
+        : [el('li', {}, el('p', { sinif: 'soluk', metin: 'Fener çizimleri için çocuk görünümünü aç.' }))]));
+      document.getElementById('vitrin-balonlar').replaceChildren(...[
+        cocuk && fenerBalonu({ ifade: 'cesaret', mesaj: 'Güzel gidiyorsun. Hedefe 5 dakika kaldı; kısa bir tur yeter.' }),
+        bosDurum('Henüz desten yok. Hazır destelerden birini ekle ya da “Yeni deste” ile kendi kartlarını yaz.'),
+      ].filter(Boolean));
+    }
+    gorunumDugme.addEventListener('click', async () => {
+      const cocuk = kok.dataset.gorunum !== 'cocuk';
+      if (cocuk) kok.dataset.gorunum = 'cocuk'; else delete kok.dataset.gorunum;
+      gorunumDugme.setAttribute('aria-pressed', String(cocuk));
+      ayarlariUygula({});
+      cocukCiz();
+      await ikonSetiniUygula(cocuk ? 'cocuk' : 'profesyonel');
+    });
+    const ornekKazanim = {
+      rozet: { yeniRozetler: [{ ad: 'Kâşif', ikon: 'arama' }] },
+      seviye: { seviyeAtladi: true, seviye: { seviye: 3, unvan: 'Örnek unvan' } },
+      rekor: null,
+      hedef: { hedefYeni: true },
+    };
+    document.querySelectorAll('[data-kutlama]').forEach((d) => d.addEventListener('click', () => {
+      if (kok.dataset.gorunum !== 'cocuk') { toastGoster('Önce çocuk görünümünü aç.'); return; }
+      const tur = d.dataset.kutlama;
+      if (!cocukKutla(document.body, kutlamaSec({ yeniRekor: tur === 'rekor', kazanim: ornekKazanim[tur] }))) {
+        toastGoster('Hareketi azalt açık: kutlama çizilmez.');
+      }
+    }));
+    cocukCiz();
 
     document.querySelectorAll('#cipler .cip').forEach((c) =>
       c.addEventListener('click', () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'))));

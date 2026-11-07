@@ -22,7 +22,11 @@ export const AVATARLAR = Object.freeze([
   { id: 'gitar', emoji: '🎸', ad: 'Gitar' },
   { id: 'yildiz', emoji: '⭐', ad: 'Yıldız' },
 ]);
-export const VARSAYILAN_AYARLAR = Object.freeze({ tema: 'sistem', yaziBoyutu: 'normal', font: 'standart', ses: true, hareketAzalt: false, molaRehberi: true });
+// S29: sesDuzeyi (kisik|orta|yuksek), sesYalnizGeriBildirim (egzersiz açıkken yalnız geri bildirim sesleri)
+export const VARSAYILAN_AYARLAR = Object.freeze({
+  tema: 'sistem', yaziBoyutu: 'normal', font: 'standart', ses: true, hareketAzalt: false, molaRehberi: true,
+  sesDuzeyi: 'orta', sesYalnizGeriBildirim: false,
+});
 
 export function avatarBul(id) {
   return AVATARLAR.find((a) => a.id === id) ?? AVATARLAR[0];

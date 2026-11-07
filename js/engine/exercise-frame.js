@@ -1,10 +1,12 @@
-// Egzersiz çerçevesi (S20: sonuçta XP, yeni rozet ve “bugünlük yeter”; D06: kayitYok egzersiz seviye de yazmaz; S19: kurs dersi bandı, ctx.kurs, ekstra.kurs, “Sonraki derse geç”): açıklama → geri sayım → çalışma → sonuç yaşam döngüsü; başlık ikonu, duraklat/çık, tam ekran, seviye (S09: otomatik seviye), hazırlık ayarları, metrics kaydı, mola önerisi (S10: Ayarlar'dan kapatılabilir; mola egzersizi sayacı sıfırlar)
+// Egzersiz çerçevesi (S29: sonuç sesi kutlama türüne göre: rozet, seviye, rekor, hedef ya da bitti; S28: çocuk görünümünde sonuçta Fener ve kutlama ekranı; S20: sonuçta XP, yeni rozet ve “bugünlük yeter”; D06: kayitYok egzersiz seviye de yazmaz; S19: kurs dersi bandı, ctx.kurs, ekstra.kurs, “Sonraki derse geç”): açıklama → geri sayım → çalışma → sonuç yaşam döngüsü; başlık ikonu, duraklat/çık, tam ekran, seviye (S09: otomatik seviye), hazırlık ayarları, metrics kaydı, mola önerisi (S10: Ayarlar'dan kapatılabilir; mola egzersizi sayacı sıfırlar)
 import { odakTuzagi, odakla, duyur, molaRehberiAcikMi } from '../core/a11y.js';
 import { kayitEkle, sonSeviye, sonSeviyeKaydet } from '../core/metrics.js';
 import { el, spriteIkon } from '../core/ui.js';
 import { sesCal } from '../core/sound.js';
 import { sureBicimle, sureMetni, dakikaMetni, yuzdeBicimle, sinirla, sayi } from '../core/utils.js';
-import { kutla } from './celebrate.js';
+import { kutla, cocukKutla, kutlamaSec } from './celebrate.js';
+import { cocukGorunumuMu } from '../core/hesap.js';
+import { fenerCiz } from './fener.js';
 import { dinle, OLAYLAR } from '../core/store.js';
 import { kazanimAl, bugunlukMesaji } from './motivasyon.js';
 
@@ -138,6 +140,21 @@ function kazanimBolumu(k, kurs) {
     k.yeniRozetler.length > 0 && el('p', {}, el('strong', { metin: k.yeniRozetler.length > 1 ? 'Yeni rozetler: ' : 'Yeni rozet: ' }),
       k.yeniRozetler.map((r) => r.ad).join(', '), '. İlerleme sayfasında görebilirsin.'),
     mesaj && el('div', { sinif: `bildirim bildirim--${mesaj.tur}` }, el('p', {}, el('strong', { metin: `${mesaj.baslik}. ` }), mesaj.metin)));
+}
+
+// S28: çocuk görünümünde sonuç ekranındaki Fener ifadesi (yalnız görsel; metinler ve duyurular aynı)
+function sonucIfadesi(tanim, deg, yeniRekor, kazanim) {
+  if (tanim.molaMi) return 'mola';
+  if (yeniRekor || deg.ilerle || kazanim?.seviyeAtladi || kazanim?.hedefYeni || kazanim?.yeniRozetler?.length) return 'sevinc';
+  if (!tanim.sayacYok && deg.dogru + deg.yanlis === 0) return 'dusunme';
+  return 'cesaret';
+}
+// Fener ve çevresinde bir kez açılan küçük yıldızlar (ekran okuyucuya gizli; hareketi azaltta yıldız çizilmez, Fener durur)
+function sonucSahnesi(ifade) {
+  const yildizli = ifade === 'sevinc' || ifade === 'cesaret';
+  return el('div', { sinif: 'egz-sonuc__fener', 'aria-hidden': 'true' },
+    fenerCiz(ifade),
+    yildizli && Array.from({ length: 6 }, (_, i) => el('span', { sinif: `egz-sonuc__yildiz egz-sonuc__yildiz--${i + 1}` })));
 }
 
 function geriBildirim({ dogru, yanlis, isabet, ilerle }, enUst) {
@@ -486,9 +503,11 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
       kurs.sonDers ? 'Günü tamamla' : 'Sonraki derse geç', spriteIkon('ok-sag', 'ikon'));
     const ayarlar = tanim.hazirlik && el('button', { type: 'button', sinif: 'btn btn--ikincil', metin: 'Ayarları değiştir', onclick: () => aciklamaGoster() });
 
+    const cocuk = cocukGorunumuMu(); // S28
     const ekran = el('section', { sinif: 'egz-ekran egz-sonuc', 'aria-labelledby': 'egz-sonuc-baslik' },
       baslik,
       el('div', { sinif: 'egz-sonuc__puan' },
+        cocuk && sonucSahnesi(sonucIfadesi(tanim, deg, yeniRekor, kazanim)),
         yeniRekor && el('span', { sinif: 'rozet rozet--gunes', metin: 'Kişisel rekor' }),
         el('strong', { metin: String(puan) }),
         el('span', { metin: seviyeler.length > 1 ? `${puanEtiketi}, ${seviyeler[turSeviyesi - 1].ad} seviye` : puanEtiketi }),
@@ -503,8 +522,11 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
       kursDevam && el('div', { sinif: 'egz-sonuc__eylemler egz-sonuc__kurs' }, kursDevam),
       el('div', { sinif: 'egz-sonuc__eylemler' }, oneriVar ? [sonraki, tekrar] : [tekrar, sonraki], ayniSeviye, ayarlar, bitir));
     ekranGoster(ekran, baslik);
-    sesCal(yeniRekor ? 'rekor' : 'bitti');
-    if (yeniRekor) kutla(kok);
+    // S29: ses, kutlamayla aynı öncelikle seçilir (rozet > seviye > rekor > günlük hedef, yoksa bitti); hareketi azaltta da çalar, görseli sonuç ekranında
+    const kutlama = kutlamaSec({ yeniRekor, kazanim });
+    sesCal(kutlama?.tur ?? 'bitti');
+    if (cocuk) cocukKutla(kok, kutlama); // S28
+    else if (yeniRekor) kutla(kok);
     duyur(`${puanEtiketi}: ${puan}. ${rekorMetni}`);
   }
 

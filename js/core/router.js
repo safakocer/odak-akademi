@@ -1,5 +1,6 @@
-// Hash tabanlı yönlendirici: #/yol/:param adreslerini kayıtlı görünümlere bağlar, geri/ileri tuşlarıyla çalışır
+// Hash tabanlı yönlendirici: #/yol/:param adreslerini kayıtlı görünümlere bağlar, geri/ileri tuşlarıyla çalışır (S29: sayfa geçişi sesi)
 import { yay, OLAYLAR } from './store.js';
+import { sesCal } from './sound.js';
 
 const rotalar = [];
 let etkin = null;
@@ -57,6 +58,7 @@ function isle() {
   if (rotaDegisti && ilkGecisBitti) {
     document.getElementById('ana-icerik')?.focus({ preventScroll: true });
     window.scrollTo(0, 0);
+    sesCal('sayfa'); // S29: hareketi azaltta ve profesyonel görünümde çalmaz (sound.js karar verir)
   }
   ilkGecisBitti = true;
   yay(OLAYLAR.ROTA_DEGISTI, { yol, parametreler: { ...parametreler }, sorgu: { ...sorgu } });

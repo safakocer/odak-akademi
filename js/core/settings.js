@@ -45,9 +45,10 @@ export function ayarlariSifirla() {
   ayarlariUygula({ ...VARSAYILAN_AYARLAR, molaRehberi: molaRehberiAcikMi() });
 }
 
-/** Bu cihazdaki tüm Odak Akademi verilerini siler (profiller, sonuçlar). Silinen anahtar sayısını döndürür. */
+/** Bu cihazdaki tüm Odak Akademi verilerini siler (profiller, sonuçlar). Silinen anahtar sayısını döndürür.
+ *  S27: '__' ile başlayan cihaz anahtarları (ör. __hesap: yöneticinin verdiği görünüm) silinmez */
 export function tumVeriyiSil() {
-  const liste = anahtarlar().filter((k) => k !== 'surum');
+  const liste = anahtarlar().filter((k) => k !== 'surum' && !k.startsWith('__'));
   liste.forEach((k) => sil(k));
   return liste.length;
 }

@@ -1,5 +1,5 @@
-// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
-import { temaDugmesiBagla, ayarFormuBagla, duyur } from './core/a11y.js';
+// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
+import { temaDugmesiBagla, ayarFormuBagla, duyur, degisinceHaberVer } from './core/a11y.js';
 import { modalBagla, modalAc, toastGoster, el } from './core/ui.js';
 import { depoBaslat, yedekIndir, yedekYukle, kullanimBayt, kaliciMi } from './core/storage.js';
 import { dinle, OLAYLAR } from './core/store.js';
@@ -7,7 +7,8 @@ import { rotaEkle, rotaBaslat, git, etkinRota } from './core/router.js';
 import { profilBaslat, aktifProfil, profilleriGetir, karsilamayiBagla, profilPenceresiniBagla, profilDugmesiniBagla } from './core/profile.js';
 import { ozet, kayitEkle, profilKayitlariniSil } from './core/metrics.js';
 import { ayarlarBaslat, ayarlariSifirla, tumVeriyiSil } from './core/settings.js';
-import { sesCal } from './core/sound.js';
+import { hesapBaslat, gorunumAyarla, hesapBilgisi, cocukGorunumuMu } from './core/hesap.js';
+import { sesCal, dokunmaSesleriniBagla } from './core/sound.js';
 import { pwaBaslat, kurulumDugmesiniBagla, pwaDurumunuDinle } from './core/pwa.js';
 import { boyutMetni } from './core/utils.js';
 import { egzersizAc, egzersiziKapat, molaEsiginiAyarla } from './engine/exercise-frame.js';
@@ -16,17 +17,23 @@ import { modulKartlariniGuncelle, modulSayfasiCiz, egzersizlerSayfasiCiz, egzers
 import { gozMolasiEsiginiAyarla } from './engine/eye-rest.js';
 import { seriDurumu, bugunDurumu, bugunlukMesaji, seviyeBilgisi, ilerlemeVerisi, ilerlemeSonuclariniSil } from './engine/motivasyon.js';
 import { sinifModuAcikMi, haftalikDurum } from './modules/veli/veli-veri.js';
+import { fenerBalonu, anaSayfaMesaji } from './engine/fener.js';
 
 const $ = (secici) => document.querySelector(secici);
 
 // 1) Depo uyarıları (depo başlamadan önce dinlenmeli)
 dinle(OLAYLAR.DEPO_HATA, ({ tur, mesaj }) => toastGoster(mesaj, { tur: ['kota', 'sekme'].includes(tur) ? 'uyari' : 'hata', sure: 8000 }));
 depoBaslat();
+// S27: yöneticinin verdiği görünüm (profesyonel | cocuk) profil ayarlarından önce uygulanır
+hesapBaslat();
 
 // 2) Kayıtlı görünüm ayarları hemen uygulanır, değişiklikler profile kaydedilir
 ayarlarBaslat();
 temaDugmesiBagla($('#tema-dugmesi'));
 ayarFormuBagla($('#ayar-formu'));
+// S29: çocuk görünümünde düğmelere dokunma sesi; ses düzeyi değişince yeni düzeyde örnek ses
+dokunmaSesleriniBagla();
+$('#ayar-formu').addEventListener('change', (e) => { if (e.target.name === 'sesDuzeyi') sesCal('dogru'); });
 
 // 3) PWA: çevrimdışı önbellek, yeni sürüm bandı, ana ekrana ekle
 pwaBaslat({ guncellemeBandi: $('#guncelleme-bandi') });
@@ -231,7 +238,26 @@ function anaEkraniGuncelle() {
   $('#ozet-hafta').textContent = `${o.haftaDk} dk`;
   $('#ozet-eoh').textContent = o.sonEoh != null ? `${o.sonEoh} k/dk` : '—';
   gunlukHedefiGuncelle(p);
+  fenerSelami(p);
 }
+
+// S28: çocuk görünümünde selamlamanın altında Fener'in konuşma balonu (profesyonelde öğe hiç yok). Mesaj değişmedikçe yeniden çizilmez
+function fenerSelami(p) {
+  const bolum = document.querySelector('section[aria-labelledby="karsilama-baslik"]');
+  if (!bolum) return;
+  const alan = document.getElementById('fener-selam');
+  if (!cocukGorunumuMu()) { alan?.remove(); return; }
+  const { ifade, mesaj } = anaSayfaMesaji({ profil: p, durum: p ? bugunDurumu(p.id) : null });
+  const anahtar = `${ifade}|${mesaj}`;
+  if (alan?.dataset.anahtar === anahtar) return;
+  const yeni = fenerBalonu({ ifade, mesaj, sinif: 'fener-balon--selam' });
+  yeni.id = 'fener-selam';
+  yeni.dataset.anahtar = anahtar;
+  if (alan) alan.replaceWith(yeni);
+  else bolum.firstElementChild.after(yeni);
+}
+// Görünüm (yönetici/geliştirici) ya da ayar değişince balon eklenir, kalkar ya da yenilenir
+degisinceHaberVer(() => fenerSelami(aktifProfil()));
 
 // S20: ana sayfadaki “Bugün” kartı: günlük hedef çubuğu, “bugünlük yeter” mesajı, seviye
 function gunlukHedefiGuncelle(p) {
@@ -444,8 +470,32 @@ if (sinifModuAcikMi() && aktifProfil() && profilleriGetir().length > 1) modalAc(
 // S12: süren odak zamanlayıcısı (sayfa yenilendiyse) kaldığı yerden sürer; bitiş zili ve bildirimi hangi sayfada olunursa olsun gelir
 import('./modules/odak/odak-zamanlayici.js').then((m) => m.zamanlayiciKur()).catch((h) => console.error('[odak-zamanlayici]', h));
 
-// Geliştirici denemesi: yalnızca bilgisayardaki yerel sunucuda konsoldan sonuç eklemek için
-if (['localhost', '127.0.0.1'].includes(location.hostname)) {
+// Geliştirici denemesi: yerel sunucuda ve aynı ev ağındaki adreste (telefondan deneme) konsol araçları ve görünüm düğmeleri.
+// sw.js gelistirmeMi() ile aynı kural (service worker modül içe aktaramadığı için iki yerde); yayındaki alan adında hiçbiri çıkmaz
+function gelistirmeAdresiMi(ad = location.hostname) {
+  if (ad === 'localhost' || ad === '127.0.0.1' || ad === '[::1]' || ad.endsWith('.local')) return true;
+  if (/^(10|192\.168)\./.test(ad)) return true;
+  return /^172\.(1[6-9]|2\d|3[01])\./.test(ad);
+}
+
+// S29: telefonda konsol olmadığı için görünüm Ayarlar sayfasının sonundaki geliştirici kutusundan değiştirilir (kullanıcıya görünmez)
+function gelistiriciKutusu() {
+  const durum = el('p', { sinif: 'soluk', role: 'status' });
+  const yaz = () => { durum.textContent = `Şu anki görünüm: ${cocukGorunumuMu() ? 'çocuk' : 'profesyonel'}`; };
+  const dugme = (metin, ad) => el('button', {
+    type: 'button', sinif: 'btn btn--ikincil btn--kucuk', metin,
+    onclick: () => { gorunumAyarla(ad); yaz(); toastGoster(`Görünüm: ${metin}`); },
+  });
+  yaz();
+  $('.ayarlar-sayfasi')?.append(el('section', { sinif: 'kart ayar-bolumu', 'aria-labelledby': 'gelistirici-baslik' },
+    el('h2', { id: 'gelistirici-baslik', metin: 'Geliştirici denemesi' }),
+    el('p', { sinif: 'alan__ipucu', metin: 'Yalnız yerel sunucuda ve ev ağında görünür; yayında çıkmaz.' }),
+    el('div', { sinif: 'yedek-eylemler' }, dugme('Çocuk görünümü', 'cocuk'), dugme('Profesyonel görünüm', 'profesyonel')),
+    durum));
+}
+
+if (gelistirmeAdresiMi()) {
+  gelistiriciKutusu();
   window.odakDeneme = {
     kayitEkle, ozet, sesCal, molaEsiginiAyarla, gozMolasiEsiginiAyarla,
     // S17: finali 21 gün beklemeden denemek için başlangıç tarihini geri alır: odakDeneme.testBaslangiciniGeriAl(21)
@@ -453,6 +503,8 @@ if (['localhost', '127.0.0.1'].includes(location.hostname)) {
     // S19: kurs denemesi: kursGeriAl(3) → 3 gün ara verilmiş gibi; kursIlerle(20) → 20 günü hızlıca tamamla (sonra #/kurs sayfasını yenile)
     kursGeriAl: (gun) => import('./modules/kurs/kurs-veri.js').then((m) => m.kursTarihiniGeriAl(gun)),
     kursIlerle: (gun) => import('./modules/kurs/kurs-veri.js').then((m) => m.kursDenemeIlerle(gun)),
+    // S27: görünüm denemesi: odakDeneme.gorunum('cocuk') ya da odakDeneme.gorunum('profesyonel'); argümansız: şu anki bilgi
+    gorunum: (ad) => (ad ? gorunumAyarla(ad) : hesapBilgisi()),
   };
 }
 

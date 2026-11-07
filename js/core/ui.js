@@ -1,6 +1,7 @@
-// Ortak arayüz davranışları: öğe oluşturma (el), sprite ikonu, modal (<dialog>), erişilebilir sekmeler, toast bildirimleri ve dosya indirme (S24)
+// Ortak arayüz davranışları: öğe oluşturma (el), sprite ikonu, modal (<dialog>; S29: açılış sesi), erişilebilir sekmeler, toast bildirimleri ve dosya indirme (S24)
 
 import { acikPencereyeTasi } from './a11y.js';
+import { sesCal } from './sound.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -33,11 +34,12 @@ export function spriteIkon(ad, sinif) {
   return svg;
 }
 
-/** Modalı açar; eski tarayıcıda open özniteliğine düşer. */
+/** Modalı açar; eski tarayıcıda open özniteliğine düşer. S29: “pencere” sesi (yalnız çocuk görünümünde duyulur) */
 export function modalAc(dialog) {
-  if (!dialog) return;
+  if (!dialog || dialog.open) return;
   if (typeof dialog.showModal === 'function') dialog.showModal();
   else dialog.setAttribute('open', '');
+  sesCal('pencere');
 }
 
 /** Modalı kapatır. */

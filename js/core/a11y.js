@@ -1,4 +1,4 @@
-// Erişilebilirlik çekirdeği: görünüm ayarlarını uygular (tema, yazı, font, ses, hareket, S10: mola hatırlatıcısı), ekran okuyucu duyuruları, odak yönetimi.
+// Erişilebilirlik çekirdeği: görünüm ayarlarını uygular (tema, yazı, font, ses, hareket, S10: mola hatırlatıcısı, S29: ses düzeyi ve egzersizde yalnız geri bildirim), ekran okuyucu duyuruları, odak yönetimi.
 // İkonlar sayfa içi sprite: <use href="#ad">. Ayarların kalıcı kaydını settings.js yapar.
 
 const kok = document.documentElement;
@@ -8,6 +8,7 @@ const hareketSorgu = window.matchMedia('(prefers-reduced-motion: reduce)');
 export const TEMALAR = ['sistem', 'acik', 'koyu'];
 export const YAZI_BOYUTLARI = ['kucuk', 'normal', 'buyuk', 'cok-buyuk'];
 export const FONTLAR = ['standart', 'disleksi'];
+export const SES_DUZEYLERI = ['kisik', 'orta', 'yuksek']; // S29
 
 const dinleyiciler = new Set();
 
@@ -30,7 +31,7 @@ function oznitelikAyarla(ad, deger, varsayilan) {
   else kok.dataset[ad] = deger;
 }
 
-/** Profil şemasıyla uyumlu ayar nesnesi: { tema, yaziBoyutu, font, ses, hareketAzalt, molaRehberi } */
+/** Profil şemasıyla uyumlu ayar nesnesi: { tema, yaziBoyutu, font, ses, hareketAzalt, molaRehberi, sesDuzeyi, sesYalnizGeriBildirim } */
 export function ayarlariOku() {
   return {
     tema: kok.dataset.tema || 'sistem',
@@ -39,6 +40,8 @@ export function ayarlariOku() {
     ses: kok.dataset.ses !== 'kapali',
     hareketAzalt: kok.dataset.hareket === 'azalt',
     molaRehberi: kok.dataset.mola !== 'kapali',
+    sesDuzeyi: kok.dataset.sesDuzeyi || 'orta',
+    sesYalnizGeriBildirim: kok.dataset.sesEgz === 'geri-bildirim',
   };
 }
 
@@ -50,6 +53,9 @@ export function ayarlariUygula(ayarlar = {}) {
   if (typeof ayarlar.ses === 'boolean') oznitelikAyarla('ses', ayarlar.ses ? null : 'kapali', null);
   if (typeof ayarlar.hareketAzalt === 'boolean') oznitelikAyarla('hareket', ayarlar.hareketAzalt ? 'azalt' : null, null);
   if (typeof ayarlar.molaRehberi === 'boolean') oznitelikAyarla('mola', ayarlar.molaRehberi ? null : 'kapali', null);
+  // S29: data-ses-duzeyi="kisik|yuksek" (orta varsayılan, öznitelik yok), data-ses-egz="geri-bildirim"
+  if (SES_DUZEYLERI.includes(ayarlar.sesDuzeyi)) oznitelikAyarla('sesDuzeyi', ayarlar.sesDuzeyi, 'orta');
+  if (typeof ayarlar.sesYalnizGeriBildirim === 'boolean') oznitelikAyarla('sesEgz', ayarlar.sesYalnizGeriBildirim ? 'geri-bildirim' : null, null);
   temaRengiGuncelle();
   bildir();
 }
@@ -81,15 +87,30 @@ export function sesAcikMi() {
   return kok.dataset.ses !== 'kapali';
 }
 
+/** S29: Ses düzeyi: 'kisik' | 'orta' | 'yuksek' */
+export function sesDuzeyi() {
+  return SES_DUZEYLERI.includes(kok.dataset.sesDuzeyi) ? kok.dataset.sesDuzeyi : 'orta';
+}
+
+/** S29: Egzersiz açıkken yalnız geri bildirim sesleri mi çalsın? */
+export function yalnizGeriBildirimMi() {
+  return kok.dataset.sesEgz === 'geri-bildirim';
+}
+
 // Mobil tarayıcı çubuğunun rengi temaya uysun. index.html'de iki meta var (açık/koyu, media ile):
 // tema seçildiyse ikisi de o temanın rengini alır; "sistem"de her meta kendi rengine döner
-const TEMA_RENGI = Object.freeze({ acik: '#ffffff', koyu: '#172529' });
+// S27: çocuk görünümünün üst çubuk renkleri farklı (css/cocuk.css ile AYNI tutulmalı)
+const TEMA_RENGI = Object.freeze({
+  profesyonel: { acik: '#ffffff', koyu: '#172529' },
+  cocuk: { acik: '#ffffff', koyu: '#1c2654' },
+});
 function temaRengiGuncelle() {
   const secim = kok.dataset.tema;
+  const renkler = TEMA_RENGI[kok.dataset.gorunum === 'cocuk' ? 'cocuk' : 'profesyonel'];
   document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
     const media = meta.getAttribute('media');
     const kendi = media ? (media.includes('dark') ? 'koyu' : 'acik') : etkinTema();
-    meta.setAttribute('content', TEMA_RENGI[secim === 'acik' || secim === 'koyu' ? secim : kendi]);
+    meta.setAttribute('content', renkler[secim === 'acik' || secim === 'koyu' ? secim : kendi]);
   });
 }
 
@@ -113,13 +134,13 @@ export function temaDugmesiBagla(dugme) {
   guncelle();
 }
 
-/** Ayar formunu bağlar. Alan adları: tema, yaziBoyutu, font (radyo/seçim), ses, hareketAzalt, molaRehberi (onay kutusu) */
+/** Ayar formunu bağlar. Alan adları: tema, yaziBoyutu, font, sesDuzeyi (radyo/seçim), ses, hareketAzalt, molaRehberi, sesYalnizGeriBildirim (onay kutusu) */
 export function ayarFormuBagla(form) {
   if (!form) return;
   const el = form.elements;
   const doldur = (a) => {
-    for (const ad of ['tema', 'yaziBoyutu', 'font']) if (el[ad]) el[ad].value = a[ad];
-    for (const ad of ['ses', 'hareketAzalt', 'molaRehberi']) if (el[ad]) el[ad].checked = a[ad];
+    for (const ad of ['tema', 'yaziBoyutu', 'font', 'sesDuzeyi']) if (el[ad]) el[ad].value = a[ad];
+    for (const ad of ['ses', 'hareketAzalt', 'molaRehberi', 'sesYalnizGeriBildirim']) if (el[ad]) el[ad].checked = a[ad];
   };
   form.addEventListener('change', (e) => {
     const { name, value, checked, type } = e.target;

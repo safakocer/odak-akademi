@@ -1,4 +1,4 @@
-// Sürümlü localStorage sarmalayıcı: güvenli okuma/yazma, kota uyarısı, JSON yedek indirme/yükleme
+// Sürümlü localStorage sarmalayıcı: güvenli okuma/yazma, kota uyarısı, JSON yedek indirme/yükleme (S27: '__' ile başlayan cihaz anahtarları yedeğe girmez, yedek yüklemede korunur)
 import { yay, OLAYLAR } from './store.js';
 import { gunAnahtari } from './utils.js';
 
@@ -124,9 +124,12 @@ export function kullanimBayt() {
   return anahtarlar().reduce((t, k) => t + (ONEK.length + k.length + (s.getItem(ONEK + k)?.length ?? 0)) * 2, 0);
 }
 
+// S27: '__' ile başlayan anahtarlar cihaz/hesap düzeyidir (ör. __hesap): yedeğe girmez, yedek yüklenince silinmez ve yedektekiyle değişmez
+const cihazAnahtariMi = (k) => k.startsWith('__');
+
 function tumVeri() {
   const veri = {};
-  for (const k of anahtarlar()) if (k !== SURUM_ANAHTARI) veri[k] = oku(k);
+  for (const k of anahtarlar()) if (k !== SURUM_ANAHTARI && !cihazAnahtariMi(k)) veri[k] = oku(k);
   return veri;
 }
 
@@ -204,8 +207,9 @@ export function yedekUygula(yedek) {
   yedekDenetle(yedek);
   const veri = gecisleriUygula(structuredClone(yedek.veri), yedek.surum);
   delete veri[SURUM_ANAHTARI];
+  Object.keys(veri).filter(cihazAnahtariMi).forEach((k) => delete veri[k]);
   const s = d();
-  const eski = anahtarlar().map((k) => [k, s.getItem(ONEK + k)]);
+  const eski = anahtarlar().filter((k) => !cihazAnahtariMi(k)).map((k) => [k, s.getItem(ONEK + k)]);
   try {
     eski.forEach(([k]) => s.removeItem(ONEK + k));
     for (const [k, v] of Object.entries(veri)) {
@@ -213,7 +217,7 @@ export function yedekUygula(yedek) {
     }
     s.setItem(ONEK + SURUM_ANAHTARI, JSON.stringify(VERI_SURUMU));
   } catch (h) {
-    anahtarlar().forEach((k) => s.removeItem(ONEK + k));
+    anahtarlar().filter((k) => !cihazAnahtariMi(k)).forEach((k) => s.removeItem(ONEK + k));
     eski.forEach(([k, v]) => { try { s.setItem(ONEK + k, v); } catch { /* yok say */ } });
     throw new Error(kotaHatasiMi(h)
       ? 'Yedek bu cihazdaki kayıt alanına sığmadı. Önceki verilerin korundu.'

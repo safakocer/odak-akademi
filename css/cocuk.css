@@ -1,5 +1,9 @@
 /* S27: Çocuk görünümü: canlı palet (açık + koyu), yuvarlak ve “basılabilir” bileşenler, akıcı animasyonlar, hareketli gökyüzü ve deniz arka planı.
    S28: renkli ikon paleti (--ck-*, icons/cocuk-ikonlar.svg), Fener’in ifadeleri ve konuşma balonu (.fener*, js/engine/fener.js), sonuçta Fener ve kutlama ekranı (.c-kutlama*, celebrate.js).
+   S30: ana sayfa balonu geniş ve sabit yükseklikte; kutlama ekranı 4 sn (hareket ilk 1,5 sn; süre çubuğu; sekme gizlenince durur), Fener’in 7. ifadesi “uykulu”, ana sayfada dokunulabilir Fener (ipucu).
+   S31: egzersizler sayfasının açılır alan kartları (.alan-karti, .alan-paneli); arka planda martı (gündüz) ve yarasa (gece) (.gokyuzu*, js/engine/gokyuzu.js); S31-d: yarasa yandan, kuşlar daha belirgin, bant daha yüksek.
+   S32: geniş ekranda sol altta kayalıklar üstünde Fener sahnesi (.fener-sahnesi*, js/engine/fener-sahnesi.js); ana sayfa balonu sahnedeki Fener’den çıkar.
+   S32-d: irili ufaklı kayalar, kum yok; hüzme yatay döner (11,7 sn), ekranın sağına uzanır; dokunmatik tablette (“dar”) içerik sütunu sahnenin sağına kayar.
    Yalnız <html data-gorunum="cocuk"> iken etkilidir (hesap.js yazar; kullanıcı seçemez). Profesyonel görünüm bu dosyadan etkilenmez.
    Hareketi azalt açıkken base.css tüm animasyonları durdurur; egzersiz açıkken (html.egz-acik) arka plan gizlenir. Kontrast WCAG AA denetlendi. */
 
@@ -244,6 +248,22 @@
   --fener-govde: #0e6b63;
   --fener-beyaz: #ffffff;
   --fener-gozbebek: #16262b;
+  /* S31: Gökyüzü kuşları (js/engine/gokyuzu.js; martı yalnız açık, yarasa yalnız koyu temada çıkar; S31-d: daha belirgin) */
+  --c-kus-opaklik: 0.8;
+  --c-kus-goz: #1b2340;
+  --c-kus-parilti: #ffffff;
+  --c-marti-govde: #ffffff;
+  --c-marti-kanat: #aebdd2;
+  --c-marti-uc: #5b6680;
+  --c-marti-gaga: #ffb547;
+  --c-marti-kontur: #4f6185;
+  --c-yarasa-govde: #8475d4;
+  --c-yarasa-zar: #6a5bbd;
+  --c-yarasa-zar-arka: #4a3d96;
+  --c-yarasa-karin: #c3b9f5;
+  --c-yarasa-goz: #ffffff;
+  --c-yarasa-yanak: #ff9ec4;
+  --c-yarasa-kontur: #2f2670;
   /* Gökyüzü: üstte ışık (gündüz güneş, gece ay), aşağı doğru zemine iner */
   background:
     radial-gradient(circle at 92% 4%, var(--c-isik), transparent 22rem),
@@ -506,13 +526,21 @@
 :root[data-gorunum="cocuk"] .fener__saskin { fill: none; stroke: var(--c-baslik); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 /* Mola: ışık söner, lamba loş */
 :root[data-gorunum="cocuk"] .fener--mola .fener__huzme { display: none; }
+/* S30: uykulu (gece): ışık sönük, hilal ve küçük yıldız */
+:root[data-gorunum="cocuk"] .fener--uykulu .fener__huzme { display: none; }
+:root[data-gorunum="cocuk"] .fener--uykulu .fener__lamba { fill: var(--fener-lamba-sonuk); animation: c-fener-nefes 4s ease-in-out infinite alternate; }
+:root[data-gorunum="cocuk"] .fener__ay { fill: var(--fener-isik); stroke: var(--fener-isik-kenar); stroke-width: 0.6; }
 :root[data-gorunum="cocuk"] .fener--mola .fener__lamba { fill: var(--fener-lamba-sonuk); }
 
 /* Fener hareketleri: yavaş ve yumuşak (saniyede 3 parlama sınırının çok altında; yanıp sönme yerine hafif parlama) */
 :root[data-gorunum="cocuk"] .fener__goz,
 :root[data-gorunum="cocuk"] .fener__parilti,
 :root[data-gorunum="cocuk"] .fener__z,
-:root[data-gorunum="cocuk"] .fener__saskin { transform-box: fill-box; transform-origin: center; }
+:root[data-gorunum="cocuk"] .fener__saskin,
+:root[data-gorunum="cocuk"] .fener__esneme { transform-box: fill-box; transform-origin: center; }
+/* S30: uykulu Fener yavaşça esner, yıldız yavaşça parlar (yanıp sönme yok) */
+:root[data-gorunum="cocuk"] .fener__esneme { animation: c-fener-esne 5s ease-in-out 1s infinite; }
+:root[data-gorunum="cocuk"] .fener__parilti--gece { animation: c-fener-parilti 3s ease-in-out infinite alternate; }
 :root[data-gorunum="cocuk"] .fener__huzme { animation: c-fener-isik 2.8s ease-in-out infinite alternate; }
 :root[data-gorunum="cocuk"] .fener__gozler--kirp .fener__goz { animation: c-fener-kirp 5s ease-in-out 1.2s infinite; }
 :root[data-gorunum="cocuk"] .fener--sevinc .fener__beden { animation: c-fener-zipla 800ms var(--c-yay) 300ms 2; }
@@ -537,6 +565,7 @@
 @keyframes c-fener-dusunce { 0%, 100% { opacity: 0.35; } 40% { opacity: 1; } }
 @keyframes c-fener-z { 0% { opacity: 0; transform: translate(0, 3px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(2px, -4px); } }
 @keyframes c-fener-nefes { from { opacity: 0.7; } to { opacity: 1; } }
+@keyframes c-fener-esne { 0%, 70%, 100% { transform: scale(1); } 80%, 88% { transform: scale(1.25, 1.6); } }
 
 /* ---------- Fener konuşma balonu (ana sayfa, boş durumlar) ---------- */
 :root[data-gorunum="cocuk"] .fener-balon { display: flex; align-items: flex-end; gap: var(--b-2); margin: 0; }
@@ -568,13 +597,62 @@
   border-radius: 0 0 0 4px;
   transform: rotate(45deg);
 }
-:root[data-gorunum="cocuk"] .fener-balon__baslik { margin: 0 0 var(--b-1); font-weight: 900; color: var(--c-baslik); }
+:root[data-gorunum="cocuk"] .fener-balon__baslik { font-weight: 900; color: var(--c-baslik); } /* S30: metnin başında, aynı satırda */
 :root[data-gorunum="cocuk"] .fener-balon__metin { margin: 0; font-weight: 700; color: var(--renk-metin); overflow-wrap: anywhere; }
+/* S30: ana sayfada Fener bir düğme: dokununca ipucu verir (en az 44 px, odak çerçevesi base.css’ten) */
+:root[data-gorunum="cocuk"] .fener-balon__dugme {
+  display: block;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--kose-l);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  position: relative;
+  transition: transform 200ms var(--c-yay);
+}
+/* Fener’in ayağındaki küçük “İpucu” etiketi (dokunulabildiğini gösterir; ekran okuyucu düğme adını okur) */
+:root[data-gorunum="cocuk"] .fener-balon__etiket {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  padding: 0.0625rem var(--b-2);
+  border-radius: var(--kose-tam);
+  background: var(--renk-birincil);
+  color: var(--renk-birincil-uzeri);
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow: 0 2px 0 var(--renk-birincil-golge);
+}
+:root[data-gorunum="cocuk"] .fener-balon__dugme:hover { transform: translateY(-3px) rotate(-3deg); }
+:root[data-gorunum="cocuk"] .fener-balon__dugme:active { transform: scale(0.94); }
 :root[data-gorunum="cocuk"] .fener-balon--bos { padding-block: var(--b-2); }
 :root[data-gorunum="cocuk"] .fener-balon--bos .fener-balon__balon { border-style: dashed; box-shadow: none; }
+/* S30 düzeltme: ana sayfa balonu boş alana doğru genişler ve sabit yükseklikte durur (mesaj uzayınca alttaki içerik kaymaz).
+   Yükseklik ~90 karakterlik en uzun mesaja göre: telefonda 4, orta genişlikte 3, geniş ekranda 2 satır; metin dikeyde ortalanır.
+   Satır sayısı yazı boyutu ayarıyla birlikte büyür (em). Bundan uzun bir metin olursa balon yine büyür, metin kesilmez. */
+:root[data-gorunum="cocuk"] .fener-balon--selam { --fb-satir: 1.45; --fb-satir-sayisi: 4; }
+:root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__fener { width: 4.5rem; }
+:root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__balon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(var(--fb-satir-sayisi) * var(--fb-satir) * 1em + 2 * var(--b-3) + 4px);
+  padding-inline: var(--b-3);
+}
+:root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__metin { line-height: var(--fb-satir); }
 @media (min-width: 600px) {
+  :root[data-gorunum="cocuk"] .fener-balon--selam { --fb-satir-sayisi: 3; }
   :root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__fener { width: 6rem; }
-  :root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__balon { flex: 0 1 34rem; }
+  :root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__balon { padding-inline: var(--b-4); }
+}
+@media (min-width: 900px) {
+  :root[data-gorunum="cocuk"] .fener-balon--selam { --fb-satir-sayisi: 2; }
 }
 
 /* ---------- Sonuç ekranında Fener ve bir kez açılan yıldızlar (exercise-frame.js) ---------- */
@@ -602,7 +680,7 @@
   100% { opacity: 0; transform: scale(0.9) rotate(70deg); }
 }
 
-/* ---------- Kutlama ekranı (celebrate.js cocukKutla): en çok 1,5 sn, dokununca kapanır ---------- */
+/* ---------- Kutlama ekranı (celebrate.js cocukKutla): S30: 4 sn (--kutlama-ms, JS yazar), hareket ilk 1,5 sn; dokununca kapanır ---------- */
 :root[data-gorunum="cocuk"] .c-kutlama {
   position: fixed;
   inset: 0;
@@ -613,8 +691,12 @@
   overflow: hidden;
   cursor: pointer;
   background: rgb(18 26 61 / 0.28);
-  animation: c-kutlama-perde 1500ms ease both;
+  /* S30: giriş hemen, çıkış sürenin sonunda (iki ayrı animasyon: aradaki bekleme süreye göre uzar) */
+  animation: c-kutlama-perde-gir 220ms ease both, c-kutlama-perde-cik 320ms ease-in calc(var(--kutlama-ms, 4000ms) - 320ms) forwards;
 }
+/* S30: sekme arka plandayken süre ve bütün hareketler durur */
+:root[data-gorunum="cocuk"] .c-kutlama--durdu,
+:root[data-gorunum="cocuk"] .c-kutlama--durdu * { animation-play-state: paused; }
 :root[data-gorunum="cocuk"] .c-kutlama__konfeti { position: absolute; inset: 0; pointer-events: none; }
 :root[data-gorunum="cocuk"] .c-kutlama__parca {
   position: absolute;
@@ -646,8 +728,23 @@
   border: 3px solid var(--renk-gunes);
   border-radius: var(--kose-xl);
   box-shadow: 0 6px 0 var(--renk-gunes-golge), var(--golge-3);
-  animation: c-kutlama-kart 1500ms var(--c-yay) both;
+  animation: c-kutlama-kart-gir 600ms var(--c-yay) both, c-kutlama-kart-cik 320ms ease-in calc(var(--kutlama-ms, 4000ms) - 320ms) forwards;
 }
+/* S30: Fener kutlamada bir kez zıplar (hareket ilk 1,5 sn’de biter) */
+:root[data-gorunum="cocuk"] .c-kutlama .fener--sevinc .fener__beden { animation-iteration-count: 1; }
+/* S30: kalan süre çubuğu: kartın altında sağdan sola doğru boşalır */
+:root[data-gorunum="cocuk"] .c-kutlama__sure {
+  position: absolute;
+  left: var(--b-5);
+  right: var(--b-5);
+  bottom: var(--b-2);
+  height: 0.375rem;
+  border-radius: var(--kose-tam);
+  background: var(--renk-gunes);
+  transform-origin: 0 50%;
+  animation: c-kutlama-sure var(--kutlama-ms, 4000ms) linear both;
+}
+:root[data-gorunum="cocuk"] .c-kutlama__dokun { margin: var(--b-2) 0 0; font-size: var(--fs-xs); font-weight: 700; color: var(--renk-metin-soluk); }
 /* Tek bir yıldız patlaması: ışınlar bir kez uzar ve söner (tekrar eden parlama yok) */
 :root[data-gorunum="cocuk"] .c-kutlama__patlama { position: absolute; left: 50%; top: 4.25rem; width: 0; height: 0; }
 :root[data-gorunum="cocuk"] .c-kutlama__isin {
@@ -698,13 +795,15 @@
   font-weight: 800;
 }
 
-@keyframes c-kutlama-perde { 0% { opacity: 0; } 12% { opacity: 1; } 82% { opacity: 1; } 100% { opacity: 0; } }
-@keyframes c-kutlama-kart {
+@keyframes c-kutlama-perde-gir { from { opacity: 0; } to { opacity: 1; } }
+@keyframes c-kutlama-perde-cik { from { opacity: 1; } to { opacity: 0; } }
+@keyframes c-kutlama-kart-gir {
   0% { opacity: 0; transform: scale(0.6); }
-  20% { opacity: 1; transform: scale(1.04); }
-  30%, 82% { opacity: 1; transform: none; }
-  100% { opacity: 0; transform: translateY(-12px) scale(0.96); }
+  65% { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: none; }
 }
+@keyframes c-kutlama-kart-cik { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-12px) scale(0.96); } }
+@keyframes c-kutlama-sure { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 @keyframes c-isin {
   0% { opacity: 1; transform: rotate(var(--aci)) scaleY(0.2); }
   60% { opacity: 1; transform: rotate(var(--aci)) scaleY(1); }
@@ -720,11 +819,323 @@
 :root[data-gorunum="cocuk"] .fener--durgun * { animation: none; }
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .fener *,
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .fener-balon__balon { animation: none; }
+:root[data-gorunum="cocuk"][data-hareket="azalt"] .fener-balon__dugme { transition: none; transform: none; }
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .egz-sonuc__yildiz,
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .c-kutlama { display: none; }
 @media (prefers-reduced-motion: reduce) {
   :root[data-gorunum="cocuk"] .fener *,
   :root[data-gorunum="cocuk"] .fener-balon__balon { animation: none; }
+  :root[data-gorunum="cocuk"] .fener-balon__dugme { transition: none; transform: none; }
   :root[data-gorunum="cocuk"] .egz-sonuc__yildiz,
   :root[data-gorunum="cocuk"] .c-kutlama { display: none; }
+}
+
+/* =====================================================================
+   S31: Egzersizler sayfası alan kartları ve gökyüzü kuşları
+   ===================================================================== */
+
+/* ---------- Alan kartları (düğme): diğer kartlar gibi “basılabilir”, açık kart alan renginde ---------- */
+:root[data-gorunum="cocuk"] .alan-karti {
+  box-shadow: 0 4px 0 var(--c-kart-golge);
+  transition: transform 240ms var(--c-yay), box-shadow 240ms var(--c-yay), border-color var(--sure-hizli), background-color var(--sure-hizli);
+}
+:root[data-gorunum="cocuk"] .alan-karti:hover {
+  transform: translateY(-4px) rotate(-0.6deg);
+  border-color: var(--c-m, var(--renk-birincil));
+  box-shadow: 0 8px 0 var(--c-m, var(--renk-birincil)), var(--golge-2);
+}
+:root[data-gorunum="cocuk"] .alan-karti:hover .kart__ikon { animation: c-salla 560ms var(--c-yay); }
+:root[data-gorunum="cocuk"] .alan-karti:active { transform: translateY(2px) scale(0.98); box-shadow: 0 1px 0 var(--c-kart-golge); }
+:root[data-gorunum="cocuk"] .alan-karti[aria-expanded="true"] {
+  transform: translateY(-2px);
+  border-color: var(--c-m, var(--renk-birincil));
+  background: color-mix(in srgb, var(--c-m, var(--renk-birincil)) 14%, var(--renk-yuzey));
+  box-shadow: 0 5px 0 var(--c-m, var(--renk-birincil));
+}
+:root[data-gorunum="cocuk"] .alan-karti__ok { width: 1.5rem; height: 1.5rem; }
+:root[data-gorunum="cocuk"] .alan-paneli {
+  border-width: 2px;
+  border-top: 5px solid var(--c-m, var(--renk-birincil));
+  box-shadow: 0 4px 0 var(--c-kart-golge);
+  animation-timing-function: var(--c-yay);
+}
+:root[data-gorunum="cocuk"] .alan-paneli > h2 { color: var(--c-baslik); }
+:root[data-gorunum="cocuk"][data-hareket="azalt"] .alan-karti,
+:root[data-gorunum="cocuk"][data-hareket="azalt"] .alan-karti:hover,
+:root[data-gorunum="cocuk"][data-hareket="azalt"] .alan-karti[aria-expanded="true"] { transform: none; transition: none; }
+:root[data-gorunum="cocuk"][data-hareket="azalt"] .alan-karti:hover .kart__ikon { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  :root[data-gorunum="cocuk"] .alan-karti,
+  :root[data-gorunum="cocuk"] .alan-karti:hover,
+  :root[data-gorunum="cocuk"] .alan-karti[aria-expanded="true"] { transform: none; transition: none; }
+  :root[data-gorunum="cocuk"] .alan-karti:hover .kart__ikon { animation: none; }
+}
+
+/* ---------- Gökyüzü: üst bantta, içeriğin arkasında, düşük opaklıkla geçen kuşlar ---------- */
+/* Yalnız transform ve opacity canlanır. Kanat çırpma yavaş ve yumuşak (yanıp sönme yok). */
+:root[data-gorunum="cocuk"] .gokyuzu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: min(40vh, 300px);
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+:root[data-gorunum="cocuk"] .gokyuzu__kus {
+  position: absolute;
+  top: var(--kus-y, 24px);
+  left: 0;
+  width: calc(4.75rem * var(--kus-olcek, 1));
+  animation: c-kus-gec var(--kus-sure, 12s) linear var(--kus-gecikme, 0ms) both;
+  will-change: transform, opacity;
+}
+:root[data-gorunum="cocuk"] .gokyuzu__kus--sola { animation-direction: reverse; }
+:root[data-gorunum="cocuk"] .gokyuzu__salin {
+  opacity: var(--c-kus-opaklik);
+  animation: c-kus-salin 3.4s ease-in-out infinite alternate;
+}
+:root[data-gorunum="cocuk"] .gokyuzu__cizim { display: block; width: 100%; height: auto; aspect-ratio: 64 / 40; overflow: visible; }
+:root[data-gorunum="cocuk"] .gokyuzu__kus--sola .gokyuzu__cizim { transform: scaleX(-1); }
+
+:root[data-gorunum="cocuk"] .kus__goz { fill: var(--c-kus-goz); }
+:root[data-gorunum="cocuk"] .kus__parilti { fill: var(--c-kus-parilti); }
+:root[data-gorunum="cocuk"] .marti__govde { fill: var(--c-marti-govde); stroke: var(--c-marti-kontur); stroke-width: 1; stroke-linejoin: round; }
+:root[data-gorunum="cocuk"] .marti__kanat-yuz { fill: var(--c-marti-kanat); stroke: var(--c-marti-kontur); stroke-width: 1; stroke-linejoin: round; }
+:root[data-gorunum="cocuk"] .marti__kanat--arka .marti__kanat-yuz { fill: var(--c-marti-uc); stroke: none; opacity: 0.5; }
+:root[data-gorunum="cocuk"] .marti__uc { fill: var(--c-marti-uc); }
+:root[data-gorunum="cocuk"] .marti__gaga { fill: var(--c-marti-gaga); }
+:root[data-gorunum="cocuk"] .marti__kanat,
+:root[data-gorunum="cocuk"] .yarasa__kanat {
+  transform-box: view-box;
+  transform-origin: 30px 22px;
+  animation: c-kus-kanat var(--kus-kanat, 1.15s) ease-in-out infinite alternate;
+}
+:root[data-gorunum="cocuk"] .yarasa__kanat { transform-origin: 33px 21px; }
+:root[data-gorunum="cocuk"] .yarasa__govde { fill: var(--c-yarasa-govde); stroke: var(--c-yarasa-kontur); stroke-width: 1; stroke-linejoin: round; }
+:root[data-gorunum="cocuk"] .yarasa__zar { fill: var(--c-yarasa-zar); stroke: var(--c-yarasa-kontur); stroke-width: 1; stroke-linejoin: round; }
+:root[data-gorunum="cocuk"] .yarasa__karin { fill: var(--c-yarasa-karin); }
+:root[data-gorunum="cocuk"] .yarasa__goz { fill: var(--c-yarasa-goz); stroke: var(--c-yarasa-kontur); stroke-width: 0.6; }
+:root[data-gorunum="cocuk"] .yarasa__yanak { fill: var(--c-yarasa-yanak); }
+:root[data-gorunum="cocuk"] .yarasa__agiz { fill: none; stroke: var(--c-yarasa-kontur); stroke-width: 1.1; stroke-linecap: round; }
+:root[data-gorunum="cocuk"] .yarasa__kanat--arka .yarasa__zar { fill: var(--c-yarasa-zar-arka); stroke: none; }
+:root[data-gorunum="cocuk"] .yarasa__kulak-ici { fill: var(--c-yarasa-yanak); }
+
+@keyframes c-kus-gec {
+  0% { opacity: 0; transform: translate3d(-5rem, 0, 0); }
+  8%, 92% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(calc(100vw + 1rem), 0, 0); }
+}
+@keyframes c-kus-salin { from { transform: translateY(-5px); } to { transform: translateY(5px); } }
+@keyframes c-kus-kanat { from { transform: scaleY(1); } to { transform: scaleY(-0.35); } }
+
+/* Egzersizde, hareketi azaltta ve yazdırırken kuş yok (gokyuzu.js de çıkarmaz; burası ikinci güvence) */
+:root[data-gorunum="cocuk"].egz-acik .gokyuzu,
+:root[data-gorunum="cocuk"][data-hareket="azalt"] .gokyuzu { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  :root[data-gorunum="cocuk"] .gokyuzu { display: none; }
+}
+@media print {
+  :root[data-gorunum="cocuk"] .gokyuzu { display: none; }
+}
+
+/* =====================================================================
+   S32: Kayalıklar üstünde Fener sahnesi (js/engine/fener-sahnesi.js; S32-d)
+   Yalnız <html data-sahne="genis|dar"> iken (JS: çocuk görünümü + yer var). “dar”: dokunmatik tablette içerik sütunu sahnenin sağına kayar.
+   Ölçüler JS’ten CSS değişkeni: --sahne-g, --sahne-kaya-y, --sahne-fener-g, --sahne-fener-alt, --sahne-lamba-x, --sahne-lamba-alt.
+   Gündüz: lamba yanar, hüzme yok. Gece: parıltı büyür; tek kollu hüzme dikey eksende döner gibi yatayda sağa-sola süpürür
+   (11,7 sn’de bir tur; uzunluğu kosinüs gibi değişir, bize dönerken yavaşça kısılır: yanıp sönme yok).
+   Ana sayfa balonu uykulu iken (gece mesajı): parıltı kısılır, hüzme sağa dönük durur ve hafif kısılır. Hareketi azaltta hüzme durgun.
+   ===================================================================== */
+
+/* ---------- Sahne renkleri: gündüz (gece blokları aşağıda AYNI anahtarlarla) ---------- */
+:root[data-gorunum="cocuk"] {
+  --c-kaya-orta: #8f95b3;
+  --c-kaya-golge: #6c7194;
+  --c-kaya-isik: #b9bed6;
+  --c-kaya-cizgi: #565b7e;
+  --c-kaya-kontur: #3a456e;
+  --c-kaya-yosun: #4fb06d;
+  --c-sahne-parilti: rgb(255 214 92 / 0.6);
+  --c-sahne-huzme: rgb(255 228 140 / 0.42);
+  --c-sahne-huzme-uc: rgb(255 228 140 / 0.07);
+}
+:root[data-gorunum="cocuk"][data-tema="koyu"] {
+  --c-kaya-orta: #3d4677;
+  --c-kaya-golge: #2b3262;
+  --c-kaya-isik: #55609a;
+  --c-kaya-cizgi: #222850;
+  --c-kaya-kontur: #151a40;
+  --c-kaya-yosun: #2f6e55;
+  --c-sahne-parilti: rgb(255 214 92 / 0.8);
+  --c-sahne-huzme: rgb(255 232 150 / 0.42);
+  --c-sahne-huzme-uc: rgb(255 232 150 / 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-gorunum="cocuk"]:not([data-tema="acik"]) {
+    --c-kaya-orta: #3d4677;
+    --c-kaya-golge: #2b3262;
+    --c-kaya-isik: #55609a;
+    --c-kaya-cizgi: #222850;
+    --c-kaya-kontur: #151a40;
+    --c-kaya-yosun: #2f6e55;
+    --c-sahne-parilti: rgb(255 214 92 / 0.8);
+    --c-sahne-huzme: rgb(255 232 150 / 0.42);
+    --c-sahne-huzme-uc: rgb(255 232 150 / 0.06);
+  }
+}
+
+/* ---------- Katman: içeriğin arkasında, dokunmayı geçirir; dalgalar (body::after) önünden geçer ---------- */
+.fener-sahnesi { display: none; }
+@media screen {
+  :root[data-gorunum="cocuk"][data-sahne] .fener-sahnesi {
+    display: block;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    width: var(--sahne-g);
+    height: var(--sahne-kaya-y);
+    pointer-events: none;
+  }
+  :root[data-gorunum="cocuk"][data-sahne].egz-acik .fener-sahnesi { display: none; }
+
+  /* “dar” (dokunmatik tablet): içerik sütunu sahnenin sağından başlar */
+  :root[data-gorunum="cocuk"][data-sahne="dar"] .ana {
+    width: auto;
+    margin-left: calc(var(--sahne-g) + 8px);
+    margin-right: 0;
+  }
+
+  :root[data-gorunum="cocuk"] .fener-sahnesi__kaya {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  /* Kıyı kayaları: kayalığın sağ altından denize doğru alçalır; sol ucu kayalığın arkasında kalır */
+  :root[data-gorunum="cocuk"] .fener-sahnesi__kiyi {
+    position: absolute;
+    left: calc(100% - 70px);
+    bottom: 0;
+    display: block;
+    width: 420px;
+    max-width: none;
+    height: 130px;
+  }
+  :root[data-gorunum="cocuk"] .fener-sahnesi .kaya { stroke: var(--c-kaya-kontur); stroke-width: 2; stroke-linejoin: round; }
+  :root[data-gorunum="cocuk"] .fener-sahnesi .kaya--kontursuz { stroke: none; }
+  :root[data-gorunum="cocuk"] .fener-sahnesi .kaya--orta { fill: var(--c-kaya-orta); }
+  :root[data-gorunum="cocuk"] .fener-sahnesi .kaya--golge { fill: var(--c-kaya-golge); }
+  :root[data-gorunum="cocuk"] .fener-sahnesi .kaya--isik { fill: var(--c-kaya-isik); }
+  :root[data-gorunum="cocuk"] .fener-sahnesi .kaya__cizgi { fill: none; stroke: var(--c-kaya-cizgi); stroke-width: 2; stroke-linecap: round; opacity: 0.7; }
+  :root[data-gorunum="cocuk"] .fener-sahnesi .kaya__yosun { fill: var(--c-kaya-yosun); stroke: var(--c-kaya-kontur); stroke-width: 1.5; }
+  :root[data-gorunum="cocuk"] .fener-sahnesi .kaya__kontur { fill: none; stroke: var(--c-kaya-kontur); stroke-width: 2.5; stroke-linejoin: round; }
+
+  /* Fener: kayalığın düzlüğünde (ana sayfada yerine balonun Fener’i görünür) */
+  :root[data-gorunum="cocuk"] .fener-sahnesi__fener {
+    position: absolute;
+    left: calc(var(--sahne-lamba-x) - var(--sahne-fener-g) / 2);
+    bottom: var(--sahne-fener-alt);
+    width: var(--sahne-fener-g);
+  }
+  /* Sahnede Fener’in küçük ışık kanatları yok: ışığı sahnenin parıltısı ve hüzmesi verir */
+  :root[data-gorunum="cocuk"] .fener-sahnesi .fener__huzme,
+  :root[data-gorunum="cocuk"][data-sahne] #fener-selam .fener__huzme { display: none; }
+
+  /* Lambanın parıltısı: gündüz küçük, gece büyük ve parlak (durgun; yanıp sönmez) */
+  :root[data-gorunum="cocuk"] .fener-sahnesi__parilti {
+    position: absolute;
+    left: calc(var(--sahne-lamba-x) - var(--sahne-fener-g) / 2);
+    bottom: calc(var(--sahne-lamba-alt) - var(--sahne-fener-g) / 2);
+    width: var(--sahne-fener-g);
+    height: var(--sahne-fener-g);
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--c-sahne-parilti), transparent);
+    opacity: 0.55;
+    transition: opacity var(--sure-yavas), transform var(--sure-yavas);
+  }
+
+  /* Hüzme: lambadan sağa uzanan, uca doğru genişleyip kısılan ışık; yalnız gece görünür.
+     Dönüş yatay: scaleX kosinüs gibi 1 → 0 → -1 → 0 → 1 (ışık önce bize döner, sonra sola, sonra arkadan sağa).
+     Bize dönükken (boyu 0’a yakın) ışık yavaşça kısılır, yoksa dikey bir şerit gibi görünürdü; 11,7 sn’lik yumuşak değişim, yanıp sönme değil. */
+  :root[data-gorunum="cocuk"] .fener-sahnesi__huzme {
+    --h: min(42vh, 24rem);
+    position: absolute;
+    left: var(--sahne-lamba-x);
+    bottom: calc(var(--sahne-lamba-alt) - var(--h) / 2);
+    width: calc(100vw - var(--sahne-lamba-x) - 3vw);
+    height: var(--h);
+    display: none;
+    background: linear-gradient(to right, var(--c-sahne-huzme), var(--c-sahne-huzme-uc));
+    clip-path: polygon(0 46%, 100% 4%, 100% 96%, 0 54%);
+    -webkit-mask-image: linear-gradient(to right, #000 75%, transparent);
+    mask-image: linear-gradient(to right, #000 75%, transparent);
+    transform-origin: 0 50%;
+    transform: scaleX(1);
+    animation: c-sahne-huzme 11.7s linear infinite;
+    transition: opacity var(--sure-yavas);
+    will-change: transform;
+  }
+  @keyframes c-sahne-huzme {
+    0% { transform: scaleX(1); opacity: 1; animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0); }
+    25% { transform: scaleX(0); opacity: 0; animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1); }
+    50% { transform: scaleX(-1); opacity: 0.75; animation-timing-function: cubic-bezier(0.12, 0, 0.39, 0); }
+    75% { transform: scaleX(0); opacity: 0; animation-timing-function: cubic-bezier(0.61, 1, 0.88, 1); }
+    100% { transform: scaleX(1); opacity: 1; }
+  }
+
+  /* Gece (kullanıcı koyu seçtiyse ya da “Cihaz”da cihaz koyuysa) */
+  :root[data-gorunum="cocuk"][data-tema="koyu"] .fener-sahnesi__huzme { display: block; }
+  :root[data-gorunum="cocuk"][data-tema="koyu"] .fener-sahnesi__parilti { opacity: 1; transform: scale(1.7); }
+  @media (prefers-color-scheme: dark) {
+    :root[data-gorunum="cocuk"]:not([data-tema="acik"]) .fener-sahnesi__huzme { display: block; }
+    :root[data-gorunum="cocuk"]:not([data-tema="acik"]) .fener-sahnesi__parilti { opacity: 1; transform: scale(1.7); }
+  }
+
+  /* Ana sayfada uykulu Fener (gece mesajı): parıltı kısılır, hüzme sağa dönük durur ve hafif kısılır */
+  body:has(> .ana > [data-rota="/"]:not([hidden]) #fener-selam[data-ifade="uykulu"]) > .fener-sahnesi .fener-sahnesi__parilti { opacity: 0.4; transform: none; }
+  body:has(> .ana > [data-rota="/"]:not([hidden]) #fener-selam[data-ifade="uykulu"]) > .fener-sahnesi .fener-sahnesi__huzme { animation: none; opacity: 0.55; }
+
+  /* Hareketi azalt: hüzme sağa dönük durgun (gece yine görünür) */
+  :root[data-gorunum="cocuk"][data-hareket="azalt"] .fener-sahnesi__huzme { animation: none; }
+  @media (prefers-reduced-motion: reduce) {
+    :root[data-gorunum="cocuk"] .fener-sahnesi__huzme { animation: none; }
+  }
+
+  /* ---------- Ana sayfa balonu: sahnedeki Fener’den çıkar (DOM’da yerinde; yalnız CSS ile konumlanır) ---------- */
+  /* Balonun Fener’i (ipucu düğmesi) sahnedeki Fener’in tam yerine oturur; sahnenin kendi Fener’i o sırada gizlenir */
+  body:has(> .ana > [data-rota="/"]:not([hidden]) #fener-selam) > .fener-sahnesi .fener-sahnesi__fener { visibility: hidden; }
+  :root[data-gorunum="cocuk"][data-sahne] #fener-selam {
+    --fb-satir-sayisi: 4;
+    position: fixed;
+    z-index: 1;
+    left: 8px;
+    bottom: var(--sahne-fener-alt);
+    width: calc(var(--sahne-g) - 16px);
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 0.875rem;
+    margin: 0;
+  }
+  :root[data-gorunum="cocuk"][data-sahne] #fener-selam .fener-balon__fener { width: var(--sahne-fener-g); }
+  :root[data-gorunum="cocuk"][data-sahne] #fener-selam .fener-balon__balon {
+    flex: none;
+    align-self: stretch;
+    margin: 0;
+    padding-inline: var(--b-3);
+  }
+  /* Kuyruk aşağıda, Fener’i gösterir */
+  :root[data-gorunum="cocuk"][data-sahne] #fener-selam .fener-balon__balon::before {
+    left: calc(50% - 8px);
+    bottom: -9px;
+    transform: rotate(-45deg);
+  }
+  /* Sayfa geçişindeki kayma (transform) sabit konumlu balonu sayfayla birlikte oynatmasın: ana sayfa yalnız belirerek gelir */
+  :root[data-gorunum="cocuk"][data-sahne] .ana > [data-rota="/"]:not([hidden]) { animation-name: c-sayfa-belir; }
+  @keyframes c-sayfa-belir { from { opacity: 0; } to { opacity: 1; } }
 }

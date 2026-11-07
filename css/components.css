@@ -1,4 +1,4 @@
-/* Bileşenler: buton, kart, görev kartı, rozet, madalya, ilerleme, sekme, modal, form, bildirim, toast, avatar; S25: hata ekranı, hata bandı, belge sayfası */
+/* Bileşenler: buton, kart, görev kartı, rozet, madalya, ilerleme, sekme, modal, form, bildirim, toast, avatar; S25: hata ekranı, hata bandı, belge sayfası; S31: egzersizler sayfasının açılır alan kartları */
 
 /* ---------- Buton ---------- */
 .btn {
@@ -772,6 +772,75 @@ html.egz-acik .guncelleme-bandi { display: none; }
   border: 2px dashed var(--renk-kenar);
   border-radius: var(--kose-l);
   color: var(--renk-metin-soluk);
+}
+
+/* ---------- S31: Egzersizler sayfası: açılır alan kartları (egzersiz-listesi.js) ---------- */
+/* Telefonda 2×2, 900 px’ten 4 yan yana. Panel DOM’da kartının hemen ardından gelir (klavye sırası),
+   order ile kartın satırının altına yerleşir. Sıra kuralları 4 alan içindir; 5. alan eklenirse buraya eklenir. */
+.alan-izgara {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--b-3);
+}
+.alan-karti {
+  width: 100%;
+  margin: 0;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  transition: border-color var(--sure-hizli), box-shadow var(--sure-hizli), background-color var(--sure-hizli);
+}
+.alan-karti:hover { border-color: var(--renk-birincil); box-shadow: var(--golge-2); }
+/* Açık kart: kenar, zemin ve ok yönü birlikte değişir (yalnız renkle gösterilmez) */
+.alan-karti[aria-expanded="true"] {
+  border-color: var(--renk-birincil);
+  background: var(--renk-birincil-zemin);
+  box-shadow: inset 0 0 0 1px var(--renk-birincil);
+}
+.alan-karti__ust { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--b-2); }
+.alan-karti__ok { flex: none; color: var(--renk-metin-soluk); transform: rotate(90deg); transition: transform var(--sure-hizli) var(--egri); }
+.alan-karti[aria-expanded="true"] .alan-karti__ok { transform: rotate(-90deg); color: var(--renk-metin); }
+
+.alan-paneli {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: var(--b-3);
+  background: var(--renk-yuzey);
+  border: 1px solid var(--renk-kenar);
+  border-top: 4px solid var(--renk-birincil);
+  border-radius: var(--kose-l);
+  animation: alan-ac 250ms var(--egri) both;
+}
+.alan-paneli > h2 { margin: 0 0 var(--b-3); }
+.alan-paneli > h3 { margin: var(--b-5) 0 var(--b-2); font-size: var(--fs-m); }
+@keyframes alan-ac { from { opacity: 0; transform: translateY(-0.5rem); } to { opacity: 1; transform: none; } }
+
+.alan-izgara > .alan-karti { order: 7; }
+.alan-izgara > .alan-paneli { order: 8; }
+.alan-izgara > .alan-karti[data-sira="1"] { order: 1; }
+.alan-izgara > .alan-karti[data-sira="2"] { order: 2; }
+.alan-izgara > .alan-paneli[data-sira="1"],
+.alan-izgara > .alan-paneli[data-sira="2"] { order: 3; }
+.alan-izgara > .alan-karti[data-sira="3"] { order: 4; }
+.alan-izgara > .alan-karti[data-sira="4"] { order: 5; }
+.alan-izgara > .alan-paneli[data-sira="3"],
+.alan-izgara > .alan-paneli[data-sira="4"] { order: 6; }
+@media (min-width: 600px) {
+  .alan-paneli { padding: var(--b-4); }
+}
+@media (min-width: 900px) {
+  .alan-izgara { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--b-4); }
+  .alan-izgara > .alan-karti[data-sira="3"] { order: 3; }
+  .alan-izgara > .alan-karti[data-sira="4"] { order: 4; }
+  .alan-izgara > .alan-paneli[data-sira] { order: 5; }
+}
+:root[data-hareket="azalt"] .alan-paneli { animation: none; }
+:root[data-hareket="azalt"] .alan-karti,
+:root[data-hareket="azalt"] .alan-karti__ok { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .alan-paneli { animation: none; }
+  .alan-karti, .alan-karti__ok { transition: none; }
 }
 
 /* ---------- S25: Hata ekranı ve hata bandı (js/core/hata-yakala.js) ---------- */

@@ -9,7 +9,7 @@ import { fenerCiz } from './fener.js';
 export const SAHNE = Object.freeze({
   genislik: [220, 340], // “genis”: sahne sütunu (en az, en çok)
   kenar: 24, // “genis”: sahne ile içerik arasında en az boşluk
-  darYalnizDokunmatik: true, // “dar” yalnız dokunmatik ekranda (masaüstünde içerik genişliği değişmez); false: dizüstüde de
+  darYalnizDokunmatik: false, // S32-d2: “dar” her ekranda (dizüstü dahil, ≥1000 px); true: yalnız dokunmatik ekranda
   darEnAzGenislik: 1000, // “dar”: pencere en az bu genişlikte (tablet yatay)
   darSutun: [200, 260], darOran: 0.2, // “dar”: sahne sütunu = pencere × oran
   darKenar: 8, // “dar”: sahne ile içerik sütunu arası (sütunun kendi iç boşluğu ayrıca var)

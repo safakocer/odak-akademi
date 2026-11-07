@@ -1,4 +1,4 @@
-// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28; S30: duruma göre mesaj, dokununca ipucu), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), geniş ekranda kayalıklar üstünde Fener sahnesini (S32), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
+// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28; S30: duruma göre mesaj, dokununca ipucu), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), geniş ekranda kayalıklar üstünde Fener sahnesini (S32), dinamik temada güneş ve ayı (S33), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
 import { temaDugmesiBagla, ayarFormuBagla, duyur, degisinceHaberVer } from './core/a11y.js';
 import { modalBagla, modalAc, toastGoster, el } from './core/ui.js';
 import { depoBaslat, yedekIndir, yedekYukle, kullanimBayt, kaliciMi } from './core/storage.js';
@@ -17,6 +17,7 @@ import { modulKartlariniGuncelle, modulSayfasiCiz, egzersizlerSayfasiCiz, egzers
 import { gozMolasiEsiginiAyarla } from './engine/eye-rest.js';
 import { gokyuzuBaslat, gokyuzuDene } from './engine/gokyuzu.js';
 import { sahneBaslat } from './engine/fener-sahnesi.js';
+import { gokCisimleriBaslat, gokDeneme } from './engine/gok-cisimleri.js';
 import { seriDurumu, bugunDurumu, bugunlukMesaji, seviyeBilgisi, ilerlemeVerisi, ilerlemeSonuclariniSil, rozetDurumu, bugunAnahtari } from './engine/motivasyon.js';
 import { sinifModuAcikMi, haftalikDurum } from './modules/veli/veli-veri.js';
 import { fenerBalonu, balonGuncelle, anaSayfaMesaji } from './engine/fener.js';
@@ -40,6 +41,8 @@ dokunmaSesleriniBagla();
 gokyuzuBaslat();
 // S32: çocuk görünümünde, içerik sütununun solunda yer varsa kayalıklar üstünde Fener sahnesi (ana sayfa balonu oradan konuşur)
 sahneBaslat();
+// S33: çocuk görünümünde dinamik temada saate göre güneş (gündüz) ve ay (gece; evresi gerçek tarihe göre)
+gokCisimleriBaslat();
 $('#ayar-formu').addEventListener('change', (e) => { if (e.target.name === 'sesDuzeyi') sesCal('dogru'); });
 
 // 3) PWA: çevrimdışı önbellek, yeni sürüm bandı, ana ekrana ekle
@@ -572,6 +575,8 @@ if (gelistirmeAdresiMi()) {
     gorunum: (ad) => (ad ? gorunumAyarla(ad) : hesapBilgisi()),
     // S31: martı/yarasa hemen çıksın (30-60 sn beklemeden): odakDeneme.gokyuzu() → true | false (koşul uygun değil)
     gokyuzu: gokyuzuDene,
+    // S33: dinamik temayı başka saatte dene: odakDeneme.saat('19:30') → {saat, dogus, batis, gunduz, sicak, ayEvresi}; odakDeneme.saat() gerçek saate döner
+    saat: gokDeneme,
   };
 }
 

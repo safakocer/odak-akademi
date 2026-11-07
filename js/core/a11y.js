@@ -1,16 +1,22 @@
-// Erişilebilirlik çekirdeği: görünüm ayarlarını uygular (tema, yazı, font, ses, hareket, S10: mola hatırlatıcısı, S29: ses düzeyi ve egzersizde yalnız geri bildirim), ekran okuyucu duyuruları, odak yönetimi.
+// Erişilebilirlik çekirdeği: görünüm ayarlarını uygular (tema, yazı, font, ses, hareket, S10: mola hatırlatıcısı, S29: ses düzeyi ve egzersizde yalnız geri bildirim, S33: çocukta saate göre dinamik tema), ekran okuyucu duyuruları, odak yönetimi.
 // İkonlar sayfa içi sprite: <use href="#ad">. Ayarların kalıcı kaydını settings.js yapar.
+// S33: Seçilen tema (acik|koyu|sistem|dinamik) modül içinde tutulur; kökteki data-tema ekrandaki temadır (acik|koyu; yoksa cihaz teması).
+//   Çocuk görünümünde “dinamik” ve “sistem” saate göre çalışır (data-tema gündüz acik, gece koyu); profesyonelde ikisi de cihaz teması.
+//   S33-d: çocukta data-gok="gunduz|gece" her temada yazılır (açık/koyu temada güneş/ay sabit yerde durur).
+import { gunDurumu } from './gun-isigi.js';
 
 const kok = document.documentElement;
 const koyuSorgu = window.matchMedia('(prefers-color-scheme: dark)');
 const hareketSorgu = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-export const TEMALAR = ['sistem', 'acik', 'koyu'];
+export const TEMALAR = ['sistem', 'acik', 'koyu', 'dinamik']; // S33: dinamik (çocukta saate göre)
 export const YAZI_BOYUTLARI = ['kucuk', 'normal', 'buyuk', 'cok-buyuk'];
 export const FONTLAR = ['standart', 'disleksi'];
 export const SES_DUZEYLERI = ['kisik', 'orta', 'yuksek']; // S29
 
 const dinleyiciler = new Set();
+let temaSecimi = 'sistem'; // S33: kullanıcının seçtiği (kayıttaki) tema
+const cocukMu = () => kok.dataset.gorunum === 'cocuk';
 
 /** Ayar değişince çağrılacak fonksiyonu kaydeder; kaydı silen fonksiyon döner. */
 export function degisinceHaberVer(fn) {
@@ -34,7 +40,7 @@ function oznitelikAyarla(ad, deger, varsayilan) {
 /** Profil şemasıyla uyumlu ayar nesnesi: { tema, yaziBoyutu, font, ses, hareketAzalt, molaRehberi, sesDuzeyi, sesYalnizGeriBildirim } */
 export function ayarlariOku() {
   return {
-    tema: kok.dataset.tema || 'sistem',
+    tema: temaSecimi,
     yaziBoyutu: kok.dataset.yazi || 'normal',
     font: kok.dataset.font || 'standart',
     ses: kok.dataset.ses !== 'kapali',
@@ -47,7 +53,8 @@ export function ayarlariOku() {
 
 /** Birden çok ayarı birlikte uygular; tanınmayan değerler yok sayılır. */
 export function ayarlariUygula(ayarlar = {}) {
-  if (TEMALAR.includes(ayarlar.tema)) oznitelikAyarla('tema', ayarlar.tema, 'sistem');
+  if (TEMALAR.includes(ayarlar.tema)) temaSecimi = ayarlar.tema;
+  temaYaz(); // S33: görünüm değişince de (hesap.js ayarlariUygula({}) çağırır) yeniden hesaplanır
   if (YAZI_BOYUTLARI.includes(ayarlar.yaziBoyutu)) oznitelikAyarla('yazi', ayarlar.yaziBoyutu, 'normal');
   if (FONTLAR.includes(ayarlar.font)) oznitelikAyarla('font', ayarlar.font, 'standart');
   if (typeof ayarlar.ses === 'boolean') oznitelikAyarla('ses', ayarlar.ses ? null : 'kapali', null);
@@ -60,6 +67,46 @@ export function ayarlariUygula(ayarlar = {}) {
   bildir();
 }
 
+/** S33: Dinamik tema şu an etkin mi? Çocukta “dinamik” ve “sistem” saate göre; profesyonelde ikisi de cihaz teması */
+export function dinamikTemaMi() {
+  return cocukMu() && (temaSecimi === 'dinamik' || temaSecimi === 'sistem');
+}
+
+/** S33: Ayarlar’da seçili görünecek tema: çocukta sistem → dinamik, profesyonelde dinamik → sistem */
+export function gorunenTemaSecimi() {
+  if (temaSecimi === 'acik' || temaSecimi === 'koyu') return temaSecimi;
+  return cocukMu() ? 'dinamik' : 'sistem';
+}
+
+// S33: data-tema (ekrandaki tema) ve data-gok (çocukta gunduz|gece) yazılır; yalnız değişen öznitelik yazılır. Döner: değişti mi
+function temaYaz() {
+  let tema = null;
+  let gok = null;
+  if (temaSecimi === 'acik' || temaSecimi === 'koyu') tema = temaSecimi;
+  else if (dinamikTemaMi()) {
+    gok = gunDurumu().gunduz ? 'gunduz' : 'gece';
+    tema = gok === 'gunduz' ? 'acik' : 'koyu';
+  }
+  if (!gok && tema && cocukMu()) gok = tema === 'acik' ? 'gunduz' : 'gece'; // S33-d: açık/koyu temada da güneş/ay (sabit)
+  let degisti = false;
+  for (const [ad, deger] of [['tema', tema], ['gok', gok]]) {
+    if ((kok.dataset[ad] ?? null) === deger) continue;
+    if (deger) kok.dataset[ad] = deger; else delete kok.dataset[ad];
+    degisti = true;
+  }
+  return degisti;
+}
+
+/** S33: Dinamikte gündüz/gece değiştiyse renkleri hemen günceller ve dinleyicilere haber verir (dakikada bir ve sekmeye dönünce; geliştirici saat denemesi de çağırır) */
+export function dinamikTemaDenetle() {
+  if (!temaYaz()) return false;
+  temaRengiGuncelle();
+  bildir();
+  return true;
+}
+setInterval(dinamikTemaDenetle, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) dinamikTemaDenetle(); });
+
 /** Şu an ekranda görünen tema: 'acik' | 'koyu' */
 export function etkinTema() {
   const secim = kok.dataset.tema;
@@ -67,7 +114,7 @@ export function etkinTema() {
   return koyuSorgu.matches ? 'koyu' : 'acik';
 }
 
-/** Açık ↔ koyu arasında geçiş yapar. */
+/** Açık ↔ koyu arasında geçiş yapar (S33: dinamikteyken de o anki temanın tersine sabitlenir). */
 export function temaDegistir() {
   ayarlariUygula({ tema: etkinTema() === 'koyu' ? 'acik' : 'koyu' });
 }
@@ -134,12 +181,28 @@ export function temaDugmesiBagla(dugme) {
   guncelle();
 }
 
-/** Ayar formunu bağlar. Alan adları: tema, yaziBoyutu, font, sesDuzeyi (radyo/seçim), ses, hareketAzalt, molaRehberi, sesYalnizGeriBildirim (onay kutusu) */
+/** Ayar formunu bağlar. Alan adları: tema, yaziBoyutu, font, sesDuzeyi (radyo/seçim), ses, hareketAzalt, molaRehberi, sesYalnizGeriBildirim (onay kutusu)
+ *  S33: tema seçenekleri görünüme göre dizilir: profesyonel Cihaz/Açık/Koyu, çocuk Açık/Koyu/Dinamik (ayrıca [data-tema-not] açıklaması) */
 export function ayarFormuBagla(form) {
   if (!form) return;
   const el = form.elements;
+  const etiket = (deger) => form.querySelector(`input[name="tema"][value="${deger}"]`)?.closest('label') ?? null;
+  const temaEtiketleri = { sistem: etiket('sistem'), acik: etiket('acik'), koyu: etiket('koyu'), dinamik: etiket('dinamik') };
+  const segment = temaEtiketleri.acik?.parentElement;
+  const temaNotu = form.querySelector('[data-tema-not]');
+  let diziliCocuk = null;
+  // Yalnız görünüm değişince yeniden dizilir (seçenekleri her seferinde taşımak odağı düşürürdü)
+  const temaSecenekleriniDiz = () => {
+    const cocuk = cocukMu();
+    if (!segment || diziliCocuk === cocuk) return;
+    diziliCocuk = cocuk;
+    segment.replaceChildren(...(cocuk ? ['acik', 'koyu', 'dinamik'] : ['sistem', 'acik', 'koyu']).map((k) => temaEtiketleri[k]).filter(Boolean));
+    if (temaNotu) temaNotu.hidden = !cocuk;
+  };
   const doldur = (a) => {
-    for (const ad of ['tema', 'yaziBoyutu', 'font', 'sesDuzeyi']) if (el[ad]) el[ad].value = a[ad];
+    temaSecenekleriniDiz();
+    if (el.tema) el.tema.value = gorunenTemaSecimi();
+    for (const ad of ['yaziBoyutu', 'font', 'sesDuzeyi']) if (el[ad]) el[ad].value = a[ad];
     for (const ad of ['ses', 'hareketAzalt', 'molaRehberi', 'sesYalnizGeriBildirim']) if (el[ad]) el[ad].checked = a[ad];
   };
   form.addEventListener('change', (e) => {

@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "sinif2-kelimeler",
+  "baslik": "2. sınıf kelimeleri",
+  "aciklama": "2. sınıf Türkçe temel kavramları ve günlük hayattan kelimeler.",
+  "sinif": "2",
+  "kartlar": [
+    {
+      "on": "Harf",
+      "arka": "Yazıda sesleri gösteren işaret.\nÖrnek: a, b, c."
+    },
+    {
+      "on": "Sesli harf",
+      "arka": "Tek başına okunabilen harf. Türkçede 8 tane vardır.\nÖrnek: a, e, ı, i, o, ö, u, ü."
+    },
+    {
+      "on": "Sessiz harf",
+      "arka": "Bir sesli harfle birlikte okunan harf.\nÖrnek: b, k, m, t."
+    },
+    {
+      "on": "Hece",
+      "arka": "Ağzımızın bir açılışta çıkardığı ses ya da ses grubu.\nÖrnek: ki-tap (2 hece)."
+    },
+    {
+      "on": "Kelime",
+      "arka": "Bir anlamı olan ses ya da harf grubu.\nÖrnek: kalem, okul."
+    },
+    {
+      "on": "Cümle",
+      "arka": "Bir duyguyu ya da düşünceyi tam olarak anlatan kelime dizisi.\nÖrnek: Ali kitap okuyor."
+    },
+    {
+      "on": "Büyük harf",
+      "arka": "Cümlenin başında ve özel adların başında kullanılan harf.\nÖrnek: Ayşe parka gitti."
+    },
+    {
+      "on": "Nokta",
+      "arka": "Bir cümle bitince sonuna konan işaret: ."
+    },
+    {
+      "on": "Soru işareti",
+      "arka": "Soru soran cümlenin sonuna konan işaret: ?\nÖrnek: Bugün okula geldin mi?"
+    },
+    {
+      "on": "Alfabe",
+      "arka": "Bir dildeki harflerin belli bir sırayla dizilişi. Türk alfabesinde 29 harf vardır."
+    },
+    {
+      "on": "Komşu",
+      "arka": "Evi bizim evimize yakın olan kişi."
+    },
+    {
+      "on": "Yuva",
+      "arka": "Kuşların ve bazı hayvanların yaşadığı yer. Aile evi için de kullanılır."
+    },
+    {
+      "on": "Fidan",
+      "arka": "Yeni dikilmiş, henüz küçük olan ağaç."
+    },
+    {
+      "on": "Mevsim",
+      "arka": "Yılın dört bölümünden her biri: ilkbahar, yaz, sonbahar, kış."
+    },
+    {
+      "on": "Paylaşmak",
+      "arka": "Bir şeyi başkalarıyla birlikte kullanmak ya da onlara bir parçasını vermek."
+    },
+    {
+      "on": "Nazik",
+      "arka": "Kibar, saygılı davranan.\nÖrnek: “Lütfen” ve “teşekkür ederim” demek."
+    },
+    {
+      "on": "Merak",
+      "arka": "Bir şeyi öğrenmeyi çok istemek."
+    },
+    {
+      "on": "Sabırlı",
+      "arka": "Bir şey için acele etmeden bekleyebilen."
+    },
+    {
+      "on": "Özenli",
+      "arka": "Bir işi dikkatle ve güzel yapan."
+    },
+    {
+      "on": "Özür dilemek",
+      "arka": "Yanlış bir şey yapınca karşımızdakine üzgün olduğumuzu söylemek."
+    }
+  ]
+}

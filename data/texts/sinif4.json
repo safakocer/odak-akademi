@@ -1,0 +1,770 @@
+{
+  "sinif": 4,
+  "sinirlar": {
+    "kelime": [
+      180,
+      350
+    ],
+    "soru": [
+      5,
+      5
+    ]
+  },
+  "metinler": [
+    {
+      "kimlik": "sahnedeki-titrek-ses",
+      "ad": "Sahnedeki Titrek Ses",
+      "sinif": 4,
+      "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "heyecan",
+        "cesaret",
+        "prova",
+        "arkadaşlık"
+      ],
+      "metin": "Okulun yıl sonu gösterisine iki hafta vardı. Öğretmenleri Nur Hanım, 4-B sınıfının kısa bir oyun sergileyeceğini söyledi. Rol dağıtımında Arya’ya anlatıcının rolü düştü. Arya önce çok sevindi, çünkü hikâyeleri yüksek sesle okumayı severdi. Ama akşam evde metnini açınca midesinde bir düğüm hissetti. Anlatıcı, oyunun başında sahneye tek başına çıkıp seyircilere konuşacaktı.\n\nİlk provada Arya’nın sesi titredi. Bir cümleyi iki kez okudu, bir satırı da atladı. Sınıftan birkaç kişi gülümseyince yüzü kızardı. Teneffüste sessizce bir köşeye oturdu.\n\nSıra arkadaşı Deniz yanına geldi. “Ben de geçen yıl şiir okurken çok heyecanlanmıştım,” dedi. “Ablam bana bir yöntem öğretti. Metni önce aynanın karşısında, sonra ailene, en son da birkaç arkadaşına oku. Her seferinde biraz daha kolaylaşıyor.”\n\nArya bu öneriyi denedi. Her akşam metnini önce aynaya, sonra annesine ve küçük kardeşine okudu. Okumadan önce nefesini yavaşça alıp verdi, cümlelerin arasında kısa duraklar yaptı. Hafta sonu Deniz’le parkta bir prova daha yaptılar. Deniz, Arya okurken hiç gülmeden dinledi ve sonunda onu alkışladı.\n\nGösteri günü perde açıldığında Arya’nın elleri hâlâ biraz titriyordu. Derin bir nefes aldı ve ilk cümleyi söyledi. Sesi salonun sonuna kadar ulaştı. Oyun bittiğinde alkışlar arasında Deniz’e baktı ve gülümsedi. Heyecanı tamamen kaybolmamıştı ama artık onu durduramıyordu.",
+      "sorular": [
+        {
+          "kimlik": "rol",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Arya’ya oyunda hangi rol verildi?",
+          "secenekler": [
+            "Anlatıcı",
+            "Kral",
+            "Ağaç"
+          ],
+          "dogru": 0,
+          "aciklama": "İlk paragrafta rol dağıtımında Arya’ya anlatıcının rolünün düştüğü yazıyor."
+        },
+        {
+          "kimlik": "ilk-adim",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Deniz, Arya’ya metni ilk önce nerede okumasını önerdi?",
+          "secenekler": [
+            "Sınıfta",
+            "Aynanın karşısında",
+            "Parkta"
+          ],
+          "dogru": 1,
+          "aciklama": "Deniz’in önerdiği yöntem önce aynanın karşısında, sonra aileye, en son arkadaşlara okumaktır."
+        },
+        {
+          "kimlik": "ilk-prova",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "İlk provada Arya hiç hata yapmadı.",
+          "dogru": false,
+          "aciklama": "Yanlış. İlk provada Arya bir cümleyi iki kez okudu ve bir satırı atladı."
+        },
+        {
+          "kimlik": "son-cumle",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "“Heyecanı tamamen kaybolmamıştı ama artık onu durduramıyordu.” cümlesi ne anlatıyor?",
+          "secenekler": [
+            "Arya gösteriden vazgeçti.",
+            "Arya hiç heyecanlanmadı.",
+            "Arya heyecanlansa da görevini yapabildi."
+          ],
+          "dogru": 2,
+          "aciklama": "Arya’nın elleri hâlâ titriyordu ama ilk cümleyi söyledi ve sesi salonun sonuna ulaştı. Heyecan vardı ama onu engellemedi."
+        },
+        {
+          "kimlik": "yontem",
+          "tip": "kisa-cevap",
+          "katman": "yorum",
+          "soru": "Heyecanlandığın bir an için Arya’nın yöntemlerinden hangisini denerdin? Bir cümleyle yaz.",
+          "ornekCevap": "Konuşmadan önce derin nefes alır, metnimi önce aileme okurum.",
+          "kontrolListesi": [
+            "Metindeki bir yöntemden söz ettim.",
+            "Bu yöntemi ne zaman kullanacağımı yazdım."
+          ],
+          "aciklama": "Bu sorunun tek doğru cevabı yok. Metinde aynanın karşısında, ailene ve arkadaşlarına okumak ile yavaş nefes almak gibi yöntemler var."
+        }
+      ]
+    },
+    {
+      "kimlik": "fazla-para-ustu",
+      "ad": "Fazla Para Üstü",
+      "sinif": 4,
+      "tur": "hikaye",
+      "zorluk": 3,
+      "etiketler": [
+        "dürüstlük",
+        "pazar",
+        "aile"
+      ],
+      "metin": "Cumartesi sabahı Kaan, dedesiyle semt pazarına gitti. Dedesi alışveriş listesini ona vermişti: iki kilo domates, bir kilo biber, bir demet maydanoz ve yarım kilo peynir. Kaan listeyi okuyor, dedesi de tezgâhları dolaşıp en taze ürünleri seçiyordu.\n\nPeynir tezgâhında uzun bir sıra vardı. Satıcı Sevim Abla çok yorgun görünüyordu. Bir yandan peynir tartıyor, bir yandan müşterilere para üstü veriyordu. Sıra onlara gelince dedesi peynirin parasını uzattı. Sevim Abla para üstünü Kaan’ın avucuna bıraktı.\n\nPazardan çıkarken Kaan avucundaki paraları saydı. Bir tuhaflık vardı. Peynir yüz lira tutmuştu, dedesi iki yüz lira vermişti. Kaan’ın avucunda ise yüz elli lira duruyordu.\n\n“Dede, Sevim Abla bize elli lira fazla vermiş,” dedi Kaan.\n\nDedesi durdu ve torununa döndü. “Peki, sence ne yapmalıyız?”\n\nKaan bir an düşündü. Akşam Sevim Abla kasasını sayınca eksik parayı fark edecek, bütün gün çalıştığı hâlde üzülecekti. “Geri götürelim,” dedi.\n\nKalabalığın arasından yeniden peynir tezgâhına yürüdüler. Kaan parayı uzatınca Sevim Abla önce şaşırdı, sonra gülümsedi. “Bugün çok yoruldum, dikkatsizlik etmişim. Çok teşekkür ederim,” dedi ve Kaan’a küçük bir parça peynir ikram etti.\n\nEve dönerken dedesi, “Dürüst olmak bazen birkaç adım geri yürümek demektir,” dedi. Kaan gülümsedi. O birkaç adım ona hiç ağır gelmemişti.",
+      "sorular": [
+        {
+          "kimlik": "nereye",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kaan ile dedesi cumartesi sabahı nereye gitti?",
+          "secenekler": [
+            "Semt pazarına",
+            "Büyük bir markete",
+            "Fırına"
+          ],
+          "dogru": 0,
+          "aciklama": "Metnin ilk cümlesinde Kaan’ın dedesiyle semt pazarına gittiği yazıyor."
+        },
+        {
+          "kimlik": "olay-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Olayları metindeki sıraya göre diz.",
+          "ogeler": [
+            "Kaan alışveriş listesini okudu.",
+            "Sevim Abla para üstünü Kaan’a verdi.",
+            "Kaan paraları sayıp fazlalığı fark etti.",
+            "Kaan parayı Sevim Abla’ya geri verdi."
+          ],
+          "aciklama": "Metin alışverişle başlıyor, para üstünün verilmesiyle sürüyor, fazlalığın fark edilmesi ve paranın geri verilmesiyle bitiyor."
+        },
+        {
+          "kimlik": "neden-yanlis",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Sevim Abla para üstünü neden yanlış vermiş olabilir?",
+          "secenekler": [
+            "Kaan’ı denemek istediği için",
+            "Çok yorgun olduğu ve tezgâh kalabalık olduğu için",
+            "Parayı saymayı bilmediği için"
+          ],
+          "dogru": 1,
+          "aciklama": "Metinde Sevim Abla’nın çok yorgun göründüğü ve sıranın uzun olduğu yazıyor. Kendisi de “Bugün çok yoruldum, dikkatsizlik etmişim.” diyor."
+        },
+        {
+          "kimlik": "dede-sorusu",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Dede, Kaan’a “Peki, sence ne yapmalıyız?” diye neden sormuş olabilir?",
+          "secenekler": [
+            "Ne yapacağını hiç bilmediği için",
+            "Pazardan hemen çıkmak istediği için",
+            "Kaan’ın doğru kararı kendisinin vermesini istediği için"
+          ],
+          "dogru": 2,
+          "aciklama": "Dede sonunda dürüstlükle ilgili bir söz söylüyor. Bu, onun doğru olanı bildiğini ama kararı Kaan’ın vermesini istediğini gösteriyor."
+        },
+        {
+          "kimlik": "dede-sozu",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Dedenin “Dürüst olmak bazen birkaç adım geri yürümek demektir.” sözü ne anlatıyor?",
+          "secenekler": [
+            "Dürüst davranmak biraz zahmetli olsa da doğru olanı yapmaktır.",
+            "Pazarda geri geri yürümek eğlencelidir.",
+            "Pazara giderken yolu iyi bilmek gerekir."
+          ],
+          "dogru": 0,
+          "aciklama": "Kaan ve dedesi parayı geri vermek için kalabalığın arasından yeniden yürüdü. Söz, dürüstlüğün bazen çaba istediğini anlatıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "aycicegi-ile-genc-cinar",
+      "ad": "Ayçiçeği ile Genç Çınar",
+      "sinif": 4,
+      "tur": "masal",
+      "zorluk": 3,
+      "etiketler": [
+        "saygı",
+        "sabır",
+        "doğa",
+        "fabl"
+      ],
+      "metin": "Bir köyün kenarındaki tarlada, ilkbaharda bir ayçiçeği filizlenmiş. Tarlanın kıyısında da birkaç yıl önce dikilmiş genç bir çınar varmış. Ayçiçeği her gün biraz daha uzamış. Arılar ve kelebekler çevresinde dolaşırmış. Birkaç hafta içinde çınarın alt dallarına yetişmiş.\n\nBir sabah ayçiçeği başını kaldırmış ve çınara seslenmiş: “Ben bu bahar doğdum, şimdiden senin boyuna yetiştim. Sen yıllardır buradasın ama bir arpa boyu yol gitmemişsin.”\n\nÇınar yapraklarını hafifçe sallamış. “Haklısın, ben yavaş büyürüm,” demiş. “Ama köklerim her yıl biraz daha derine iner.”\n\nAyçiçeği bu cevaba gülmüş. “Kökleri kim görür ki? Herkes benim sarı yapraklarıma bakıyor.”\n\nYaz gelince güneş tarlayı kavurmaya başlamış. Günlerce yağmur yağmamış. Tarladaki toprak çatlamış. Ayçiçeğinin yaprakları sarkmış, başı yere eğilmiş. Çınar ise derindeki nemli topraktan su çekebildiği için yemyeşil kalmış. Öğle sıcağında köylüler, koyunlar ve serçeler onun gölgesine sığınmış.\n\nBir akşam ayçiçeği zayıf bir sesle çınara seslenmiş: “Seninle alay ettiğim için özür dilerim. Hızlı büyümenin her şey olmadığını şimdi anladım.”\n\nÇınar ona doğru bir dalını uzatıp gölgesini paylaşmış. “Herkesin kendine göre bir büyüme biçimi vardır,” demiş. “Sen bize güzel tohumlar bırakacaksın, ben de yıllarca gölge vereceğim.”\n\nO günden sonra ikisi aynı tarlada, birbirine saygı duyarak yaşamışlar.",
+      "sorular": [
+        {
+          "kimlik": "alay",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Ayçiçeği çınarla neden alay etti?",
+          "secenekler": [
+            "Çınarın yaprakları sarardığı için",
+            "Çınarın yavaş büyüdüğünü düşündüğü için",
+            "Çınar ona gölge vermediği için"
+          ],
+          "dogru": 1,
+          "aciklama": "Ayçiçeği, çınarın yıllardır orada olduğu hâlde fazla uzamadığını söyleyerek alay ediyor."
+        },
+        {
+          "kimlik": "su",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Çınar, derindeki nemli topraktan ___ çekebildiği için yeşil kaldı.",
+          "cevaplar": [
+            "su"
+          ],
+          "aciklama": "Beşinci paragrafta çınarın derindeki nemli topraktan su çekebildiği için yemyeşil kaldığı yazıyor."
+        },
+        {
+          "kimlik": "kok",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kuraklıkta çınarı ayakta tutan özellik hangisidir?",
+          "secenekler": [
+            "Sarı yaprakları",
+            "Hızlı büyümesi",
+            "Derine inen kökleri"
+          ],
+          "dogru": 2,
+          "aciklama": "Çınar yavaş büyüdüğünü ama köklerinin her yıl derine indiğini söylemişti. Kuraklıkta bu kökler sayesinde su bulabildi."
+        },
+        {
+          "kimlik": "degisim",
+          "tip": "dogru-yanlis",
+          "katman": "cikarim",
+          "soru": "Masalın sonunda ayçiçeği düşüncesini değiştirmiştir.",
+          "dogru": true,
+          "aciklama": "Doğru. Ayçiçeği özür diliyor ve hızlı büyümenin her şey olmadığını anladığını söylüyor."
+        },
+        {
+          "kimlik": "ders",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu masaldan çıkarılabilecek en uygun ders hangisidir?",
+          "secenekler": [
+            "Başkalarını kendi hızımıza göre değerlendirmemeliyiz.",
+            "Tarlaya ayçiçeği ekilmemelidir.",
+            "Uzun boylu olan her zaman kazanır."
+          ],
+          "dogru": 0,
+          "aciklama": "Ayçiçeği çınarı yalnız boyuna bakarak küçümsemişti. Sonunda herkesin kendine göre bir büyüme biçimi olduğunu öğrendi."
+        }
+      ]
+    },
+    {
+      "kimlik": "bir-mektubun-yolculugu",
+      "ad": "Bir Mektubun Yolculuğu",
+      "sinif": 4,
+      "tur": "bilgilendirici",
+      "zorluk": 2,
+      "etiketler": [
+        "posta",
+        "mektup",
+        "adres"
+      ],
+      "metin": "Bugün mesajları telefonla bir anda gönderebiliyoruz. Yine de pek çok insan hâlâ mektup, kart ve paket gönderiyor. Bayramlarda gönderilen kartlar, okullara gelen kitap paketleri ve resmî belgeler hep aynı yolu izler. Peki, bir zarf postaya verildikten sonra sahibine nasıl ulaşır?\n\nHer şey zarfın doğru hazırlanmasıyla başlar. Zarfın ön yüzüne alıcının adı ve açık adresi yazılır. Adresin sonunda beş haneli posta kodu bulunur. Posta kodu, adresin hangi bölgede olduğunu gösteren bir sayıdır. Gönderenin adresi de zarfın arka yüzüne yazılır. Böylece mektup alıcıya ulaşamazsa geri dönebilir. Son olarak zarfa pul yapıştırılır. Pul, gönderme ücretinin ödendiğini gösterir.\n\nMektup posta kutusuna atılır ya da postaneye verilir. Toplanan mektuplar büyük bir ayırma merkezine götürülür. Orada makineler ve görevliler zarfları posta kodlarına göre gruplara ayırır. Aynı şehre gidecek mektuplar bir torbaya, başka şehirlere gidecekler başka torbalara konur. Önemli belgeler çoğu zaman kayıtlı gönderilir. Bu mektupların yolculuğu her adımda kayda geçirilir.\n\nTorbalar kamyonlarla, trenlerle ya da uçaklarla yola çıkar. Varılan şehirde mektuplar bir kez daha ayrılır, bu kez mahallelere ve sokaklara göre. En son postacı mektupları çantasına yerleştirir ve kapı kapı dolaşarak sahiplerine teslim eder.\n\nBu yolculuk, mesafeye göre birkaç gün sürebilir. Adres eksik ya da yanlış yazılırsa mektup yolda kalabilir. Bu yüzden zarfı hazırlarken her satırı dikkatle kontrol etmek gerekir.",
+      "sorular": [
+        {
+          "kimlik": "yolculuk",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Mektubun yolculuğunu metindeki sıraya göre diz.",
+          "ogeler": [
+            "Zarfa adres yazılır ve pul yapıştırılır.",
+            "Mektup posta kutusuna atılır.",
+            "Mektuplar ayırma merkezinde gruplara ayrılır.",
+            "Postacı mektubu sahibine teslim eder."
+          ],
+          "aciklama": "Metin zarfın hazırlanmasından başlayıp postacının mektubu teslim etmesine kadar adımları sırayla anlatıyor."
+        },
+        {
+          "kimlik": "pul",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Pul neyi gösterir?",
+          "secenekler": [
+            "Mektubun kimden geldiğini",
+            "Gönderme ücretinin ödendiğini",
+            "Mektubun kaç günde ulaşacağını"
+          ],
+          "dogru": 1,
+          "aciklama": "İkinci paragrafta pulun gönderme ücretinin ödendiğini gösterdiği yazıyor."
+        },
+        {
+          "kimlik": "posta-kodu",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Adresin hangi bölgede olduğunu gösteren beş haneli sayıya posta ___ denir.",
+          "cevaplar": [
+            "kodu"
+          ],
+          "aciklama": "İkinci paragrafta posta kodunun, adresin hangi bölgede olduğunu gösteren bir sayı olduğu yazıyor."
+        },
+        {
+          "kimlik": "eksik-adres",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Gönderenin adresi yazılmamış ve alıcının adresi yanlış olan bir mektuba ne olabilir?",
+          "secenekler": [
+            "Daha hızlı ulaşır.",
+            "Alıcıya telefonla okunur.",
+            "Gönderene geri dönemez ve yolda kalabilir."
+          ],
+          "dogru": 2,
+          "aciklama": "Gönderen adresi mektubun geri dönmesini sağlar. Adres de yanlışsa mektup ne alıcıya ulaşabilir ne de geri dönebilir."
+        },
+        {
+          "kimlik": "ayirma",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Ayırma merkezinde mektuplar renklerine göre ayrılır.",
+          "dogru": false,
+          "aciklama": "Yanlış. Mektuplar posta kodlarına göre ayrılır."
+        }
+      ]
+    },
+    {
+      "kimlik": "kasif-arinin-haberi",
+      "ad": "Kâşif Arının Haberi",
+      "sinif": 4,
+      "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "arılar",
+        "haberleşme",
+        "böcekler",
+        "gözlem"
+      ],
+      "metin": "Bal arıları kalabalık kovanlarda yaşar. Bir kovanda binlerce işçi arı bulunur. İşçi arıların bir kısmı kovandan çıkıp çiçek arar. Bu arılara kâşif arı denir. Peki, bir kâşif arı bol çiçekli bir yer bulunca arkadaşlarına bunu nasıl anlatır? Arılar konuşamaz ama dans ederek haberleşir.\n\nÇiçekler kovana yakınsa kâşif arı petek üzerinde küçük daireler çizerek döner. Buna dairesel dans denir. Bu dansı gören arılar çiçeklerin yakında olduğunu anlar ve kovanın çevresini aramaya başlar.\n\nÇiçekler uzaktaysa kâşif arı başka bir dans yapar. Önce düz bir çizgi boyunca karnını sağa sola sallayarak yürür. Sonra bir yandan dönüp başladığı yere gelir. Düz çizgiyi yeniden yürür ve bu kez öbür yandan döner. Böylece sekiz rakamına benzeyen bir şekil çizer. Buna sallanma dansı denir.\n\nBu dansta iki ipucu vardır. Düz çizginin yönü, çiçeklere güneşe göre hangi yönde uçulacağını gösterir. Arının karnını sallayarak yürüdüğü süre ise uzaklığı anlatır. Süre uzadıkça çiçekler de uzaktadır. Kovandaki arılar dansçının peşinden yürüyerek bu bilgileri öğrenir. Kâşif arının üzerine sinen çiçek kokusu da hangi çiçeği arayacaklarını gösterir.\n\nBilim insanları arıların bu davranışını uzun yıllar boyunca dikkatle gözlemleyerek anladı. Küçük bir böceğin böyle düzenli bir haberleşme yolu olması bugün de pek çok kişiyi şaşırtıyor.",
+      "sorular": [
+        {
+          "kimlik": "kasif",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kovandan çıkıp çiçek arayan arılara ne denir?",
+          "secenekler": [
+            "Kâşif arı",
+            "Kraliçe arı",
+            "Bekçi arı"
+          ],
+          "dogru": 0,
+          "aciklama": "İlk paragrafta kovandan çıkıp çiçek arayan arılara kâşif arı dendiği yazıyor."
+        },
+        {
+          "kimlik": "yakin",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Çiçekler kovana yakınsa arı sallanma dansı yapar.",
+          "dogru": false,
+          "aciklama": "Yanlış. Çiçekler yakınsa arı dairesel dans yapar. Sallanma dansı uzaktaki çiçekler içindir."
+        },
+        {
+          "kimlik": "sure",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Sallanma dansında arının karnını sallayarak yürüdüğü süre neyi gösterir?",
+          "secenekler": [
+            "Çiçeklerin rengini",
+            "Çiçeklerin uzaklığını",
+            "Kovandaki arı sayısını"
+          ],
+          "dogru": 1,
+          "aciklama": "Dördüncü paragrafta bu sürenin uzaklığı anlattığı yazıyor."
+        },
+        {
+          "kimlik": "uzun-sure",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Bir kâşif arı sallanma dansında karnını çok uzun süre sallıyorsa diğer arılar ne anlar?",
+          "secenekler": [
+            "Çiçekler kovanın hemen yanında.",
+            "Bugün hiç çiçek bulunamadı.",
+            "Çiçekler çok uzakta."
+          ],
+          "dogru": 2,
+          "aciklama": "Süre uzadıkça çiçekler de uzaktadır. Uzun süre sallanmak çiçeklerin çok uzakta olduğunu gösterir."
+        },
+        {
+          "kimlik": "yon",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Arılar sallanma dansında çiçeklerin yönünü ___ göre gösterir.",
+          "cevaplar": [
+            "güneşe",
+            "güneş"
+          ],
+          "aciklama": "Dördüncü paragrafta düz çizginin yönünün çiçeklere güneşe göre hangi yönde uçulacağını gösterdiği yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "golgem-neden-degisiyor",
+      "ad": "Gölgem Neden Değişiyor?",
+      "sinif": 4,
+      "tur": "fen",
+      "zorluk": 4,
+      "etiketler": [
+        "ışık",
+        "gölge",
+        "Güneş",
+        "deney"
+      ],
+      "metin": "Güneşli bir günde dışarı çıktığında yanında hep bir arkadaşın olur: gölgen. Gölge, ışığın önüne bir cisim girdiğinde ışığın ulaşamadığı yerde oluşan karanlık alandır. Işık düz bir çizgi boyunca yol alır ve cisimlerin arkasına dolanamaz. Bu yüzden gölge her zaman cismin ışığa göre öbür tarafına düşer.\n\nGölgemizin boyu gün boyunca değişir. Sabah Güneş gökyüzünde alçaktadır, ışık bize yandan ve eğik gelir. Bu yüzden sabah gölgelerimiz uzundur. Öğle saatlerine doğru Güneş daha yükseğe çıkar, ışık daha dik gelir ve gölgemiz kısalır. Akşamüstü Güneş yeniden alçaldığında gölgelerimiz tekrar uzar. Gölgenin yönü de değişir. Sabah Güneş doğudayken gölgemiz batıya, akşamüstü Güneş batıdayken doğuya düşer.\n\nBunu sınıfta bir el feneriyle de deneyebilirsiniz. Masaya küçük bir oyuncak koyun ve odayı biraz karartın. El fenerini önce oyuncağın tam yukarısından tutun, gölge küçücük olur. Sonra feneri yavaş yavaş alçaltın ve yandan tutun. Gölgenin giderek uzadığını göreceksiniz. Bu sırada bir arkadaşınız gölgenin boyunu cetvelle ölçüp not alabilir. Feneri oyuncağın çevresinde dolaştırırsanız gölgenin de onunla birlikte döndüğünü fark edersiniz.\n\nEskiden insanlar bu bilgiyi zamanı ölçmek için kullanırdı. Güneş saatlerinde yere dik bir çubuk yerleştirilir, çubuğun gölgesinin düştüğü çizgiye bakılarak saat tahmin edilirdi.\n\nUnutma: Güneş’e asla doğrudan bakma. Gölgeleri gözlemlemek için yere bakmak yeter.",
+      "sorular": [
+        {
+          "kimlik": "neden-arka",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Gölge neden cismin arkasında oluşur?",
+          "secenekler": [
+            "Işık düz bir çizgide gider ve cismin arkasına dolanamaz.",
+            "Cisimler çevreye karanlık yayar.",
+            "Işık cismin içinden geçer."
+          ],
+          "dogru": 0,
+          "aciklama": "İlk paragrafta ışığın düz bir çizgi boyunca gittiği ve cisimlerin arkasına dolanamadığı yazıyor."
+        },
+        {
+          "kimlik": "en-kisa",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Gün içinde gölgemiz en kısa ne zaman olur?",
+          "secenekler": [
+            "Sabah erken",
+            "Öğle saatlerinde",
+            "Akşamüstü"
+          ],
+          "dogru": 1,
+          "aciklama": "Öğleye doğru Güneş yükselir, ışık daha dik gelir ve gölge kısalır."
+        },
+        {
+          "kimlik": "sabah-yon",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Sabah Güneş doğudayken gölgemiz batıya düşer.",
+          "dogru": true,
+          "aciklama": "Doğru. İkinci paragrafın sonunda bu bilgi yer alıyor."
+        },
+        {
+          "kimlik": "fener",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Deneyde el feneri neyin yerini tutuyor?",
+          "secenekler": [
+            "Oyuncağın",
+            "Gölgenin",
+            "Güneş’in"
+          ],
+          "dogru": 2,
+          "aciklama": "El feneri ışık kaynağıdır. Feneri alçaltmak, Güneş’in sabah ya da akşam alçakta olmasına benzer."
+        },
+        {
+          "kimlik": "aksam-golge",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Bir güneş saatinde akşamüstü çubuğun gölgesi nasıl olur?",
+          "secenekler": [
+            "Uzun olur.",
+            "Hiç oluşmaz.",
+            "Öğledekinden kısa olur."
+          ],
+          "dogru": 0,
+          "aciklama": "Akşamüstü Güneş alçalır ve gölgeler uzar. Güneş saatindeki çubuğun gölgesi de uzun olur."
+        }
+      ]
+    },
+    {
+      "kimlik": "ebru-su-ustunde-desenler",
+      "ad": "Ebru: Su Üstünde Renkli Desenler",
+      "sinif": 4,
+      "tur": "tarih",
+      "zorluk": 4,
+      "etiketler": [
+        "ebru",
+        "geleneksel sanatlar",
+        "kültürel miras"
+      ],
+      "metin": "Bir tekne suyun üzerine boyalar damlatıp onlardan resim yapmak mümkün müdür? Ebru sanatçıları yüzyıllardır tam olarak bunu yapıyor.\n\nEbru, suyun yüzeyinde oluşturulan desenlerin kâğıda aktarılmasıyla yapılan geleneksel bir sanattır. Kaynaklara göre bu sanat Orta Asya’da doğmuş, İpek Yolu üzerinden Anadolu’ya gelmiş ve Osmanlılar döneminde çok gelişmiştir. Eskiden ebrulu kâğıtlar kitap kapaklarının iç yüzünde ve önemli belgelerde süs olarak kullanılırdı.\n\nEbru yapmak için önce özel bir su hazırlanır. Suya kitre adı verilen bitkisel bir madde karıştırılır. Kitre suyu biraz koyulaştırır, böylece boyalar batmadan yüzeyde kalır. Boyalar çoğunlukla topraktan elde edilir ve çok ince bir toz hâline gelene kadar ezilir. Sanatçı, at kılından yapılmış fırçalarla boyaları suyun üzerine serper. Damlalar suyun yüzünde yayılıp renkli halkalar oluşturur. Ardından ince bir çubukla bu renkler çekilerek dalgalar ya da lale ve karanfil gibi desenler yapılır.\n\nDesen bitince su teknesinin üzerine dikkatle bir kâğıt yerleştirilir. Birkaç saniye sonra kâğıt yavaşça kaldırılır. Suyun üzerindeki resim artık kâğıttadır. Her desen yalnızca bir kez kâğıda aktarılabildiği için her ebru tektir. Aynısını yeniden yapmak mümkün değildir.\n\nEbru sanatı, 2014 yılında UNESCO’nun Somut Olmayan Kültürel Miras listesine alındı. Bugün pek çok okulda ve kültür merkezinde ebru kursları açılıyor. Bu sayede eski bir sanat yeni ellerde yaşamaya devam ediyor.",
+      "sorular": [
+        {
+          "kimlik": "kitre",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Suya kitre neden karıştırılır?",
+          "secenekler": [
+            "Suyun rengini değiştirmek için",
+            "Suyu koyulaştırıp boyaların yüzeyde kalması için",
+            "Kâğıdın çabuk kuruması için"
+          ],
+          "dogru": 1,
+          "aciklama": "Üçüncü paragrafta kitrenin suyu koyulaştırdığı ve boyaların batmadan yüzeyde kaldığı yazıyor."
+        },
+        {
+          "kimlik": "miras",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Ebru sanatı 2014 yılında UNESCO’nun Somut Olmayan Kültürel ___ listesine alındı.",
+          "cevaplar": [
+            "miras"
+          ],
+          "aciklama": "Son paragrafta ebrunun 2014’te Somut Olmayan Kültürel Miras listesine alındığı yazıyor."
+        },
+        {
+          "kimlik": "eskiden",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Eskiden ebrulu kâğıtlar nerede kullanılırdı?",
+          "secenekler": [
+            "Evlerin pencerelerinde",
+            "Gemilerin yelkenlerinde",
+            "Kitap kapaklarının iç yüzünde"
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafta ebrulu kâğıtların kitap kapaklarının iç yüzünde ve önemli belgelerde süs olarak kullanıldığı yazıyor."
+        },
+        {
+          "kimlik": "tek",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "İki ebrunun birbirinin tıpatıp aynısı olmamasının nedeni nedir?",
+          "secenekler": [
+            "Desenin suyun üzerinden yalnız bir kez kâğıda aktarılabilmesi",
+            "Sanatçıların her seferinde başka ülkenin boyasını kullanması",
+            "Kâğıtların farklı büyüklükte olması"
+          ],
+          "dogru": 0,
+          "aciklama": "Dördüncü paragrafta her desenin yalnızca bir kez kâğıda aktarılabildiği yazıyor. Bu yüzden aynı ebru ikinci kez yapılamaz."
+        },
+        {
+          "kimlik": "kurslar",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Ebru kursları açılmasının en önemli yararı ne olabilir?",
+          "secenekler": [
+            "Suyun daha temiz kalması",
+            "Geleneksel bir sanatın yeni nesillere aktarılması",
+            "Kitapların daha ucuz satılması"
+          ],
+          "dogru": 1,
+          "aciklama": "Son cümlede eski bir sanatın yeni ellerde yaşamaya devam ettiği söyleniyor. Kurslar bu aktarımı sağlıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "aziz-sancar",
+      "ad": "Aziz Sancar: Merakla Başlayan Yolculuk",
+      "sinif": 4,
+      "tur": "biyografi",
+      "zorluk": 5,
+      "etiketler": [
+        "bilim insanları",
+        "merak",
+        "Nobel",
+        "çalışkanlık"
+      ],
+      "metin": "Aziz Sancar, 1946 yılında Mardin’in Savur ilçesinde doğdu. Kalabalık bir ailenin çocuğuydu. Kaynaklara göre anne ve babası okula gidememişti ama çocuklarının okuması için ellerinden geleni yaptılar. Aziz’in küçük yaşlardan beri meraklı ve çalışkan bir öğrenci olduğu anlatılır.\n\nAziz Sancar, İstanbul Üniversitesi’nde tıp okudu ve doktor oldu. Bir süre memleketi Savur’da hekim olarak çalıştı. Hastaları tedavi ederken vücudumuzun içinde neler olup bittiğini daha çok merak etmeye başladı. Bu merak onu bilim insanı olmaya yöneltti.\n\nAraştırma yapmak için Amerika Birleşik Devletleri’ne gitti. Orada canlıların hücrelerindeki DNA’yı inceledi. DNA, canlıların nasıl büyüyüp gelişeceğine dair bilgileri taşıyan çok küçük bir yapıdır. Güneş ışığı ve başka etkiler bu yapıyı zaman zaman bozabilir. Aziz Sancar, hücrelerin bu bozuklukları nasıl onardığını araştırdı. Yıllarca laboratuvarda deneyler yaptı. Bazen aynı deneyi defalarca tekrarlaması gerekti. Her deney istediği sonucu vermedi ama çalışmayı bırakmadı.\n\n2015 yılında bu çalışmaları nedeniyle iki bilim insanıyla birlikte Nobel Kimya Ödülü’nü aldı. Nobel, bilim dünyasının en tanınmış ödüllerinden biridir. Aziz Sancar, kazandığı Nobel madalyasını Ankara’daki Anıtkabir’e bağışladı.\n\nAziz Sancar, uzun yıllar Amerika’daki bir üniversitede ders verdi ve genç bilim insanları yetiştirdi. Türkiye’den okumaya giden gençlere de destek oldu. Gençlere verdiği öğütlerden biri, merak ettikleri konunun peşinden sabırla gitmeleridir.",
+      "sorular": [
+        {
+          "kimlik": "dogum",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Aziz Sancar nerede doğdu?",
+          "secenekler": [
+            "İstanbul’da",
+            "Ankara’da",
+            "Mardin’in Savur ilçesinde"
+          ],
+          "dogru": 2,
+          "aciklama": "Metnin ilk cümlesinde Aziz Sancar’ın Mardin’in Savur ilçesinde doğduğu yazıyor."
+        },
+        {
+          "kimlik": "hayat-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Aziz Sancar’ın hayatındaki olayları sıraya diz.",
+          "ogeler": [
+            "İstanbul Üniversitesi’nde tıp okudu.",
+            "Savur’da hekim olarak çalıştı.",
+            "Amerika’da DNA üzerine araştırma yaptı.",
+            "Nobel Kimya Ödülü’nü aldı."
+          ],
+          "aciklama": "Metin onun hayatını önce okulu, sonra doktorluğu, ardından araştırmaları ve ödülüyle sırayla anlatıyor."
+        },
+        {
+          "kimlik": "madalya",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Aziz Sancar Nobel madalyasını ne yaptı?",
+          "secenekler": [
+            "Anıtkabir’e bağışladı.",
+            "Laboratuvarına astı.",
+            "Bir müzeye sattı."
+          ],
+          "dogru": 0,
+          "aciklama": "Dördüncü paragrafta madalyasını Ankara’daki Anıtkabir’e bağışladığı yazıyor."
+        },
+        {
+          "kimlik": "yonelme",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Aziz Sancar’ı doktorluktan bilim insanlığına yönelten en önemli neden nedir?",
+          "secenekler": [
+            "Doktorluğu hiç sevmemesi",
+            "Vücudumuzun içinde olup bitenleri merak etmesi",
+            "Yurt dışını görmek istemesi"
+          ],
+          "dogru": 1,
+          "aciklama": "İkinci paragrafta hastaları tedavi ederken vücudun içinde olanları merak ettiği ve bu merakın onu bilim insanı olmaya yönelttiği yazıyor."
+        },
+        {
+          "kimlik": "ders",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Aziz Sancar’ın hayatından hangi ders çıkarılabilir?",
+          "secenekler": [
+            "Başarılı olmak için hiç hata yapmamak gerekir.",
+            "Bilim insanı olmak için büyük bir şehirde doğmak gerekir.",
+            "Merak ettiğimiz konunun peşinden sabırla gitmek bizi ileriye taşıyabilir."
+          ],
+          "dogru": 2,
+          "aciklama": "Aziz Sancar küçük bir ilçede doğdu, her deneyi başarılı olmadı ama merakının peşinden sabırla gitti."
+        }
+      ]
+    },
+    {
+      "kimlik": "evimizin-su-haftasi",
+      "ad": "Evimizin Su Haftası",
+      "sinif": 4,
+      "tur": "gunluk",
+      "zorluk": 3,
+      "etiketler": [
+        "su tasarrufu",
+        "aile",
+        "alışkanlıklar"
+      ],
+      "metin": "Pazartesi: Fen dersinde öğretmenimiz, dünyadaki suyun çok az bir kısmının içilebilir olduğunu anlattı. Bize bir görev verdi. Bir hafta boyunca evde suyu nasıl daha az harcayabileceğimizi deneyip günlük tutacaktık. Akşam ailemle konuştum. Herkes katılmaya söz verdi. Mutfağa bir çizelge astım.\n\nSalı: Diş fırçalarken musluğu kapattım. Annem bir bardağa su koyup ağzımı onunla çalkalamamı önerdi. Çok kolaydı. Kardeşim Can da denedi ama iki kez musluğu açık unuttu. Ona kızmadım. Musluğun üstüne küçük bir damla resmi yapıştırdık.\n\nÇarşamba: Babam banyodaki musluğun damlattığını fark etti. Musluğun altına bir bardak koyduk. Bir saatte bardağın yarısı doldu! Babam musluğun contasını değiştirdi. Damla damla akan suyun bile çok olabileceğini gördüm.\n\nPerşembe: Sebzeleri akan suyun altında değil, bir kapta yıkadık. Kaptaki suyu da balkondaki çiçeklere döktük. Çiçeklerimiz buna sevinmiştir sanırım.\n\nCuma: Bulaşık makinesini yalnız tam dolunca çalıştırmaya karar verdik. Duşta da kısa bir şarkı bitmeden çıkmaya çalıştım. Bir şarkılık duş biraz zor oldu ama başardım.\n\nCumartesi: Çizelgeye baktık. Her gün en az bir yeni alışkanlık denemişiz. Annem su faturasında da fark görebileceğimizi söyledi.\n\nPazar: Bu hafta küçük işlerin bile önemli olduğunu öğrendim. Haftaya da devam edeceğiz. Can’ın musluğu açık unutması da azaldı. Damla resmi işe yaradı.",
+      "sorular": [
+        {
+          "kimlik": "gorev",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Öğretmen öğrencilere hangi görevi verdi?",
+          "secenekler": [
+            "Bir hafta evde suyu daha az harcamayı deneyip günlük tutmak",
+            "Bir su deneyi yapıp sınıfta anlatmak",
+            "Musluk tamir etmeyi öğrenmek"
+          ],
+          "dogru": 0,
+          "aciklama": "Pazartesi bölümünde öğretmenin bu görevi verdiği yazıyor."
+        },
+        {
+          "kimlik": "bardak",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Çarşamba günü damlayan musluğun altındaki bardak bir saatte tamamen doldu.",
+          "dogru": false,
+          "aciklama": "Yanlış. Bir saatte bardağın yarısı doldu."
+        },
+        {
+          "kimlik": "sebze-suyu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Sebzeleri yıkadıkları suyu ne yaptılar?",
+          "secenekler": [
+            "Lavaboya döktüler.",
+            "Çiçeklere döktüler.",
+            "Bulaşıkta kullandılar."
+          ],
+          "dogru": 1,
+          "aciklama": "Perşembe bölümünde kaptaki suyu balkondaki çiçeklere döktükleri yazıyor."
+        },
+        {
+          "kimlik": "damla-resmi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Musluğun üstüne damla resmi yapıştırmalarının amacı neydi?",
+          "secenekler": [
+            "Mutfağı süslemek",
+            "Suyun rengini göstermek",
+            "Can’a musluğu kapatmayı hatırlatmak"
+          ],
+          "dogru": 2,
+          "aciklama": "Can musluğu iki kez açık unutmuştu. Resim yapıştırıldıktan sonra unutması azaldı. Demek ki resim bir hatırlatıcıydı."
+        },
+        {
+          "kimlik": "aliskanlik",
+          "tip": "kisa-cevap",
+          "katman": "yorum",
+          "soru": "Evinde suyu daha az harcamak için hangi alışkanlığı denerdin? Bir cümleyle yaz.",
+          "ornekCevap": "Dişlerimi fırçalarken musluğu kapatır, ağzımı bir bardak suyla çalkalarım.",
+          "kontrolListesi": [
+            "Suyu daha az harcamayı sağlayan bir davranış yazdım.",
+            "Bunu nasıl yapacağımı açıkladım."
+          ],
+          "aciklama": "Bu sorunun tek doğru cevabı yok. Metindeki alışkanlıklardan birini ya da kendi bulduğun bir yolu yazabilirsin."
+        }
+      ]
+    },
+    {
+      "kimlik": "hava-durumunu-kim-hazirlar",
+      "ad": "Hava Durumunu Kim Hazırlar?",
+      "sinif": 4,
+      "tur": "diyalog",
+      "zorluk": 4,
+      "etiketler": [
+        "meteoroloji",
+        "meslekler",
+        "hava durumu",
+        "söyleşi"
+      ],
+      "metin": "Okul gazetemizin bu sayısı için meteoroloji uzmanı Leyla Hanım ile konuştuk. Soruları 4-A sınıfından Emir sordu.\n\nEmir: Leyla Hanım, meteoroloji ne demek?\n\nLeyla Hanım: Meteoroloji, havadaki olayları inceleyen bilim dalıdır. Yağmur, kar, rüzgâr, sıcaklık ve bulutlar bizim konumuzdur.\n\nEmir: Yarının havasını nasıl tahmin ediyorsunuz?\n\nLeyla Hanım: Önce bilgi topluyoruz. Ülkenin dört bir yanında ölçüm istasyonları var. Bu istasyonlardaki aletler sıcaklığı, nemi, rüzgârın hızını ve yağış miktarını ölçüyor. Uzaydaki uydular da bulutların fotoğraflarını gönderiyor. Bütün bu bilgileri güçlü bilgisayarlara veriyoruz. Bilgisayarlar havanın nasıl değişebileceğini hesaplıyor. Son olarak biz uzmanlar sonuçları inceleyip tahmini hazırlıyoruz.\n\nEmir: Tahminler neden bazen tutmuyor?\n\nLeyla Hanım: Hava sürekli değişen, karmaşık bir sistemdir. Yarının tahmini çoğunlukla doğru çıkar. Ama tahmin ettiğimiz gün uzaklaştıkça yanılma olasılığı artar. Bir hafta sonrasının havası için kesin konuşamayız. Bu yüzden tahminleri her gün yeniliyoruz.\n\nEmir: Hava tahmini en çok kimin işine yarıyor?\n\nLeyla Hanım: Hepimizin! Çiftçiler ekim ve hasat zamanını, pilotlar ve kaptanlar yolculuklarını buna göre planlıyor. Fırtına ya da sel gibi tehlikeli durumlarda önceden uyarı yapmak da insanların korunmasına yardım ediyor.\n\nEmir: Son olarak bize ne önerirsiniz?\n\nLeyla Hanım: Gökyüzünü gözlemleyin. Bulutların şeklini ve rüzgârın yönünü bir deftere not edin. Belki bir gün siz de bu mesleği seçersiniz.",
+      "sorular": [
+        {
+          "kimlik": "meteoroloji",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Meteoroloji neyi inceleyen bilim dalıdır?",
+          "secenekler": [
+            "Havadaki olayları",
+            "Yer altındaki kayaları",
+            "Denizdeki canlıları"
+          ],
+          "dogru": 0,
+          "aciklama": "Leyla Hanım meteorolojinin havadaki olayları inceleyen bilim dalı olduğunu söylüyor."
+        },
+        {
+          "kimlik": "uydu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Uydular uzmanlara ne gönderir?",
+          "secenekler": [
+            "Yağmur suyu örneklerini",
+            "Bulutların fotoğraflarını",
+            "Çiftçilerin sorularını"
+          ],
+          "dogru": 1,
+          "aciklama": "Leyla Hanım uydulardan bulutların fotoğraflarının geldiğini anlatıyor."
+        },
+        {
+          "kimlik": "yagis",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "İstasyonlardaki aletler sıcaklığı, nemi, rüzgârın hızını ve ___ miktarını ölçer.",
+          "cevaplar": [
+            "yağış"
+          ],
+          "aciklama": "Leyla Hanım aletlerin yağış miktarını da ölçtüğünü söylüyor."
+        },
+        {
+          "kimlik": "dogru-tahmin",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Hangi tahminin doğru çıkma olasılığı daha yüksektir?",
+          "secenekler": [
+            "Bir hafta sonrasının tahmini",
+            "Bir ay sonrasının tahmini",
+            "Yarının tahmini"
+          ],
+          "dogru": 2,
+          "aciklama": "Leyla Hanım’a göre tahmin edilen gün uzaklaştıkça yanılma olasılığı artar. En yakın gün yarındır."
+        },
+        {
+          "kimlik": "pilot",
+          "tip": "dogru-yanlis",
+          "katman": "cikarim",
+          "soru": "Leyla Hanım’a göre hava tahmini yalnızca pilotların işine yarar.",
+          "dogru": false,
+          "aciklama": "Yanlış. Leyla Hanım “Hepimizin!” diyor ve çiftçilerden, kaptanlardan, tehlikeli hava uyarılarından da söz ediyor."
+        }
+      ]
+    }
+  ]
+}

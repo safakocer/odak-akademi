@@ -1,0 +1,605 @@
+{
+  "sinif": 2,
+  "sinirlar": {
+    "kelime": [
+      60,
+      150
+    ],
+    "soru": [
+      3,
+      4
+    ]
+  },
+  "metinler": [
+    {
+      "kimlik": "inatci-bagcik",
+      "ad": "İnatçı Bağcık",
+      "sinif": 2,
+      "tur": "hikaye",
+      "zorluk": 1,
+      "etiketler": [
+        "sabır",
+        "deneme",
+        "aile"
+      ],
+      "metin": "Ece’nin yeni ayakkabılarının bağcıkları vardı. Ama Ece bağcık bağlamayı bilmiyordu. Her sabah annesi bağlıyordu.\n\nBir gün Ece, “Ben de bağlamak istiyorum,” dedi. Annesi ona iki ilmek yapmayı gösterdi. Ece denedi ama bağcık hemen çözüldü. Yeniden denedi, yine olmadı.\n\nEce biraz üzüldü. Sonra annesinin sözünü hatırladı: “Her deneme seni öğrenmeye yaklaştırır.”\n\nEce her akşam beş dakika çalıştı. Dördüncü akşam ilmekler sıkı sıkı durdu. Ece sevinçle zıpladı. Ertesi sabah ayakkabılarını kendisi bağladı.",
+      "sorular": [
+        {
+          "kimlik": "ayakkabi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Ece’nin yeni ayakkabılarında ne vardı?",
+          "secenekler": [
+            "Bağcık",
+            "Fermuar",
+            "Cırt cırt"
+          ],
+          "dogru": 0,
+          "aciklama": "Metnin ilk cümlesinde ayakkabıların bağcıkları olduğu yazıyor."
+        },
+        {
+          "kimlik": "bes-dakika",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Ece her akşam beş dakika çalıştı.",
+          "dogru": true,
+          "aciklama": "Metinde Ece’nin her akşam beş dakika çalıştığı yazıyor."
+        },
+        {
+          "kimlik": "neden-basardi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ece sonunda neden bağcığını bağlayabildi?",
+          "secenekler": [
+            "Annesi onun yerine bağladığı için",
+            "Vazgeçmeden her gün çalıştığı için",
+            "Yeni ayakkabı aldığı için"
+          ],
+          "dogru": 1,
+          "aciklama": "Ece ilk denemelerde başaramadı ama her akşam çalıştı. Dördüncü akşam başardı."
+        }
+      ]
+    },
+    {
+      "kimlik": "paylasilan-semsiye",
+      "ad": "Paylaşılan Şemsiye",
+      "sinif": 2,
+      "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "paylaşmak",
+        "arkadaşlık",
+        "yağmur"
+      ],
+      "metin": "Okul çıkışında yağmur başladı. Emir’in şemsiyesi vardı. Sıra arkadaşı Duru’nun yoktu. Duru kapının önünde bekliyordu.\n\nEmir şemsiyesini açtı. “Gel, birlikte yürüyelim,” dedi. Şemsiye küçüktü. İkisi birbirine yaklaştı. Emir’in bir omzu biraz ıslandı ama o hiç aldırmadı.\n\nDuru’nun evi yolun köşesindeydi. Kapıda Duru’nun dedesi onları bekliyordu. Dede gülümsedi ve Emir’e teşekkür etti.\n\nErtesi gün Duru okula iki elma getirdi. Birini Emir’e verdi. “Dünkü yağmur için,” dedi. İki arkadaş elmalarını teneffüste birlikte yedi.",
+      "sorular": [
+        {
+          "kimlik": "hava",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Okul çıkışında hava nasıldı?",
+          "secenekler": [
+            "Güneşliydi",
+            "Karlıydı",
+            "Yağmurluydu"
+          ],
+          "dogru": 2,
+          "aciklama": "Metnin ilk cümlesinde okul çıkışında yağmur başladığı yazıyor."
+        },
+        {
+          "kimlik": "omuz",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Emir’in bir ___ biraz ıslandı.",
+          "cevaplar": [
+            "omzu",
+            "omuzu",
+            "omuz"
+          ],
+          "aciklama": "İkinci paragrafta Emir’in bir omzunun biraz ıslandığı yazıyor."
+        },
+        {
+          "kimlik": "elma",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Duru ertesi gün Emir’e ne verdi?",
+          "secenekler": [
+            "Bir elma",
+            "Bir kalem",
+            "Bir şemsiye"
+          ],
+          "dogru": 0,
+          "aciklama": "Duru okula iki elma getirdi ve birini Emir’e verdi."
+        },
+        {
+          "kimlik": "sevindi",
+          "tip": "dogru-yanlis",
+          "katman": "cikarim",
+          "soru": "Duru, Emir’in yardımına sevinmişti.",
+          "dogru": true,
+          "aciklama": "Duru ertesi gün “Dünkü yağmur için” diyerek Emir’e elma verdi. Bu, yardıma sevindiğini gösterir."
+        }
+      ]
+    },
+    {
+      "kimlik": "kaplumbaganin-evi",
+      "ad": "Kaplumbağanın Evi",
+      "sinif": 2,
+      "tur": "masal",
+      "zorluk": 2,
+      "etiketler": [
+        "kendini kabul",
+        "hayvanlar",
+        "yağmur"
+      ],
+      "metin": "Bir göl kıyısında Minik adında bir kaplumbağa yaşardı. Minik, sırtındaki kabuğu hiç sevmezdi. “Bu kabuk çok ağır. Keşke tavşan gibi hafif olsaydım,” derdi.\n\nBir gün gökyüzü karardı. Kocaman damlalarla yağmur yağmaya başladı. Tavşan bir ağacın altına koştu. Kurbağa bir yaprağın altına saklandı.\n\nMinik ise hiçbir yere koşmadı. Başını ve ayaklarını kabuğunun içine çekti. Kabuğun içi kupkuruydu.\n\nYağmur dinince tavşan sırılsıklam olmuştu. Minik başını çıkardı ve gülümsedi. “Demek ki kabuğum benim evimmiş,” dedi. O günden sonra kabuğunu hiç şikâyet etmeden taşıdı.",
+      "sorular": [
+        {
+          "kimlik": "nerede",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Minik nerede yaşardı?",
+          "secenekler": [
+            "Bir dağın tepesinde",
+            "Bir göl kıyısında",
+            "Bir şehir parkında"
+          ],
+          "dogru": 1,
+          "aciklama": "Metnin ilk cümlesinde Minik’in bir göl kıyısında yaşadığı yazıyor."
+        },
+        {
+          "kimlik": "tavsan",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Yağmur başlayınca tavşan ne yaptı?",
+          "secenekler": [
+            "Bir kabuğa girdi.",
+            "Göle atladı.",
+            "Bir ağacın altına koştu."
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafta tavşanın bir ağacın altına koştuğu yazıyor."
+        },
+        {
+          "kimlik": "islandi-mi",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Minik yağmurda kabuğunun içinde ıslandı.",
+          "dogru": false,
+          "aciklama": "Metinde kabuğun içinin kupkuru olduğu yazıyor. Minik ıslanmadı."
+        },
+        {
+          "kimlik": "kabuk-fikri",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Minik sonunda kabuğu için ne düşündü?",
+          "secenekler": [
+            "Kabuğu onu koruyan bir evdir.",
+            "Kabuğu çok ağır ve gereksizdir.",
+            "Kabuğunu tavşana vermelidir."
+          ],
+          "dogru": 0,
+          "aciklama": "Minik “Demek ki kabuğum benim evimmiş.” dedi. Kabuğun onu yağmurdan koruduğunu anladı."
+        }
+      ]
+    },
+    {
+      "kimlik": "utangac-atesbocegi",
+      "ad": "Utangaç Ateşböceği",
+      "sinif": 2,
+      "tur": "masal",
+      "zorluk": 3,
+      "etiketler": [
+        "cesaret",
+        "yardımlaşma",
+        "orman"
+      ],
+      "metin": "Ormanda Pırıl adında küçük bir ateşböceği vardı. Pırıl çok utangaçtı. Öteki ateşböcekleri geceleri parlarken o yaprakların arasına saklanırdı. Işığının çok küçük olduğunu düşünürdü.\n\nBir gece küçük bir fare yolunu kaybetti. Karanlıkta ağlamaya başladı. Pırıl onu duydu. Önce çekindi ama sonra cesaretini topladı. Işığını yaktı.\n\n“Beni izle,” dedi Pırıl. Küçük ışığıyla fareye yol gösterdi. Birlikte ağaçların arasından geçtiler. Sonunda farenin yuvasına vardılar.\n\nFare ona teşekkür etti. Pırıl o gece bir şey öğrendi: Küçük bir ışık bile karanlıkta yol gösterebilirdi. Artık o da her gece arkadaşlarıyla birlikte parlıyordu.",
+      "sorular": [
+        {
+          "kimlik": "saklanma",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Pırıl başta neden saklanırdı?",
+          "secenekler": [
+            "Uykusu geldiği için",
+            "Işığını çok küçük bulduğu için",
+            "Arkadaşlarına kızdığı için"
+          ],
+          "dogru": 1,
+          "aciklama": "Metinde Pırıl’ın ışığının çok küçük olduğunu düşündüğü yazıyor."
+        },
+        {
+          "kimlik": "fare",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Pırıl, yolunu kaybeden küçük bir ___ yardım etti.",
+          "cevaplar": [
+            "fareye",
+            "fare"
+          ],
+          "aciklama": "İkinci paragrafta küçük bir farenin yolunu kaybettiği yazıyor."
+        },
+        {
+          "kimlik": "vardilar",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Pırıl ile fare sonunda nereye vardı?",
+          "secenekler": [
+            "Göl kıyısına",
+            "Ormanın dışına",
+            "Farenin yuvasına"
+          ],
+          "dogru": 2,
+          "aciklama": "Üçüncü paragrafta farenin yuvasına vardıkları yazıyor."
+        },
+        {
+          "kimlik": "degisim",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Pırıl bu olaydan sonra nasıl değişti?",
+          "secenekler": [
+            "Işığını saklamamaya başladı.",
+            "Daha da utangaç oldu.",
+            "Ormandan taşındı."
+          ],
+          "dogru": 0,
+          "aciklama": "Metnin sonunda Pırıl’ın artık her gece arkadaşlarıyla birlikte parladığı yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "dis-fircalama-zamani",
+      "ad": "Dişlerimizi Fırçalayalım",
+      "sinif": 2,
+      "tur": "bilgilendirici",
+      "zorluk": 2,
+      "etiketler": [
+        "sağlık",
+        "diş bakımı",
+        "alışkanlık"
+      ],
+      "metin": "Dişlerimiz yemek yerken bize yardım eder. Onlarla yiyecekleri ısırır ve çiğneriz. Bu yüzden dişlerimize iyi bakmalıyız.\n\nDişlerimizi günde iki kez fırçalamalıyız. Bir kez sabah kahvaltıdan sonra, bir kez de gece yatmadan önce. Fırçanın üstüne bezelye tanesi kadar diş macunu koymak yeterlidir.\n\nFırçalamak yaklaşık iki dakika sürmelidir. Ön dişleri de arka dişleri de fırçalarız. Dişlerin iç yüzünü de unutmayız. Fırçalama bitince ağzımızı çalkalarız.\n\nŞekerli yiyecekleri sık yemek dişlere zarar verebilir. Düzenli olarak diş hekimine gitmek de dişlerimizi korur.",
+      "sorular": [
+        {
+          "kimlik": "kac-kez",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Dişlerimizi günde kaç kez fırçalamalıyız?",
+          "secenekler": [
+            "Bir kez",
+            "İki kez",
+            "Beş kez"
+          ],
+          "dogru": 1,
+          "aciklama": "Metinde dişlerimizi günde iki kez fırçalamamız gerektiği yazıyor."
+        },
+        {
+          "kimlik": "macun",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Fırçaya ___ tanesi kadar diş macunu koymak yeterlidir.",
+          "cevaplar": [
+            "bezelye"
+          ],
+          "aciklama": "İkinci paragrafta bezelye tanesi kadar macunun yeterli olduğu yazıyor."
+        },
+        {
+          "kimlik": "iki-dakika",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Fırçalamak yaklaşık iki dakika sürmelidir.",
+          "dogru": true,
+          "aciklama": "Üçüncü paragrafın ilk cümlesinde bu bilgi var."
+        },
+        {
+          "kimlik": "ikinci-kez",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ayşe kahvaltıdan sonra dişlerini fırçaladı. Bir kez daha ne zaman fırçalamalı?",
+          "secenekler": [
+            "Öğle yemeğinden önce",
+            "Ertesi gün akşam",
+            "Gece yatmadan önce"
+          ],
+          "dogru": 2,
+          "aciklama": "Metne göre bir fırçalama kahvaltıdan sonra, diğeri gece yatmadan önce yapılır."
+        }
+      ]
+    },
+    {
+      "kimlik": "fasulye-filizleniyor",
+      "ad": "Fasulye Filizleniyor",
+      "sinif": 2,
+      "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "bitkiler",
+        "deney",
+        "tohum"
+      ],
+      "metin": "Sınıfımızda bir deney yaptık. Bir kavanozun içine ıslak pamuk koyduk. Pamuğun üstüne üç fasulye tanesi yerleştirdik. Kavanozu ışık alan pencerenin önüne bıraktık.\n\nHer gün pamuğa biraz su verdik. Pamuk hep nemli kaldı. Üçüncü gün fasulyelerin kabuğu çatladı. Beşinci gün küçük beyaz kökler çıktı. Kökler aşağıya doğru uzadı.\n\nBir hafta sonra yukarıya doğru yeşil bir filiz büyüdü. Filizin üstünde iki küçük yaprak açıldı.\n\nÖğretmenimiz, tohumun filizlenmesi için suya ve sıcaklığa ihtiyaç olduğunu söyledi. Yaprakları büyüyen bitkinin güneş ışığına da ihtiyacı varmış.",
+      "sorular": [
+        {
+          "kimlik": "pamuk",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Fasulyeleri neyin üstüne koydular?",
+          "secenekler": [
+            "Islak pamuğun",
+            "Kuru toprağın",
+            "Bir taşın"
+          ],
+          "dogru": 0,
+          "aciklama": "Metinde fasulyelerin ıslak pamuğun üstüne konduğu yazıyor."
+        },
+        {
+          "kimlik": "once-ne",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Fasulyelerden ilk olarak ne çıktı?",
+          "secenekler": [
+            "Yeşil yapraklar",
+            "Beyaz kökler",
+            "Çiçekler"
+          ],
+          "dogru": 1,
+          "aciklama": "Beşinci gün kökler çıktı. Yapraklar bir hafta sonra açıldı."
+        },
+        {
+          "kimlik": "kuru-pamuk",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Pamuk deney boyunca kupkuru kaldı.",
+          "dogru": false,
+          "aciklama": "Her gün pamuğa su verildi ve pamuk hep nemli kaldı."
+        },
+        {
+          "kimlik": "susuz",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Pamuğa hiç su verilmeseydi ne olurdu?",
+          "secenekler": [
+            "Fasulyeler daha hızlı filizlenirdi.",
+            "Fasulyeler çiçek açardı.",
+            "Fasulyeler filizlenmezdi."
+          ],
+          "dogru": 2,
+          "aciklama": "Öğretmen, tohumun filizlenmesi için suya ihtiyaç olduğunu söyledi. Su olmazsa tohum filizlenmez."
+        }
+      ]
+    },
+    {
+      "kimlik": "caliskan-arilar",
+      "ad": "Çalışkan Arılar",
+      "sinif": 2,
+      "tur": "fen",
+      "zorluk": 4,
+      "etiketler": [
+        "böcekler",
+        "bal",
+        "çiçekler"
+      ],
+      "metin": "Arılar küçük ama çok çalışkan böceklerdir. Bir kovanda binlerce arı birlikte yaşar. Her arının bir görevi vardır.\n\nBazı arılar çiçekten çiçeğe uçar. Çiçeklerden nektar adı verilen tatlı bir sıvı toplarlar. Arılar bu nektarı kovana taşır ve ondan bal yapar.\n\nArı bir çiçeğe konunca vücuduna çiçek tozu yapışır. Başka bir çiçeğe gidince bu tozun bir kısmı orada kalır. Böylece çiçekler meyve ve tohum verebilir. Yani arılar yalnızca bal yapmaz, bitkilerin çoğalmasına da yardım eder.\n\nArılar kendilerini tehlikede hissederse sokabilir. Bu yüzden bir arı görünce sakin kalmalı ve elimizi sallamamalıyız.",
+      "sorular": [
+        {
+          "kimlik": "nektar",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Arılar bal yapmak için çiçeklerden ne toplar?",
+          "secenekler": [
+            "Nektar",
+            "Yaprak",
+            "Kum"
+          ],
+          "dogru": 0,
+          "aciklama": "İkinci paragrafta arıların çiçeklerden nektar topladığı yazıyor."
+        },
+        {
+          "kimlik": "kovan",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Arılar bir ___ içinde birlikte yaşar.",
+          "cevaplar": [
+            "kovan"
+          ],
+          "aciklama": "Metnin başında bir kovanda binlerce arının birlikte yaşadığı yazıyor."
+        },
+        {
+          "kimlik": "arisiz",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Arılar olmasaydı çiçeklere ne olabilirdi?",
+          "secenekler": [
+            "Daha uzun boylu olurlardı.",
+            "Daha az meyve verirlerdi.",
+            "Renkleri değişirdi."
+          ],
+          "dogru": 1,
+          "aciklama": "Arılar çiçek tozunu taşıyınca çiçekler meyve verebilir. Arılar olmasaydı daha az meyve olurdu."
+        },
+        {
+          "kimlik": "el-sallama",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Bir arı görünce elimizi hızlı hızlı sallamalıyız.",
+          "dogru": false,
+          "aciklama": "Metinde arı görünce sakin kalmamız ve elimizi sallamamamız gerektiği yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "babaannemle-pazar",
+      "ad": "Babaannemle Pazarda",
+      "sinif": 2,
+      "tur": "gunluk",
+      "zorluk": 1,
+      "etiketler": [
+        "alışveriş",
+        "aile",
+        "yardımlaşma"
+      ],
+      "metin": "Bugün babaannemle semt pazarına gittik. Pazar çok kalabalıktı. Satıcılar yüksek sesle ürünlerini söylüyordu.\n\nBabaannem bana bir alışveriş listesi verdi. Listede domates, salatalık, elma ve peynir vardı. Ben listeyi okudum, babaannem ürünleri seçti.\n\nDomatesleri ben tarttırdım. Satıcı teraziye baktı ve “Tam iki kilo,” dedi. Elmaları da ben seçtim. Kırmızı ve parlak olanları aldım.\n\nEve dönünce meyveleri birlikte yıkadık. Akşam yemeğinde salatayı ben yaptım. Babam salatayı çok beğendi.",
+      "sorular": [
+        {
+          "kimlik": "listede",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Listede hangisi vardı?",
+          "secenekler": [
+            "Muz",
+            "Ekmek",
+            "Peynir"
+          ],
+          "dogru": 2,
+          "aciklama": "Listede domates, salatalık, elma ve peynir vardı."
+        },
+        {
+          "kimlik": "kilo",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Domatesler tam iki ___ geldi.",
+          "cevaplar": [
+            "kilo",
+            "kilogram"
+          ],
+          "aciklama": "Satıcı teraziye bakıp “Tam iki kilo.” dedi."
+        },
+        {
+          "kimlik": "yardim",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Çocuk pazarda babaannesine nasıl yardım etti?",
+          "secenekler": [
+            "Listeyi okudu ve elmaları seçti.",
+            "Pazarda ürün sattı.",
+            "Babaannesini evde bekledi."
+          ],
+          "dogru": 0,
+          "aciklama": "Metinde çocuğun listeyi okuduğu, domatesleri tarttırdığı ve elmaları seçtiği yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "bebek-kardesim-geldi",
+      "ad": "Bebek Kardeşim",
+      "sinif": 2,
+      "tur": "gunluk",
+      "zorluk": 3,
+      "etiketler": [
+        "aile",
+        "kardeş",
+        "sorumluluk"
+      ],
+      "metin": "Geçen hafta kardeşim doğdu. Adı Arda. Çok küçük ve çok tatlı. Elleri benim avucumdan bile küçük.\n\nArda çok uyuyor. Uyanınca da sık sık ağlıyor. Annem, bebeklerin konuşamadığı için ağladığını söyledi. Arda acıkınca, uykusu gelince ya da altı ıslanınca ağlıyormuş.\n\nBen de anneme yardım ediyorum. Arda uyurken sessizce oynuyorum. Annem ona banyo yaptırırken havluyu ben getiriyorum. Bazen de ona ninni söylüyorum.\n\nDün Arda parmağımı sıkıca tuttu. O an kendimi çok mutlu hissettim. Abla olmak güzelmiş.",
+      "sorular": [
+        {
+          "kimlik": "ad",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Bebeğin adı nedir?",
+          "secenekler": [
+            "Aras",
+            "Arda",
+            "Ali"
+          ],
+          "dogru": 1,
+          "aciklama": "Metnin başında kardeşin adının Arda olduğu yazıyor."
+        },
+        {
+          "kimlik": "neden-aglar",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Anne, Arda’nın yalnızca acıkınca ağladığını söyledi.",
+          "dogru": false,
+          "aciklama": "Arda acıkınca, uykusu gelince ya da altı ıslanınca ağlıyor."
+        },
+        {
+          "kimlik": "havlu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Banyo zamanında çocuk ne getiriyor?",
+          "secenekler": [
+            "Oyuncak",
+            "Biberon",
+            "Havlu"
+          ],
+          "dogru": 2,
+          "aciklama": "Üçüncü paragrafta çocuğun havluyu getirdiği yazıyor."
+        },
+        {
+          "kimlik": "sessiz",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Çocuk, Arda uyurken neden sessizce oynuyor?",
+          "secenekler": [
+            "Onu uyandırmamak için",
+            "Oyunları sevmediği için",
+            "Evde kimse olmadığı için"
+          ],
+          "dogru": 0,
+          "aciklama": "Bebek uyurken gürültü olursa uyanabilir. Çocuk bu yüzden sessiz oynuyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "dedeyle-yaya-gecidi",
+      "ad": "Dedemle Yaya Geçidinde",
+      "sinif": 2,
+      "tur": "diyalog",
+      "zorluk": 4,
+      "etiketler": [
+        "trafik",
+        "güvenlik",
+        "kurallar"
+      ],
+      "metin": "Can ile dedesi okula yürüyordu. Bir yaya geçidinin önünde durdular.\n\nCan: Dede, neden durduk? Karşıya geçelim.\n\nDede: Önce trafik ışığına bakalım. Yayalar için hangi ışık yanıyor?\n\nCan: Kırmızı ışık yanıyor.\n\nDede: Kırmızı yanarken bekleriz. Yeşil yanınca geçeriz.\n\nCan: Işık yeşil oldu! Hemen koşalım mı?\n\nDede: Koşmayalım. Önce sola, sonra sağa, sonra yine sola bakalım. Duran araçlar var mı, görelim.\n\nCan: Bütün araçlar durdu.\n\nDede: Şimdi elimi tut. Çizgilerin üstünden yürüyerek geçelim.\n\nCan: Dede, yarın arkadaşıma da öğreteceğim.\n\nDede: Çok güzel olur. Kuralları bilen herkes daha güvenli yürür.",
+      "sorular": [
+        {
+          "kimlik": "nereye",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Can ile dedesi nereye gidiyordu?",
+          "secenekler": [
+            "Pazara",
+            "Okula",
+            "Parka"
+          ],
+          "dogru": 1,
+          "aciklama": "Metnin ilk cümlesinde okula yürüdükleri yazıyor."
+        },
+        {
+          "kimlik": "yesil",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Yayalar ___ ışık yanınca karşıya geçer.",
+          "cevaplar": [
+            "yeşil"
+          ],
+          "aciklama": "Dede, kırmızı yanarken beklediklerini, yeşil yanınca geçtiklerini söylüyor."
+        },
+        {
+          "kimlik": "yesilde",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Işık yeşil olunca dede ne yapmalarını söyledi?",
+          "secenekler": [
+            "Hemen koşmalarını",
+            "Geri dönmelerini",
+            "Önce sola ve sağa bakmalarını"
+          ],
+          "dogru": 2,
+          "aciklama": "Dede “Koşmayalım. Önce sola, sonra sağa, sonra yine sola bakalım.” dedi."
+        },
+        {
+          "kimlik": "onemli",
+          "tip": "dogru-yanlis",
+          "katman": "cikarim",
+          "soru": "Can, öğrendiği kuralları önemli bulmuştur.",
+          "dogru": true,
+          "aciklama": "Can kuralları arkadaşına da öğretmek istiyor. Bu, onları önemli bulduğunu gösterir."
+        }
+      ]
+    }
+  ]
+}

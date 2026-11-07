@@ -1,0 +1,712 @@
+{
+  "sinif": 3,
+  "sinirlar": {
+    "kelime": [
+      120,
+      250
+    ],
+    "soru": [
+      4,
+      5
+    ]
+  },
+  "metinler": [
+    {
+      "kimlik": "yuvadan-dusen-serce",
+      "ad": "Yuvadan Düşen Serçe",
+      "sinif": 3,
+      "tur": "hikaye",
+      "zorluk": 2,
+      "etiketler": [
+        "hayvanları korumak",
+        "yardım istemek",
+        "okul bahçesi"
+      ],
+      "metin": "Teneffüste Ela ile Batu okul bahçesinde top oynuyordu. Birden çınar ağacının dibinde küçük bir serçe gördüler. Serçe yavruydu. Tüyleri henüz tam çıkmamıştı ve uçamıyordu. İnce sesiyle cik cik diye ötüyordu.\n\nBatu hemen yavruyu eline almak istedi. Ela onu durdurdu. “Bekle! Onu yanlış tutarsak canını acıtabiliriz. Öğretmenimize haber verelim,” dedi.\n\nİki arkadaş koşarak Selin Öğretmen’e gitti. Selin Öğretmen bahçeye geldi ve ağacın dallarına baktı. Yuvayı alçak bir dalda gördü. Okulun bahçıvanı Kemal Amca’yı çağırdı. Kemal Amca eldiven taktı, yavruyu dikkatle aldı ve yuvasına geri koydu.\n\nAz sonra anne serçe ağzında bir böcekle yuvaya döndü. Yavrusunu besledi. Ela ile Batu buna çok sevindi. Teneffüsün geri kalanında ağaçtan uzakta oynadılar. Anne serçeyi korkutmak istemiyorlardı.\n\nSelin Öğretmen onlara teşekkür etti. “Bir hayvanın yardıma ihtiyacı olduğunu görünce bir büyüğe haber vermek en doğrusudur,” dedi.",
+      "sorular": [
+        {
+          "kimlik": "nerede",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Çocuklar yavru serçeyi nerede gördü?",
+          "secenekler": [
+            "Çınar ağacının dibinde",
+            "Okulun çatısında",
+            "Sınıfın penceresinde"
+          ],
+          "dogru": 0,
+          "aciklama": "Metnin başında yavru serçenin çınar ağacının dibinde görüldüğü yazıyor."
+        },
+        {
+          "kimlik": "kim-koydu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Yavruyu yuvasına kim koydu?",
+          "secenekler": [
+            "Batu",
+            "Kemal Amca",
+            "Selin Öğretmen"
+          ],
+          "dogru": 1,
+          "aciklama": "Bahçıvan Kemal Amca eldiven takıp yavruyu yuvasına koydu."
+        },
+        {
+          "kimlik": "olay-sirasi",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Olayları metindeki sıraya göre diz.",
+          "ogeler": [
+            "Çocuklar yavru serçeyi gördü.",
+            "Çocuklar öğretmene haber verdi.",
+            "Kemal Amca yavruyu yuvasına koydu.",
+            "Anne serçe yavrusunu besledi."
+          ],
+          "aciklama": "Metin; yavrunun bulunması, büyüğe haber verilmesi, yavrunun yuvaya konması ve annenin dönmesi sırasıyla ilerliyor."
+        },
+        {
+          "kimlik": "durdurma",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Ela, Batu’yu neden durdurdu?",
+          "secenekler": [
+            "Oyunu bitirmek istemediği için",
+            "Kuşları sevmediği için",
+            "Yavruya zarar gelmesinden çekindiği için"
+          ],
+          "dogru": 2,
+          "aciklama": "Ela “Onu yanlış tutarsak canını acıtabiliriz.” dedi. Yavruya zarar gelmesini istemedi."
+        },
+        {
+          "kimlik": "eldiven",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Kemal Amca yavruyu tutarken eldiven taktı.",
+          "dogru": true,
+          "aciklama": "Üçüncü paragrafta Kemal Amca’nın eldiven taktığı yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "ortak-resim-panosu",
+      "ad": "Ortak Resim Panosu",
+      "sinif": 3,
+      "tur": "hikaye",
+      "zorluk": 3,
+      "etiketler": [
+        "iş birliği",
+        "anlaşmak",
+        "sınıf"
+      ],
+      "metin": "Selin Öğretmen bir pazartesi sabahı sınıfa büyük bir karton getirdi. “Bu hafta hep birlikte bir pano hazırlayacağız. Konumuz deniz,” dedi.\n\nÖğrenciler dört gruba ayrıldı. Mavi grup denizi boyadı. Yeşil grup yosunları kesti. Sarı grup balıklar çizdi. Kırmızı grup da kumsalı ve deniz kabuklarını yaptı. Herkes kendi parçasını özenle hazırladı.\n\nÇarşamba günü bir sorun çıktı. Sarı grubun balıkları panoya sığmıyordu. Grubun başında Mert vardı. Mert biraz sinirlendi. “Bizim balıklarımız en güzeli. Yosunları çıkaralım,” dedi.\n\nYeşil gruptan Zeynep sakin bir sesle konuştu: “Yosunları çıkarırsak deniz boş görünür. Balıkları biraz küçültsek nasıl olur?”\n\nMert önce düşündü, sonra başını salladı. Sarı grup balıkları yeniden, daha küçük çizdi. Bu kez her şey panoya sığdı.\n\nCuma günü pano koridora asıldı. Okuldaki herkes durup panoya baktı. Mert, Zeynep’e döndü: “İyi ki o fikri söyledin,” dedi.",
+      "sorular": [
+        {
+          "kimlik": "konu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Panonun konusu neydi?",
+          "secenekler": [
+            "Deniz",
+            "Orman",
+            "Uzay"
+          ],
+          "dogru": 0,
+          "aciklama": "Selin Öğretmen panonun konusunun deniz olduğunu söyledi."
+        },
+        {
+          "kimlik": "sari-grup",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Balıkları ___ grup çizdi.",
+          "cevaplar": [
+            "sarı"
+          ],
+          "aciklama": "İkinci paragrafta balıkları sarı grubun çizdiği yazıyor."
+        },
+        {
+          "kimlik": "sorun",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Çarşamba günü hangi sorun çıktı?",
+          "secenekler": [
+            "Boyalar bitti.",
+            "Balıklar panoya sığmadı.",
+            "Karton yırtıldı."
+          ],
+          "dogru": 1,
+          "aciklama": "Üçüncü paragrafta sarı grubun balıklarının panoya sığmadığı yazıyor."
+        },
+        {
+          "kimlik": "oneri",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Zeynep’in önerisi neden işe yaradı?",
+          "secenekler": [
+            "Mert’in grubu panodan çıktı.",
+            "Pano daha büyük bir kartona taşındı.",
+            "Hem balıklar hem yosunlar panoda kaldı."
+          ],
+          "dogru": 2,
+          "aciklama": "Balıklar küçültülünce yosunları çıkarmaya gerek kalmadı. Her şey panoya sığdı."
+        },
+        {
+          "kimlik": "anlasmak",
+          "tip": "kisa-cevap",
+          "katman": "yorum",
+          "soru": "Bir arkadaşınla anlaşamazsan ne yaparsın? Bir cümleyle yaz.",
+          "ornekCevap": "Sakin bir sesle konuşur, ikimizin de işine yarayacak bir yol öneririm.",
+          "kontrolListesi": [
+            "Sakin kalmaktan ya da konuşmaktan söz ettim.",
+            "Bir çözüm önerdim."
+          ],
+          "aciklama": "Bu sorunun tek doğru cevabı yok. İyi bir cevap, Zeynep gibi sakin kalmayı ve herkese uygun bir çözüm aramayı anlatır."
+        }
+      ]
+    },
+    {
+      "kimlik": "inatci-tas-ve-dere",
+      "ad": "Dere ile Taş",
+      "sinif": 3,
+      "tur": "masal",
+      "zorluk": 3,
+      "etiketler": [
+        "esneklik",
+        "doğa",
+        "çözüm bulmak"
+      ],
+      "metin": "Bir zamanlar dağdan inen küçük bir dere varmış. Dere şırıl şırıl akar, yol boyunca şarkı söylermiş.\n\nBir gün derenin yolunun ortasına kocaman bir taş yuvarlanmış. Dere taşa çarpmış ve durmuş. “Lütfen biraz kenara çekil. Geçmem gerek,” demiş.\n\nTaş kıpırdamamış. “Buraya ilk ben geldim. Yerimden hiç kımıldamam,” demiş.\n\nDere üzülmüş ama şarkısını unutmamış. Biraz beklemiş. Sular birikmiş, birikmiş. Sonra dere bir şey fark etmiş: Taşın yanında küçük bir boşluk varmış. Dere taşı itmeye çalışmamış. Onun yanından dolanarak yoluna devam etmiş.\n\nZamanla taşın önünde küçük bir gölcük oluşmuş. Kurbağalar gölcüğe yerleşmiş. Kuşlar gelip su içmeye başlamış. Taş, çevresindeki bu canlılığı görünce şaşırmış.\n\n“Ben inat ederken sen yeni bir yol buldun,” demiş dereye. “Üstelik herkese yararın dokundu.”\n\nDere neşeyle şırıldamış ve şarkısını söyleyerek ovaya doğru akmaya devam etmiş.",
+      "sorular": [
+        {
+          "kimlik": "tasin-cevabi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Taş, dereye ne cevap verdi?",
+          "secenekler": [
+            "Yerinden kımıldamayacağını",
+            "Hemen kenara çekileceğini",
+            "Dereyle birlikte akacağını"
+          ],
+          "dogru": 0,
+          "aciklama": "Taş “Yerimden hiç kımıldamam.” dedi."
+        },
+        {
+          "kimlik": "golcuk",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Taşın önündeki gölcüğe kimler yerleşti?",
+          "secenekler": [
+            "Balinalar",
+            "Kurbağalar",
+            "Arılar"
+          ],
+          "dogru": 1,
+          "aciklama": "Metinde kurbağaların gölcüğe yerleştiği yazıyor."
+        },
+        {
+          "kimlik": "cozum",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Dere sorunu nasıl çözdü?",
+          "secenekler": [
+            "Taşı yerinden itti.",
+            "Akmaktan vazgeçti.",
+            "Taşın yanından dolanarak yeni bir yol buldu."
+          ],
+          "dogru": 2,
+          "aciklama": "Dere taşı itmeye çalışmadı. Yanındaki boşluktan dolanarak yoluna devam etti."
+        },
+        {
+          "kimlik": "ana-fikir",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu masalın ana fikri hangisidir?",
+          "secenekler": [
+            "Bir yol kapanınca başka bir yol aramak gerekir.",
+            "Taşlar derelerden daha güçlüdür.",
+            "Kurbağalar gölcükleri çok sever."
+          ],
+          "dogru": 0,
+          "aciklama": "Dere, yolu kapanınca vazgeçmedi ve yeni bir yol buldu. Masalın ana fikri budur."
+        }
+      ]
+    },
+    {
+      "kimlik": "orumcegin-yeni-agi",
+      "ad": "Örümceğin Yeni Ağı",
+      "sinif": 3,
+      "tur": "masal",
+      "zorluk": 4,
+      "etiketler": [
+        "sabır",
+        "hatadan öğrenmek",
+        "bahçe"
+      ],
+      "metin": "Bahçedeki gül fidanının dalları arasında Ağcı adında bir örümcek yaşarmış. Ağcı her sabah ağını kontrol eder, kopan iplikleri onarırmış. Ağının üstünde çiy damlaları boncuk gibi parlarmış.\n\nBir gece şiddetli bir rüzgâr esmiş. Sabah olunca Ağcı bir de bakmış ki ağı paramparça olmuş. Yalnızca birkaç iplik dalda sallanıyormuş.\n\nKomşusu uğur böceği yanına gelmiş. “Çok üzüldüm. Şimdi ne yapacaksın?” diye sormuş.\n\nAğcı bir süre sessiz kalmış. Sonra “Yeniden öreceğim,” demiş. “Ama bu kez ağımı rüzgârın daha az estiği yere, iki dalın arasına kuracağım.”\n\nAğcı bütün gün çalışmış. Önce ilk ipliği bir daldan ötekine uzatmış. Sonra öteki iplikleri ortadan dışa doğru çekmiş. En son, ağı daire daire sarmış. Akşam olduğunda yeni ağı hazırmış.\n\nO gece yine rüzgâr esmiş. Ama yeni ağ iki dalın arasında sağlam kalmış. Uğur böceği sabah ağa bakıp “Hem sabırlı hem akıllısın,” demiş. Ağcı gülümsemiş: “Kopan ağdan bir şey öğrendim.”",
+      "sorular": [
+        {
+          "kimlik": "nerede",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Ağcı nerede yaşıyordu?",
+          "secenekler": [
+            "Evin çatısında",
+            "Gül fidanının dalları arasında",
+            "Bir taşın altında"
+          ],
+          "dogru": 1,
+          "aciklama": "Metnin ilk cümlesinde Ağcı’nın gül fidanının dalları arasında yaşadığı yazıyor."
+        },
+        {
+          "kimlik": "ne-bozdu",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Ağcı’nın ağını ne bozdu?",
+          "secenekler": [
+            "Yağmur",
+            "Bir kuş",
+            "Şiddetli bir rüzgâr"
+          ],
+          "dogru": 2,
+          "aciklama": "İkinci paragrafta bir gece şiddetli bir rüzgâr estiği ve ağın paramparça olduğu yazıyor."
+        },
+        {
+          "kimlik": "iki-dal",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Ağcı yeni ağını iki ___ arasına kurdu.",
+          "cevaplar": [
+            "dalın",
+            "dal"
+          ],
+          "aciklama": "Ağcı, ağını rüzgârın daha az estiği yere, iki dalın arasına kurdu."
+        },
+        {
+          "kimlik": "saglam",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Yeni ağ neden rüzgârda kopmadı?",
+          "secenekler": [
+            "Daha az rüzgâr alan bir yere kurulduğu için",
+            "O gece rüzgâr hiç esmediği için",
+            "Uğur böceği ağı tuttuğu için"
+          ],
+          "dogru": 0,
+          "aciklama": "O gece yine rüzgâr esti ama ağ, rüzgârın daha az estiği iki dalın arasında olduğu için sağlam kaldı."
+        },
+        {
+          "kimlik": "ders",
+          "tip": "dogru-yanlis",
+          "katman": "cikarim",
+          "soru": "Ağcı yaşadığı sorundan ders çıkarmıştır.",
+          "dogru": true,
+          "aciklama": "Ağcı, ağını bu kez daha uygun bir yere kurdu. “Kopan ağdan bir şey öğrendim.” sözü de bunu gösteriyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "atik-kutulari-renkleri",
+      "ad": "Atıkları Ayıralım",
+      "sinif": 3,
+      "tur": "bilgilendirici",
+      "zorluk": 2,
+      "etiketler": [
+        "geri dönüşüm",
+        "çevre",
+        "atıklar"
+      ],
+      "metin": "Evde ve okulda her gün çöp çıkarırız. Bu çöplerin bir kısmı yeniden kullanılabilir. Bunun için atıkları ayrı ayrı toplamak gerekir.\n\nBirçok okulda ve sokakta renkli atık kutuları vardır. Mavi kutuya kâğıt ve karton atılır. Sarı kutu plastik içindir. Yeşil kutuya cam şişe ve kavanozlar konur. Gri kutu ise metal kutular içindir.\n\nAyrı toplanan atıklar fabrikalara gider. Orada temizlenir ve yeni ürünlere dönüştürülür. Eski gazeteler yeni kâğıt olabilir. Plastik şişelerden başka eşyalar yapılabilir. Buna geri dönüşüm denir.\n\nGeri dönüşüm doğayı korumaya yardım eder. Daha az ağaç kesilir, daha az çöp birikir.\n\nBizim sınıfımızda da küçük atık kutuları var. Her hafta iki öğrenci kutuları kontrol ediyor. Yanlış kutuya atılan bir şey görürlerse onu doğru kutuya taşıyorlar.\n\nAtıkları kutuya atmadan önce boşaltmak gerekir. Örneğin bir kavanozun içinde reçel kalmamalıdır. Kırık camları ise kendimiz toplamamalı, bir büyüğe haber vermeliyiz.",
+      "sorular": [
+        {
+          "kimlik": "mavi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Mavi kutuya ne atılır?",
+          "secenekler": [
+            "Cam şişe",
+            "Kâğıt ve karton",
+            "Plastik"
+          ],
+          "dogru": 1,
+          "aciklama": "İkinci paragrafta mavi kutuya kâğıt ve karton atıldığı yazıyor."
+        },
+        {
+          "kimlik": "sari",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Plastik atıklar ___ kutuya atılır.",
+          "cevaplar": [
+            "sarı"
+          ],
+          "aciklama": "Metinde sarı kutunun plastik için olduğu yazıyor."
+        },
+        {
+          "kimlik": "kirik-cam",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Kırık camları kendimiz toplamalıyız.",
+          "dogru": false,
+          "aciklama": "Metinde kırık camları kendimiz toplamamamız, bir büyüğe haber vermemiz gerektiği yazıyor."
+        },
+        {
+          "kimlik": "gazete",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Eski gazeteleri mavi kutuya atmak neden yararlıdır?",
+          "secenekler": [
+            "Mavi kutu en güzel kutudur.",
+            "Gazeteler orada sonsuza kadar saklanır.",
+            "Gazeteler yeni kâğıda dönüşebilir."
+          ],
+          "dogru": 2,
+          "aciklama": "Ayrı toplanan kâğıtlar fabrikada yeni kâğıda dönüştürülür. Böylece daha az ağaç kesilir."
+        }
+      ]
+    },
+    {
+      "kimlik": "harita-ve-yonler",
+      "ad": "Haritada Yön Bulmak",
+      "sinif": 3,
+      "tur": "bilgilendirici",
+      "zorluk": 4,
+      "etiketler": [
+        "harita",
+        "yönler",
+        "simgeler"
+      ],
+      "metin": "Harita, bir yerin yukarıdan bakılmış gibi çizilmiş küçük bir resmidir. Haritalar sayesinde bir yerin nerede olduğunu ve oraya nasıl gidileceğini öğrenebiliriz. Bir şehrin haritası, bütün sokakları tek bir kâğıtta gösterebilir. Haritaya bakan biri, okuldan parka giden en kısa yolu bulabilir.\n\nHaritalarda dört ana yön vardır: kuzey, güney, doğu ve batı. Haritaların çoğunda kuzey yukarıdadır. Güney aşağıda, doğu sağda, batı ise soldadır. Haritanın bir köşesinde kuzeyi gösteren küçük bir ok bulunur.\n\nHaritada her şey gerçek boyutundan çok daha küçük çizilir. Ormanlar yeşil, denizler ve göller mavi renkle gösterilir. Okul, hastane ya da park gibi yerler küçük simgelerle belirtilir. Simgelerin ne anlama geldiği haritanın açıklama kutusunda yazar.\n\nGüneş sabah doğudan doğar, akşam batıdan batar. Bu bilgi, yanında harita olmayan birine de yön bulmada yardımcı olabilir. Pusula da yön bulmaya yarar. Pusulanın iğnesi hep kuzeyi gösterir.",
+      "sorular": [
+        {
+          "kimlik": "kuzey",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Haritaların çoğunda kuzey nerededir?",
+          "secenekler": [
+            "Yukarıda",
+            "Aşağıda",
+            "Solda"
+          ],
+          "dogru": 0,
+          "aciklama": "İkinci paragrafta haritaların çoğunda kuzeyin yukarıda olduğu yazıyor."
+        },
+        {
+          "kimlik": "deniz-rengi",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Haritada denizler hangi renkle gösterilir?",
+          "secenekler": [
+            "Kırmızı",
+            "Mavi",
+            "Sarı"
+          ],
+          "dogru": 1,
+          "aciklama": "Üçüncü paragrafta denizlerin ve göllerin mavi renkle gösterildiği yazıyor."
+        },
+        {
+          "kimlik": "dogudan",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Güneş sabah ___ doğar.",
+          "cevaplar": [
+            "doğudan",
+            "doğu"
+          ],
+          "aciklama": "Son paragrafta Güneş’in sabah doğudan doğduğu yazıyor."
+        },
+        {
+          "kimlik": "simge",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Elif haritadaki bir simgenin ne olduğunu bilmiyor. Ne yapmalı?",
+          "secenekler": [
+            "Haritayı ters çevirmeli.",
+            "Akşamı beklemeli.",
+            "Açıklama kutusuna bakmalı."
+          ],
+          "dogru": 2,
+          "aciklama": "Metne göre simgelerin anlamı haritanın açıklama kutusunda yazar."
+        }
+      ]
+    },
+    {
+      "kimlik": "miknatis-deneyi",
+      "ad": "Mıknatıs Neyi Çeker?",
+      "sinif": 3,
+      "tur": "fen",
+      "zorluk": 3,
+      "etiketler": [
+        "mıknatıs",
+        "deney",
+        "metaller"
+      ],
+      "metin": "Fen dersinde öğretmenimiz her gruba bir mıknatıs verdi. Masamızda bir ataş, bir silgi, bir tahta kalem, bir demir vida, bir plastik kapak ve bir kâğıt parçası vardı. Hangilerinin mıknatısa yapışacağını önce tahmin ettik, sonra denedik. Ben silginin de yapışacağını tahmin etmiştim.\n\nMıknatısı ataşa yaklaştırınca ataş hemen ona yapıştı. Demir vida da yapıştı. Silgi, tahta kalem, plastik kapak ve kâğıt ise hiç kıpırdamadı. Demek ki tahminimde yanılmıştım. Grubumuz sonuçları bir tabloya yazdı.\n\nÖğretmenimiz mıknatısların demir gibi bazı metalleri çektiğini anlattı. Tahta, plastik ve kâğıt mıknatıstan etkilenmez. Ama her metal de mıknatısa yapışmaz. Örneğin alüminyum bir içecek kutusu mıknatısa yapışmaz.\n\nSonra mıknatısı bir kâğıdın altında gezdirdik. Kâğıdın üstündeki ataş da mıknatısla birlikte hareket etti! Mıknatısın çekme gücü ince kâğıttan geçebiliyordu.\n\nDeneyden sonra mıknatısları kutusuna geri koyduk. Öğretmenimiz, mıknatısları telefon ve bilgisayar gibi aletlere yaklaştırmamamız gerektiğini söyledi.",
+      "sorular": [
+        {
+          "kimlik": "yapisan",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Hangisi mıknatısa yapıştı?",
+          "secenekler": [
+            "Demir vida",
+            "Silgi",
+            "Plastik kapak"
+          ],
+          "dogru": 0,
+          "aciklama": "İkinci paragrafta ataşın ve demir vidanın mıknatısa yapıştığı yazıyor."
+        },
+        {
+          "kimlik": "her-metal",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Her metal mıknatısa yapışır.",
+          "dogru": false,
+          "aciklama": "Metinde her metalin mıknatısa yapışmadığı yazıyor. Alüminyum kutu yapışmaz."
+        },
+        {
+          "kimlik": "kagit-alti",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Mıknatıs kâğıdın altında gezdirilince ataş ne yaptı?",
+          "secenekler": [
+            "Yerinde kaldı.",
+            "Mıknatısla birlikte hareket etti.",
+            "Kâğıttan düştü."
+          ],
+          "dogru": 1,
+          "aciklama": "Dördüncü paragrafta ataşın mıknatısla birlikte hareket ettiği yazıyor."
+        },
+        {
+          "kimlik": "civi",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Demir bir çivi mıknatısa yaklaştırılırsa ne olur?",
+          "secenekler": [
+            "Hiçbir şey olmaz.",
+            "Rengi değişir.",
+            "Mıknatısa yapışır."
+          ],
+          "dogru": 2,
+          "aciklama": "Mıknatıs demiri çeker. Çivi demirden olduğu için mıknatısa yapışır."
+        },
+        {
+          "kimlik": "demir",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Mıknatıslar ___ gibi bazı metalleri çeker.",
+          "cevaplar": [
+            "demir"
+          ],
+          "aciklama": "Üçüncü paragrafta mıknatısların demir gibi bazı metalleri çektiği yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "tirtildan-kelebege",
+      "ad": "Tırtıldan Kelebeğe",
+      "sinif": 3,
+      "tur": "fen",
+      "zorluk": 5,
+      "etiketler": [
+        "böcekler",
+        "yaşam döngüsü",
+        "doğa"
+      ],
+      "metin": "Bir kelebeğin hayatı küçük bir yumurtayla başlar. Kelebek yumurtalarını genellikle bir yaprağın üstüne bırakır.\n\nBirkaç gün sonra yumurtadan küçük bir tırtıl çıkar. Tırtılın ilk işi yemek yemektir. Önce yumurtanın kabuğunu, sonra üzerinde bulunduğu yaprakları yer. Tırtıl çok hızlı büyür. Büyüdükçe derisi ona dar gelir. Bu yüzden eski derisini birkaç kez değiştirir. Bazı tırtıllar yaprak rengindedir. Böylece kuşlar onları kolay kolay göremez.\n\nTırtıl yeterince büyüyünce bir dala tutunur. Çevresinde sert bir kılıf oluşur. Bu kılıfa pupa denir. Dışarıdan bakınca pupanın içinde hiçbir şey olmuyor gibi görünür. Oysa içeride tırtılın vücudu yavaş yavaş değişir. Bu değişim, kelebeğin türüne göre birkaç gün ya da birkaç hafta sürebilir.\n\nBir süre sonra pupa açılır ve içinden bir kelebek çıkar. Kelebeğin kanatları önce ıslak ve buruşuktur. Kelebek kanatlarını açar ve kurumalarını bekler. Kanatları kuruyunca ilk kez havalanır.\n\nYetişkin kelebek çiçeklerden nektar emer. Sonra o da yumurtalarını bir yaprağa bırakır. Böylece yolculuk yeniden başlar.",
+      "sorular": [
+        {
+          "kimlik": "asamalar",
+          "tip": "siralama",
+          "katman": "bilgi",
+          "soru": "Kelebeğin hayatındaki aşamaları sıraya diz.",
+          "ogeler": [
+            "Yumurta",
+            "Tırtıl",
+            "Pupa",
+            "Kelebek"
+          ],
+          "aciklama": "Kelebek önce yumurtadır. Yumurtadan tırtıl çıkar, tırtıl pupa olur, pupadan da kelebek çıkar."
+        },
+        {
+          "kimlik": "ilk-is",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Tırtılın ilk işi nedir?",
+          "secenekler": [
+            "Yemek yemek",
+            "Uçmak",
+            "Uyumak"
+          ],
+          "dogru": 0,
+          "aciklama": "İkinci paragrafta tırtılın ilk işinin yemek yemek olduğu yazıyor."
+        },
+        {
+          "kimlik": "pupa",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Tırtılın çevresinde oluşan sert kılıfa ___ denir.",
+          "cevaplar": [
+            "pupa"
+          ],
+          "aciklama": "Üçüncü paragrafta bu kılıfa pupa dendiği yazıyor."
+        },
+        {
+          "kimlik": "yeniden",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "“Yolculuk yeniden başlar.” sözü ne anlatıyor?",
+          "secenekler": [
+            "Kelebek uzak bir ülkeye uçacak.",
+            "Yeni yumurtalardan yeni tırtıllar çıkacak.",
+            "Kelebek yeniden tırtıl olacak."
+          ],
+          "dogru": 1,
+          "aciklama": "Kelebek yumurtalarını bir yaprağa bırakıyor. Bu yumurtalardan yeni tırtıllar çıkacak ve her şey baştan başlayacak."
+        },
+        {
+          "kimlik": "islak-kanat",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Kelebeğin kanatları pupadan ilk çıktığında ıslaktır.",
+          "dogru": true,
+          "aciklama": "Dördüncü paragrafta kanatların önce ıslak ve buruşuk olduğu yazıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "bisiklet-gunlugum",
+      "ad": "Bisiklet Günlüğüm",
+      "sinif": 3,
+      "tur": "gunluk",
+      "zorluk": 2,
+      "etiketler": [
+        "bisiklet",
+        "güvenlik",
+        "vazgeçmemek"
+      ],
+      "metin": "Cumartesi: Bugün dedem bana mavi bir bisiklet aldı. Bisikletin yan tekerlekleri yok. Dedem önce kaskımı başıma taktı. “Kask takmadan bisiklete binmek yok,” dedi. Dizlik ve dirseklik de taktım.\n\nPazar: Parka gittik. Dedem bisikletin arkasından tuttu, ben pedal çevirdim. İki kez düştüm. Dizliklerim sayesinde dizim hiç acımadı. Biraz canım sıkıldı ama vazgeçmedim.\n\nSalı: Okuldan sonra yine çalıştık. Dedem “Önüne bak, aşağı bakma,” dedi. Önüme bakınca daha kolay dengede kaldım. Pedalları düzenli çevirince bisiklet de daha az sallandı.\n\nPerşembe: Bugün harika bir gün! Dedem bisikleti bıraktı ama ben fark etmedim. Parkın sonuna kadar tek başıma gittim. Arkama dönünce dedemin uzakta el salladığını gördüm. Çok sevindim.\n\nErtesi cumartesi: Dedemle parkta yine bisiklete bindim. Dedem bana zil çalmayı ve yayalara yol vermeyi öğretti. Gelecek hafta arkadaşım Nil’e de yardım edeceğim.",
+      "sorular": [
+        {
+          "kimlik": "kask",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Bisiklete binmeden önce dede çocuğa ne taktı?",
+          "secenekler": [
+            "Gözlük",
+            "Saat",
+            "Kask"
+          ],
+          "dogru": 2,
+          "aciklama": "Cumartesi günkü yazıda dedenin önce kaskı taktığı yazıyor."
+        },
+        {
+          "kimlik": "tek-basina",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Çocuk hangi gün parkın sonuna kadar tek başına gitti?",
+          "secenekler": [
+            "Perşembe",
+            "Pazar",
+            "Salı"
+          ],
+          "dogru": 0,
+          "aciklama": "Perşembe günkü yazıda çocuğun parkın sonuna kadar tek başına gittiği yazıyor."
+        },
+        {
+          "kimlik": "diz",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Çocuk düşünce dizi çok acıdı.",
+          "dogru": false,
+          "aciklama": "Pazar günkü yazıda dizlikler sayesinde dizinin hiç acımadığı yazıyor."
+        },
+        {
+          "kimlik": "onune-bak",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Dedenin “Önüne bak.” öğüdü neden işe yaradı?",
+          "secenekler": [
+            "Bisiklet daha hızlı gitti.",
+            "Çocuk daha kolay dengede kaldı.",
+            "Çocuk zil çalmayı öğrendi."
+          ],
+          "dogru": 1,
+          "aciklama": "Salı günkü yazıda çocuk, önüne bakınca daha kolay dengede kaldığını söylüyor."
+        },
+        {
+          "kimlik": "zorlaninca",
+          "tip": "kisa-cevap",
+          "katman": "yorum",
+          "soru": "Yeni bir şey öğrenirken zorlanınca ne yaparsın? Bir cümleyle yaz.",
+          "ornekCevap": "Vazgeçmeden yeniden denerim ve gerekirse bir büyükten yardım isterim.",
+          "kontrolListesi": [
+            "Zorlandığımda ne yaptığımı yazdım.",
+            "Vazgeçmemekten ya da yardım istemekten söz ettim."
+          ],
+          "aciklama": "Bu sorunun tek doğru cevabı yok. Günlükteki çocuk düştüğü hâlde vazgeçmedi ve dedesinin öğütlerini dinledi."
+        }
+      ]
+    },
+    {
+      "kimlik": "firinci-ustayla-soylesi",
+      "ad": "Fırıncı Hasan Usta ile Söyleşi",
+      "sinif": 3,
+      "tur": "diyalog",
+      "zorluk": 4,
+      "etiketler": [
+        "meslekler",
+        "ekmek",
+        "israf"
+      ],
+      "metin": "Sınıf gazetemiz için mahallemizdeki fırının ustası Hasan Usta ile konuştuk. Soruları 3-A sınıfından Defne sordu.\n\nDefne: Hasan Usta, fırında işiniz ne zaman başlıyor?\n\nHasan Usta: Çok erken, sabah saat dörtte. İnsanlar kahvaltıda taze ekmek yemek istiyor. Bu yüzden ekmekler sabah olmadan hazır olmalı.\n\nDefne: Ekmek nasıl yapılıyor?\n\nHasan Usta: Önce un, su, tuz ve maya karıştırılıyor. Buna hamur deniyor. Hamuru iyice yoğuruyoruz. Sonra hamuru bir süre dinlendiriyoruz. Maya sayesinde hamur kabarıyor. Ardından hamura şekil verip fırına koyuyoruz.\n\nDefne: Ekmek fırında ne kadar kalıyor?\n\nHasan Usta: Ekmeğin büyüklüğüne göre değişiyor. Bizim ekmekler yaklaşık yarım saatte pişiyor.\n\nDefne: Bu işin en sevdiğiniz yanı ne?\n\nHasan Usta: Sabah kapıyı açtığımda insanların taze ekmek kokusuyla gülümsemesi. Bir de bayat ekmeği atmayıp tost ya da yemek yapmak için saklayan çocukları görmek. Ekmek emekle yapılır, israf etmemek gerekir.\n\nDefne: Teşekkür ederiz Hasan Usta.\n\nHasan Usta: Ben teşekkür ederim. Afiyet olsun!",
+      "sorular": [
+        {
+          "kimlik": "saat",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Hasan Usta işe saat kaçta başlıyor?",
+          "secenekler": [
+            "Öğlen on ikide",
+            "Akşam altıda",
+            "Sabah dörtte"
+          ],
+          "dogru": 2,
+          "aciklama": "Hasan Usta işinin sabah saat dörtte başladığını söylüyor."
+        },
+        {
+          "kimlik": "maya",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Hamurun kabarmasını ne sağlıyor?",
+          "secenekler": [
+            "Maya",
+            "Tuz",
+            "Su"
+          ],
+          "dogru": 0,
+          "aciklama": "Hasan Usta “Maya sayesinde hamur kabarıyor.” diyor."
+        },
+        {
+          "kimlik": "hamur",
+          "tip": "bosluk",
+          "katman": "bilgi",
+          "soru": "Un, su, tuz ve maya karışınca ___ olur.",
+          "cevaplar": [
+            "hamur"
+          ],
+          "aciklama": "Hasan Usta bu karışıma hamur dendiğini söylüyor."
+        },
+        {
+          "kimlik": "isini-seviyor",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Hasan Usta işi hakkında ne düşünüyor?",
+          "secenekler": [
+            "İşinden hiç hoşlanmıyor.",
+            "İşini seviyor ve önemsiyor.",
+            "İşini bırakmak istiyor."
+          ],
+          "dogru": 1,
+          "aciklama": "Hasan Usta işinin en sevdiği yanlarını anlatıyor ve ekmeğin emekle yapıldığını söylüyor."
+        }
+      ]
+    }
+  ]
+}

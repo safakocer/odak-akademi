@@ -1,0 +1,13 @@
+{
+  "surum": 2,
+  "aciklama": "Sınıfa göre değişen değerler (S34a ilk sürüm: okuma bantları). varsayilanWpm: kayıtlı okuma hızı yoksa başlangıç hızı (30-500). modlar: Hızlı Oku ve Oku ve Anla’da sunulan okuma modları (rehber, kelime-grubu, serbest, rsvp; yoksa hepsi). kademeli: kademeli hız artışı açılabilir mi (S34a-d: tüm sınıflarda öğrenci isterse açar; anlama %70’in altındaysa yine kendiliğinden çalışmaz). test (S34d): olcekWpm [en, enCok]: seviye testinde okuma hızı puanı (en → 0, enCok ve üstü → 100); sonuçla birlikte saklanır, final aynı ölçekle hesaplanır. Egzersiz parametreleri S34e’de eklenecek.",
+  "siniflar": {
+    "2": { "okuma": { "varsayilanWpm": 50, "modlar": ["rehber", "serbest"], "kademeli": true }, "test": { "olcekWpm": [20, 160] } },
+    "3": { "okuma": { "varsayilanWpm": 70, "modlar": ["rehber", "serbest"], "kademeli": true }, "test": { "olcekWpm": [20, 160] } },
+    "4": { "okuma": { "varsayilanWpm": 90, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [20, 160] } },
+    "5": { "okuma": { "varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [40, 240] } },
+    "6": { "okuma": { "varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [40, 240] } },
+    "7": { "okuma": { "varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [40, 240] } },
+    "8": { "okuma": { "varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [40, 240] } }
+  }
+}

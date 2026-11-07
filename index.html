@@ -1,4 +1,4 @@
-<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı; S33: çocukta “Dinamik” tema seçeneği), çocuk görünümü stili (S27), alt gezinme, profiller, yedek, PWA bağlantıları -->
+<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı; S33: çocukta “Dinamik” tema seçeneği), çocuk görünümü stili (S27), sınıfa uygun olmayan çalışma sayfası (S34a), alt gezinme, profiller, yedek, PWA bağlantıları -->
 <!doctype html>
 <html lang="tr">
 <head>
@@ -9,7 +9,7 @@
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Odak Akademi</title>
-  <meta name="description" content="Ortaokul öğrencileri için okuma, anlama, dikkat ve hafıza çalışmaları.">
+  <meta name="description" content="İlkokul ve ortaokul öğrencileri (2-8. sınıf) için okuma, anlama, dikkat ve hafıza çalışmaları.">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#172529" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="icons/fener.svg" type="image/svg+xml">
@@ -293,6 +293,8 @@
     <!-- D03: Alan sayfası (#/modul/<ad>) ve tüm egzersizler (#/egzersizler); içerik egzersiz-listesi.js ile çizilir -->
     <div class="yigin" id="modul-sayfasi" data-rota="/modul/:ad" hidden style="--yigin-bosluk: var(--b-5)"></div>
     <div class="yigin" id="egzersizler-sayfasi" data-rota="/egzersizler" hidden style="--yigin-bosluk: var(--b-6)"></div>
+    <!-- S34a: sınıfa uygun olmayan çalışma (#/sinif-disi/<ad>); içerik js/modules/egzersiz-listesi.js sinifDisiSayfasiCiz() -->
+    <div class="yigin" id="sinif-disi-sayfasi" data-rota="/sinif-disi/:ad" hidden style="--yigin-bosluk: var(--b-5)"></div>
     <!-- S07: Kütüphane (#/kutuphane); içerik js/modules/kutuphane/kutuphane.js ile çizilir -->
     <div class="yigin" id="kutuphane-sayfasi" data-rota="/kutuphane" hidden style="--yigin-bosluk: var(--b-5)"></div>
     <!-- S12: Odak Araçları (#/odak); içerik js/modules/odak/odak-araclari.js ile çizilir -->

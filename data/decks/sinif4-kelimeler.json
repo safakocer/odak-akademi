@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "sinif4-kelimeler",
+  "baslik": "4. sınıf kelimeleri",
+  "aciklama": "4. sınıf Türkçe kavramları ve kütüphanedeki 4. sınıf metinlerinden kelimeler.",
+  "sinif": "4",
+  "kartlar": [
+    {
+      "on": "Giriş, gelişme, sonuç",
+      "arka": "Bir hikâyenin üç bölümü: Girişte kişiler ve yer tanıtılır, gelişmede olaylar yaşanır, sonuçta olay biter."
+    },
+    {
+      "on": "Neden-sonuç",
+      "arka": "Bir olayın niçin olduğunu (neden) ve ardından ne olduğunu (sonuç) birlikte gösterme.\nÖrnek: Yağmur yağmadığı için toprak kurudu."
+    },
+    {
+      "on": "Kesme işareti",
+      "arka": "Özel adlara gelen ekleri ayırmak için kullanılan işaret: ’\nÖrnek: Ankara’da, Deniz’in."
+    },
+    {
+      "on": "Tırnak işareti",
+      "arka": "Birinin söylediği sözü aynen aktarırken kullanılan işaret: “ ”"
+    },
+    {
+      "on": "Kısaltma",
+      "arka": "Uzun bir adın ya da kelimenin kısa yazılışı.\nÖrnek: cm (santimetre), TBMM."
+    },
+    {
+      "on": "Hikâye edici metin",
+      "arka": "Olayları, kişileri, yeri ve zamanı anlatan metin.\nÖrnek: hikâye, masal, fabl."
+    },
+    {
+      "on": "Bilgilendirici metin",
+      "arka": "Bir konu hakkında doğru bilgi vermek için yazılan metin."
+    },
+    {
+      "on": "Kök ve ek",
+      "arka": "Kök, kelimenin anlamlı en küçük parçasıdır; ek, köke eklenen parçadır.\nÖrnek: göz (kök) + lük (ek) = gözlük."
+    },
+    {
+      "on": "Biyografi",
+      "arka": "Bir kişinin hayatını başkasının anlattığı yazı."
+    },
+    {
+      "on": "Dize",
+      "arka": "Şiirdeki her bir satır."
+    },
+    {
+      "on": "Prova",
+      "arka": "Bir gösteriden önce yapılan deneme çalışması."
+    },
+    {
+      "on": "Dürüstlük",
+      "arka": "Doğruyu söylemek ve hakkı olmayan bir şeyi almamak."
+    },
+    {
+      "on": "Posta kodu",
+      "arka": "Adresin hangi bölgede olduğunu gösteren beş haneli sayı."
+    },
+    {
+      "on": "Kâşif arı",
+      "arka": "Kovandan çıkıp çiçek arayan ve bulduğu yeri dansla anlatan işçi arı."
+    },
+    {
+      "on": "Güneş saati",
+      "arka": "Yere dik bir çubuğun gölgesine bakarak saati gösteren eski bir araç."
+    },
+    {
+      "on": "Ebru",
+      "arka": "Suyun yüzeyinde boyalarla yapılan desenin kâğıda aktarıldığı geleneksel sanat."
+    },
+    {
+      "on": "Kültürel miras",
+      "arka": "Geçmişten bugüne gelen ve korunması gereken gelenekler, sanatlar ve eserler."
+    },
+    {
+      "on": "DNA",
+      "arka": "Canlıların nasıl büyüyüp gelişeceğine dair bilgileri taşıyan çok küçük yapı."
+    },
+    {
+      "on": "Tasarruf",
+      "arka": "Bir şeyi gereğinden fazla harcamamak, idareli kullanmak.\nÖrnek: Diş fırçalarken musluğu kapatmak."
+    },
+    {
+      "on": "Meteoroloji",
+      "arka": "Yağmur, rüzgâr, sıcaklık gibi havadaki olayları inceleyen bilim dalı."
+    }
+  ]
+}

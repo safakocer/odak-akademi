@@ -1,9 +1,9 @@
-// Service worker: uygulama dosyalarını önbelleğe alır, internet yokken uygulamayı açar; SURUM değişince günceller (S26: kapsama göre önbellek adı, sürüm sorgusu, tam kabuk listesi; S27: cocuk.css, hesap.js; S28: renkli ikonlar, Fener, algi.js kabukta; S29: ses katmanı, yeni dosya yok; S30: fener-mesajlari.js kabukta; S31: gokyuzu.js kabukta; S32: fener-sahnesi.js kabukta; S33: gun-isigi.js, gok-cisimleri.js kabukta)
+// Service worker: uygulama dosyalarını önbelleğe alır, internet yokken uygulamayı açar; SURUM değişince günceller (S26: kapsama göre önbellek adı, sürüm sorgusu, tam kabuk listesi; S27: cocuk.css, hesap.js; S28: renkli ikonlar, Fener, algi.js kabukta; S29: ses katmanı, yeni dosya yok; S30: fener-mesajlari.js kabukta; S31: gokyuzu.js kabukta; S32: fener-sahnesi.js kabukta; S33: gun-isigi.js, gok-cisimleri.js kabukta; S34a: siniflar.js kabukta, sinif-bantlari.json; S34b: sinif2.json, sinif3.json; S34c: sinif4.json, 2-4. sınıf desteleri, kelime-havuzu.js; S34d: yeni dosya yok)
 // YAYIN KURALI (S26): Yayındaki herhangi bir dosya değişince SURUM'u artır, yoksa kullanıcılar eski sürümde kalır.
 //   1.<küçük>.<yama>-s<oturum>: hata düzeltmesi → yama +1 (1.0.1), yeni özellik → küçük +1, yama 0 (1.1.0).
 //   Yeni dosya: açılışta gerekiyorsa ZORUNLU'ya, sonradan yükleniyorsa DOSYALAR'a yaz.
 
-const SURUM = '1.7.3-s33'; // v1.7: çocuk görünümünde dinamik tema (saate göre gündüz/gece), güneş ve ay, doğuş/batışta sıcak gök, gece yıldızlar ayla aynı yönde (S33); 1.7.1: güneş/ay açık/koyu temada sabit yerde, balondaki Fener eski boyunda (S33-d); 1.7.2: ana sayfa balonunda Fener telefonda balonu dolduracak boyda; 1.7.3: açılışta uygulama hazır olana kadar siyah ekran (yanlış tema bir an görünmez)
+const SURUM = '1.11.1-s34'; // 1.11.1 (S34d-d): 4. sınıftaki iki metnin kimliği ortaokul metinleriyle çakışıyordu (ortaokul metni atlanıyordu); kimlik ve ad değişti.  v1.11 (S34d): seviye testi 2-8. sınıf (ilkokulda 3-4 adımlı, 6-8 dakikalık kısa akış, 2-4. sınıf metinleri, okuma hızı ölçeği sınıfa göre), Akıllı Kurs’ta ilkokul bantları (günde 4 ders, 10/15 dk, hız üst sınırı, ilkokula uygun çalışmalar).  v1.10 (S34c): 4. sınıf metinleri (10 metin, 5 soru), 2-4. sınıf kelime desteleri, Tekrar Kartları’nda hazır desteler öğrencinin kademesine göre, kelime havuzunda sınıfa göre kategoriler (ilkokulda kısa, sık kullanılan kelimeler).  1.9.1: Kütüphane’de ilkokul öğrencisine önce kendi sınıfının metinleri, kendi metinleri sınıf filtresinde de görünür, “süzgeç” yerine “filtre” (S34b-d). v1.9 (S34b): 2. ve 3. sınıf metinleri (10’ar metin, 3-5 soru), sınıf dosyasında kelime/soru sınırı, kütüphanede kademeye göre seviye noktaları. 1.8.1: ilkokulda da kademeli hız öğrenci isterse açılır (S34a-d). v1.8 (S34a): 2-8. sınıf altyapısı: sınıf listesi tek kaynakta, 2-4. sınıfta her zaman çocuk görünümü, kartlarda sınıf aralığı ve “daha büyük sınıflar için” ekranı, sınıf bantları (WPM alt sınırı 30, ilkokulda yalnız uygun okuma modları), kursta sınıf değişimi seçeneği. v1.7: çocuk görünümünde dinamik tema (saate göre gündüz/gece), güneş ve ay, doğuş/batışta sıcak gök, gece yıldızlar ayla aynı yönde (S33); 1.7.1: güneş/ay açık/koyu temada sabit yerde, balondaki Fener eski boyunda (S33-d); 1.7.2: ana sayfa balonunda Fener telefonda balonu dolduracak boyda; 1.7.3: açılışta uygulama hazır olana kadar siyah ekran (yanlış tema bir an görünmez)
 const ONEK = 'odak-akademi-';
 // Aynı alan adında iki kopya (ör. /odak-akademi/ ve /odak-deneme/) birbirinin önbelleğini silmesin diye adda kapsam yolu da var
 const KAPSAM = new URL(self.registration.scope).pathname;
@@ -46,6 +46,7 @@ const ZORUNLU = [
   './js/core/hesap.js',
   './js/core/ikon-seti.js', // S28
   './js/core/gun-isigi.js', // S33: a11y.js içe aktarır
+  './js/core/siniflar.js', // S34a: profile.js ve hesap.js içe aktarır
   './js/engine/exercise-frame.js',
   './js/engine/celebrate.js',
   './js/engine/eye-rest.js',
@@ -88,6 +89,7 @@ const DOSYALAR = [
   './js/engine/memory-core.js',
   './js/engine/lesson-engine.js',
   './js/engine/srs.js',
+  './js/engine/kelime-havuzu.js', // S34c: kelime-listesi.js içe aktarır
   './js/engine/radar.js',
   './js/engine/course-planner.js',
   './js/engine/grafik.js',
@@ -137,6 +139,9 @@ const DOSYALAR = [
   './js/modules/rehber/haftalik-plan.js',
   './js/modules/veli/veli-disa.js',
   './js/modules/veli/veli-sayfasi.js',
+  './data/texts/sinif2.json', // S34b
+  './data/texts/sinif3.json', // S34b
+  './data/texts/sinif4.json', // S34c
   './data/texts/sinif5.json',
   './data/texts/sinif6.json',
   './data/texts/sinif7.json',
@@ -160,12 +165,16 @@ const DOSYALAR = [
   './data/decks/sosyal-kavramlar.json',
   './data/decks/matematik-terimleri.json',
   './data/decks/ingilizce-kelimeler.json',
+  './data/decks/sinif2-kelimeler.json', // S34c
+  './data/decks/sinif3-kelimeler.json', // S34c
+  './data/decks/sinif4-kelimeler.json', // S34c
   './data/decks/sinif5-kelimeler.json',
   './data/decks/sinif6-kelimeler.json',
   './data/decks/sinif7-kelimeler.json',
   './data/decks/sinif8-kelimeler.json',
   './data/tests/seviye-testi.json',
   './data/course-rules.json',
+  './data/sinif-bantlari.json', // S34a: açılışta arka planda okunur (okuma ekranları ve kurs bekler)
 ];
 
 // Geliştirme: bilgisayardaki yerel sunucu ya da aynı ev ağındaki adres (telefondan deneme) → önce ağ denenir, değişiklik hemen görünür

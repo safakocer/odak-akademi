@@ -1,5 +1,5 @@
 {
-  "surum": 2,
+  "surum": 4,
   "ad": "akilli-kurs",
   "yontemAdi": "Kural tabanlı uyarlanabilir plan",
   "kurs": {
@@ -18,7 +18,7 @@
     "hedefArtisiYok": ["pekistirme", "olcum"]
   },
   "baslangic": {
-    "sinifVarsayilanWpm": { "5": 110, "6": 125, "7": 140, "8": 150 },
+    "sinifVarsayilanWpm": { "2": 50, "3": 70, "4": 90, "5": 110, "6": 125, "7": 140, "8": 150 },
     "testsizIlkGun": "kalibrasyon",
     "testAnlamaDusukCarpani": 0.9,
     "hizliGecisteTestsiz": true
@@ -32,7 +32,7 @@
     "kademeSifirla": true
   },
   "hedef": {
-    "wpmSinir": [60, 500],
+    "wpmSinir": [30, 500],
     "artisKademeleri": [0.02, 0.03, 0.04],
     "baslangicKademe": 0,
     "ustSinirOrani": 0.5,
@@ -148,6 +148,47 @@
     "ayniTipGunlukEnCok": 2,
     "agirlikDegisinceKrediSifirla": true
   },
+  "sinifBantlari": [
+    {
+      "ad": "ilkokul",
+      "siniflar": [2, 3, 4],
+      "aciklama": "S34d: 2-4. sınıf. Günde 4 kısa ders (göz, hız, anlama, 1 esnek), 10 ya da 15 dakikalık plan, daha küçük hız artışları, ilkokula uygun havuzlar (kurs-veri.js havuzları ayrıca katalogdaki sınıf aralığına göre süzer).",
+      "kurallar": {
+        "kurs": { "gundeDers": 4 },
+        "slotlar": [
+          { "sira": 1, "sabit": "goz" },
+          { "sira": 2, "sabit": "hiz" },
+          { "sira": 3, "sabit": "anlama" },
+          { "sira": 4, "sabit": null }
+        ],
+        "olcum": { "dersSirasi": ["goz", "anlama", "hiz", "esnek"] },
+        "hedef": { "artisKademeleri": [0.02, 0.025, 0.03], "ustSinirOrani": 0.4 },
+        "yorgun": { "sureProfili": 10, "oneri": "sure-profili-10" },
+        "sureProfilleri": {
+          "varsayilan": 10,
+          "secenekler": [10, 15],
+          "10": { "goz": 2, "hiz": 2, "anlama": 4, "esnek": [2], "metinUzunlugu": "kisa" },
+          "15": { "goz": 3, "hiz": 3, "anlama": 6, "esnek": [3], "metinUzunlugu": "kisa" }
+        },
+        "dersTipleri": {
+          "goz": { "havuz": ["schulte", "satir-ritmi", "gorsel-arama", "kelime-piramidi"] },
+          "hiz": { "modlar": ["rehber", "kelime-grubu"] },
+          "dikkat": { "havuz": ["hizli-dokun", "git-dur", "iptal-testi", "stroop"] },
+          "hafiza": { "havuz": ["rakam-dizisi", "corsi-bloklari", "eslestirme", "kelime-listesi"] }
+        },
+        "aciklamalar": [
+          "Kurs her gün senin sonuçlarına bakar ve planı sana göre ayarlar.",
+          "Önce anlamak gelir: anlama %{esik} altındaysa hız hedefi aynı kalır.",
+          "Her gün 4 kısa ders var; yorgun olduğun gün kısa planı seçebilirsin.",
+          "Her {pekistirmeAraligi}. gün tekrar günü, {olcumGunleri} günler kısa ölçüm günüdür.",
+          "Bir günü kaçırırsan sorun değil; kaldığın yerden devam edersin."
+        ]
+      }
+    },
+    { "ad": "sinif-2", "siniflar": [2], "aciklama": "Hız hedefinin üst sınırı (S34d varsayımı, Y5’te doğrulanır).", "kurallar": { "hedef": { "wpmSinir": [30, 120] } } },
+    { "ad": "sinif-3", "siniflar": [3], "aciklama": "Hız hedefinin üst sınırı (S34d varsayımı).", "kurallar": { "hedef": { "wpmSinir": [30, 150] } } },
+    { "ad": "sinif-4", "siniflar": [4], "aciklama": "Hız hedefinin üst sınırı (S34d varsayımı).", "kurallar": { "hedef": { "wpmSinir": [30, 180] } } }
+  ],
   "kararOnceligi": ["yeniden-baslat", "kalibrasyon", "dusur", "sabit", "ayarla", "artir"],
   "korumalar": ["wpm-siniri", "taban", "tavan"],
   "kararMetinleri": {

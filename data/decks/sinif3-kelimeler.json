@@ -1,0 +1,89 @@
+{
+  "surum": 1,
+  "ad": "sinif3-kelimeler",
+  "baslik": "3. sınıf kelimeleri",
+  "aciklama": "3. sınıf Türkçe kavramları ve kütüphanedeki 3. sınıf metinlerinden kelimeler.",
+  "sinif": "3",
+  "kartlar": [
+    {
+      "on": "Başlık",
+      "arka": "Bir metnin en üstüne yazılan, metnin neyle ilgili olduğunu gösteren ad."
+    },
+    {
+      "on": "Paragraf",
+      "arka": "Bir metinde aynı düşünceyi anlatan cümlelerin oluşturduğu bölüm. Yeni paragraf yeni satırdan başlar."
+    },
+    {
+      "on": "Virgül",
+      "arka": "Cümle içinde sıralanan kelimeleri ayıran işaret: ,\nÖrnek: elma, armut, kiraz."
+    },
+    {
+      "on": "Ünlem işareti",
+      "arka": "Sevinç, şaşkınlık gibi duyguları anlatan cümlelerin sonuna konan işaret: !\nÖrnek: Ne güzel bir gün!"
+    },
+    {
+      "on": "Alfabetik sıra",
+      "arka": "Kelimeleri ilk harflerine göre alfabedeki sırayla dizmek.\nÖrnek: araba, bulut, çanta."
+    },
+    {
+      "on": "Sözlük",
+      "arka": "Kelimelerin anlamlarını alfabetik sırayla veren kitap."
+    },
+    {
+      "on": "Olay",
+      "arka": "Bir hikâyede yaşanan, anlatılan durum."
+    },
+    {
+      "on": "Kahraman",
+      "arka": "Bir hikâyede olayları yaşayan kişi ya da hayvan."
+    },
+    {
+      "on": "Masal",
+      "arka": "“Bir varmış bir yokmuş” gibi sözlerle başlayabilen, olağanüstü olaylar anlatan hikâye."
+    },
+    {
+      "on": "Tahmin etmek",
+      "arka": "Bir şeyin ne olacağını ipuçlarına bakarak önceden düşünmek.\nÖrnek: Başlığa bakıp metnin konusunu tahmin etmek."
+    },
+    {
+      "on": "Mıknatıs",
+      "arka": "Demir gibi bazı metalleri kendine çeken cisim."
+    },
+    {
+      "on": "Pupa",
+      "arka": "Tırtılın kelebeğe dönüşürken içinde beklediği sert kılıf."
+    },
+    {
+      "on": "Geri dönüşüm",
+      "arka": "Kullanılmış kâğıt, plastik, cam ve metalin işlenerek yeniden kullanılır hâle getirilmesi."
+    },
+    {
+      "on": "Simge",
+      "arka": "Haritada okul, hastane, park gibi yerleri gösteren küçük işaret."
+    },
+    {
+      "on": "Maya",
+      "arka": "Hamurun kabarmasını sağlayan madde."
+    },
+    {
+      "on": "İsraf",
+      "arka": "Bir şeyi gereğinden fazla, boş yere harcamak.\nÖrnek: Ekmeği yemeden çöpe atmak."
+    },
+    {
+      "on": "Çiy",
+      "arka": "Serin sabahlarda yaprakların ve otların üzerinde görülen küçük su damlaları."
+    },
+    {
+      "on": "Gölcük",
+      "arka": "Küçük göl, su birikintisi."
+    },
+    {
+      "on": "Kask",
+      "arka": "Bisiklet ve kaykaya binerken başı korumak için takılan sert başlık."
+    },
+    {
+      "on": "Bahçıvan",
+      "arka": "Bahçedeki bitkilerin bakımını yapan kişi."
+    }
+  ]
+}

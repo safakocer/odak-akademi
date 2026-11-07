@@ -3,7 +3,7 @@
 //   1.<küçük>.<yama>-s<oturum>: hata düzeltmesi → yama +1 (1.0.1), yeni özellik → küçük +1, yama 0 (1.1.0).
 //   Yeni dosya: açılışta gerekiyorsa ZORUNLU'ya, sonradan yükleniyorsa DOSYALAR'a yaz.
 
-const SURUM = '1.6.1-s32'; // v1.6: çocuk görünümünde geniş ekranda kayalıklar üstünde Fener sahnesi, gece dönen hüzme, ana sayfa balonu sahneden (S32); 1.6.1: yatay dönen hüzme, irili ufaklı kayalar, kum yok, dokunmatik tablette sahne (S32-d)
+const SURUM = '1.6.2-s32'; // v1.6: çocuk görünümünde geniş ekranda kayalıklar üstünde Fener sahnesi, gece dönen hüzme, ana sayfa balonu sahneden (S32); 1.6.1: yatay dönen hüzme, irili ufaklı kayalar, kum yok, dokunmatik tablette sahne (S32-d) ; 1.6.2: tablet yerleşimi dizüstünde de
 const ONEK = 'odak-akademi-';
 // Aynı alan adında iki kopya (ör. /odak-akademi/ ve /odak-deneme/) birbirinin önbelleğini silmesin diye adda kapsam yolu da var
 const KAPSAM = new URL(self.registration.scope).pathname;

@@ -1,4 +1,4 @@
-<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı), çocuk görünümü stili (S27), alt gezinme, profiller, yedek, PWA bağlantıları -->
+<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı; S33: çocukta “Dinamik” tema seçeneği), çocuk görünümü stili (S27), alt gezinme, profiller, yedek, PWA bağlantıları -->
 <!doctype html>
 <html lang="tr">
 <head>
@@ -335,7 +335,10 @@
               <label><input type="radio" name="tema" value="sistem"><span>Cihaz</span></label>
               <label><input type="radio" name="tema" value="acik"><span>Açık</span></label>
               <label><input type="radio" name="tema" value="koyu"><span>Koyu</span></label>
+              <!-- S33: yalnız çocuk görünümünde; a11y.js ayarFormuBagla seçenekleri görünüme göre dizer (çocukta “Cihaz” yerine) -->
+              <label><input type="radio" name="tema" value="dinamik"><span>Dinamik</span></label>
             </div>
+            <p class="alan__ipucu" data-tema-not hidden>Dinamik: saate göre gündüz açık, gece koyu renkler; gökte güneş ve ay ilerler.</p>
           </fieldset>
 
           <div class="alan">

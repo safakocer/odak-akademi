@@ -1,9 +1,9 @@
-// Service worker: uygulama dosyalarını önbelleğe alır, internet yokken uygulamayı açar; SURUM değişince günceller (S26: kapsama göre önbellek adı, sürüm sorgusu, tam kabuk listesi; S27: cocuk.css, hesap.js; S28: renkli ikonlar, Fener, algi.js kabukta; S29: ses katmanı, yeni dosya yok; S30: fener-mesajlari.js kabukta; S31: gokyuzu.js kabukta; S32: fener-sahnesi.js kabukta)
+// Service worker: uygulama dosyalarını önbelleğe alır, internet yokken uygulamayı açar; SURUM değişince günceller (S26: kapsama göre önbellek adı, sürüm sorgusu, tam kabuk listesi; S27: cocuk.css, hesap.js; S28: renkli ikonlar, Fener, algi.js kabukta; S29: ses katmanı, yeni dosya yok; S30: fener-mesajlari.js kabukta; S31: gokyuzu.js kabukta; S32: fener-sahnesi.js kabukta; S33: gun-isigi.js, gok-cisimleri.js kabukta)
 // YAYIN KURALI (S26): Yayındaki herhangi bir dosya değişince SURUM'u artır, yoksa kullanıcılar eski sürümde kalır.
 //   1.<küçük>.<yama>-s<oturum>: hata düzeltmesi → yama +1 (1.0.1), yeni özellik → küçük +1, yama 0 (1.1.0).
 //   Yeni dosya: açılışta gerekiyorsa ZORUNLU'ya, sonradan yükleniyorsa DOSYALAR'a yaz.
 
-const SURUM = '1.6.2-s32'; // v1.6: çocuk görünümünde geniş ekranda kayalıklar üstünde Fener sahnesi, gece dönen hüzme, ana sayfa balonu sahneden (S32); 1.6.1: yatay dönen hüzme, irili ufaklı kayalar, kum yok, dokunmatik tablette sahne (S32-d) ; 1.6.2: tablet yerleşimi dizüstünde de
+const SURUM = '1.7.3-s33'; // v1.7: çocuk görünümünde dinamik tema (saate göre gündüz/gece), güneş ve ay, doğuş/batışta sıcak gök, gece yıldızlar ayla aynı yönde (S33); 1.7.1: güneş/ay açık/koyu temada sabit yerde, balondaki Fener eski boyunda (S33-d); 1.7.2: ana sayfa balonunda Fener telefonda balonu dolduracak boyda; 1.7.3: açılışta uygulama hazır olana kadar siyah ekran (yanlış tema bir an görünmez)
 const ONEK = 'odak-akademi-';
 // Aynı alan adında iki kopya (ör. /odak-akademi/ ve /odak-deneme/) birbirinin önbelleğini silmesin diye adda kapsam yolu da var
 const KAPSAM = new URL(self.registration.scope).pathname;
@@ -45,6 +45,7 @@ const ZORUNLU = [
   './js/core/pwa.js',
   './js/core/hesap.js',
   './js/core/ikon-seti.js', // S28
+  './js/core/gun-isigi.js', // S33: a11y.js içe aktarır
   './js/engine/exercise-frame.js',
   './js/engine/celebrate.js',
   './js/engine/eye-rest.js',
@@ -53,6 +54,7 @@ const ZORUNLU = [
   './js/engine/fener-mesajlari.js', // S30: fener.js ve app.js içe aktarır
   './js/engine/gokyuzu.js', // S31: app.js içe aktarır
   './js/engine/fener-sahnesi.js', // S32: app.js içe aktarır
+  './js/engine/gok-cisimleri.js', // S33: app.js içe aktarır
   './js/engine/algi.js', // S28: fener.js içe aktardığı için kabukta (DOSYALAR'dan taşındı)
   './js/modules/katalog.js',
   './js/modules/egzersiz-listesi.js',

@@ -1,4 +1,4 @@
-/* Tasarım belirteçleri: renk, tipografi, boşluk, gölge, köşe, hareket (açık + koyu tema, "Fener" paleti; S19: yazdırmada açık renkler; S25: form kenarı kontrastı) */
+/* Tasarım belirteçleri: renk, tipografi, boşluk, gölge, köşe, hareket (açık + koyu tema, "Fener" paleti; S19: yazdırmada açık renkler; S25: form kenarı kontrastı; S33-d3: açılışta uygulama hazır olana kadar siyah ekran) */
 
 /* Okuma dostu yerel yazı tipi (SIL OFL 1.1, fonts/ klasöründe; Türkçe harflerin tamamı var). Yalnızca seçilince indirilir. */
 @font-face {
@@ -270,3 +270,18 @@
     --modul-kurs: #d3ece8;   --modul-kurs-ikon: #0e6b63;
   }
 }
+
+/* S33-d3: Açılış perdesi. Sayfa yüklenirken (app.js görünümü ve temayı uygulayıp data-uygulama="hazir" yazana kadar)
+   yanlış görünüm/tema bir an görünmesin: ekran siyah, içerik gizli. Bu dosya ilk yüklenen stil olduğu için ilk çizimde geçerlidir.
+   Güvence: uygulama 3 sn’de hazır olmazsa ya da hata ekranı açılırsa (hata-yakala.js, .hata-ekrani) içerik yine görünür.
+   :not(#_) seçiciyi çocuk görünümünün kök arka planından (cocuk.css) güçlü yapar. */
+:root:not([data-uygulama="hazir"]):not(#_) {
+  color-scheme: dark;
+  background: #000;
+}
+:root:not([data-uygulama="hazir"]) body {
+  visibility: hidden;
+  animation: acilis-perdesi 0s linear 3s forwards;
+}
+:root:not([data-uygulama="hazir"]):has(.hata-ekrani) body { visibility: visible; }
+@keyframes acilis-perdesi { to { visibility: visible; } }

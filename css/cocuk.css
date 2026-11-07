@@ -4,6 +4,8 @@
    S31: egzersizler sayfasının açılır alan kartları (.alan-karti, .alan-paneli); arka planda martı (gündüz) ve yarasa (gece) (.gokyuzu*, js/engine/gokyuzu.js); S31-d: yarasa yandan, kuşlar daha belirgin, bant daha yüksek.
    S32: geniş ekranda sol altta kayalıklar üstünde Fener sahnesi (.fener-sahnesi*, js/engine/fener-sahnesi.js); ana sayfa balonu sahnedeki Fener’den çıkar.
    S32-d: irili ufaklı kayalar, kum yok; hüzme yatay döner (11,7 sn), ekranın sağına uzanır; dokunmatik tablette (“dar”) içerik sütunu sahnenin sağına kayar.
+   S33: dinamik tema (data-gok="gunduz|gece"): güneş ve ay (.gok*, js/engine/gok-cisimleri.js), doğuş/batışta sıcak gök, gökyüzü ışığı cismin yerinde; gece yıldızlar ayla aynı yönde (soldan sağa) kayar.
+   S33-d: güneş/ay açık/koyu temada da (sabit yerde); balondaki Fener eski boyunda (çizim alanının boş kenarları dengelendi). S33-d2: ana sayfa balonunda Fener telefonda büyüdü, balonun yüksekliğini doldurur.
    Yalnız <html data-gorunum="cocuk"> iken etkilidir (hesap.js yazar; kullanıcı seçemez). Profesyonel görünüm bu dosyadan etkilenmez.
    Hareketi azalt açıkken base.css tüm animasyonları durdurur; egzersiz açıkken (html.egz-acik) arka plan gizlenir. Kontrast WCAG AA denetlendi. */
 
@@ -264,9 +266,9 @@
   --c-yarasa-goz: #ffffff;
   --c-yarasa-yanak: #ff9ec4;
   --c-yarasa-kontur: #2f2670;
-  /* Gökyüzü: üstte ışık (gündüz güneş, gece ay), aşağı doğru zemine iner */
+  /* Gökyüzü: üstte ışık (gündüz güneş, gece ay), aşağı doğru zemine iner. S33: dinamikte ışık güneşin/ayın yerinde (--gok-isik-x/y, gok-cisimleri.js) */
   background:
-    radial-gradient(circle at 92% 4%, var(--c-isik), transparent 22rem),
+    radial-gradient(circle at var(--gok-isik-x, 92%) var(--gok-isik-y, 4%), var(--c-isik), transparent 22rem),
     linear-gradient(180deg, var(--c-gok-ust) 0, var(--c-gok-alt) 45vh, var(--renk-zemin) 100vh) var(--renk-zemin);
   background-attachment: fixed;
 }
@@ -310,6 +312,12 @@
 /* Egzersiz sırasında arka plan durur ve gizlenir: dikkat çalışmanın kendisinde kalsın */
 :root[data-gorunum="cocuk"].egz-acik body::before,
 :root[data-gorunum="cocuk"].egz-acik body::after { display: none; }
+
+/* S33: Gece yıldızlar ayla aynı yönde (soldan sağa) kayar; hız aynı. Bulutlar güneşle aynı yönde (sağdan sola) kalır */
+:root[data-gorunum="cocuk"][data-tema="koyu"] body::before { animation-direction: reverse, alternate; }
+@media (prefers-color-scheme: dark) {
+  :root[data-gorunum="cocuk"]:not([data-tema="acik"]) body::before { animation-direction: reverse, alternate; }
+}
 
 @keyframes c-kay-900 { to { transform: translateX(-900px); } }
 @keyframes c-kay-1200 { to { transform: translateX(-1200px); } }
@@ -571,6 +579,10 @@
 :root[data-gorunum="cocuk"] .fener-balon { display: flex; align-items: flex-end; gap: var(--b-2); margin: 0; }
 :root[data-gorunum="cocuk"] .fener-balon[hidden] { display: none; }
 :root[data-gorunum="cocuk"] .fener-balon__fener { flex: none; width: 5.25rem; }
+/* S33-d: fenerCiz() çizim alanı ekler için kenarlarda boşluk taşır (viewBox -6 -8 76 72); balonda Fener 64 birimlik ızgarayla (icons/fener.svg) çizilsin:
+   çizim %118,75 genişlikte, solda %9,375 ve üstte %12,5 taşar (yükseklik yine sütun genişliği kadar). Sahnedeki balon kendi ölçüsünü kullanır (aşağıda) */
+:root[data-gorunum="cocuk"] .fener-balon__fener { overflow: visible; }
+:root[data-gorunum="cocuk"] .fener-balon__fener > .fener { width: 118.75%; max-width: none; margin: -12.5% 0 0 -9.375%; }
 :root[data-gorunum="cocuk"] .fener-balon__balon {
   position: relative;
   flex: 1 1 auto;
@@ -637,7 +649,12 @@
    Yükseklik ~90 karakterlik en uzun mesaja göre: telefonda 4, orta genişlikte 3, geniş ekranda 2 satır; metin dikeyde ortalanır.
    Satır sayısı yazı boyutu ayarıyla birlikte büyür (em). Bundan uzun bir metin olursa balon yine büyür, metin kesilmez. */
 :root[data-gorunum="cocuk"] .fener-balon--selam { --fb-satir: 1.45; --fb-satir-sayisi: 4; }
-:root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__fener { width: 4.5rem; }
+:root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__fener { width: 6.25rem; }
+/* S33-d2: ana sayfa balonunda Fener balonun yüksekliğini doldursun: çizim %130 genişlikte (ışık kanatları sütunun içinde kalır), boş üst pay kırpılır */
+:root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__fener > .fener { width: 130%; margin: -16% 0 0 -15%; }
+@media (max-width: 599px) {
+  :root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__balon { margin-bottom: 0.75rem; }
+}
 :root[data-gorunum="cocuk"] .fener-balon--selam .fener-balon__balon {
   display: flex;
   flex-direction: column;
@@ -1123,6 +1140,7 @@
     margin: 0;
   }
   :root[data-gorunum="cocuk"][data-sahne] #fener-selam .fener-balon__fener { width: var(--sahne-fener-g); }
+  :root[data-gorunum="cocuk"][data-sahne] #fener-selam .fener-balon__fener > .fener { width: 100%; margin: 0; } /* S33-d: sahne ölçüsü (fener-sahnesi.js) tüm çizim alanına göre */
   :root[data-gorunum="cocuk"][data-sahne] #fener-selam .fener-balon__balon {
     flex: none;
     align-self: stretch;
@@ -1138,4 +1156,94 @@
   /* Sayfa geçişindeki kayma (transform) sabit konumlu balonu sayfayla birlikte oynatmasın: ana sayfa yalnız belirerek gelir */
   :root[data-gorunum="cocuk"][data-sahne] .ana > [data-rota="/"]:not([hidden]) { animation-name: c-sayfa-belir; }
   @keyframes c-sayfa-belir { from { opacity: 0; } to { opacity: 1; } }
+}
+
+/* =====================================================================
+   S33: Dinamik tema: güneş ve ay (js/engine/gok-cisimleri.js)
+   Yalnız <html data-gok="gunduz|gece"> iken (a11y.js yazar: çocuk görünümünde her temada; S33-d: açık/koyu temada cisim sabit yerde). Gündüz/gece renkleri data-tema ile gelir (acik/koyu).
+   Katman z-index -2: bulutların (body::before), kuşların ve Fener sahnesinin arkasında; içerik her zaman önde.
+   Konum JS’ten CSS değişkeni: --gok-x, --gok-y, --gok-gorunur (cisim), --gok-sicak (katman); dakikada bir değişir, arada 60 sn doğrusal kayar.
+   Kontrast: güneş sarısı ve sıcak gök üzerinde başlık ve soluk metin ≥ 4,5:1; gece ay açık renkli olduğu için başlık ve soluk metne zemin renginde hale.
+   ===================================================================== */
+:root[data-gorunum="cocuk"] {
+  --c-gunes-yuz: #ffc93c;
+  --c-gunes-ic: #ffe07a;
+  --c-gunes-isin: #ffc44a;
+  --c-gunes-hale: rgb(255 214 92 / 0.32);
+  --c-ay-isik: #f4f1dc;
+  --c-ay-golge: #3b477f;
+  --c-ay-krater: #dcd6b6;
+  --c-ay-kontur: rgb(244 241 220 / 0.5);
+  --c-ay-hale: rgb(200 210 255 / 0.2);
+  /* Doğuş/batış: sıcak turuncu gök (açık temanın gök renklerinin üstüne, yukarıdan aşağı söner) */
+  --c-gok-sicak-ust: #ffc49c;
+  --c-gok-sicak-orta: #ffd8b2;
+}
+
+.gok { display: none; }
+@media screen {
+  :root[data-gorunum="cocuk"][data-gok] .gok {
+    display: block;
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -2;
+    pointer-events: none;
+  }
+  :root[data-gorunum="cocuk"][data-gok].egz-acik .gok { display: none; }
+
+  /* Doğuştan sonraki ve batıştan önceki 1 saat: sıcak gök (opaklık JS’ten, ufukta 1 → 0) */
+  :root[data-gorunum="cocuk"] .gok__sicak {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: min(60vh, 520px);
+    background: linear-gradient(180deg, var(--c-gok-sicak-ust) 0, var(--c-gok-sicak-orta) 45%, transparent 100%);
+    opacity: var(--gok-sicak, 0);
+    transition: opacity 60s linear;
+  }
+  :root[data-gorunum="cocuk"][data-gok="gece"] .gok__sicak { display: none; }
+
+  :root[data-gorunum="cocuk"] .gok__cisim {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: clamp(3rem, 2.2rem + 3vw, 5rem);
+    aspect-ratio: 1;
+    transform: translate3d(var(--gok-x, -200px), var(--gok-y, -200px), 0);
+    opacity: var(--gok-gorunur, 0);
+    transition: transform 60s linear, opacity 60s linear;
+    will-change: transform;
+  }
+  :root[data-gorunum="cocuk"] .gok__cisim--ay { width: clamp(2.5rem, 2rem + 2vw, 4rem); }
+  :root[data-gorunum="cocuk"][data-gok="gunduz"] .gok__cisim--ay,
+  :root[data-gorunum="cocuk"][data-gok="gece"] .gok__cisim--gunes { display: none; }
+  /* İlk çizimde, ay döngüsü başa sararken, boyut ya da gündüz/gece değişince geçişsiz yerine oturur */
+  :root[data-gorunum="cocuk"] .gok__cisim--atla,
+  :root[data-gorunum="cocuk"] .gok--atla .gok__sicak { transition: none; }
+  :root[data-gorunum="cocuk"] .gok__cizim { display: block; width: 100%; height: 100%; overflow: visible; }
+
+  :root[data-gorunum="cocuk"] .gok__gunes-hale { fill: var(--c-gunes-hale); }
+  :root[data-gorunum="cocuk"] .gok__gunes-isin { fill: none; stroke: var(--c-gunes-isin); stroke-width: 5; stroke-linecap: round; }
+  :root[data-gorunum="cocuk"] .gok__gunes-yuz { fill: var(--c-gunes-yuz); }
+  :root[data-gorunum="cocuk"] .gok__gunes-ic { fill: var(--c-gunes-ic); }
+  :root[data-gorunum="cocuk"] .gok__ay-hale { fill: var(--c-ay-hale); }
+  :root[data-gorunum="cocuk"] .gok__ay-golge { fill: var(--c-ay-golge); opacity: 0.55; }
+  :root[data-gorunum="cocuk"] .gok__ay-isik { fill: var(--c-ay-isik); }
+  :root[data-gorunum="cocuk"] .gok__ay-kraterler { fill: var(--c-ay-krater); }
+  :root[data-gorunum="cocuk"] .gok__ay-kontur { fill: none; stroke: var(--c-ay-kontur); stroke-width: 1.5; }
+
+  /* Gece (dinamik ya da koyu tema): ay açık renkli; ana sayfa başlığı ve soluk metin önünden geçerken okunur kalsın (zemin renginde hale) */
+  :root[data-gorunum="cocuk"][data-gok="gece"] .ana h1,
+  :root[data-gorunum="cocuk"][data-gok="gece"] .ana .soluk {
+    text-shadow: 0 0 0.15em var(--renk-zemin), 0 0 0.35em var(--renk-zemin), 0 0 0.6em var(--renk-zemin);
+  }
+
+  /* Hareketi azalt: güneş ve ay doğru yerde durur ama kaymaz (dakikalık atlamalar) */
+  :root[data-gorunum="cocuk"][data-hareket="azalt"] .gok__cisim,
+  :root[data-gorunum="cocuk"][data-hareket="azalt"] .gok__sicak { transition: none; }
+  @media (prefers-reduced-motion: reduce) {
+    :root[data-gorunum="cocuk"] .gok__cisim,
+    :root[data-gorunum="cocuk"] .gok__sicak { transition: none; }
+  }
 }

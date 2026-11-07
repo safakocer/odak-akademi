@@ -478,7 +478,11 @@ function gelistirmeAdresiMi(ad = location.hostname) {
   return /^172\.(1[6-9]|2\d|3[01])\./.test(ad);
 }
 
-// S29: telefonda konsol olmadığı için görünüm Ayarlar sayfasının sonundaki geliştirici kutusundan değiştirilir (kullanıcıya görünmez)
+// S29 GEÇİCİ: yayına kadar görünüm seçimi her adreste (Vercel dahil) Ayarlar'da görünür.
+// YAYINDAN ÖNCE false yap: o zaman kutu yalnız yerel sunucuda ve ev ağında çıkar (S27 kuralı: görünümü yönetici seçer)
+const GECICI_GORUNUM_SECIMI = true;
+
+// S29: telefonda konsol olmadığı için görünüm Ayarlar sayfasının sonundaki kutudan değiştirilir
 function gelistiriciKutusu() {
   const durum = el('p', { sinif: 'soluk', role: 'status' });
   const yaz = () => { durum.textContent = `Şu anki görünüm: ${cocukGorunumuMu() ? 'çocuk' : 'profesyonel'}`; };
@@ -488,14 +492,15 @@ function gelistiriciKutusu() {
   });
   yaz();
   $('.ayarlar-sayfasi')?.append(el('section', { sinif: 'kart ayar-bolumu', 'aria-labelledby': 'gelistirici-baslik' },
-    el('h2', { id: 'gelistirici-baslik', metin: 'Geliştirici denemesi' }),
-    el('p', { sinif: 'alan__ipucu', metin: 'Yalnız yerel sunucuda ve ev ağında görünür; yayında çıkmaz.' }),
+    el('h2', { id: 'gelistirici-baslik', metin: 'Görünüm (deneme)' }),
+    el('p', { sinif: 'alan__ipucu', metin: 'Geçici: yayına alınmadan önce kaldırılacak. Seçim bu cihazda saklanır.' }),
     el('div', { sinif: 'yedek-eylemler' }, dugme('Çocuk görünümü', 'cocuk'), dugme('Profesyonel görünüm', 'profesyonel')),
     durum));
 }
 
+if (GECICI_GORUNUM_SECIMI || gelistirmeAdresiMi()) gelistiriciKutusu();
+
 if (gelistirmeAdresiMi()) {
-  gelistiriciKutusu();
   window.odakDeneme = {
     kayitEkle, ozet, sesCal, molaEsiginiAyarla, gozMolasiEsiginiAyarla,
     // S17: finali 21 gün beklemeden denemek için başlangıç tarihini geri alır: odakDeneme.testBaslangiciniGeriAl(21)

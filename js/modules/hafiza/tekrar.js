@@ -1,10 +1,11 @@
-// Tekrar Kartları (S16): #/tekrar (bugünün tekrarı, Leitner kutuları, desteler, hazır desteler, CSV, ayarlar) ve #/tekrar/<deste> (kartlar); geri çağırma oturumu sayfa içinde açılır. Motor: js/engine/srs.js
+// Tekrar Kartları (S16; S28: boş durumlarda çocuk görünümünde Fener balonu): #/tekrar (bugünün tekrarı, Leitner kutuları, desteler, hazır desteler, CSV, ayarlar) ve #/tekrar/<deste> (kartlar); geri çağırma oturumu sayfa içinde açılır. Motor: js/engine/srs.js
 import { el, spriteIkon, toastGoster, modalAc, modalKapat } from '../../core/ui.js';
 import { duyur, odakla } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
 import { git } from '../../core/router.js';
 import { boslukTemizle, trKucuk, sayiBicimle, gunAnahtari } from '../../core/utils.js';
 import { aracBilgisi } from '../katalog.js';
+import { bosDurum } from '../../engine/fener.js';
 import {
   GUNLUK_SINIR, ARALIK_SINIRI, SINIRLAR, VARSAYILAN_ARALIKLAR, ICE_AKTARILAN_DESTE,
   srsAyarlari, srsAyarKaydet, desteOzetleri, desteBul, desteKartlari, desteOlustur, desteYenidenAdlandir, desteSil,
@@ -27,7 +28,7 @@ export function tekrarSayfasiniKapat() {
 // ---------- Küçük yardımcılar ----------
 const geriBaglanti = (href, metin) => el('a', { sinif: 'btn btn--hayalet btn--kucuk geri-baglanti', href },
   spriteIkon('ok-sag', 'ikon ikon--kucuk ikon--ters'), metin);
-const bosDurum = (metin) => el('p', { sinif: 'bos-durum', metin });
+// S28: boş durum ortak yardımcıdan (profesyonelde <p class="bos-durum">, çocukta aynı metinle Fener balonu)
 const kisalt = (s, n = 40) => { const h = [...String(s).replace(/\s+/g, ' ')]; return h.length > n ? `${h.slice(0, n - 1).join('').trim()}…` : h.join(''); };
 
 function sayfaUst(baslik, aciklama, id) {

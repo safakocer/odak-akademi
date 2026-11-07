@@ -1,4 +1,4 @@
-// Kütüphane sayfası (#/kutuphane; S25: seçicide kimlik kaçışlı): sınıf metinleri ve kendi metinlerin; arama, sınıf/tür/uzunluk/durum süzgeçleri, favoriler, seviye göstergesi; kendi metnini ekle, düzenle, sil
+// Kütüphane sayfası (#/kutuphane; S25: seçicide kimlik kaçışlı; S28: boş durumda çocuk görünümünde Fener balonu): sınıf metinleri ve kendi metinlerin; arama, sınıf/tür/uzunluk/durum süzgeçleri, favoriler, seviye göstergesi; kendi metnini ekle, düzenle, sil
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { duyur, odakla } from '../../core/a11y.js';
 import { git } from '../../core/router.js';
@@ -9,6 +9,7 @@ import {
   favoriMi, favoriDegistir, okumaBilgisi, seviyeBilgisi, profilSinifi, secimAyarla, kendiMetniSil,
 } from '../../engine/text-bank.js';
 import { metinFormuAc } from './metin-formu.js';
+import { bosDurum } from '../../engine/fener.js';
 
 // Süzgeçler sayfa değişse de (uygulama açıkken) hatırlanır
 const BOS_SUZGEC = Object.freeze({ arama: '', sinif: '', tur: '', uzunluk: '', durum: '', favori: false });
@@ -189,7 +190,8 @@ export async function kutuphaneSayfasiCiz(kap) {
     el('p', { metin: 'Sınıf metinleri yüklenemedi. Uygulamayı yerel sunucuyla ya da internet adresinden açtığından emin ol ve sayfayı yenile. Kendi metinlerin yine de burada.' }));
   const sayi = el('p', { sinif: 'kutuphane__sayi soluk', 'aria-live': 'polite', tabindex: '-1' });
   const liste = el('ul', { sinif: 'metin-listesi', 'aria-label': 'Metinler' });
-  const bos = el('p', { sinif: 'bos-durum', hidden: true, metin: 'Bu süzgeçlere uyan metin yok. Süzgeçleri temizlemeyi ya da başka bir sınıf seçmeyi dene.' });
+  const bos = bosDurum('Bu süzgeçlere uyan metin yok. Süzgeçleri temizlemeyi ya da başka bir sınıf seçmeyi dene.');
+  bos.hidden = true;
 
   // Uyarı yoksa (false) ekrana yazılmasın diye boş öğeler süzülür
   kap.replaceChildren(...[

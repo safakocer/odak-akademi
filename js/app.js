@@ -1,4 +1,4 @@
-// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
+// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28; S30: duruma göre mesaj, dokununca ipucu), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), geniş ekranda kayalıklar üstünde Fener sahnesini (S32), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
 import { temaDugmesiBagla, ayarFormuBagla, duyur, degisinceHaberVer } from './core/a11y.js';
 import { modalBagla, modalAc, toastGoster, el } from './core/ui.js';
 import { depoBaslat, yedekIndir, yedekYukle, kullanimBayt, kaliciMi } from './core/storage.js';
@@ -15,9 +15,12 @@ import { egzersizAc, egzersiziKapat, molaEsiginiAyarla } from './engine/exercise
 import { egzersizYukle, aracBilgisi, egzersizBilgisi, modulAraclari } from './modules/katalog.js';
 import { modulKartlariniGuncelle, modulSayfasiCiz, egzersizlerSayfasiCiz, egzersizKarti } from './modules/egzersiz-listesi.js';
 import { gozMolasiEsiginiAyarla } from './engine/eye-rest.js';
-import { seriDurumu, bugunDurumu, bugunlukMesaji, seviyeBilgisi, ilerlemeVerisi, ilerlemeSonuclariniSil } from './engine/motivasyon.js';
+import { gokyuzuBaslat, gokyuzuDene } from './engine/gokyuzu.js';
+import { sahneBaslat } from './engine/fener-sahnesi.js';
+import { seriDurumu, bugunDurumu, bugunlukMesaji, seviyeBilgisi, ilerlemeVerisi, ilerlemeSonuclariniSil, rozetDurumu, bugunAnahtari } from './engine/motivasyon.js';
 import { sinifModuAcikMi, haftalikDurum } from './modules/veli/veli-veri.js';
-import { fenerBalonu, anaSayfaMesaji } from './engine/fener.js';
+import { fenerBalonu, balonGuncelle, anaSayfaMesaji } from './engine/fener.js';
+import { ipucuMetni, gunlukIpucuSirasi } from './engine/fener-mesajlari.js';
 
 const $ = (secici) => document.querySelector(secici);
 
@@ -33,6 +36,10 @@ temaDugmesiBagla($('#tema-dugmesi'));
 ayarFormuBagla($('#ayar-formu'));
 // S29: çocuk görünümünde düğmelere dokunma sesi; ses düzeyi değişince yeni düzeyde örnek ses
 dokunmaSesleriniBagla();
+// S31: çocuk görünümünde arka planda ara sıra martı (gündüz) ya da yarasa (gece) geçer
+gokyuzuBaslat();
+// S32: çocuk görünümünde, içerik sütununun solunda yer varsa kayalıklar üstünde Fener sahnesi (ana sayfa balonu oradan konuşur)
+sahneBaslat();
 $('#ayar-formu').addEventListener('change', (e) => { if (e.target.name === 'sesDuzeyi') sesCal('dogru'); });
 
 // 3) PWA: çevrimdışı önbellek, yeni sürüm bandı, ana ekrana ekle
@@ -58,7 +65,8 @@ rotaEkle('/ayarlar', {
 });
 
 // D03: Alan sayfası (#/modul/<ad>) ve tüm egzersizler (#/egzersizler); kartlar katalog.js'ten çizilir
-rotaEkle('/egzersizler', { baslik: 'Egzersizler', goster: () => egzersizlerSayfasiCiz($('#egzersizler-sayfasi')) });
+// S31: açık alan kartı adreste: #/egzersizler?alan=<ad>
+rotaEkle('/egzersizler', { baslik: 'Egzersizler', goster: (_, sorgu) => egzersizlerSayfasiCiz($('#egzersizler-sayfasi'), sorgu) });
 rotaEkle('/modul/:ad', {
   baslik: 'Çalışma alanı',
   goster: ({ ad }) => {
@@ -241,20 +249,72 @@ function anaEkraniGuncelle() {
   fenerSelami(p);
 }
 
-// S28: çocuk görünümünde selamlamanın altında Fener'in konuşma balonu (profesyonelde öğe hiç yok). Mesaj değişmedikçe yeniden çizilmez
-function fenerSelami(p) {
+// S28: çocuk görünümünde selamlamanın altında Fener'in konuşma balonu (profesyonelde öğe hiç yok). Mesaj değişmedikçe yeniden çizilmez.
+// S30: mesaj duruma göre seçilir (rozet, seviye, seri, dönüş, kurs, tekrar, test, saat …; js/engine/fener-mesajlari.js); Fener'e dokununca ipucu
+let fenerSira = 0; // üst üste gelen çağrılarda yalnız sonuncusu çizer
+let ipucuNo = null;
+function fenerSelami(p) { fenerSelamiCiz(p).catch((h) => console.error('[fener]', h)); }
+async function fenerSelamiCiz(p) {
+  if (!cocukGorunumuMu()) { document.getElementById('fener-selam')?.remove(); return; }
+  const sira = ++fenerSira;
+  let bilgi = {};
+  if (p) {
+    try { bilgi = await fenerBilgisi(p); } catch (h) { console.error('[fener]', h); bilgi = { durum: bugunDurumu(p.id) }; }
+  }
+  if (sira !== fenerSira || !cocukGorunumuMu()) return; // bu arada yeni çağrı geldi ya da görünüm değişti
   const bolum = document.querySelector('section[aria-labelledby="karsilama-baslik"]');
   if (!bolum) return;
   const alan = document.getElementById('fener-selam');
-  if (!cocukGorunumuMu()) { alan?.remove(); return; }
-  const { ifade, mesaj } = anaSayfaMesaji({ profil: p, durum: p ? bugunDurumu(p.id) : null });
-  const anahtar = `${ifade}|${mesaj}`;
-  if (alan?.dataset.anahtar === anahtar) return;
-  const yeni = fenerBalonu({ ifade, mesaj, sinif: 'fener-balon--selam' });
+  const { ifade, mesaj } = anaSayfaMesaji({ profil: p, ...bilgi, gun: new Date() });
+  const anahtar = `${p?.id ?? ''}|${ifade}|${mesaj}`;
+  if (alan?.dataset.anahtar === anahtar) return; // aynı mesaj: açık ipucu da yerinde kalır
+  ipucuNo = null;
+  const yeni = fenerBalonu({
+    ifade, mesaj, sinif: 'fener-balon--selam',
+    dokun: { etiket: 'Fener’den ipucu al', not: 'İpucu', tikla: ipucuGoster },
+  });
   yeni.id = 'fener-selam';
   yeni.dataset.anahtar = anahtar;
   if (alan) alan.replaceWith(yeni);
   else bolum.firstElementChild.after(yeni);
+}
+
+// S30: her dokunuşta sıradaki ipucu (günün ilk ipucu her gün farklı); ekran okuyucuya duyurulur
+function ipucuGoster(balon) {
+  ipucuNo = ipucuNo === null ? gunlukIpucuSirasi() : ipucuNo + 1;
+  const metin = ipucuMetni(ipucuNo);
+  balonGuncelle(balon, { ifade: 'cesaret', baslik: 'İpucu', mesaj: metin });
+  duyur(`İpucu: ${metin}`);
+}
+
+// S30: Fener'in mesajı için öğrencinin kendi verisi. Tekrar kartı, kurs ve test bilgisi sonradan yüklenen dosyalardan okunur; biri açılamazsa o bilgi atlanır
+const gunNo = (g) => { const [y, a, d] = g.split('-').map(Number); return Math.round(Date.UTC(y, a - 1, d) / 86400000); };
+async function fenerBilgisi(p) {
+  const bugun = bugunAnahtari();
+  const veri = ilerlemeVerisi(p.id);
+  const seri = seriDurumu(p.id);
+  const seviye = seviyeBilgisi(veri.xp);
+  const sabahki = seviyeBilgisi(Math.max(0, veri.xp - (veri.gunler[bugun]?.xp ?? 0))).seviye; // bugünkü XP'den önceki seviye
+  const onceki = Object.keys(veri.gunler).filter((g) => g < bugun && veri.gunler[g].kayit > 0).sort().at(-1);
+  const [tekrarKart, kurs, test] = await Promise.all([
+    import('./engine/srs.js').then((m) => m.bugununTekrari()?.kartlar?.length ?? 0).catch(() => null),
+    import('./modules/kurs/kurs-veri.js').then((m) => kursBugun(m.kursVerisi(), bugun)).catch(() => null),
+    import('./modules/testler/test-veri.js').then((m) => m.testDurumu()?.asama ?? null).catch(() => null),
+  ]);
+  return {
+    durum: bugunDurumu(p.id),
+    seri: { gun: seri.seri, bugunCalisildi: seri.bugunCalisildi },
+    seviye: { no: seviye.seviye, unvan: seviye.unvan, kalan: seviye.kalan, bugunAtladi: seviye.seviye > sabahki },
+    yeniRozetler: rozetDurumu(p.id).filter((r) => r.kazanildi === bugun).map((r) => r.ad),
+    araGun: onceki ? gunNo(bugun) - gunNo(onceki) : null,
+    tekrarKart, kurs, test,
+  };
+}
+// Kurs planından bugünün durumu: bugün bir gün tamamlandıysa 'tamam', sürüyorsa 'bekliyor', kurs yok/bitti/yeniden başlatma bekliyorsa null
+function kursBugun(v, bugun) {
+  const plan = Array.isArray(v?.gunler) ? v : v?.plan;
+  if (!plan || !Array.isArray(plan.gunler) || plan.durum?.bitti || plan.durum?.yenidenBaslatmaOnerisi) return null;
+  return plan.gunler.some((g) => g.tarih === bugun && g.tamamlandi) ? 'tamam' : 'bekliyor';
 }
 // Görünüm (yönetici/geliştirici) ya da ayar değişince balon eklenir, kalkar ya da yenilenir
 degisinceHaberVer(() => fenerSelami(aktifProfil()));
@@ -510,6 +570,8 @@ if (gelistirmeAdresiMi()) {
     kursIlerle: (gun) => import('./modules/kurs/kurs-veri.js').then((m) => m.kursDenemeIlerle(gun)),
     // S27: görünüm denemesi: odakDeneme.gorunum('cocuk') ya da odakDeneme.gorunum('profesyonel'); argümansız: şu anki bilgi
     gorunum: (ad) => (ad ? gorunumAyarla(ad) : hesapBilgisi()),
+    // S31: martı/yarasa hemen çıksın (30-60 sn beklemeden): odakDeneme.gokyuzu() → true | false (koşul uygun değil)
+    gokyuzu: gokyuzuDene,
   };
 }
 

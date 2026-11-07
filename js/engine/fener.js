@@ -1,8 +1,11 @@
-// Fener maskotunun ifadeleri ve konuşma balonu (S28, çocuk görünümü): icons/fener.svg ile aynı karakter algi.svg() ile çizilir; renkler ve hareketler css/cocuk.css (.fener*, .fener-balon*)
+// Fener maskotunun ifadeleri ve konuşma balonu (S28, çocuk görünümü; S30: 7. ifade “uykulu”, dokunulabilir balon, balonGuncelle, mesajlar fener-mesajlari.js’te): icons/fener.svg ile aynı karakter algi.svg() ile çizilir; renkler ve hareketler css/cocuk.css (.fener*, .fener-balon*)
 // Hareketler (göz kırpma, ışığın yavaşça parlaması, zıplama) "hareketi azalt" açıkken CSS'te durur. Çizim ekran okuyucuya gizlidir; balondaki metin normal metindir.
 import { svg } from './algi.js';
 import { el } from '../core/ui.js';
 import { cocukGorunumuMu } from '../core/hesap.js';
+
+// S30: ana sayfa mesajları ayrı veri dosyasında; eski içe aktarmalar (app.js, components.html) bozulmasın diye buradan da açılır
+export { anaSayfaMesaji } from './fener-mesajlari.js';
 
 /** İfade adı → açıklama (vitrin ve isteğe bağlı aria-label için) */
 export const FENER_IFADELERI = Object.freeze({
@@ -12,6 +15,7 @@ export const FENER_IFADELERI = Object.freeze({
   cesaret: 'Fener göz kırpıp cesaret veriyor',
   mola: 'Fener mola veriyor, uyuyor',
   saskin: 'Fener şaşırdı',
+  uykulu: 'Fener uykulu, esniyor', // S30: gece mesajı
 });
 
 const c = (cx, cy, r, sinif) => svg('circle', { cx, cy, r, class: sinif });
@@ -40,6 +44,9 @@ function acikGoz(x, { bx = 0.6, by = 0.5, r = 3.2, br = 1.6, sinif = '' } = {}) 
 }
 // Kapalı göz: yukarı kavis (sevinç) ya da aşağı kavis (uyku)
 const kapaliGoz = (x, yukari = true) => p(yukari ? `M${x - 2.5} 31.4q2.5-2.8 5 0` : `M${x - 2.5} 30.2q2.5 2.6 5 0`, 'fener__cizgi');
+// S30: yarı kapalı (uykulu) göz: alt yarım daire + küçük göz bebeği + göz kapağı çizgisi
+const yariGoz = (x) => svg('g', { class: 'fener__goz' },
+  p(`M${x - 3} 30.5a3 3 0 0 0 6 0z`, 'fener__goz-ak'), c(x, 31.7, 1.2, 'fener__gozbebek'), p(`M${x - 2.8} 30.5h5.6`, 'fener__cizgi'));
 const yanaklar = (r = 1.5) => [c(25, 35.5, r, 'fener__yanak'), c(39, 35.5, r, 'fener__yanak')];
 
 // Her ifadenin yüzü (gövdeyle birlikte zıplar) ve dış ekleri (yerinde durur)
@@ -75,6 +82,11 @@ const IFADE_CIZIMI = {
       svg('ellipse', { cx: 32, cy: 36.4, rx: 1.5, ry: 2, class: 'fener__agiz' })],
     ek: [p('M18.5 6.5 15.5 4M45.5 6.5l3-2.5M32 -2v-3.5', 'fener__saskin')],
   }),
+  // S30: gece; esneyen ağız, yarı kapalı gözler, hilal ve küçük yıldız
+  uykulu: () => ({
+    yuz: [yariGoz(28), yariGoz(36), ...yanaklar(), svg('ellipse', { cx: 32, cy: 36.3, rx: 1.4, ry: 1.8, class: 'fener__agiz fener__esneme' })],
+    ek: [p('M54 -3a6 6 0 1 0 6.5 8.5a4.8 4.8 0 1 1-6.5-8.5z', 'fener__ay'), parilti(47, 6, 1.7, 'fener__parilti fener__parilti--gece')],
+  }),
 };
 
 /**
@@ -99,14 +111,41 @@ export function fenerCiz(ifade = 'normal', { etiket, hareket = true, sinif = '' 
 
 /**
  * Konuşma balonu: Fener + kısa mesaj. Metin ekran okuyucuda normal okunur, çizim okunmaz.
+ * S30: dokun { etiket, not?, tikla(balon) } verilirse Fener bir düğme olur (aria-label = etiket); not, Fener’in altında küçük bir etikettir (ör. “İpucu”, ekran okuyucuya gizli).
+ * baslik, metnin başında kalın yazılır (ayrı satır değil; balonun yüksekliği değişmesin).
  * Döner: <div class="fener-balon">
  */
-export function fenerBalonu({ ifade = 'normal', mesaj, baslik, sinif = '', hareket = true } = {}) {
-  return el('div', { sinif: `fener-balon ${sinif}`.trim(), 'data-ifade': ifade },
-    el('span', { sinif: 'fener-balon__fener' }, fenerCiz(ifade, { hareket })),
-    el('div', { sinif: 'fener-balon__balon' },
-      baslik && el('p', { sinif: 'fener-balon__baslik', metin: baslik }),
-      el('p', { sinif: 'fener-balon__metin', metin: mesaj })));
+export function fenerBalonu({ ifade = 'normal', mesaj, baslik, sinif = '', hareket = true, dokun = null } = {}) {
+  const cizim = fenerCiz(ifade, { hareket });
+  const fener = dokun
+    ? el('button', { type: 'button', sinif: 'fener-balon__fener fener-balon__dugme', 'aria-label': dokun.etiket, onclick: () => dokun.tikla(balon) },
+      cizim, dokun.not && el('span', { sinif: 'fener-balon__etiket', 'aria-hidden': 'true', metin: dokun.not }))
+    : el('span', { sinif: 'fener-balon__fener' }, cizim);
+  const balon = el('div', { sinif: `fener-balon ${sinif}`.trim(), 'data-ifade': ifade },
+    fener,
+    el('div', { sinif: 'fener-balon__balon' }, balonIcerigi({ mesaj, baslik })));
+  return balon;
+}
+
+// Balonun içi tek paragraf: başlık varsa metnin başında kalın (“İpucu: …”)
+function balonIcerigi({ mesaj, baslik }) {
+  return [el('p', { sinif: 'fener-balon__metin' }, baslik ? el('strong', { sinif: 'fener-balon__baslik', metin: `${baslik}: ` }) : null, mesaj)];
+}
+
+/**
+ * S30: var olan balonun ifadesini ve metnini değiştirir (düğme ve odak yerinde kalır); balon kısa bir “pop” ile yenilenir.
+ * Duyuru çağırana aittir (a11y.duyur).
+ */
+export function balonGuncelle(balon, { ifade = 'normal', mesaj, baslik, hareket = true } = {}) {
+  if (!balon) return;
+  balon.dataset.ifade = ifade;
+  balon.querySelector('.fener-balon__fener .fener')?.replaceWith(fenerCiz(ifade, { hareket })); // düğmedeki etiket yerinde kalır
+  const kap = balon.querySelector('.fener-balon__balon');
+  if (!kap) return;
+  kap.replaceChildren(...balonIcerigi({ mesaj, baslik }));
+  kap.style.animation = 'none'; // animasyonu yeniden başlat
+  void kap.offsetWidth;
+  kap.style.animation = '';
 }
 
 /**
@@ -116,28 +155,4 @@ export function fenerBalonu({ ifade = 'normal', mesaj, baslik, sinif = '', harek
 export function bosDurum(metin, { ifade = 'dusunme' } = {}) {
   if (!cocukGorunumuMu()) return el('p', { sinif: 'bos-durum', metin });
   return fenerBalonu({ ifade, mesaj: metin, sinif: 'fener-balon--bos' });
-}
-
-// Ana sayfa mesajları: kısa, “henüz / bir sonraki hedef” dili; karşılaştırma yok, süre baskısı yok
-const BASLANGIC_MESAJLARI = Object.freeze([
-  'Bugün hangi alanı deneyelim? Kısa bir çalışma yeter.',
-  'Henüz başlamadık. Birkaç dakikalık bir tur güzel bir başlangıç olur.',
-  'Bir sonraki hedefin: bugünün ilk turunu tamamlamak.',
-  'Merak ettiğin bir egzersizi seç; ben buradayım.',
-]);
-
-/**
- * Ana sayfa balonunun ifadesi ve mesajı. durum: motivasyon.bugunDurumu() çıktısı (profil yoksa null).
- * Aynı gün aynı durumda aynı mesaj gelir (sayfa her yenilendiğinde değişip dikkat dağıtmasın).
- */
-export function anaSayfaMesaji({ profil, durum, gun = new Date() } = {}) {
-  if (!profil) return { ifade: 'normal', mesaj: 'Merhaba, ben Fener! Bir profil oluşturunca kısa çalışmalarla başlayabiliriz.' };
-  const d = durum ?? { dk: 0, hedefDk: 0 };
-  if (d.uzun) return { ifade: 'mola', mesaj: 'Bugün epey çalıştın. Şimdi dinlenme zamanı; yarın yine buradayım.' };
-  if (d.hedefTamam) return { ifade: 'sevinc', mesaj: 'Bugünkü hedefin tamam! İstersen dinlen, istersen kısa bir tur daha yap.' };
-  if (d.dk > 0) {
-    const kalan = Math.max(1, d.hedefDk - d.dk);
-    return { ifade: 'cesaret', mesaj: `Güzel gidiyorsun. Hedefe ${kalan} dakika kaldı; kısa bir tur yeter.` };
-  }
-  return { ifade: 'dusunme', mesaj: BASLANGIC_MESAJLARI[gun.getDate() % BASLANGIC_MESAJLARI.length] };
 }

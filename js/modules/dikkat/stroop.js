@@ -1,9 +1,9 @@
-// Renk mi, Kelime mi? (Stroop, S11a): renk adı yazılı kelimenin yazı rengini seç; uyumlu ve uyumsuz denemeler karışık. Düğmelerde renksiz ad + sabit konum, isteğe bağlı şekil ipucu (renk körlüğü)
+// Renk mi, Kelime mi? (Stroop, S11a; S34e: deneme, basamaklar ve ipucu önerisi sınıf bandından, görsel örnek): renk adı yazılı kelimenin yazı rengini seç; uyumlu ve uyumsuz denemeler karışık. Düğmelerde renksiz ad + sabit konum, isteğe bağlı şekil ipucu (renk körlüğü)
 import { el } from '../../core/ui.js';
 import { trBuyuk } from '../../core/utils.js';
 import { simgeSvg, rastgeleSec } from '../../engine/algi.js';
-import { hazirlikSecimi } from '../../engine/exercise-frame.js';
-import { dikkatOyunu, dikkatTuru, dikkatSahnesi, denemePlani, oranliAdet, msMetni } from '../../engine/attention-core.js';
+import { hazirlikSecimi, ornekListesi } from '../../engine/exercise-frame.js';
+import { dikkatOyunu, dikkatTuru, dikkatSahnesi, denemePlani, oranliAdet, msMetni, denemeSayisi } from '../../engine/attention-core.js';
 
 const DENEME = 24;
 // Renkler yalnız belirteçlerden; her rengin sabit şekli var (ipucu açıkken kelimenin altında ve düğmede görünür)
@@ -13,7 +13,8 @@ const RENKLER = Object.freeze([
   { kod: 'yesil', ad: 'yeşil', deger: 'var(--renk-basari)', sekil: 'ucgen' },
   { kod: 'sari', ad: 'sarı', deger: 'var(--renk-gunes)', sekil: 'yildiz' },
 ].map(Object.freeze));
-let ipucu = false; // oturumluk seçim
+let ipucu = null; // oturumluk seçim; null: henüz seçilmedi (S34e: sınıf bandı önerir, ör. 2. sınıfta açık)
+const ipucuAcikMi = (bant) => ipucu ?? !!bant?.ipucu;
 
 export default dikkatOyunu({
   egzersiz: 'stroop',
@@ -36,19 +37,26 @@ export default dikkatOyunu({
   alanEtiketi: 'Renk oyunu. Yazının rengini düğmelerle ya da 1-4 tuşlarıyla seç.',
   rekorAyrimi: 'ipucu', // şekil ipucu açık ve kapalı turların rekorları ayrı
 
-  hazirlik: () => hazirlikSecimi({
+  hazirlik: ({ bant } = {}) => hazirlikSecimi({
     ad: 'stroop-ipucu',
     baslik: 'Renk ipucu',
     secenekler: [
       { deger: false, etiket: 'Yalnız renk' },
       { deger: true, etiket: 'Renk ve şekil', aciklama: 'renkleri ayırt etmekte zorlanıyorsan' },
     ],
-    secili: ipucu,
+    secili: ipucuAcikMi(bant),
     degisince: (d) => { ipucu = d; },
   }),
 
+  // S34e: kısa yönergede görsel örnek (kelime “mavi”, yazı kırmızı)
+  ornek: () => ornekListesi([{
+    cizim: el('span', { sinif: 'stroop-kelime', style: `color:${RENKLER[0].deger}`, metin: trBuyuk(RENKLER[1].ad) }),
+    metin: `${trBuyuk(RENKLER[1].ad)} yazıyor ama yazı ${RENKLER[0].ad}: ${RENKLER[0].ad} düğmesine dokun`,
+  }]),
+
   baslat(ctx) {
     const s = ctx.seviye;
+    const ipucu = ipucuAcikMi(ctx.bant);
     const renkler = RENKLER.filter((r) => s.renk >= 4 || r.kod !== 'yesil');
     Object.assign(ctx.ekstra, { renk: renkler.length, ipucu });
 
@@ -69,9 +77,10 @@ export default dikkatOyunu({
     ctx.alan.append(panel);
 
     // Plan: uyumlu/uyumsuz karışık; yazı rengi art arda aynı olmaz
-    const uyumsuz = oranliAdet(DENEME, s.uyumsuz);
+    const deneme = denemeSayisi(ctx, DENEME); // S34e: alıştırma ve sınıf bandı
+    const uyumsuz = oranliAdet(deneme, s.uyumsuz);
     let onceki = null;
-    const plan = denemePlani({ uyumsuz, uyumlu: DENEME - uyumsuz }, { enCokArdisik: 4 }).map((tur) => {
+    const plan = denemePlani({ uyumsuz, uyumlu: deneme - uyumsuz }, { enCokArdisik: 4 }).map((tur) => {
       const murekkep = rastgeleSec(renkler.filter((r) => r !== onceki));
       onceki = murekkep;
       const yazi = tur === 'uyumlu' ? murekkep : rastgeleSec(renkler.filter((r) => r !== murekkep));
@@ -151,6 +160,7 @@ export default dikkatOyunu({
     }
     /* Sarı yazı açık zeminde okunsun: koyu kenar (yalnız belirteç) */
     .stroop-kelime[data-renk="sari"] { -webkit-text-stroke: 0.035em var(--renk-gunes-uzeri); paint-order: stroke fill; }
+    .egz-ornek .stroop-kelime { font-size: 1.6rem; letter-spacing: 0.02em; }
     .stroop-ipucu { inline-size: 2.75rem; block-size: 2.75rem; forced-color-adjust: none; }
     .stroop-secenekler { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--b-2); }
     @media (min-width: 560px) { .stroop-secenekler { grid-template-columns: repeat(var(--sutun), minmax(0, 1fr)); } }

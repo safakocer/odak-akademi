@@ -308,10 +308,11 @@ async function fenerSelamiCiz(p) {
   else bolum.firstElementChild.after(yeni);
 }
 
-// S30: her dokunuşta sıradaki ipucu (günün ilk ipucu her gün farklı); ekran okuyucuya duyurulur
+// S30: her dokunuşta sıradaki ipucu (günün ilk ipucu her gün farklı); ekran okuyucuya duyurulur. S34f: ipuçları etkin profilin kademesine göre (ilkokulda kısa)
 function ipucuGoster(balon) {
-  ipucuNo = ipucuNo === null ? gunlukIpucuSirasi() : ipucuNo + 1;
-  const metin = ipucuMetni(ipucuNo);
+  const sinif = aktifProfil()?.sinif ?? null;
+  ipucuNo = ipucuNo === null ? gunlukIpucuSirasi(new Date(), sinif) : ipucuNo + 1;
+  const metin = ipucuMetni(ipucuNo, sinif);
   balonGuncelle(balon, { ifade: 'cesaret', baslik: 'İpucu', mesaj: metin });
   duyur(`İpucu: ${metin}`);
 }

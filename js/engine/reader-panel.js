@@ -1,6 +1,6 @@
-// Okuma ayar paneli: hız, gruplama, kademeli hız, yazı boyutu, satır aralığı, yazı tipi, tema ve göz molası; canlı önizlemeli
+// Okuma ayar paneli: hız, gruplama, kademeli hız, yazı boyutu, satır aralığı, yazı tipi, tema ve göz molası; canlı önizlemeli (S34-son: hız sürgüsü sınıf bandının üst hızıyla sınırlı)
 import { el } from '../core/ui.js';
-import { GRUP_SINIR, WPM_SINIR, KADEMELI, okumaAyarDenetle, okumaAlaniOlustur, metniGrupla } from './reader-engine.js';
+import { GRUP_SINIR, WPM_SINIR, KADEMELI, okumaAyarDenetle, okumaAlaniOlustur, metniGrupla, etkinOkumaBandi, ustWpm } from './reader-engine.js';
 import { etkinGruplama } from './reader-modes.js';
 
 // Satır aralığı ve gruplar görünsün diye birkaç satırlık, uzun cümleli özgün metin
@@ -26,12 +26,14 @@ function boyutSecenekleri(tanim, tur) {
 
 /**
  * Ayar paneli. Her değişiklikte önizleme anında yenilenir ve degisince çağrılır.
- * secenekler: { ayar, tanim? (seçili mod), onizlemeMetni?, kimlik? (alan id öneki), degisince?(ayar, { kaydet }) }
+ * secenekler: { ayar, tanim? (seçili mod), onizlemeMetni?, kimlik? (alan id öneki), degisince?(ayar, { kaydet }),
+ *   bant? (S34-son: okuma bandı; verilmezse etkin profilinki: hız sürgüsünün üst sınırı bant.ustWpm) }
  *   kaydet true: değişiklik tamamlandı (change olayı), profile kaydedilebilir; false: sürükleme sürüyor (input olayı)
  * Döner: { kok, ayar(), modAyarla(tanim) }
  */
-export function okumaAyarPaneliOlustur({ ayar, tanim = null, onizlemeMetni = ONIZLEME_METNI, kimlik = 'ok', degisince } = {}) {
-  let a = okumaAyarDenetle(ayar);
+export function okumaAyarPaneliOlustur({ ayar, tanim = null, onizlemeMetni = ONIZLEME_METNI, kimlik = 'ok', degisince, bant = etkinOkumaBandi() } = {}) {
+  let a = okumaAyarDenetle(ayar, bant);
+  const ust = ustWpm(bant); // S34-son: ilkokulda sınıfın üst hızı (2: 120, 3: 150, 4: 180), yoksa 500
   let mod = tanim;
   const id = (ad) => `${kimlik}-${ad}`;
 
@@ -54,9 +56,10 @@ export function okumaAyarPaneliOlustur({ ayar, tanim = null, onizlemeMetni = ONI
 
   // Hız ve gruplar
   const hiz = el('input', { type: 'range', id: id('wpm'), name: id('wpm'), 'data-ayar': 'wpm',
-    min: String(WPM_SINIR.en), max: String(WPM_SINIR.enCok), step: String(WPM_SINIR.adim) });
+    min: String(WPM_SINIR.en), max: String(ust), step: String(WPM_SINIR.adim) });
   const hizDeger = el('output', { for: id('wpm') });
-  const hizKutu = el('div', { sinif: 'okuma-ayar__satir' }, el('label', { for: id('wpm') }, 'Hız: ', hizDeger), hiz);
+  const hizKutu = el('div', { sinif: 'okuma-ayar__satir' }, el('label', { for: id('wpm') }, 'Hız: ', hizDeger), hiz,
+    ust < WPM_SINIR.enCok && el('p', { sinif: 'okuma-ayar__not', metin: `Sınıfına uygun en yüksek hız: dakikada ${ust} kelime. Anlayarak okumak hızdan önemli.` }));
   const [turSec, turKutu] = secimKutusu('grupTuru', 'Gruplama', SECENEKLER.grupTuru);
   const [boyutSec, boyutKutu] = secimKutusu('grupBoyutu', 'Grup boyu');
   const grupKutu = el('div', { sinif: 'okuma-ayar__ikili' }, turKutu, boyutKutu);
@@ -141,7 +144,7 @@ export function okumaAyarPaneliOlustur({ ayar, tanim = null, onizlemeMetni = ONI
     if (!ad) return;
     const degisen = { [ad]: e.target.type === 'checkbox' ? e.target.checked : e.target.value };
     if (ad === 'grupTuru') degisen.grupBoyutu = undefined; // tür değişince o türün varsayılan boyu
-    a = okumaAyarDenetle({ ...a, ...degisen });
+    a = okumaAyarDenetle({ ...a, ...degisen }, bant);
     yansit();
     onizle();
     try { degisince?.({ ...a }, { kaydet: e.type === 'change' }); } catch (h) { console.error('[okuma-paneli]', h); }

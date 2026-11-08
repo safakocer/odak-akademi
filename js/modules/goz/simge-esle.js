@@ -1,9 +1,10 @@
-// Simge Anahtarı (S10): anahtar tablosuna bakarak ortadaki simgenin sayısını bulma (görsel eşleme ve tarama); 60 saniye, her açılışta yeni anahtar
+// Simge Anahtarı (S10; S34-son: simge sayısı sınıf bandından (tek sayı da olabilir: dar ekran sütunu yukarı yuvarlanır), örnek): anahtar tablosuna bakarak ortadaki simgenin sayısını bulma (görsel eşleme ve tarama); 60 saniye, her açılışta yeni anahtar
 import { el } from '../../core/ui.js';
 import { karistir } from '../../core/utils.js';
 import { duyur } from '../../core/a11y.js';
 import { simgeSvg, SEKILLER, SEKIL_ADLARI, rastgeleSec, geriYaz } from '../../engine/algi.js';
 import { secenekPaneli } from '../../engine/flas.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 
 const SURE_SN = 60;
 const SIMGE_RENGI = 'var(--renk-birincil)'; // tek renk: renk ipucu olmasın
@@ -33,6 +34,11 @@ export default {
   puanEtiketi: 'Net eşleme',
   puanAciklama: 'Doğru eşleme sayısından yanlışlar çıkarılır.',
   alanEtiketi: 'Simge anahtarı. Simgenin sayısını sayı tuşlarıyla ya da düğmelerle seç.',
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__ikili' }, simgeSvg('kalp', { renk: SIMGE_RENGI }), el('span', { sinif: 'egz-ornek__yazi', metin: '2' })),
+      metin: 'Anahtarda kalbin sayısı 2' },
+    { cizim: simgeSvg('kalp', { renk: SIMGE_RENGI }), metin: 'Ortada kalp görürsen 2’yi seç' },
+  ]),
 
   baslat(ctx) {
     const { alan } = ctx;
@@ -47,7 +53,7 @@ export default {
     let seri = 0;
     Object.assign(ctx.ekstra, { simge: k });
 
-    const anahtar = el('ul', { sinif: 'simge-anahtar', 'aria-label': 'Anahtar', style: `--n:${k};--dar:${k > 4 ? k / 2 : k}` });
+    const anahtar = el('ul', { sinif: 'simge-anahtar', 'aria-label': 'Anahtar', style: `--n:${k};--dar:${k > 4 ? Math.ceil(k / 2) : k}` }); // S34-son: tek simge sayısında sütun tam sayı
     const soru = el('div', { sinif: 'algi-oge simge-soru', role: 'img' });
     const panelKap = el('div', { sinif: 'flas-soru simge-panel' });
     const geri = el('p', { sinif: 'algi-geri', 'aria-live': 'polite' });

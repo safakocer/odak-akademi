@@ -1,11 +1,11 @@
-// Hafıza oyunları ortak altyapısı (S14a; S14b: seviyeye özel sınır, seçim başlığı, sonuç metinleri ve mesaj ezilebilir): merdiven yöntemiyle uyarlanan zorluk, dizi turu döngüsü (izle → hatırla → geri bildirim), tur özeti, en iyi dizi, kendi rekorunla karşılaştırma ve çerçeve tanımı. Yeni hafıza oyunu = tek dosya + hafizaOyunu()
+// Hafıza oyunları ortak altyapısı (S14a; S14b: seviyeye özel sınır, seçim başlığı, sonuç metinleri ve mesaj ezilebilir; S34-son: sınıf bandı (seviye sınırı, deneme, yön sabit), alıştırma turu, rekor kademe içinde): merdiven yöntemiyle uyarlanan zorluk, dizi turu döngüsü (izle → hatırla → geri bildirim), tur özeti, en iyi dizi, kendi rekorunla karşılaştırma ve çerçeve tanımı. Yeni hafıza oyunu = tek dosya + hafizaOyunu()
 import { el } from '../core/ui.js';
 import { duyur } from '../core/a11y.js';
 import { sayi, sinirla, trKucuk, yuzdeBicimle, sayiBicimle, sureMetni } from '../core/utils.js';
-import { modulKayitlari } from '../core/metrics.js';
+import { modulKayitlari, ayniKademe } from '../core/metrics.js';
 import { hazirlikSecimi } from './exercise-frame.js';
 import { geriYaz } from './algi.js';
-import { KESINTI_MS } from './attention-core.js';
+import { KESINTI_MS, denemeSayisi } from './attention-core.js';
 
 /*
  * KULLANIM (dizi oyunu, ör. Rakam Dizisi):
@@ -20,7 +20,9 @@ import { KESINTI_MS } from './attention-core.js';
  *   Rekor göstergeleri gostergeler ile değiştirilebilir ([{ alan, ad, yon: 'buyuk'|'kucuk', bicim }]; ilki puan ve "yeni rekor" kararıdır).
  * Kayda giden: puan = en iyi düzey (enIyi), dogru/yanlis = doğru/yanlış deneme, zorluk = tempo seviyesi (1-3),
  *   ekstra: { mod?, baslangic, gosterMs?, deneme, enIyi, ortDuzey, ogeIsabet, sonDuzey, donus, kesinti, isabet, + oyunun alanları }
- * Rekor: aynı egzersiz, aynı seviye ve aynı yön (mod) içindeki kendi kayıtları.
+ * Rekor: aynı egzersiz, aynı seviye, aynı yön (mod) ve (S34-son) aynı kademe içindeki kendi kayıtları.
+ * S34-son sınıf bandı (çerçeve uygular): ctx.seviye.sinir (düzey sınırı; seviyenin kendi sınırının yerine), ctx.seviye.deneme ve
+ *   ctx.alistirma.deneme (deneme sayısı: olcum > alıştırma > bant > t.deneme), bant.yonSabit (yön/mod seçimi yok, ilk seçenek).
  */
 
 export const HAFIZA_MODUL = 'hafiza';
@@ -226,10 +228,10 @@ export const VARSAYILAN_METINLER = Object.freeze({
   yol: 'Doğruda dizi uzadı, üst üste yanlışta kısaldı. Çubuk boyu dizinin uzunluğu.',
 });
 
-/** Aynı egzersiz, seviye ve (varsa) yöndeki önceki en iyiler: { tur, [alan]: en iyi değer } */
-export function hafizaRekorlari({ modul = HAFIZA_MODUL, egzersiz, zorluk, ayrim, gostergeler = VARSAYILAN_GOSTERGELER, profilId }) {
+/** Aynı egzersiz, seviye, (varsa) yön ve (S34-son) kademedeki önceki en iyiler: { tur, [alan]: en iyi değer }. kademe: ham.ekstra.kademe */
+export function hafizaRekorlari({ modul = HAFIZA_MODUL, egzersiz, zorluk, ayrim, kademe, gostergeler = VARSAYILAN_GOSTERGELER, profilId }) {
   const liste = modulKayitlari(modul, { egzersiz, profilId })
-    .filter((k) => k.zorluk === zorluk && (!ayrim || k.ekstra?.[ayrim.alan] === ayrim.deger));
+    .filter((k) => k.zorluk === zorluk && (!ayrim || k.ekstra?.[ayrim.alan] === ayrim.deger) && ayniKademe(k, kademe));
   const r = { tur: liste.length };
   for (const g of gostergeler) {
     for (const k of liste) {
@@ -282,14 +284,15 @@ export function merdivenYolu(yol, { enCok = 9, birim = 'öğe', aciklama = VARSA
     el('span', { 'aria-hidden': 'true', metin: a.ok ? '✓' : '✗' })))));
 }
 
-/** Kısa, cezalandırmayan mesaj + rastgele bir strateji ipucu */
-export function hafizaMesaji(oz, { birim = 'öğe', ipuclari = [] } = {}) {
+/** Kısa, cezalandırmayan mesaj + rastgele bir strateji ipucu. S34-son: enCok (bu seviyedeki en uzun dizi) verilirse hedef onu aşmaz */
+export function hafizaMesaji(oz, { birim = 'öğe', ipuclari = [], enCok = Infinity } = {}) {
   if (!oz?.deneme) return 'Bu turda dizi tamamlanmadı. Hazır olduğunda yeniden dene.';
   const parca = [oz.enIyi
     ? `Bu turda doğru hatırladığın en uzun dizi ${oz.enIyi} ${birim}.`
     : 'Bu turda diziler henüz tam tutmadı; bir sonraki tur daha kısa dizilerle başlar.'];
   parca.push('Merdiven diziyi senin için zorlayıcı ama yapılabilir uzunlukta tutar; bu yüzden bazı yanlışlar beklenen bir şey.');
-  if (oz.enIyi) parca.push(`Bir sonraki hedef: en iyi dizini ${oz.enIyi + 1} yapmak.`);
+  if (oz.enIyi && oz.enIyi < enCok) parca.push(`Bir sonraki hedef: en iyi dizini ${oz.enIyi + 1} yapmak.`);
+  else if (oz.enIyi) parca.push('Bu seviyedeki en uzun diziye ulaştın; şimdi bunu daha çok turda tutturmayı hedefle.');
   if (ipuclari.length) parca.push(`İpucu: ${ipuclari[Math.floor(Math.random() * ipuclari.length)]}`);
   return parca.join(' ');
 }
@@ -301,7 +304,7 @@ export function hafizaDegerlendir(ham, {
 }) {
   const e = ham.ekstra ?? {};
   const m = { ...VARSAYILAN_METINLER, ...metinler };
-  const rekorlar = hafizaRekorlari({ modul, egzersiz, zorluk: ham.zorluk, ayrim, gostergeler }); // kayıttan önce: bu tur dahil değil
+  const rekorlar = hafizaRekorlari({ modul, egzersiz, zorluk: ham.zorluk, ayrim, kademe: e.kademe, gostergeler }); // kayıttan önce: bu tur dahil değil
   const karsilastirma = hafizaKarsilastir(e, rekorlar, gostergeler);
   const ek = document.createDocumentFragment();
   const yol = merdivenYolu(e.yol, { enCok, birim, aciklama: m.yol, oge: m.yolOge });
@@ -320,7 +323,7 @@ export function hafizaDegerlendir(ham, {
       ...satirlar,
       ['Süre', sureMetni(ham.sureSn)],
     ],
-    mesaj: mesaj?.(e, { birim, ipuclari }) ?? hafizaMesaji(e, { birim, ipuclari }),
+    mesaj: mesaj?.(e, { birim, ipuclari, enCok }) ?? hafizaMesaji(e, { birim, ipuclari, enCok }),
     ek,
   };
 }
@@ -332,20 +335,24 @@ export function hafizaDegerlendir(ham, {
  * t: { egzersiz, ad, nasil, seviyeler, baslat(ctx, { mod, ters, merdiven, deneme }), birim?, baslangic? (sayı | { ileri, geri }),
  *      sinir? { en, enCok }, merdiven? { yukselt, dusur }, deneme?, ipuclari? [metin | { mod, metin }], gostergeler?, ekSatirlar?(ekstra), yonler? }
  * S14b ekleri: seviyeler[i].sinir (o seviyede düzey sınırı), yonBaslik? ('Yön'), yonKapsam?(yon) → "harf modunda",
- *      metinler? (VARSAYILAN_METINLER'i ezer), mesaj?(ekstra, { birim, ipuclari }) → sonuç mesajı
+ *      metinler? (VARSAYILAN_METINLER'i ezer), mesaj?(ekstra, { birim, ipuclari, enCok }) → sonuç mesajı
+ * S34-son: ornek? (çerçevenin kısa yönerge örneği) t'den aynen geçer; sınır ctx.seviye.sinir'den (bant), yön listesi bant.yonSabit'e göre.
  */
 export function hafizaOyunu(t) {
   const yonler = t.yonler === false ? null : (t.yonler ?? YONLER);
   const alan = yonler ? 'mod' : null;
   const sinir = { en: 2, enCok: 9, ...t.sinir };
-  const sinirAl = (zorluk) => ({ ...sinir, ...t.seviyeler?.[zorluk - 1]?.sinir }); // S14b: seviyeye özel sınır
+  // S14b: seviyeye özel sınır; S34-son: çerçevenin verdiği seviye (sınıf bandı uygulanmış) önce gelir
+  const sinirAl = (zorluk, seviye) => ({ ...sinir, ...(seviye?.sinir ?? t.seviyeler?.[zorluk - 1]?.sinir) });
+  let turSiniri = null; // son turun sınırı (degerlendir için; aynı anda tek tur açık)
   const yonBaslik = t.yonBaslik ?? 'Yön';
   const birim = t.birim ?? 'öğe';
   const secim = { mod: undefined };
-  const modBul = () => {
+  // S34-son: bant.yonSabit → yalnız ilk yön (ör. 2. sınıfta yalnız ileri, yalnız seçerek)
+  const yonListesi = (bant) => (bant?.yonSabit ? yonler.slice(0, 1) : yonler);
+  const modBul = (liste = yonler) => {
     secim.mod ??= sonEkstra({ egzersiz: t.egzersiz, alan: 'mod' });
-    if (!yonler.some((y) => y.deger === secim.mod)) secim.mod = yonler[0].deger;
-    return secim.mod;
+    return liste.some((y) => y.deger === secim.mod) ? secim.mod : liste[0].deger;
   };
 
   const tanim = {
@@ -358,22 +365,29 @@ export function hafizaOyunu(t) {
     ...t,
   };
   if (yonler) {
-    tanim.hazirlik ??= () => hazirlikSecimi({
-      ad: 'hafiza-yon', baslik: yonBaslik, secenekler: yonler, secili: modBul(), degisince: (d) => { secim.mod = d; },
-    });
+    tanim.hazirlik ??= ({ bant } = {}) => {
+      const liste = yonListesi(bant);
+      if (liste.length < 2) return null; // tek yön: seçim gösterilmez
+      return hazirlikSecimi({
+        ad: 'hafiza-yon', baslik: yonBaslik, secenekler: liste, secili: modBul(liste), degisince: (d) => { secim.mod = d; },
+      });
+    };
   }
   tanim.baslat = (ctx) => {
     // S17: seviye testi sabit ayar verir (ctx.olcum: mod, baslangic, deneme); verilince önceki kayıtlar kullanılmaz
     const olcum = ctx.olcum ?? {};
-    const mod = yonler ? (yonler.some((y) => y.deger === olcum.mod) ? olcum.mod : modBul()) : undefined;
+    const liste = yonler ? yonListesi(ctx.bant) : null;
+    const mod = liste ? (liste.some((y) => y.deger === olcum.mod) ? olcum.mod : modBul(liste)) : undefined;
     const varsayilan = typeof t.baslangic === 'object' ? t.baslangic?.[mod] : t.baslangic;
-    const s = sinirAl(ctx.zorluk);
+    const s = sinirAl(ctx.zorluk, ctx.seviye);
+    turSiniri = s;
     const baslangic = sayi(olcum.baslangic) !== undefined
       ? sinirla(Math.round(olcum.baslangic), s.en, s.enCok)
       : baslangicDuzeyi({ egzersiz: t.egzersiz, ayrim: alan ? { alan, deger: mod } : undefined, varsayilan: varsayilan ?? 3, ...s });
     const merdiven = merdivenOlustur({ baslangic, ...s, ...t.merdiven });
     Object.assign(ctx.ekstra, { baslangic, gosterMs: sayi(ctx.seviye?.gosterMs) }, alan ? { [alan]: mod } : {});
-    t.baslat(ctx, { mod, ters: mod === 'geri', merdiven, deneme: sayi(olcum.deneme) ?? t.deneme ?? 12 });
+    // S34-son: deneme sayısı olcum > alıştırma > sınıf bandı (seviye.deneme) > oyunun kendi sayısı
+    t.baslat(ctx, { mod, ters: mod === 'geri', merdiven, deneme: denemeSayisi(ctx, t.deneme ?? 12) });
   };
   tanim.degerlendir ??= (ham) => {
     const e = ham.ekstra ?? {};
@@ -385,7 +399,7 @@ export function hafizaOyunu(t) {
     try { ekSatir = t.ekSatirlar?.(e) ?? []; } catch (h) { console.error('[hafiza] ekSatirlar hatası:', h); }
     return hafizaDegerlendir(ham, {
       egzersiz: t.egzersiz, gostergeler: t.gostergeler, ayrim: alan ? { alan, deger: e.mod } : undefined, kapsam, birim,
-      enCok: sinirAl(ham.zorluk).enCok, metinler: t.metinler, mesaj: t.mesaj,
+      enCok: (turSiniri ?? sinirAl(ham.zorluk)).enCok, metinler: t.metinler, mesaj: t.mesaj,
       // İpucu metin ya da { mod, metin }: yöne özel ipucu yalnız o yönde gösterilir
       ipuclari: (t.ipuclari ?? []).filter((i) => typeof i === 'string' || i.mod === e.mod).map((i) => i.metin ?? i),
       satirlar: [

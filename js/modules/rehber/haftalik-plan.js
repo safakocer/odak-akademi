@@ -1,14 +1,16 @@
 // Haftalık ders planı (S22, #/rehber/haftalik-plan): gün başına ders blokları (ders + süre), bloklar arası mola, esnek hafta sonu, yoğun gün notu, örnek plan ve yazdırma; otomatik kayıt
+// S34f: 2-8. sınıf; metinler, yeni blok süresi ve yoğun gün sınırı kademeye göre (rehber-icerik.js PLAN_METINLERI; ilkokulda ailece kullanım dili ve veli notu)
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { duyur } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
+import { kademe } from '../../core/siniflar.js';
+import { PLAN_METINLERI } from './rehber-icerik.js';
 import {
   calismaVerisi, planKaydet, planBosMu, ornekPlan, yeniBlok, gunToplami,
   GUNLER, BLOK_SURELERI, MOLA_SURELERI, SINIR,
 } from './rehber-veri.js';
 import { geriBaglanti, sayfaUst, dersListesi, yazdirDugmesi } from './rehber-sayfasi.js';
 
-const YOGUN_DK = 120; // bu sürenin üstündeki günde nazik "yoğun görünüyor" notu
 const KAYIT_GECIKME_MS = 500;
 
 const sureYaz = (dk) => {
@@ -26,6 +28,9 @@ export function aracCiz(kap, { kart }) {
     return { kapat() {} };
   }
   const profilId = etkinProfil().id;
+  const sinif = etkinProfil().sinif;
+  // S34f: kademeye göre metinler (yoğun gün sınırı, yeni blok süresi, ipuçları); kademe yoksa ortaokul
+  const M = PLAN_METINLERI[kademe(sinif) ?? 'ortaokul'] ?? PLAN_METINLERI.ortaokul;
   let plan = structuredClone(calismaVerisi(profilId).plan);
   let zamanlayici = null;
   let bekleyen = false;
@@ -57,9 +62,9 @@ export function aracCiz(kap, { kart }) {
       let metin;
       if (!t.blok) metin = esnek ? 'Boş: dinlenme, oyun ve aile zamanı.' : 'Bu gün boş. Dinlenme de plana dahil.';
       else metin = `${t.blok} blok: ${sureYaz(t.dk)} çalışma${t.molaDk ? `, ${t.molaDk} dk mola` : ''}.`;
-      const yogun = t.dk > YOGUN_DK;
+      const yogun = t.dk > M.yogunDk;
       oge.className = yogun ? 'plan-gun__ozet bildirim bildirim--uyari' : 'plan-gun__ozet';
-      oge.replaceChildren(el('p', { metin: yogun ? `${metin} Bu gün yoğun görünüyor; bir bloğu başka güne taşımayı düşünebilirsin.` : metin }));
+      oge.replaceChildren(el('p', { metin: yogun ? `${metin} ${M.yogunNot}` : metin }));
     }
     haftaOzeti.textContent = toplam
       ? `Bu hafta planlanan çalışma: ${sureYaz(toplam)} (molalar hariç).`
@@ -105,7 +110,7 @@ export function aracCiz(kap, { kart }) {
       ozet,
       el('button', { type: 'button', sinif: 'btn btn--hayalet btn--kucuk plan-gun__ekle yazdirma-yok', id: `plan-${g.ad}-ekle`,
         disabled: doluMu, onclick: () => {
-          const yeni = yeniBlok();
+          const yeni = yeniBlok('', M.blokDk);
           plan.gunler[g.ad].push(yeni);
           kaydetPlanla(true);
           ciz({ odak: `#plan-${g.ad}-${yeni.id}-ders` });
@@ -135,7 +140,7 @@ export function aracCiz(kap, { kart }) {
     const eylemler = el('div', { sinif: 'rehber-eylemler yazdirma-yok' },
       el('button', { type: 'button', sinif: `btn ${bos ? 'btn--birincil' : 'btn--hayalet'} btn--kucuk`, onclick: () => {
         if (!bos && !confirm('Örnek plan, şu anki planının yerine geçecek. Devam edilsin mi?')) return;
-        const ornek = ornekPlan();
+        const ornek = ornekPlan(sinif);
         plan = { ...ornek, molaDk: plan.molaDk, haftaSonuEsnek: plan.haftaSonuEsnek };
         kaydetPlanla(true);
         ciz();
@@ -152,20 +157,18 @@ export function aracCiz(kap, { kart }) {
     kap.replaceChildren(
       geriBaglanti('#/rehber', 'Çalışma Rehberi'),
       el('div', { sinif: 'rehber-ust' },
-        sayfaUst(kart.ikon, kart.baslik, 'Her güne kısa ders blokları koy. Bloklar arasında mola, hafta sonunda esneklik var.'),
+        sayfaUst(kart.ikon, kart.baslik, M.aciklama),
         yazdirDugmesi('Planı yazdır')),
-      dersListesi(),
+      ...(M.veliNotu ? [el('div', { sinif: 'bildirim rehber-uyari', role: 'note' },
+        spriteIkon('bilgi', 'ikon'), el('p', {}, el('strong', { metin: `${M.veliNotu.baslik}. ` }), M.veliNotu.metin))] : []),
+      dersListesi(sinif),
       ayarlar(),
       haftaOzeti,
       eylemler,
       el('div', { sinif: 'plan-izgara' }, GUNLER.map(gunKarti)),
       el('details', { sinif: 'kart rehber-nasil yazdirma-yok' },
         el('summary', { metin: 'İyi bir plan için ipuçları' }),
-        el('ul', {},
-          el('li', { metin: 'Blokları kısa tut (20-30 dk); zor dersi enerjinin yüksek olduğu saate koy.' }),
-          el('li', { metin: 'Aynı dersi haftaya yay: bir gün uzun yerine iki üç gün kısa çalışmak tekrar fırsatı verir.' }),
-          el('li', { metin: 'Her hafta bir tekrar bloğu koy; yeni konuyla birlikte eskiyi de hatırla.' }),
-          el('li', { metin: 'Plan sana hizmet eder: tutmayan günde suçluluk yerine planı küçült.' }))));
+        el('ul', {}, M.ipuclari.map((m) => el('li', { metin: m })))));
     ozetleriGuncelle();
     if (odak) kap.querySelector(odak)?.focus();
   }

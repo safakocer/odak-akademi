@@ -1,4 +1,4 @@
-// Metin bankası: sınıf metinlerini (data/texts/sinif<N>.json; S34a: sınıf düzeyleri js/core/siniflar.js'ten; S34b: dosya başına kelime/soru sınırı, seviye göstergesi kademe içinde; S34c: 4. sınıf) yükler; öğrencinin kendi metinleri, favoriler, “okundu” bilgisi, filtre ve egzersize metin aktarımı
+// Metin bankası: sınıf metinlerini (data/texts/sinif<N>.json; S34a: sınıf düzeyleri js/core/siniflar.js'ten; S34b: dosya başına kelime/soru sınırı, seviye göstergesi kademe içinde; S34c: 4. sınıf; S34-son: uzunluk sınıfları kademeye göre) yükler; öğrencinin kendi metinleri, favoriler, “okundu” bilgisi, filtre ve egzersize metin aktarımı
 import { oku, yaz } from '../core/storage.js';
 import { dinle, OLAYLAR, etkinProfil } from '../core/store.js';
 import { kimlikUret, kelimelereBol, boslukTemizle, karakterSayisi, trKucuk, trSirala, sayi } from '../core/utils.js';
@@ -33,6 +33,16 @@ export const UZUNLUKLAR = Object.freeze([
   { ad: 'orta', etiket: 'Orta (180-259 kelime)', en: 180, enCok: 259 },
   { ad: 'uzun', etiket: 'Uzun (260 kelime ve üstü)', en: 260, enCok: Infinity },
 ].map(Object.freeze));
+// S34-son: uzunluk sınıfları öğrencinin kademesine göre (ilkokul metinleri 60-350 kelime: ortaokul eşikleriyle hepsi “Kısa” görünüyordu).
+// Adlar (kisa, orta, uzun) iki kademede aynı; kod yalnız kademe(sinif) ile tablo seçer. UZUNLUKLAR = ortaokul (profil yoksa da)
+export const KADEME_UZUNLUKLARI = Object.freeze({
+  ortaokul: UZUNLUKLAR,
+  ilkokul: Object.freeze([
+    { ad: 'kisa', etiket: 'Kısa (120 kelimeden az)', en: 0, enCok: 119 },
+    { ad: 'orta', etiket: 'Orta (120-219 kelime)', en: 120, enCok: 219 },
+    { ad: 'uzun', etiket: 'Uzun (220 kelime ve üstü)', en: 220, enCok: Infinity },
+  ].map(Object.freeze)),
+});
 export const KENDI_SINIR = Object.freeze({
   enAzKelime: 20, enFazlaKarakter: 12000, enFazlaMetin: 30, enFazlaSoru: 5,
   baslik: Object.freeze([3, 60]), soru: Object.freeze([5, 200]), cevap: Object.freeze([2, 400]),
@@ -66,7 +76,9 @@ export function metinKelimeSayisi(metin) {
   return metniHazirla(metin).paragraflar.reduce((t, p) => t + kelimelereBol(p).filter(kelimeMi).length, 0);
 }
 
-export const uzunlukBul = (kelime) => UZUNLUKLAR.find((u) => kelime >= u.en && kelime <= u.enCok) ?? UZUNLUKLAR[0];
+/** S34-son: Sınıfın uzunluk sınıfları (sınıf verilmezse etkin profilinki; profil yoksa ortaokul) */
+export const uzunluklar = (sinif = profilSinifi()) => KADEME_UZUNLUKLARI[kademe(sinif)] ?? UZUNLUKLAR;
+export const uzunlukBul = (kelime, liste = uzunluklar()) => liste.find((u) => kelime >= u.en && kelime <= u.enCok) ?? liste[0];
 
 // ---------- Sınıf metinleri ----------
 const aralikOku = (a) => (Array.isArray(a) && a.length === 2 && a.every(Number.isInteger) && a[0] >= 1 && a[0] <= a[1]

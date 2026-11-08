@@ -1,10 +1,11 @@
-// Hedef Avı (İptal testi, S11b; d2 benzeri seçici dikkat): satır satır sembollere bak, yalnız hedefleri işaretle; hedef ve çeldirici kümesi basamakla zorlaşır. Satır süresi cömert, doğruluk öncelikli; ölçüm attention-core.js ile
+// Hedef Avı (İptal testi, S11b; S34e: satır, süre ve sembol sayısı (bant hucre) sınıf bandından, görsel örnek; d2 benzeri seçici dikkat): satır satır sembollere bak, yalnız hedefleri işaretle; hedef ve çeldirici kümesi basamakla zorlaşır. Satır süresi cömert, doğruluk öncelikli; ölçüm attention-core.js ile
 import { el } from '../../core/ui.js';
-import { karistir, sinirla } from '../../core/utils.js';
+import { karistir, sinirla, trBuyuk } from '../../core/utils.js';
 import { simgeSvg, SEKILLER, rastgeleTam, izgaraGezinme } from '../../engine/algi.js';
 import { dikkatOyunu, dikkatSahnesi, dikkatBitir, olayZamani, KESINTI_MS } from '../../engine/attention-core.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 
-const HUCRE = 12;         // satırdaki sembol sayısı (dar ekranda 6 + 6)
+const HUCRE = 12;         // satırdaki sembol sayısı (dar ekranda 6 + 6); S34e: sınıf bandı hucre (6-12, çift) verebilir
 const GERI_MS = 1300;     // satır sonu geri bildirimi
 const RENK = 'var(--renk-birincil)';
 
@@ -13,6 +14,7 @@ const S = (sekil, aci = 0, ad = SEKILLER[sekil].ad) => Object.freeze({ kod: `${s
 const OK = { sag: S('ok', 0, 'sağa bakan ok'), sol: S('ok', 180, 'sola bakan ok'), yukari: S('ok', 270, 'yukarı bakan ok'), asagi: S('ok', 90, 'aşağı bakan ok') };
 const UCGEN = { yukari: S('ucgen', 0, 'yukarı bakan üçgen'), asagi: S('ucgen', 180, 'aşağı bakan üçgen'), sag: S('ucgen', 90, 'sağa bakan üçgen') };
 const cizim = (sb) => simgeSvg(sb.sekil, { aci: sb.aci, renk: RENK });
+const basHarf = (m) => trBuyuk(m.charAt(0)) + m.slice(1);
 
 export default dikkatOyunu({
   egzersiz: 'iptal-testi',
@@ -36,8 +38,15 @@ export default dikkatOyunu({
   sureNotu: 'Her satırın cömert bir süresi var; dolarsa satır kendiliğinden geçer. İstediğin an duraklatabilirsin.',
   puanAciklama: 'Doğruluk oranı × dakikada işaretlenen hedef. Burada tepki süresi iki işaret arasındaki süredir; kaçırmadan, sakin bir ritimle işaretledikçe yükselir.',
 
+  // S34e: kısa yönergede görsel örnek (hedefler ve bir çeldirici)
+  ornek: ({ seviye: s }) => ornekListesi([
+    ...s.hedef.map((h) => ({ cizim: cizim(h), metin: `${basHarf(h.ad)}: dokun` })),
+    { cizim: cizim(s.celdirici[0]), metin: `${basHarf(s.celdirici[0].ad)}: geç` },
+  ]),
+
   baslat(ctx) {
     const s = ctx.seviye;
+    const hucre = sinirla(Math.round((Number(ctx.bant?.hucre) || HUCRE) / 2) * 2, 6, HUCRE);
     const hedefKod = new Set(s.hedef.map((h) => h.kod));
 
     const gorev = el('p', { sinif: 'iptal-gorev' }, 'Yalnız bunları işaretle:',
@@ -46,7 +55,7 @@ export default dikkatOyunu({
     const duzen = dikkatSahnesi(ctx, { ust: gorev, sahneSinif: 'iptal-sahne' });
     duzen.geri.setAttribute('aria-live', 'polite'); // akış yavaş: satır özeti duyurulur
     const sureDolgu = el('span', { sinif: 'iptal-sure__dolgu' });
-    const izgara = el('div', { sinif: 'iptal-izgara', role: 'group' });
+    const izgara = el('div', { sinif: 'iptal-izgara', role: 'group', style: `--sutun-dar:${hucre / 2};--sutun-genis:${hucre}` });
     const bitirDugme = el('button', { type: 'button', sinif: 'btn btn--ikincil iptal-bitir', metin: 'Satırı bitirdim' });
     duzen.sahne.append(el('div', { sinif: 'iptal-ic' }, el('div', { sinif: 'iptal-sure', 'aria-hidden': 'true' }, sureDolgu), izgara, bitirDugme));
 
@@ -73,7 +82,7 @@ export default dikkatOyunu({
       // Hedef türleri ve çeldiriciler eşit dağılır, sıra karışık
       const semboller = karistir([
         ...Array.from({ length: n }, (_, i) => s.hedef[i % s.hedef.length]),
-        ...karistir(Array.from({ length: HUCRE - n }, (_, i) => s.celdirici[i % s.celdirici.length])),
+        ...karistir(Array.from({ length: hucre - n }, (_, i) => s.celdirici[i % s.celdirici.length])),
       ]);
       hedefMi = semboller.map((sb) => hedefKod.has(sb.kod));
       hucreler = semboller.map((sb, i) => el('button', {
@@ -169,7 +178,7 @@ export default dikkatOyunu({
     function turuBitir() {
       asama = 'bitti';
       Object.assign(ctx.ekstra, {
-        satir: s.satir, hucre: HUCRE, hedef: say.hedef, hedefTuru: s.hedef.length, celdirici: s.celdirici.length,
+        satir: s.satir, hucre, hedef: say.hedef, hedefTuru: s.hedef.length, celdirici: s.celdirici.length,
         satirMs: s.satirMs, yanlisIsaret: say.yanlisIsaret, erkenBiten: say.erkenBiten,
       });
       dikkatBitir(ctx, kayitlar, { kesinti: say.kesinti });
@@ -212,8 +221,8 @@ export default dikkatOyunu({
     .iptal-ic { display: grid; align-content: center; gap: var(--b-3); inline-size: 100%; max-inline-size: 48rem; margin-inline: auto; }
     .iptal-sure { block-size: 6px; border-radius: 3px; background: var(--renk-kenar); overflow: hidden; }
     .iptal-sure__dolgu { display: block; block-size: 100%; background: var(--renk-metin-soluk); transform: scaleX(var(--kalan, 1)); transform-origin: left; }
-    .iptal-izgara { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--b-1); }
-    @media (min-width: 720px) { .iptal-izgara { grid-template-columns: repeat(12, minmax(0, 1fr)); } }
+    .iptal-izgara { display: grid; grid-template-columns: repeat(var(--sutun-dar, 6), minmax(0, 1fr)); gap: var(--b-1); max-inline-size: calc(var(--sutun-dar, 6) * 5.5rem); inline-size: 100%; margin-inline: auto; }
+    @media (min-width: 720px) { .iptal-izgara { grid-template-columns: repeat(var(--sutun-genis, 12), minmax(0, 1fr)); max-inline-size: none; } }
     .iptal-hucre {
       position: relative; display: grid; place-items: center; min-inline-size: 0; min-block-size: 2.75rem; aspect-ratio: 1; padding: 18%;
       border: 2px solid var(--renk-kenar); border-radius: var(--kose-s); background: var(--renk-yuzey); color: var(--renk-metin);

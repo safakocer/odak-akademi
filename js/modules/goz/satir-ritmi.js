@@ -1,7 +1,9 @@
-// Satır Ritmi (D06: yıldız halkası kontrastı): ışık satırda soldan sağa ritimle ilerler, satır sonunda alttaki satırın başına geçer; yıldız sayımıyla dikkat denetimi
+// Satır Ritmi (D06: yıldız halkası kontrastı; S34-son: ilkokulda satır, nokta ve ritim sınıf bandından, sayfa sayısı denemeSayisi ile (alıştırma 1 sayfa), örnek): ışık satırda soldan sağa ritimle ilerler, satır sonunda alttaki satırın başına geçer; yıldız sayımıyla dikkat denetimi
 import { el } from '../../core/ui.js';
 import { duyur, odakla } from '../../core/a11y.js';
 import { karistir } from '../../core/utils.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
+import { denemeSayisi } from '../../engine/attention-core.js';
 
 const SAYFA_SAYISI = 3;
 const YILDIZ = '★';
@@ -30,6 +32,10 @@ export default {
   puanEtiketi: 'Sayım puanı',
   puanAciklama: 'Yıldızları doğru saydığın sayfaların yüzdesi.',
   alanEtiketi: 'Satır ritmi alanı. Sayfa bitince 0 ile 3 arasında bir rakam tuşuna basarak yanıt verebilirsin.',
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'sr-nokta sr-nokta--yanik' }), metin: 'Işık: gözünle izle' },
+    { cizim: el('span', { sinif: 'sr-nokta sr-nokta--yildiz', metin: YILDIZ }), metin: 'Yıldız: say' },
+  ]),
 
   hazirlik() {
     return el('div', { sinif: 'okuma-ayar' },
@@ -40,6 +46,7 @@ export default {
 
   baslat(ctx) {
     const { alan, seviye: s } = ctx;
+    const sayfaSayisi = denemeSayisi(ctx, SAYFA_SAYISI); // S34-son: alıştırmada 1 sayfa
     Object.assign(ctx.ekstra, { sayfa: 0, satir: 0, vurusMs: s.vurusMs });
     alan.classList.add('sr-alan');
     const durumEl = el('p', { sinif: 'sr-durum' });
@@ -56,7 +63,7 @@ export default {
 
     function sayfaKur() {
       sayfaNo += 1;
-      durumEl.textContent = `Sayfa ${sayfaNo} / ${SAYFA_SAYISI}`;
+      durumEl.textContent = `Sayfa ${sayfaNo} / ${sayfaSayisi}`;
       const [en, enCok] = s.yildiz;
       yildizSayisi = en + Math.floor(Math.random() * (enCok - en + 1));
       const yildizlar = new Set(karistir([...Array(s.satir * s.nokta).keys()]).slice(0, yildizSayisi));
@@ -120,7 +127,7 @@ export default {
         geri.textContent = dogruMu
           ? `Doğru! Bu sayfada ${yildizMetni(yildizSayisi)}.`
           : `Bu sayfada ${yildizMetni(yildizSayisi)}. Sonraki sayfada ışığı adım adım izlemeyi dene.`;
-        const son = sayfaNo >= SAYFA_SAYISI;
+        const son = sayfaNo >= sayfaSayisi;
         const ileri = el('button', { type: 'button', sinif: 'btn btn--birincil', metin: son ? 'Sonucu gör' : 'Sonraki sayfa',
           onclick: () => { if (!ctx.aktifMi()) return; if (son) ctx.bitir(); else sayfaKur(); } });
         soruEl.append(ileri);

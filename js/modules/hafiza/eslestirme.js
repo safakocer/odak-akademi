@@ -1,8 +1,9 @@
-// Eşleştirme Kartları (S14b): kapalı kartlardan ikişer açılır, aynı olanlar eşleşir. Zorluk = çeldirici benzerliği ve kart sayısı aralığı (3 seviye); çift sayısı merdivenle uyarlanır (memory-core.js). Hamle ve süre ölçülür
+// Eşleştirme Kartları (S14b): kapalı kartlardan ikişer açılır, aynı olanlar eşleşir. Zorluk = çeldirici benzerliği ve kart sayısı aralığı (3 seviye); çift sayısı merdivenle uyarlanır (memory-core.js; S34-son: ilkokulda çift sınırı, açık kalma süresi ve tahta sayısı sınıf bandından, örnek). Hamle ve süre ölçülür
 import { el } from '../../core/ui.js';
 import { karistir, yuzdeBicimle, sureMetni } from '../../core/utils.js';
 import { SEKILLER, SEKIL_ADLARI, RENKLER, simgeSvg, rastgeleSec, izgaraGezinme } from '../../engine/algi.js';
 import { hafizaOyunu, hafizaSahnesi, hafizaBitir, bekle, ogeDuyur } from '../../engine/memory-core.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 
 const BIRIM = 'çift';
 const hamleSiniri = (c) => 2 * c; // tahta en çok bu kadar hamlede biterse “hedefte” sayılır → çift sayısı artar
@@ -93,6 +94,11 @@ export default hafizaOyunu({
     'açtığın kartın adını ve yerini içinden söyle: “kalp, üst sıra, sağda”.',
     'tahtayı satır satır gez; rastgele açmak yerine düzenli açmak yerleri hatırlamayı kolaylaştırır.',
   ],
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '?' }), metin: 'Kapalı karta dokun, açılsın' },
+    { cizim: el('span', { sinif: 'egz-ornek__ikili' }, simgeSvg('kalp', { renk: RENKLER[1].deger }), simgeSvg('kalp', { renk: RENKLER[1].deger })),
+      metin: 'İki kart aynıysa açık kalır' },
+  ]),
   alanEtiketi: 'Eşleştirme Kartları. Ok tuşlarıyla kartlar arasında gezin, Enter ya da Boşlukla kart aç. Açılan kartın adı okunur.',
 
   baslat(ctx, { merdiven, deneme }) {

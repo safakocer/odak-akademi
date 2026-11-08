@@ -1,8 +1,9 @@
-// Periferik Flaş: ortadaki artıya bakarken çevrede kısa süre beliren sayıyı ya da kelimeyi seçme; flaş süresi 400 ms'den 100 ms'ye kademeli kısalır
+// Periferik Flaş: ortadaki artıya bakarken çevrede kısa süre beliren sayıyı ya da kelimeyi seçme; flaş süresi 400 ms'den 100 ms'ye kademeli kısalır (S34-son: seviyenin sure alanı süre aralığını değiştirebilir (4. sınıf bandı), deneme sayısı denemeSayisi ile, kelimeler sınıfın kelime havuzundan, örnek)
 import { el } from '../../core/ui.js';
 import { odakla } from '../../core/a11y.js';
 import { karistir, sayiBicimle } from '../../core/utils.js';
-import { hazirlikSecimi } from '../../engine/exercise-frame.js';
+import { hazirlikSecimi, ornekListesi } from '../../engine/exercise-frame.js';
+import { denemeSayisi } from '../../engine/attention-core.js';
 import {
   havuzHazirla, flasGoster, kareSuresi, merdivenOlustur, merdivenSeviyesi, baslangicSuresi, hizPuani, secenekPaneli,
   rastgeleKelime, kelimeCeldiricileri, sayiUret, sayiCeldiricileri,
@@ -14,9 +15,11 @@ const DENEME_SAYISI = 14;
 const SURE = Object.freeze({ baslangic: 400, en: 100, enCok: 400 });
 const OGE_TURLERI = Object.freeze([
   { deger: 'rakam', etiket: 'Sayı', aciklama: '2-4 basamaklı sayılar' },
-  { deger: 'kelime', etiket: 'Kelime', aciklama: 'sınıf metinlerinden kısa kelimeler' },
+  { deger: 'kelime', etiket: 'Kelime', aciklama: 'sınıfına uygun kısa kelimeler' },
 ]);
 let ogeTuru = 'rakam'; // oturum boyunca hatırlanır
+let sonSure = SURE; // S34-son: son turun süre aralığı (bant seviyeye sure verebilir; degerlendir aynı aralıkla seviye önerir)
+const sureAraligi = (s) => Object.freeze({ ...SURE, ...(s?.sure && typeof s.sure === 'object' ? s.sure : {}) });
 
 export default {
   modul: 'goz',
@@ -39,6 +42,10 @@ export default {
   puanEtiketi: 'Hız puanı',
   puanAciklama: '1000 − son flaşların ortalama süresi (ms). Flaş ne kadar kısaysa puan o kadar yüksek.',
   alanEtiketi: 'Periferik flaş alanı. Flaştan sonra 1 ile 4 arasındaki rakam tuşlarıyla ya da düğmelerle yanıt ver.',
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '+' }), metin: 'Gözün ortadaki artıda kalsın' },
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '47' }), metin: 'Yanda bir an sayı belirir: onu seç' },
+  ]),
 
   hazirlik() {
     return el('div', { sinif: 'okuma-ayar' }, hazirlikSecimi({
@@ -51,8 +58,10 @@ export default {
     // S17: seviye testi sabit ayar verir (ctx.olcum: oge, baslangicMs, deneme); önceki kayıtlar kullanılmaz
     const olcum = ctx.olcum ?? {};
     const tur = OGE_TURLERI.some((o) => o.deger === olcum.oge) ? olcum.oge : ogeTuru;
-    const denemeSayisi = olcum.deneme ?? DENEME_SAYISI;
-    const merdiven = merdivenOlustur({ ...SURE, baslangic: olcum.baslangicMs ?? baslangicSuresi({ modul: 'goz', egzersiz: 'periferik-flas', zorluk: ctx.zorluk }, SURE) });
+    const toplamDeneme = denemeSayisi(ctx, DENEME_SAYISI); // S34-son: olcum > alıştırma > bant > 14
+    const sure = sureAraligi(s);
+    sonSure = sure;
+    const merdiven = merdivenOlustur({ ...sure, baslangic: olcum.baslangicMs ?? baslangicSuresi({ modul: 'goz', egzersiz: 'periferik-flas', zorluk: ctx.zorluk }, sure) });
     Object.assign(ctx.ekstra, { oge: tur, yon: s.yon, baslangicMs: merdiven.ms });
     alan.classList.add('flas-alan');
 
@@ -77,10 +86,10 @@ export default {
     }
 
     function deneme() {
-      if (tamam >= denemeSayisi) { bitir(); return; }
+      if (tamam >= toplamDeneme) { bitir(); return; }
       panel = null;
       soru.hidden = true;
-      durumEl.textContent = `Deneme ${tamam + 1} / ${denemeSayisi} · Flaş: ${merdiven.ms} ms`;
+      durumEl.textContent = `Deneme ${tamam + 1} / ${toplamDeneme} · Flaş: ${merdiven.ms} ms`;
       if (!alan.contains(document.activeElement) || soru.contains(document.activeElement)) odakla(alan, { kaydir: false });
       const dogru = tur === 'rakam' ? sayiUret(s.basamak) : rastgeleKelime(s.harf);
       let yon;
@@ -130,11 +139,11 @@ export default {
   degerlendir({ dogru, yanlis, zorluk, ekstra }) {
     const toplam = dogru + yanlis;
     const isabet = toplam ? Math.round((dogru * 100) / toplam) : 0;
-    const esikMs = ekstra.esikMs ?? SURE.baslangic;
+    const esikMs = ekstra.esikMs ?? sonSure.baslangic;
     return {
       isabet,
       puan: toplam ? hizPuani(esikMs) : 0,
-      sonrakiSeviye: toplam ? merdivenSeviyesi(zorluk, { esikMs, isabet, ...SURE }) : zorluk,
+      sonrakiSeviye: toplam ? merdivenSeviyesi(zorluk, { esikMs, isabet, ...sonSure }) : zorluk,
       satirlar: [
         ['Ortalama flaş süresi', `${esikMs} ms`],
         ['En kısa doğru flaş', ekstra.enKisaMs ? `${ekstra.enKisaMs} ms` : '-'],

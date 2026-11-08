@@ -1,7 +1,7 @@
-// Dikkat oyunları ortak ölçüm altyapısı (S11a; S11b: dikkatBitir, denemeye özel ara, ekBolum): deneme döngüsü, tepki süresi (performance.now), doğruluk, ortalama, tutarlılık (değişkenlik katsayısı), 1-5 basamak, kişisel rekor ve sonuç bölümü. Yeni dikkat oyunu = tek dosya + dikkatOyunu()
+// Dikkat oyunları ortak ölçüm altyapısı (S11a; S11b: dikkatBitir, denemeye özel ara, ekBolum; S34e: denemeSayisi; S34-son: rekor kademe içinde): deneme döngüsü, tepki süresi (performance.now), doğruluk, ortalama, tutarlılık (değişkenlik katsayısı), 1-5 basamak, kişisel rekor ve sonuç bölümü. Yeni dikkat oyunu = tek dosya + dikkatOyunu()
 import { el } from '../core/ui.js';
 import { karistir, sayi, sinirla, sayiBicimle, yuzdeBicimle, sureMetni } from '../core/utils.js';
-import { modulKayitlari } from '../core/metrics.js';
+import { modulKayitlari, ayniKademe } from '../core/metrics.js';
 import { geriYaz } from './algi.js';
 
 /*
@@ -29,6 +29,18 @@ export function basamaklar(ayarlar) {
     throw new TypeError('basamaklar: 5 basamak ayarı gerekli.');
   }
   return Object.freeze(ayarlar.map((a, i) => Object.freeze({ ad: BASAMAK_ADLARI[i], ...a })));
+}
+
+/**
+ * S34e: Turun deneme sayısı: seviye testi (ctx.olcum.deneme) > alıştırma turu (ctx.alistirma.deneme) > sınıf bandı (ctx.seviye.deneme) > oyunun sabiti.
+ * Oyun planı bu sayıyla kurar; oranlar (ör. hedef oranı) korunur.
+ */
+export function denemeSayisi(ctx, varsayilan) {
+  for (const n of [ctx?.olcum?.deneme, ctx?.alistirma?.deneme, ctx?.seviye?.deneme]) {
+    const d = sayi(n);
+    if (d !== undefined && d >= 1) return Math.round(d);
+  }
+  return varsayilan;
 }
 
 /** Toplamın oranı kadar tam sayı (en az 0, en çok toplam) */
@@ -276,9 +288,10 @@ export function basamakOner(zorluk, oz, enCok = BASAMAK_ADLARI.length) {
 
 /** Aynı egzersiz ve basamaktaki önceki en iyiler: { tur, isabet, ortMs, tutarlilik, puan } (hız/tutarlılık yalnız doğruluk ≥%70 turlardan) */
 // ayrim: { alan, deger } verilirse yalnız ekstra[alan] aynı olan turlar (ör. Stroop ipucu açık/kapalı ayrı)
-export function rekorlariGetir({ modul, egzersiz, zorluk, profilId, ayrim }) {
+// S34-son: kademe (ham.ekstra.kademe; 'ilkokul' ya da yok) → yalnız aynı kademedeki turlar (sınıf bandı ayarları değiştirir)
+export function rekorlariGetir({ modul, egzersiz, zorluk, profilId, ayrim, kademe }) {
   const liste = modulKayitlari(modul, { egzersiz, profilId }).filter((k) => k.zorluk === zorluk
-    && (!ayrim || !!k.ekstra?.[ayrim.alan] === !!ayrim.deger));
+    && (!ayrim || !!k.ekstra?.[ayrim.alan] === !!ayrim.deger) && ayniKademe(k, kademe));
   const r = { tur: liste.length };
   for (const k of liste) {
     const e = k.ekstra ?? {};
@@ -346,7 +359,7 @@ export function dikkatDegerlendir(ham, { modul, egzersiz, satirlar = [], rekorAy
   const dogru = e.dogru ?? 0;
   const puan = etkinlikPuani(e.isabet, e.ortMs);
   const ayrim = rekorAyrimi ? { alan: rekorAyrimi, deger: e[rekorAyrimi] } : undefined;
-  const rekorlar = rekorlariGetir({ modul, egzersiz, zorluk: ham.zorluk, ayrim }); // kayıttan önce çağrılır: bu tur dahil değil
+  const rekorlar = rekorlariGetir({ modul, egzersiz, zorluk: ham.zorluk, ayrim, kademe: e.kademe }); // kayıttan önce çağrılır: bu tur dahil değil
   const karsilastirma = rekorKarsilastir({ ...e, puan }, rekorlar);
   return {
     dogru,

@@ -1,10 +1,11 @@
-// Ders motoru (S15; S21: okuma stratejisi dersleri): data/lessons/<ad>.json dersini yükler, denetler ve oynatır. Hafıza tekniği: ön deneme → anlat → birlikte yap → kendin dene → ölç. Okuma stratejisi: anlat → örnek metin → görev → mini sınama → sonuç
+// Ders motoru (S15; S21: okuma stratejisi dersleri; S34f: sınıf aralığı ve ilkokul sürümü): data/lessons/<ad>.json dersini yükler, denetler ve oynatır. Hafıza tekniği: ön deneme → anlat → birlikte yap → kendin dene → ölç. Okuma stratejisi: anlat → örnek metin → görev → mini sınama → sonuç
 import { el, spriteIkon } from '../core/ui.js';
 import { duyur, odakla } from '../core/a11y.js';
 import { trKucuk, karistir, sureBicimle, sureMetni, yuzdeBicimle, sayiBicimle } from '../core/utils.js';
 import { kayitEkle, modulKayitlari } from '../core/metrics.js';
 import { sesCal } from '../core/sound.js';
 import { sorulariDenetle, soruOturumuKur, gozdenGecirmeOlustur } from './quiz-engine.js';
+import { TUM_ARALIK, araliktaMi, ilkokulMu, sinifGecerliMi, KADEMELER } from '../core/siniflar.js';
 
 /*
  * HAFIZA TEKNİĞİ DERSİ (data/lessons/<ad>.json, tur yok):
@@ -31,6 +32,10 @@ import { sorulariDenetle, soruOturumuKur, gozdenGecirmeOlustur } from './quiz-en
  *   · eslestir { yonerge, kategoriler[2-6], ogeler: [{ metin, dogru: kategori sırası }] (2-8), aciklama }
  * Kayıt: modul oku, egzersiz strateji-<ad>, zorluk 1, dogru/yanlis = mini sınama, ekstra { tur: strateji, sinama (%), sinamaPuan, soru,
  *   katman { bilgi, cikarim, yorum: % }, gorev? (puanlanan görev %), okumaSn, gorevSn }. anlamaYuzde yazılmaz (okuma anlaması değil).
+ *
+ * S34f (iki türde de, isteğe bağlı): sinif [en, enCok] (2-8; yoksa 2-8; aralık dışındaki sınıfa ders listede görünmez, adresle açılmaz);
+ *   ilkokul { ILKOKUL_ALANLARI’ndan herhangi biri } (2-4. sınıfta bu alanlar dersin üstüne bütün olarak yazılır; birleşmiş ders de aynı şemayla denetlenir;
+ *   aralık en az bir ilkokul sınıfını içermeli). İlkokul sürümünün kaydı ekstra.surum = 'ilkokul' taşır; “önceki denemeler” yalnız aynı sürümle karşılaştırılır.
  */
 
 export const DERS_MODUL = 'hafiza';
@@ -43,6 +48,9 @@ export const KENDIN_TURLERI = Object.freeze(['metin', 'satirlar']);
 export const PARCA_TURLERI = Object.freeze(['not', 'sorular', 'isaretle', 'eslestir']);
 export const ADIMLAR = Object.freeze(['Ön deneme', 'Anlat', 'Birlikte yap', 'Kendin dene', 'Ölç']);
 export const STRATEJI_ADIMLARI = Object.freeze(['Anlat', 'Örnek metin', 'Görev', 'Mini sınama', 'Sonuç']);
+/** S34f: ilkokul sürümünün değiştirebileceği alanlar (ad ve tur değişmez) */
+export const ILKOKUL_ALANLARI = Object.freeze(['baslik', 'kisaAciklama', 'sureDk', 'kazanim', 'anlat', 'birlikte', 'kendin', 'olcum', 'metin', 'gorev', 'sinama', 'kapanis']);
+export const ILKOKUL_SURUMU = 'ilkokul';
 
 // Ders serileri: liste sayfası, renk (data-modul) ve kayıt modülü
 export const SERILER = Object.freeze({
@@ -305,9 +313,49 @@ function stratejiDenetle(d, ad) {
   return h;
 }
 
+// ---------- S34f: sınıf aralığı ve ilkokul sürümü ----------
+const aralikGecerliMi = (a) => Array.isArray(a) && a.length === 2 && a.every(sinifGecerliMi) && a[0] <= a[1];
+/** Dersin sınıf aralığı (yazılmamışsa 2-8) */
+export const dersAraligi = (d) => (aralikGecerliMi(d?.sinif) ? d.sinif : TUM_ARALIK);
+/** Ders bu sınıfa uygun mu? Sınıf bilinmiyorsa (profil yok) true */
+export const dersUygunMu = (d, sinif) => araliktaMi(sinif, dersAraligi(d));
+
+// İlkokul alanları dersin üstüne yazılır (alan alan değil, bütün olarak); ilkokul anahtarı birleşmiş derste kalmaz
+function ilkokulBirlestir(d) {
+  const { ilkokul, ...taban } = d;
+  const ek = Object.fromEntries(Object.entries(ilkokul).filter(([k]) => ILKOKUL_ALANLARI.includes(k)));
+  return { ...taban, ...ek, surumAdi: ILKOKUL_SURUMU };
+}
+
+/** Dersin bu sınıfa gösterilecek sürümü: 2-4. sınıfta ilkokul alanı varsa birleşmiş ders (surumAdi: 'ilkokul'), yoksa dersin kendisi */
+export function dersSurumu(d, sinif) {
+  if (!d || !ilkokulMu(sinif) || !d.ilkokul || typeof d.ilkokul !== 'object') return d;
+  return ilkokulBirlestir(d);
+}
+
+/** Ders dosyasının tamamını denetler: ders şeması + sinif + ilkokul sürümü (birleşmiş hâli de aynı şemayla). Hata metinleri dizisi döner */
+export function dersDosyasiDenetle(d, ad) {
+  const h = dersDenetle(d, ad);
+  if (!d || typeof d !== 'object') return h;
+  if (d.sinif !== undefined && !aralikGecerliMi(d.sinif)) h.push('sinif [en, enCok] olmalı (2-8)');
+  if (d.ilkokul !== undefined) {
+    const i = d.ilkokul;
+    if (!i || typeof i !== 'object' || Array.isArray(i)) { h.push('ilkokul nesne olmalı'); return h; }
+    const yabanci = Object.keys(i).filter((k) => !ILKOKUL_ALANLARI.includes(k));
+    if (yabanci.length) h.push(`ilkokul: bilinmeyen alan (${yabanci.join(', ')})`);
+    if (!KADEMELER.ilkokul.some((s) => dersUygunMu(d, s))) h.push('ilkokul sürümü var ama aralıkta ilkokul sınıfı yok');
+    h.push(...dersDenetle(ilkokulBirlestir(d), ad).map((e) => `ilkokul: ${e}`));
+  }
+  return h;
+}
+
+/** S34f: Kayıt aynı sürümden mi (eski kayıtlarda surum yok: tam sürüm) */
+const ayniSurum = (ders) => (r) => (r.ekstra?.surum ?? null) === (ders.surumAdi ?? null);
+const surumEki = (ders) => (ders.surumAdi ? { surum: ders.surumAdi } : {});
+
 const yuklenenler = new Map();
 
-/** Dersi yükler (bir kez); geçersizse hata fırlatır. Bilinmeyen ad → null */
+/** Dersi yükler (bir kez); geçersizse hata fırlatır. Bilinmeyen ad → null. Döner: dosyadaki ders (sürüm için dersSurumu) */
 export function dersYukle(ad) {
   if (!dersSerisi(ad)) return Promise.resolve(null);
   if (!yuklenenler.has(ad)) {
@@ -315,7 +363,7 @@ export function dersYukle(ad) {
       const yanit = await fetch(new URL(`../../data/lessons/${ad}.json`, import.meta.url));
       if (!yanit.ok) throw new Error(`${ad}.json açılamadı (${yanit.status})`);
       const ders = await yanit.json();
-      const hatalar = dersDenetle(ders, ad);
+      const hatalar = dersDosyasiDenetle(ders, ad);
       if (hatalar.length) throw new Error(`${ad}.json: ${hatalar.join('; ')}`);
       return ders;
     })();
@@ -325,18 +373,24 @@ export function dersYukle(ad) {
   return yuklenenler.get(ad);
 }
 
-/** Bir serinin dersleri (sırasıyla): [{ ad, ders | null }]. seri: 'hafiza' (vars.) | 'okuma' */
-export async function dersleriYukle(seri = 'hafiza') {
+/**
+ * Bir serinin dersleri (sırasıyla): [{ ad, ders | null }]. seri: 'hafiza' (vars.) | 'okuma'.
+ * S34f: sinif verilirse bu sınıfa uygun olmayan dersler listede yer almaz ve ders o sınıfın sürümüyle döner (dersSurumu)
+ */
+export async function dersleriYukle(seri = 'hafiza', sinif = null) {
   const adlar = SERILER[seri]?.adlar ?? DERS_ADLARI;
   const sonuc = await Promise.allSettled(adlar.map(dersYukle));
   return sonuc.map((s, i) => {
     if (s.status === 'rejected') console.error('[ders]', s.reason);
-    return { ad: adlar[i], ders: s.status === 'fulfilled' ? s.value : null };
-  });
+    const ders = s.status === 'fulfilled' ? s.value : null;
+    return { ad: adlar[i], ders, uygun: !ders || dersUygunMu(ders, sinif) };
+  }).filter((d) => d.uygun).map(({ ad, ders }) => ({ ad, ders: dersSurumu(ders, sinif) }));
 }
 
 /** Bu dersin kayıtları (eskiden yeniye) */
 export const dersGecmisi = (ad, profilId) => modulKayitlari(dersSerisi(ad)?.modul ?? DERS_MODUL, { egzersiz: dersEgzersizAdi(ad), profilId });
+/** S34f: Bu dersin, gösterilen sürümle (tam ya da ilkokul) yapılmış kayıtları */
+export const surumGecmisi = (ders, profilId) => dersGecmisi(ders.ad, profilId).filter(ayniSurum(ders));
 
 // ---------- Ortak ekran parçaları ----------
 const dugme = (metin, onclick, tur = 'ikincil') => el('button', { type: 'button', sinif: `btn btn--${tur}`, metin, onclick });
@@ -683,14 +737,14 @@ function teknikEkrani(kap, ders, { seri, geriAdres, geriEtiket }) {
   }
 
   function sonuc() {
-    const onceki = dersGecmisi(ders.ad); // bu deneme eklenmeden önce
+    const onceki = surumGecmisi(ders); // bu deneme eklenmeden önce (S34f: yalnız aynı sürüm)
     const k = karsilastir(durum.once, durum.sonra);
     const sureSn = Math.round((Date.now() - durum.baslangic) / 1000);
     const { kaydedildi, hata } = kayitEkle({
       modul: DERS_MODUL, egzersiz: dersEgzersizAdi(ders.ad), sureSn, zorluk: 1,
       dogru: k.sonra, yanlis: k.toplam - k.sonra,
       ekstra: { tur: o.tur, once: k.once, sonra: k.sonra, toplam: k.toplam, fark: k.fark,
-        onceSira: durum.once.sira, sonraSira: durum.sonra.sira, kendinSn: durum.kendinSn },
+        onceSira: durum.once.sira, sonraSira: durum.sonra.sira, kendinSn: durum.kendinSn, ...surumEki(ders) },
     });
     const enIyi = onceki.reduce((m, r) => Math.max(m, r.dogru ?? 0), 0);
     const cubuk = (ad, d, y, tur) => el('div', { sinif: 'ders-cubuk' },
@@ -996,7 +1050,7 @@ function stratejiEkrani(kap, ders, { seri, geriAdres, geriEtiket }) {
   function sonucAdimi(sonuc) {
     if (kapandi()) return;
     durum.bitti = true;
-    const onceki = dersGecmisi(ders.ad); // bu deneme eklenmeden önce
+    const onceki = surumGecmisi(ders); // bu deneme eklenmeden önce (S34f: yalnız aynı sürüm)
     const a = sonuc.anlama;
     const g = gorevOzeti();
     const sureSn = Math.round((Date.now() - durum.baslangic) / 1000);
@@ -1005,7 +1059,7 @@ function stratejiEkrani(kap, ders, { seri, geriAdres, geriEtiket }) {
       dogru: a.dogruSayisi, yanlis: a.soruSayisi - a.dogruSayisi,
       ekstra: { tur: 'strateji', sinama: a.yuzde, sinamaPuan: a.puan, soru: a.soruSayisi,
         katman: Object.fromEntries(Object.entries(a.katmanlar).map(([k, d]) => [k, d.yuzde])),
-        gorev: g?.yuzde, okumaSn: durum.okumaSn, gorevSn: durum.gorevSn },
+        gorev: g?.yuzde, okumaSn: durum.okumaSn, gorevSn: durum.gorevSn, ...surumEki(ders) },
     });
     const enIyi = onceki.reduce((mx, r) => Math.max(mx, r.dogru ?? 0), 0);
     const mesaj = sinamaMesaji(a.dogruSayisi, a.soruSayisi);

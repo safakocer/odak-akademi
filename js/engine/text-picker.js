@@ -1,4 +1,4 @@
-// Ortak metin seçici: kütüphane metinleri ve öğrencinin kendi metinlerinden birini seçtirir (arama + süzgeç); Hızlı Oku, Oku ve Anla, ileride Test ve Akıllı Kurs kullanır
+// Ortak metin seçici: kütüphane metinleri ve öğrencinin kendi metinlerinden birini seçtirir (arama + filtre; S34-son: arayüzde “süzgeç” yerine “filtre”); Hızlı Oku, Oku ve Anla, ileride Test ve Akıllı Kurs kullanır
 import { el } from '../core/ui.js';
 import { sayiBicimle } from '../core/utils.js';
 import {
@@ -87,11 +87,11 @@ export function metinSeciciOlustur({ egzersiz, kimlik = 'ms', suzgec = () => tru
       el('span', { sinif: 'metin-secenek__ad', metin: m.ad }),
       el('span', { sinif: 'metin-secenek__bilgi', id: `${ad}-${m.kimlik}`,
         metin: `${favoriMi(m.kimlik) ? '★ Favori · ' : ''}${metinBilgiSatiri(m)}` }))));
-    sayi.textContent = bulunan.length ? `${bulunan.length} metin` : 'Bu süzgece uyan metin yok.';
+    sayi.textContent = bulunan.length ? `${bulunan.length} metin` : 'Bu filtreye uyan metin yok.';
     bos.hidden = gosterilen.length > 0;
     bos.textContent = v === 'kendi'
       ? 'Henüz uygun bir kendi metnin yok. Kütüphane’de “Kendi metnini ekle” ile ekleyebilirsin.'
-      : 'Bu süzgece uyan metin yok. “Tüm sınıflar”ı seçmeyi dene.';
+      : 'Bu filtreye uyan metin yok. “Tüm sınıflar”ı seçmeyi dene.';
   }
 
   arama.addEventListener('keydown', (e) => { if (e.key === 'Enter') e.preventDefault(); });

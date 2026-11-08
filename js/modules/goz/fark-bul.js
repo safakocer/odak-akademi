@@ -1,7 +1,9 @@
-// Farkı Bul (S10; D06: Kolay'da yalnız renk farkı yok, dikey ekranda iki resim birlikte sığar, ipucu halkası AA): programla üretilen iki resim arasındaki farkları bulma; her resimde farklı fark sayısı, ipucu, klavyeyle nokta seçimi
+// Farkı Bul (S10; D06: Kolay'da yalnız renk farkı yok, dikey ekranda iki resim birlikte sığar, ipucu halkası AA; S34-son: nesne/fark sayısı sınıf bandından, resim sayısı denemeSayisi ile (alıştırma 1 resim), örnek): programla üretilen iki resim arasındaki farkları bulma; her resimde farklı fark sayısı, ipucu, klavyeyle nokta seçimi
 import { el } from '../../core/ui.js';
 import { sayiBicimle, karistir, sinirla, dakikaPuani } from '../../core/utils.js';
-import { svg, sekilCiz, SEKILLER, SEKIL_ADLARI, RENKLER, rastgeleSec, rastgeleTam, digeriniSec, noktaSvgde, geriYaz, yuvarla } from '../../engine/algi.js';
+import { svg, sekilCiz, simgeSvg, SEKILLER, SEKIL_ADLARI, RENKLER, rastgeleSec, rastgeleTam, digeriniSec, noktaSvgde, geriYaz, yuvarla } from '../../engine/algi.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
+import { denemeSayisi } from '../../engine/attention-core.js';
 
 const RESIM_SAYISI = 3;          // bir turdaki resim çifti
 const GEN = 320;                 // resim boyutu (viewBox)
@@ -85,11 +87,16 @@ export default {
   puanEtiketi: 'Fark/dakika',
   puanAciklama: `Dakikada bulunan fark. Her boş dokunuş süreye ${HATA_CEZA_SN}, her ipucu ${IPUCU_CEZA_SN} saniye ekler.`,
   alanEtiketi: 'Farkı bul. İki resim arasındaki farkları işaretle.',
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__ikili' }, simgeSvg('daire'), simgeSvg('kare')), metin: 'Şekil değişmiş: bu bir fark' },
+    { cizim: el('span', { sinif: 'egz-ornek__ikili' }, simgeSvg('daire'), simgeSvg('daire', { boyut: 55 })), metin: 'Boyu değişmiş: bu da fark' },
+  ]),
 
   baslat(ctx) {
     const { alan } = ctx;
     const sv = ctx.seviye;
     alan.classList.add('algi-alan', 'fark-alan');
+    const resimSayisi = denemeSayisi(ctx, RESIM_SAYISI); // S34-son: alıştırmada 1 resim
     Object.assign(ctx.ekstra, { nesne: sv.nesne });
 
     let resimNo = 0;
@@ -109,7 +116,7 @@ export default {
 
     const bulunan = () => sahne.farklar.filter((f) => f.bulundu).length;
     function durumYaz() {
-      durum.textContent = `Resim ${resimNo}/${RESIM_SAYISI} · Bulunan ${bulunan()}/${sahne.farklar.length} · Boş dokunuş ${ctx.sayac().yanlis}`;
+      durum.textContent = `Resim ${resimNo}/${resimSayisi} · Bulunan ${bulunan()}/${sahne.farklar.length} · Boş dokunuş ${ctx.sayac().yanlis}`;
     }
 
     function yeniResim() {
@@ -165,8 +172,8 @@ export default {
         durumYaz();
         if (kalan) { geriYaz(geri, 'dogru', `Buldun! ${kalan} fark kaldı.`); return; }
         kilit = true;
-        geriYaz(geri, 'dogru', resimNo >= RESIM_SAYISI ? 'Son resimdeki farkların hepsini buldun.' : 'Bu resimdeki farkların hepsini buldun. Sıradaki resim geliyor.');
-        ctx.sonra(() => (resimNo >= RESIM_SAYISI ? bitir() : yeniResim()), 1300);
+        geriYaz(geri, 'dogru', resimNo >= resimSayisi ? 'Son resimdeki farkların hepsini buldun.' : 'Bu resimdeki farkların hepsini buldun. Sıradaki resim geliyor.');
+        ctx.sonra(() => (resimNo >= resimSayisi ? bitir() : yeniResim()), 1300);
         return;
       }
       if (sahne.farklar.some((g) => g.bulundu && yakin(g))) return; // bulunmuş farka yeniden dokunmak hata değil

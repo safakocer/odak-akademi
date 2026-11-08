@@ -1,8 +1,8 @@
-// Nesne Takibi (D06: işaret halkası kontrastı): baş sabit, gözler hareket eden noktayı izler (yatay, dikey, sekiz, zigzag); her dakikanın sonunda kısa mola, ara sıra beliren işaretle dikkat denetimi
+// Nesne Takibi (D06: işaret halkası kontrastı; S34-son: ilkokulda tempo sınıf bandından, en uzun süre bant enCokDakika, kısa alıştırma turu, örnek): baş sabit, gözler hareket eden noktayı izler (yatay, dikey, sekiz, zigzag); her dakikanın sonunda kısa mola, ara sıra beliren işaretle dikkat denetimi
 import { el } from '../../core/ui.js';
 import { hareketAzaltilmisMi, duyur, odakla } from '../../core/a11y.js';
 import { sureBicimle } from '../../core/utils.js';
-import { hazirlikSecimi } from '../../engine/exercise-frame.js';
+import { hazirlikSecimi, ornekListesi } from '../../engine/exercise-frame.js';
 
 const BLOK_MS = 60 * 1000; // her 60 sn hareketten sonra mola
 const MOLA_SN = 15;
@@ -15,6 +15,9 @@ const YOLLAR = Object.freeze([
 ]);
 const SURELER = Object.freeze([1, 2, 3].map((d) => ({ deger: d, etiket: `${d} dakika`, aciklama: d > 1 ? `${d - 1} kısa mola` : 'molasız' })));
 const secim = { yol: 'yatay', dakika: 2 }; // oturum boyunca hatırlanır
+const ALISTIRMA_SN = 20; // S34-son: alıştırma turu (bant alistirma.sureSn verirse o)
+// S34-son: bandın en uzun süresi (enCokDakika; ilkokulda 1-2 dk), yoksa 3
+const enCokDakika = (bant) => Math.max(1, Math.min(3, Number(bant?.enCokDakika) || 3));
 
 const ucgen = (a) => (2 / Math.PI) * Math.asin(Math.sin(a)); // -1..1 arasında düz çizgilerle gidip gelen dalga
 // Yol: faz (radyan) → { x, y } (-1..1); hepsi ortadan başlar
@@ -46,20 +49,28 @@ export default {
   puanEtiketi: 'Takip puanı',
   puanAciklama: 'Yakalanan işaretlerin yüzdesi; kaçan işaret ve boşa dokunuş puanı düşürür.',
   alanEtiketi: 'Takip alanı. Nokta sarı kareye dönüşünce Boşluk tuşuna bas.',
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'nt-nokta nt-ornek' }), metin: 'Yeşil nokta: gözünle izle' },
+    { cizim: el('span', { sinif: 'nt-nokta nt-nokta--isaret nt-ornek' }), metin: 'Sarı kare: ekrana dokun' },
+  ]),
 
-  hazirlik() {
+  hazirlik({ bant } = {}) {
+    const enCok = enCokDakika(bant);
+    if (secim.dakika > enCok) secim.dakika = enCok;
     return el('div', { sinif: 'okuma-ayar' },
       hazirlikSecimi({ ad: 'yol', baslik: 'Hareket yolu', secenekler: YOLLAR, secili: secim.yol, degisince: (d) => { secim.yol = d; } }),
-      hazirlikSecimi({ ad: 'dakika', baslik: 'Süre', secenekler: SURELER, secili: secim.dakika, degisince: (d) => { secim.dakika = d; } }),
+      hazirlikSecimi({ ad: 'dakika', baslik: 'Süre', secenekler: SURELER.filter((x) => x.deger <= enCok), secili: secim.dakika, degisince: (d) => { secim.dakika = d; } }),
       hareketAzaltilmisMi() && el('p', { sinif: 'okuma-ayar__not', metin: '“Hareketi azalt” açık: nokta kayarak değil, kısa adımlarla ilerler.' }));
   },
 
   baslat(ctx) {
     const { alan, seviye: s } = ctx;
     const yolFn = YOL_FN[secim.yol] ?? YOL_FN.yatay;
-    const toplamBlok = secim.dakika;
+    // S34-son: alıştırma tek kısa blok (molasız); asıl turda seçilen dakika, bandın en uzun süresini aşmaz
+    const blokSiniri = ctx.alistirma ? (ctx.alistirma.sureSn ?? ALISTIRMA_SN) * 1000 : BLOK_MS;
+    const toplamBlok = ctx.alistirma ? 1 : Math.min(secim.dakika, enCokDakika(ctx.bant));
     const azalt = hareketAzaltilmisMi();
-    Object.assign(ctx.ekstra, { yol: secim.yol, dakika: secim.dakika, isaret: 0, kacan: 0, mola: 0 });
+    Object.assign(ctx.ekstra, { yol: secim.yol, dakika: toplamBlok, isaret: 0, kacan: 0, mola: 0 });
     alan.classList.add('nt-alan');
     const nokta = el('span', { sinif: 'nt-nokta' });
     const sahne = el('div', { sinif: 'nt-sahne', 'aria-hidden': 'true' }, nokta);
@@ -95,7 +106,7 @@ export default {
       blokMs += dt;
       adimMs += dt;
       if (!azalt || adimMs >= ADIM_MS) { adimMs = 0; ciz(); }
-      if (blokMs >= BLOK_MS) blokBitti();
+      if (blokMs >= blokSiniri) blokBitti();
     }
 
     // ---------- Dikkat işareti ----------
@@ -104,7 +115,7 @@ export default {
     }
     function isaretGoster() {
       isaretIptal = null;
-      if (molada || BLOK_MS - blokMs < s.isaretMs + 500) return; // dakika bitmek üzereyse yeni işaret yok
+      if (molada || blokSiniri - blokMs < s.isaretMs + 500) return; // dakika bitmek üzereyse yeni işaret yok
       isaretAcik = true;
       ctx.ekstra.isaret += 1;
       nokta.classList.add('nt-nokta--isaret');
@@ -219,6 +230,7 @@ export default {
     }
     .nt-mola h3 { margin: 0; font-size: var(--fs-l); }
     .nt-mola p { margin: 0; max-width: 26rem; }
+    .nt-nokta.nt-ornek { position: relative; display: block; margin: 0; transform: none; }
     .nt-mola__sure { font-family: var(--font-baslik); font-size: var(--fs-2xl); font-weight: 700; font-variant-numeric: tabular-nums; }
   `,
 };

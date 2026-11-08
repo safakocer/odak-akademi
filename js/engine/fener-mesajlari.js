@@ -1,6 +1,8 @@
 // Fener’in ana sayfa mesajları ve ipuçları (S30): duruma göre ifade + mesaj seçimi. Saf modül (DOM ve depo yok); bilgiyi app.js toplar, fener.js yeniden dışa açar.
 // Uzunluk (S30 düzeltme): mesaj ve ipucu en çok ~90 karakter; ana sayfa balonu bu uzunluğa göre sabit yükseklikte (telefonda 4, genişte 2-3 satır).
 // Dil kuralı: kısa, “henüz / bir sonraki hedef” dili; başkasıyla karşılaştırma, seri kaybı korkusu, süre baskısı ve tıbbi iddia yok.
+// S34f: ilkokul (2-4. sınıf) için ayrı mesaj ve ipucu kümeleri: daha kısa cümleler (cümle başına en çok ~8 kelime, mesaj en çok ~60 karakter), aynı durumlar ve öncelik. Kademe profilin sınıfından; profil yoksa ortaokul kümesi.
+import { kademe } from '../core/siniflar.js';
 
 export const GECE = Object.freeze({ basDk: 21 * 60 + 30, bitDk: 6 * 60 }); // 21.30-06.00 arası “dinlenme” mesajı
 export const SERI_TASLARI = Object.freeze([3, 5, 7, 10, 14, 21, 30, 50, 75, 100]);
@@ -108,6 +110,29 @@ const MESAJLAR = Object.freeze({
   ],
 });
 
+// S34f: ilkokul mesajları (MESAJLAR ile aynı anahtarlar; şablon yerleri aynı)
+const MESAJLAR_ILKOKUL = Object.freeze({
+  profilYok: ['Merhaba, ben Fener! Önce bir profil oluşturalım.'],
+  uzun: ['Bugün çok çalıştın. Şimdi dinlenme zamanı.', 'Bugünlük yeter. Biraz oyna, biraz dinlen.', 'Çok emek verdin. Yarın yine buradayım.'],
+  gece: ['Gece oldu. Ben de uyuyorum. İyi geceler!', 'Yıldızlar çıktı! Yarın görüşürüz.', 'Uyku zamanı. Yarın yine oynarız.'],
+  rozet: ['Yeni rozet: {rozet}! Emeğin için tebrikler.', 'Işığım parlıyor! Yeni rozetin: {rozet}.', 'Bugün rozet kazandın: {rozet}!'],
+  seviye: ['Seviye atladın! Artık Seviye {seviye}.', 'Yeni unvanın: {unvan}! Tebrikler.', 'Seviye {seviye} oldun. Adım adım ilerliyorsun!'],
+  hedef: ['Bugünkü hedefin tamam! İstersen dinlen.', 'Hedef tamam! Bugünlük yeter.', 'Hedefine ulaştın. Harika iş!'],
+  seri: ['{n} gündür buradasın. Süper!', '{n} günlük seri! Her gün küçük bir adım.', 'Serin {n} gün oldu. Işığım parlıyor!'],
+  donus: ['Tekrar hoş geldin! Kısa bir turla başlayalım mı?', 'Seni gördüğüme sevindim! Yavaşça başlayalım.', 'Hoş geldin! Küçük bir turla başlayalım.'],
+  yeni: ['Hoş geldin! Ben Fener. Birlikte başlayalım mı?', 'Merak ettiğin bir oyunu seç. Ben yanındayım.', 'İlk adım en güzeli! Kısa bir tur yeter.'],
+  kurs: ['Kursta bugünkü dersin hazır.', 'Kursta yeni bir gün! Hadi başlayalım.', 'Bugünkü kurs dersini yapalım mı?'],
+  tekrar: ['Tekrar edilecek kart sayısı: {n}. Hatırlıyor musun?', 'Seni bekleyen kart sayısı: {n}.', 'Bugün {n} kart var. Hadi tekrar edelim.'],
+  final: ['Final testin hazır! Neler öğrendiğine bakalım mı?', 'Testi yeniden çözme zamanı. Gelişimini görelim mi?'],
+  seviyeYakin: ['Bir sonraki seviyeye {kalan} XP kaldı!', 'Seviye {sonraki} çok yakın!'],
+  hedefYakin: ['Az kaldı! Hedefe {kalan} dakika var.', 'Neredeyse tamam! {kalan} dakika daha.'],
+  calisti: ['Güzel gidiyorsun! Hedefe {kalan} dakika kaldı.', 'Başladın bile! Hedefe {kalan} dakika kaldı.', 'Her tur bir adım. {kalan} dakika kaldı.'],
+  test: ['Seviye testini henüz çözmedin. Birlikte deneyelim mi?', 'Kısa bir test, kursu sana göre ayarlar.'],
+  sabah: ['Günaydın! Bugün ne öğrenelim?', 'Günaydın! Kısa bir turla başlayalım mı?', 'Günaydın! Bir oyun seç, ben buradayım.'],
+  ogle: ['Bugün hangi oyunu deneyelim?', 'Henüz başlamadık. Kısa bir tur yeter.', 'Bir sonraki hedef: bugünün ilk turu.', 'Bir oyun seç, ben buradayım.'],
+  aksam: ['İyi akşamlar! Kısa bir tur yeter.', 'Akşam oldu. Hangi oyunu deneyelim?', 'İyi akşamlar! Günü küçük bir turla bitirelim mi?'],
+});
+
 /** Fener’e dokununca sırayla gelen ipuçları (genel çalışma ve okuma önerileri; kesin iddia yok) */
 export const IPUCLARI = Object.freeze([
   'Okumadan önce başlığa ve resimlere bak; metnin neyle ilgili olduğunu tahmin et.',
@@ -132,6 +157,36 @@ export const IPUCLARI = Object.freeze([
   'İyi bir uyku, ertesi gün derse hazır olmana yardım eder.',
 ]);
 
+/** S34f: ilkokul ipuçları (20; kısa cümleler) */
+export const IPUCLARI_ILKOKUL = Object.freeze([
+  'Okumadan önce başlığa ve resme bak. Ne anlatacak, tahmin et.',
+  'Bir sayfayı bitirince kendine sor: Neler oldu?',
+  'Anlayarak okumak, hızlı okumaktan önemlidir.',
+  'Öğrendiğin bir şeyi ailene anlat.',
+  'Kısa çalış, sonra kısa bir mola ver.',
+  'Bilmediğin kelimeyi önce cümleden tahmin et.',
+  'Öğrendiğini birkaç gün sonra yeniden hatırla.',
+  'Çalışırken masanda yalnız gerekenler olsun.',
+  'Okuduktan sonra kitabı kapat. Neler hatırlıyorsun?',
+  'Uzun bir listeyi küçük gruplara ayır.',
+  'Gözlerin yorulunca biraz uzağa bak.',
+  'Hata yapmak öğrenmenin parçası. Yeniden dene!',
+  'Okuduğun hikâyeyi bir iki cümleyle anlat.',
+  'Hikâye okurken sor: Sonra ne olacak?',
+  'Sevdiğin bir kitabı yeniden okumak çok iyidir.',
+  'Kendini başkasıyla değil, dünkü hâlinle karşılaştır.',
+  'Bir şeyi zihninde resim gibi düşün. Daha kolay hatırlarsın.',
+  'İyi bir uyku, seni ertesi güne hazırlar.',
+  'Bir büyüğünle sırayla sesli okuyabilirsin.',
+  'Kim? Ne? Nerede? Ne zaman? Bu sorular hikâyeyi anlatır.',
+]);
+
+/** S34f: kademe → mesaj ve ipucu kümesi (kademe yoksa ortaokul) */
+export const MESAJ_KUMELERI = Object.freeze({ ortaokul: MESAJLAR, ilkokul: MESAJLAR_ILKOKUL });
+export const IPUCU_KUMELERI = Object.freeze({ ortaokul: IPUCLARI, ilkokul: IPUCLARI_ILKOKUL });
+const mesajlar = (sinif) => MESAJ_KUMELERI[kademe(sinif)] ?? MESAJLAR;
+const ipuclari = (sinif) => IPUCU_KUMELERI[kademe(sinif)] ?? IPUCLARI;
+
 const GUN_MS = 86400000;
 /** Yerel tarihin gün numarası (aynı gün aynı sayı; saat dilimi kayması yok) */
 export function gunNumarasi(t = new Date()) {
@@ -144,9 +199,10 @@ const doldur = (sablon, degerler = {}) => sablon.replace(/\{(\w+)\}/g, (tum, ad)
 // ['A', 'B', 'C'] → 'A, B ve C'
 const listeMetni = (dizi) => (dizi.length < 2 ? dizi.join('') : `${dizi.slice(0, -1).join(', ')} ve ${dizi.at(-1)}`);
 
-/** Durumun mesaj listesinden günün mesajı (gün içinde değişmez, ertesi gün sıradaki gelir) */
-export function mesajSec(durum, gun = new Date(), degerler = {}) {
-  const liste = MESAJLAR[durum] ?? MESAJLAR.ogle;
+/** Durumun mesaj listesinden günün mesajı (gün içinde değişmez, ertesi gün sıradaki gelir). S34f: sinif verilirse o kademenin kümesi */
+export function mesajSec(durum, gun = new Date(), degerler = {}, sinif = null) {
+  const kume = mesajlar(sinif);
+  const liste = kume[durum] ?? kume.ogle;
   return doldur(liste[(gunNumarasi(gun) + karma(durum)) % liste.length], degerler);
 }
 
@@ -155,10 +211,12 @@ export function mesajSec(durum, gun = new Date(), degerler = {}) {
  * b: { profil, durum (motivasyon.bugunDurumu), gun (Date), seri {gun, bugunCalisildi}, seviye {no, unvan, kalan, bugunAtladi},
  *      yeniRozetler [ad], araGun (son çalışılan günden bugüne gün farkı | null), tekrarKart (sayı | null), kurs ('bekliyor' | 'tamam' | null), test (testDurumu().asama | null) }
  * Yalnız { profil, durum } verilirse (S28 çağrısı) S28’deki temel davranış sürer. Döner: { ifade, mesaj, durum }
+ * S34f: mesaj kümesi profilin sınıfına göre (ilkokulda kısa cümleler); durum ve öncelik aynı
  */
 export function anaSayfaMesaji(b = {}) {
   const gun = b.gun ?? new Date();
-  const sec = (durum, degerler) => ({ ifade: DURUM_IFADESI[durum], mesaj: mesajSec(durum, gun, degerler), durum });
+  const sinif = b.profil?.sinif ?? null;
+  const sec = (durum, degerler) => ({ ifade: DURUM_IFADESI[durum], mesaj: mesajSec(durum, gun, degerler, sinif), durum });
   if (!b.profil) return sec('profilYok');
   const d = b.durum ?? { dk: 0, hedefDk: 0, yuzde: 0, kayit: 0 };
   const dakika = gun.getHours() * 60 + gun.getMinutes();
@@ -184,10 +242,11 @@ export function anaSayfaMesaji(b = {}) {
   return sec(dakika < 12 * 60 ? 'sabah' : dakika < 18 * 60 ? 'ogle' : 'aksam');
 }
 
-/** n. ipucu (döngüsel) */
-export function ipucuMetni(n) {
-  const L = IPUCLARI.length;
-  return IPUCLARI[((n % L) + L) % L];
+/** n. ipucu (döngüsel). S34f: sinif verilirse o kademenin ipuçları */
+export function ipucuMetni(n, sinif = null) {
+  const liste = ipuclari(sinif);
+  const L = liste.length;
+  return liste[((n % L) + L) % L];
 }
-/** Günün ilk ipucunun sırası (her gün farklı bir ipucundan başlar) */
-export function gunlukIpucuSirasi(gun = new Date()) { return gunNumarasi(gun) % IPUCLARI.length; }
+/** Günün ilk ipucunun sırası (her gün farklı bir ipucundan başlar). S34f: sinif verilirse o kademenin ipucu sayısıyla */
+export function gunlukIpucuSirasi(gun = new Date(), sinif = null) { return gunNumarasi(gun) % ipuclari(sinif).length; }

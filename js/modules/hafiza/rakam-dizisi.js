@@ -1,6 +1,7 @@
-// Rakam Dizisi (S14a): rakamlar tek tek gösterilir; öğrenci aynı sırayla (ileri) ya da sondan başa (geri) büyük tuş takımıyla girer, Sil ile düzeltir. Dizi uzunluğu merdivenle uyarlanır (memory-core.js)
+// Rakam Dizisi (S14a): rakamlar tek tek gösterilir; öğrenci aynı sırayla (ileri) ya da sondan başa (geri) büyük tuş takımıyla girer, Sil ile düzeltir. Dizi uzunluğu merdivenle uyarlanır (memory-core.js; S34-son: ilkokulda tempo, dizi sınırı ve yön sınıf bandından, örnek)
 import { el } from '../../core/ui.js';
 import { hafizaOyunu, hafizaSahnesi, diziTuru, bekle, ogeDuyur } from '../../engine/memory-core.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 
 const BIRIM = 'rakam';
 const TUS_SIRASI = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'sil', 0, 'tamam'];
@@ -43,6 +44,11 @@ export default hafizaOyunu({
     { mod: 'geri', metin: 'geri yönde önce diziyi aklında baştan sona bir kez tekrar et, sonra sondan başla.' },
     'gösterim sürerken rakamları içinden söyle; sesli tekrar aklında tutmayı kolaylaştırır.',
   ],
+  // S34-son: kısa yönergede görsel örnek (seviye testinin hafıza adımında da gösterilir)
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '4 · 7 · 2' }), metin: 'Rakamlar tek tek görünür, aklında tut' },
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '4 7 2 ✓' }), metin: 'Sonra aynı sırayla tuşlara bas' },
+  ]),
   alanEtiketi: 'Rakam Dizisi. Rakamlar sırayla okunur. Sıra sana gelince rakam tuşlarıyla gir, Geri silme tuşuyla düzelt, Enter ile onayla.',
 
   baslat(ctx, { ters, merdiven, deneme }) {

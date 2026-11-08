@@ -1,9 +1,10 @@
-// Flaş yardımcıları (S09; D06: gruplarda özel ad yok, kenarTemizle dışa açıldı): kare eşzamanlı kısa gösterim + maske, kademeli süre merdiveni, hız puanı, kelime/sayı/kelime grubu havuzu, çeldiriciler, seçenek paneli, yazım karşılaştırması
+// Flaş yardımcıları (S09; D06: gruplarda özel ad yok, kenarTemizle dışa açıldı; S34c-2: tek kelimeler sınıfın kelime havuzundan da gelir): kare eşzamanlı kısa gösterim + maske, kademeli süre merdiveni, hız puanı, kelime/sayı/kelime grubu havuzu, çeldiriciler, seçenek paneli, yazım karşılaştırması
 import { el } from '../core/ui.js';
 import { karistir, trKucuk, kelimelereBol, karakterSayisi, sayi } from '../core/utils.js';
 import { modulKayitlari } from '../core/metrics.js';
 import { metniHazirla } from './reader-engine.js';
 import { metinBankasiYukle, tumMetinler, profilSinifi } from './text-bank.js';
+import { kelimeHavuzuYukle, kelimeHavuzuYuklendiMi, sinifKelimeleri } from './kelime-havuzu.js';
 
 const rastgeleSira = (n) => Math.floor(Math.random() * n);
 
@@ -124,6 +125,8 @@ export function baslangicSuresi({ modul, egzersiz, zorluk }, { baslangic, en, en
 }
 
 // ---------- Kelime ve grup havuzu (metin bankasından; yüklenemezse yedek metin) ----------
+// S34c-2: tek kelimeler = sınıfın kelime havuzu (kelime-havuzu.js sinifKelimeleri; ilkokulda kısa, sık kullanılan kelimeler) ∪ sınıfa uygun
+// metinlerdeki küçük harfli kelimeler. Kelime grupları (2-4 kelime) metinlerden gelir. Havuz yüklenemezse yalnız metin kelimeleri.
 const YEDEK_METIN = `Sabah erken kalkan çocuklar bahçede top oynadı. Güneş yavaş yavaş yükselirken kuşlar ağaçta öttü.
 Annem pazardan taze elma ve armut aldı. Küçük kedi pencerenin önünde uyuyordu. Akşam olunca hep birlikte masaya oturduk.
 Deniz kenarında yürümek bana iyi gelir. Kitabın son sayfasını okuyunca gülümsedim. Rüzgâr esince yapraklar yere düştü.
@@ -136,9 +139,10 @@ const GRUP_EN_COK_KARAKTER = 28;
 let havuz = null;
 let havuzAnahtari = '';
 
-/** Metin bankasını yükler (egzersiz dosyasının başında beklenir) */
+/** Metin bankasını ve kelime havuzunu yükler (egzersiz dosyasının başında beklenir) */
 export async function havuzHazirla() {
   try { await metinBankasiYukle(); } catch (h) { console.warn('[flas] Metin bankası yüklenemedi; yedek kelimeler kullanılacak.', h); }
+  try { await kelimeHavuzuYukle(); } catch (h) { console.warn('[flas] Kelime havuzu yüklenemedi; metin kelimeleri kullanılacak.', h); }
   havuz = null;
 }
 
@@ -167,9 +171,9 @@ function havuzGetir() {
   const ps = profilSinifi();
   let metinler = [];
   try { metinler = tumMetinler().filter((m) => m.kaynak !== 'banka' || !ps || m.sinif <= ps); } catch { metinler = []; }
-  const anahtar = `${ps}:${metinler.length}`;
+  const anahtar = `${ps}:${metinler.length}:${kelimeHavuzuYuklendiMi()}`;
   if (havuz && havuzAnahtari === anahtar) return havuz;
-  const kelimeler = new Set();
+  const kelimeler = new Set(sinifKelimeleri(ps ?? undefined, [2, 9])); // S34c-2: sınıfın kelime havuzu (profil yoksa hepsi)
   const gruplar = { 2: new Set(), 3: new Set(), 4: new Set() };
   metinler.forEach((m) => metniIsle(m.metin, kelimeler, gruplar));
   if (kelimeler.size < 60 || gruplar[4].size < 20) metniIsle(YEDEK_METIN, kelimeler, gruplar);

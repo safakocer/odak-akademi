@@ -1,7 +1,7 @@
-// Schulte tablosu (D06: puan ortak dakikaPuani ile): karışık dizilmiş sayıları 1'den başlayarak sırayla bulma (düzenli görsel tarama); 3×3-7×7, sade / renkli / sessiz çeldirici
+// Schulte tablosu (D06: puan ortak dakikaPuani ile; S34-son: ilkokulda tablo boyu sınıf bandından, kısa yönerge örneği): karışık dizilmiş sayıları 1'den başlayarak sırayla bulma (düzenli görsel tarama); 3×3-7×7, sade / renkli / sessiz çeldirici
 import { el } from '../../core/ui.js';
 import { sayiBicimle, karistir, dakikaPuani } from '../../core/utils.js';
-import { hazirlikSecimi } from '../../engine/exercise-frame.js';
+import { hazirlikSecimi, ornekListesi } from '../../engine/exercise-frame.js';
 
 const HATA_CEZA_SN = 2;   // her hatalı dokunuş puan hesabında süreye eklenir
 const RENK_SAYISI = 6;    // renkli çeldiricide kullanılan zemin/metin çifti (stil: .sch-r1 … .sch-r6)
@@ -30,6 +30,11 @@ export default {
   puanEtiketi: 'Sayı/dakika',
   puanAciklama: `Dakikada bulunan sayı. Her hatalı dokunuş süreye ${HATA_CEZA_SN} saniye ekler.`,
   alanEtiketi: 'Schulte tablosu. Tab ile tabloya geç, ok tuşlarıyla gezin, Enter ile seç.',
+  // S34-son: kısa yönergede görsel örnek (tablo boyu ve basamak sayısı sınıf bandından: data/sinif-bantlari.json)
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '1 → 2 → 3' }), metin: 'Sayıları 1’den başlayarak sırayla bul' },
+    { cizim: el('span', { sinif: 'sch-hucre sch-hucre--bulundu sch-ornek', metin: '1' }), metin: 'Bulduğun sayı işaretlenir' },
+  ]),
 
   hazirlik() {
     return el('div', { sinif: 'okuma-ayar' }, hazirlikSecimi({
@@ -148,5 +153,6 @@ export default {
     .sch-hucre--bulundu { background: var(--renk-birincil); color: var(--renk-birincil-uzeri); border-color: var(--renk-birincil); box-shadow: inset 0 0 0 3px var(--renk-birincil-uzeri); }
     .sch-hucre--hata { border-color: var(--renk-vurgu-metin); border-style: dashed; animation: sch-titre 240ms ease-out; }
     @keyframes sch-titre { 25% { translate: -3px 0; } 75% { translate: 3px 0; } }
+    .sch-hucre.sch-ornek { inline-size: 2.75rem; block-size: 2.75rem; font-size: var(--fs-l); cursor: default; }
   `,
 };

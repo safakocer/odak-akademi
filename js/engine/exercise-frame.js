@@ -1,13 +1,14 @@
-// Egzersiz çerçevesi (S29: sonuç sesi kutlama türüne göre: rozet, seviye, rekor, hedef ya da bitti; S28: çocuk görünümünde sonuçta Fener ve kutlama ekranı; S20: sonuçta XP, yeni rozet ve “bugünlük yeter”; D06: kayitYok egzersiz seviye de yazmaz; S19: kurs dersi bandı, ctx.kurs, ekstra.kurs, “Sonraki derse geç”): açıklama → geri sayım → çalışma → sonuç yaşam döngüsü; başlık ikonu, duraklat/çık, tam ekran, seviye (S09: otomatik seviye), hazırlık ayarları, metrics kaydı, mola önerisi (S10: Ayarlar'dan kapatılabilir; mola egzersizi sayacı sıfırlar)
+// Egzersiz çerçevesi (S34-son: kayıtta rekor kademesi, ortaokulda da alıştırma turu (kademe bandı), ilkokulda ilk girişte alıştırma öne çıkar, ctx.alistirma.sureSn; S34e: sınıf bandı (enCok, başlangıç, basamak ayarları), ilkokulda kısa yönerge + görsel örnek + kaydedilmeyen alıştırma turu; S29: sonuç sesi kutlama türüne göre: rozet, seviye, rekor, hedef ya da bitti; S28: çocuk görünümünde sonuçta Fener ve kutlama ekranı; S20: sonuçta XP, yeni rozet ve “bugünlük yeter”; D06: kayitYok egzersiz seviye de yazmaz; S19: kurs dersi bandı, ctx.kurs, ekstra.kurs, “Sonraki derse geç”): açıklama → geri sayım → çalışma → sonuç yaşam döngüsü; başlık ikonu, duraklat/çık, tam ekran, seviye (S09: otomatik seviye), hazırlık ayarları, metrics kaydı, mola önerisi (S10: Ayarlar'dan kapatılabilir; mola egzersizi sayacı sıfırlar)
 import { odakTuzagi, odakla, duyur, molaRehberiAcikMi } from '../core/a11y.js';
-import { kayitEkle, sonSeviye, sonSeviyeKaydet } from '../core/metrics.js';
+import { kayitEkle, sonSeviye, sonSeviyeKaydet, modulKayitlari, ILKOKUL_ETIKETI } from '../core/metrics.js';
 import { el, spriteIkon } from '../core/ui.js';
 import { sesCal } from '../core/sound.js';
 import { sureBicimle, sureMetni, dakikaMetni, yuzdeBicimle, sinirla, sayi } from '../core/utils.js';
 import { kutla, cocukKutla, kutlamaSec } from './celebrate.js';
 import { cocukGorunumuMu } from '../core/hesap.js';
 import { fenerCiz } from './fener.js';
-import { dinle, OLAYLAR } from '../core/store.js';
+import { dinle, OLAYLAR, etkinProfil } from '../core/store.js';
+import { bantlariYukle, egzersizBandi, seviyeleriUyarla, ilkokulMu } from '../core/siniflar.js';
 import { kazanimAl, bugunlukMesaji } from './motivasyon.js';
 
 const UYGULAMA_ADI = 'Odak Akademi';
@@ -45,6 +46,15 @@ export function hazirlikSecimi({ ad, baslik, secenekler, secili, degisince }) {
     el('div', { sinif: 'okuma-ayar__liste' }, secenekler.map((s) => el('label', { sinif: 'okuma-ayar__secenek' },
       el('input', { type: 'radio', name: ad, value: String(s.deger), checked: s.deger === secili, onchange: () => degisince?.(s.deger) }),
       el('span', {}, el('strong', { metin: s.etiket }), s.aciklama && ` (${s.aciklama})`)))));
+}
+
+/**
+ * S34e: Açıklama ekranındaki görsel örnek için liste (tanim.ornek bunu döndürür; çerçeve “Örnek” başlıklı kutuya koyar).
+ * ogeler: [{ cizim: Node (ekran okuyucuya gizli), metin: kendi başına anlaşılır kısa yazı }]
+ */
+export function ornekListesi(ogeler) {
+  return el('ul', { sinif: 'egz-ornek__liste' }, ogeler.map((o) => el('li', { sinif: 'egz-ornek__oge' },
+    el('span', { sinif: 'egz-ornek__cizim', 'aria-hidden': 'true' }, o.cizim), el('span', { metin: o.metin }))));
 }
 
 /** Açık egzersizi kaydetmeden kapatır (sayfa değişince yönlendirici çağırır). */
@@ -185,7 +195,14 @@ function seviyeMesaji({ dogru, yanlis }, yeni, eski, enUst, ad) {
  *          sayacYok? (doğru/yanlış/isabet gösterilmez; satırlar yalnızca degerlendir'den), kayitYok? (sonuç kaydedilmez), kayitYokMetni?,
  *          ikon? (başlıktaki sprite ikonu; yoksa modülün ikonu),
  *          otomatikSeviye? (S09: isabet ≥%80 → bir üst, <%50 → bir alt seviye; degerlendir'in sonrakiSeviye'si bunu ezer),
- *          molaMi? (S10: mola egzersizi; bitince aralıksız çalışma sayacı sıfırlanır, mola önerisi çıkmaz) }
+ *          molaMi? (S10: mola egzersizi; bitince aralıksız çalışma sayacı sıfırlanır, mola önerisi çıkmaz),
+ *          ornek?({ seviye, bant }) → Node (S34e: kısa yönergeli açıklamada görsel örnek; ornekListesi ile) }
+ * S34e sınıf bandı (siniflar.js egzersizBandi; etkin profilin sınıfı): seviyeler banda göre uyarlanır (enCok’ta kesilir), kaydı yoksa
+ * baslangic basamağı; bant.yonerge varsa açıklamada kisaAciklama + nasil yerine kısa yönerge ve örnek; bant.alistirma varsa
+ * “Önce alıştırma yap” (1. seviye + alistirma.ayar, ctx.alistirma { deneme?, sureSn? }, süreli egzersizde süre alistirma.sureSn; kaydedilmez, seviye değişmez).
+ * S34-son: kademe bandı (ortaokulda yalnız alıştırma) da gelir; kısa yönergeli bantta egzersizin hiç kaydı yoksa alıştırma birincil düğmedir.
+ * İlkokulda kaydın ekstrasına kademe: 'ilkokul' yazılır (rekor kademe içinde; degerlendir ham.ekstra.kademe'yi görür).
+ * ctx.bant: bant ya da null; hazirlik({ seviye, kurs, bant }).
  * Rekor alanını metrics.js seçer: eoh > puan > dogru.
  * secenekler: { zorluk?, kapaninca?({ turBitti, devam }), kurs? }  → Döner: { kapat() }
  * S19 kurs: { gun, sira, toplam, baslik, yonerge, ayar, sonDers } → açıklamada bant, hazirlik({ seviye, kurs }), ctx.kurs,
@@ -194,15 +211,20 @@ function seviyeMesaji({ dogru, yanlis }, yeni, eski, enUst, ad) {
 export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   tanimDenetle(tanim);
   acik?.kapat({ bildir: false });
-  await cssYukle();
+  await Promise.all([cssYukle(), bantlariYukle()]); // bantlar açılışta yüklenmiş olur; yüklenemezse egzersiz kendi ayarlarıyla açılır
   stilEkle(tanim);
 
-  const seviyeler = tanim.seviyeler?.length ? tanim.seviyeler : VARSAYILAN_SEVIYELER;
+  const profilSinif = etkinProfil()?.sinif;
+  const bant = egzersizBandi(tanim.egzersiz, profilSinif); // S34e (S34-son: kademe bandıyla birleşmiş)
+  const kademeEki = ilkokulMu(profilSinif) ? { kademe: ILKOKUL_ETIKETI } : {}; // S34-son: rekor kademesi
+  const seviyeler = seviyeleriUyarla(tanim.seviyeler?.length ? tanim.seviyeler : VARSAYILAN_SEVIYELER, bant);
+  const kisaYonerge = !!bant?.yonerge?.length;
+  const alistirmaAyari = bant?.alistirma ?? null;
   const etiket = { dogru: 'Doğru', yanlis: 'Yanlış', ...tanim.etiketler };
   const puanEtiketi = tanim.puanEtiketi ?? 'Puan';
   // S19: pekiştirme dersinde zorluk bir alt seviyeden başlar (kayıtlı seviye seçimi değişmez)
   const zorlukFarki = sayi(kurs?.ayar?.zorlukFarki) ?? 0;
-  let seviye = sinirla(Math.round(sayi(zorluk) ?? (sonSeviye(tanim.egzersiz) ?? 1) + zorlukFarki), 1, seviyeler.length);
+  let seviye = sinirla(Math.round(sayi(zorluk) ?? (sonSeviye(tanim.egzersiz) ?? bant?.baslangic ?? 1) + zorlukFarki), 1, seviyeler.length);
   let turBitti = false; // S19: en az bir tur sonuç ekranına ulaştı mı (kurs dersi tamam sayılır)
   let durum = '';          // aciklama | gerisayim | calisma | sonuc | mola
   let duraklatildi = false;
@@ -210,6 +232,8 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   let temizlikler = [];
   let sayac = { dogru: 0, yanlis: 0 };
   let ekstra = {};
+  let alistirmaTuru = false;   // S34e: bu tur alıştırma mı (kaydedilmez)
+  let turSureSn = tanim.sureSn; // S34e: alıştırmada alistirma.sureSn
   const saat = { birikmis: 0, son: null };
 
   // ---------- İskelet ----------
@@ -224,7 +248,8 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
     el('span', { sinif: 'ekran-okuyucu', metin: tanim.sureSn ? 'Kalan süre: ' : 'Geçen süre: ' }), sureDeger);
   const puanEl = el('span', { sinif: 'egz__puan', hidden: !!tanim.sayacYok });
   const dolgu = el('span', { sinif: 'ilerleme__dolgu' });
-  const gosterge = el('div', { sinif: 'egz__gosterge', hidden: true }, sureEl,
+  const alistirmaEl = el('span', { sinif: 'rozet rozet--gunes egz__alistirma', metin: 'Alıştırma turu · kaydedilmez', hidden: true });
+  const gosterge = el('div', { sinif: 'egz__gosterge', hidden: true }, alistirmaEl, sureEl,
     el('div', { sinif: 'ilerleme ilerleme--ince', 'aria-hidden': 'true', hidden: !tanim.sureSn }, dolgu), puanEl);
 
   const govde = el('div', { sinif: 'egz__govde' });
@@ -295,9 +320,9 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
 
   function gostergeGuncelle() {
     const gecen = gecenMs() / 1000;
-    if (tanim.sureSn) {
-      sureDeger.textContent = sureBicimle(Math.ceil(Math.max(0, tanim.sureSn - gecen)));
-      dolgu.style.setProperty('--deger', `${Math.min(100, (gecen / tanim.sureSn) * 100)}%`);
+    if (turSureSn) {
+      sureDeger.textContent = sureBicimle(Math.ceil(Math.max(0, turSureSn - gecen)));
+      dolgu.style.setProperty('--deger', `${Math.min(100, (gecen / turSureSn) * 100)}%`);
     } else {
       sureDeger.textContent = sureBicimle(gecen);
     }
@@ -308,18 +333,29 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   function aciklamaGoster() {
     turuTemizle();
     durumAyarla('aciklama');
-    const baslik = el('h3', { metin: 'Nasıl oynanır?' });
+    const baslik = el('h3', { metin: kisaYonerge ? 'Ne yapacaksın?' : 'Nasıl oynanır?' });
     let hazirlikDugumu = null;
-    try { hazirlikDugumu = tanim.hazirlik?.({ seviye, kurs: kurs ? { ...kurs } : null }) ?? null; } catch (h) { console.error('[egzersiz] hazırlık hatası:', h); }
+    try { hazirlikDugumu = tanim.hazirlik?.({ seviye, kurs: kurs ? { ...kurs } : null, bant }) ?? null; } catch (h) { console.error('[egzersiz] hazırlık hatası:', h); }
+    // S34e: kısa yönergede görsel örnek (egzersiz verirse)
+    let ornek = null;
+    if (kisaYonerge) {
+      try { ornek = tanim.ornek?.({ seviye: { ...seviyeler[seviye - 1] }, bant }) ?? null; } catch (h) { console.error('[egzersiz] örnek hatası:', h); }
+    }
     const hataEl = el('p', { sinif: 'egz-aciklama__hata', role: 'alert', hidden: true });
+    // S34-son: kısa yönergeli (ilkokul) egzersizin hiç kaydı yoksa alıştırma öne çıkar; asıl tur yine bir dokunuşla başlar
+    const ilkGiris = kisaYonerge && !!alistirmaAyari && !modulKayitlari(tanim.modul, { egzersiz: tanim.egzersiz }).length;
+    const alistirmaDugme = alistirmaAyari && el('button', { type: 'button',
+      sinif: `btn ${ilkGiris ? 'btn--birincil btn--buyuk' : 'btn--ikincil'} btn--blok egz-aciklama__alistirma`, onclick: () => basla(true) },
+    'Önce alıştırma yap', el('small', { metin: 'Kısa sürer, kaydedilmez' }));
     const kursBandi = kurs && el('div', { sinif: 'egz-kurs-bandi', role: 'note' },
       el('strong', { metin: `Kurs · Gün ${kurs.gun} · Ders ${kurs.sira}/${kurs.toplam}${kurs.baslik ? ` · ${kurs.baslik}` : ''}` }),
       kurs.yonerge && el('p', { metin: kurs.yonerge }));
     const form = el('form', { sinif: 'egz-ekran egz-aciklama' },
       kursBandi,
-      tanim.kisaAciklama && el('p', { sinif: 'egz-aciklama__giris', metin: tanim.kisaAciklama }),
+      !kisaYonerge && tanim.kisaAciklama && el('p', { sinif: 'egz-aciklama__giris', metin: tanim.kisaAciklama }),
       baslik,
-      el('ol', { sinif: 'egz-adimlar' }, (tanim.nasil ?? []).map((a) => el('li', { metin: a }))),
+      el('ol', { sinif: 'egz-adimlar' }, (kisaYonerge ? bant.yonerge : tanim.nasil ?? []).map((a) => el('li', { metin: a }))),
+      ornek instanceof Node && el('figure', { sinif: 'egz-ornek' }, el('figcaption', { metin: 'Örnek' }), ornek),
       el('fieldset', { sinif: 'grup', hidden: seviyeler.length < 2 },
         el('legend', { metin: 'Seviye' }),
         el('div', { sinif: 'segment' }, seviyeler.map((s, i) => el('label', {},
@@ -329,10 +365,15 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
       hataEl,
       el('p', { sinif: 'egz-aciklama__not', metin: tanim.sureSn
         ? `Süre: ${sureMetni(tanim.sureSn)}. İstediğin an duraklatabilirsin.`
-        : tanim.sureNotu ?? 'Süre sınırı yok. İstediğin an duraklatabilirsin.' }),
-      el('button', { type: 'submit', sinif: 'btn btn--birincil btn--buyuk btn--blok', metin: 'Başla' }));
+        : bant?.sureNotu ?? tanim.sureNotu ?? 'Süre sınırı yok. İstediğin an duraklatabilirsin.' }),
+      alistirmaDugme,
+      el('button', { type: 'submit', sinif: ilkGiris ? 'btn btn--ikincil btn--blok' : 'btn btn--birincil btn--buyuk btn--blok', metin: ilkGiris ? 'Alıştırmasız başla' : 'Başla' }));
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      basla(false);
+    });
+    // S34e: asıl tur ya da alıştırma; ikisinde de hazırlık denetlenir
+    function basla(alistirma) {
       let sorun;
       try { sorun = tanim.hazirlikDenetle?.(); } catch (h) { console.error('[egzersiz] hazırlık denetimi hatası:', h); }
       if (sorun) {
@@ -343,16 +384,19 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
       }
       hataEl.hidden = true;
       seviye = sinirla(Number(form.elements.seviye?.value) || 1, 1, seviyeler.length);
-      turBaslat();
-    });
+      turBaslat(alistirma);
+    }
     ekranGoster(form, baslik);
   }
 
   // ---------- 2) Geri sayım ----------
-  function turBaslat() {
+  function turBaslat(alistirma = false) {
     turuTemizle();
     zaman = zamanlayiciOlustur();
-    if (!tanim.kayitYok && !zorlukFarki) sonSeviyeKaydet(tanim.egzersiz, seviye); // tur yarıda kalsa da seçim hatırlansın (D06: kaydedilmeyen egzersiz depoya yazmaz)
+    alistirmaTuru = !!alistirma && !!alistirmaAyari;
+    turSureSn = alistirmaTuru && tanim.sureSn ? (alistirmaAyari.sureSn ?? tanim.sureSn) : tanim.sureSn;
+    alistirmaEl.hidden = !alistirmaTuru;
+    if (!alistirmaTuru && !tanim.kayitYok && !zorlukFarki) sonSeviyeKaydet(tanim.egzersiz, seviye); // tur yarıda kalsa da seçim hatırlansın (D06: kaydedilmeyen egzersiz depoya yazmaz)
     sayac = { dogru: 0, yanlis: 0 };
     ekstra = {};
     saat.birikmis = 0;
@@ -360,7 +404,8 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
     durumAyarla('gerisayim');
     const halka = el('div', { sinif: 'egz-gerisayim__halka', 'aria-hidden': 'true' });
     const kutu = el('div', { sinif: 'egz-gerisayim', tabindex: '-1' },
-      el('p', { sinif: 'egz-gerisayim__etiket', metin: seviyeler.length > 1 ? `${seviyeler[seviye - 1].ad} seviye. Hazır ol!` : 'Hazır ol!' }), halka);
+      el('p', { sinif: 'egz-gerisayim__etiket', metin: alistirmaTuru ? 'Alıştırma turu. Hazır ol!'
+        : seviyeler.length > 1 ? `${seviyeler[seviye - 1].ad} seviye. Hazır ol!` : 'Hazır ol!' }), halka);
     ekranGoster(kutu, kutu);
     duyur('Üç saniye içinde başlıyor.');
     let kalan = 3;
@@ -382,11 +427,14 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
     saatBaslat();
     const z = zaman;
     const guvenli = (fn) => () => { try { fn(); } catch (h) { console.error('[egzersiz]', h); } };
+    const turSeviye = alistirmaTuru ? 1 : seviye; // S34e: alıştırma en kolay basamakta
     const ctx = {
       alan,
-      zorluk: seviye,
-      seviye: { ...seviyeler[seviye - 1] },
+      zorluk: turSeviye,
+      seviye: { ...seviyeler[turSeviye - 1], ...(alistirmaTuru ? alistirmaAyari.ayar : null) },
       ekstra,
+      bant, // S34e: sınıf bandı (egzersize özel alanlar) ya da null
+      alistirma: alistirmaTuru ? { deneme: alistirmaAyari.deneme, sureSn: alistirmaAyari.sureSn } : undefined,
       kurs: kurs ? { gun: kurs.gun, sira: kurs.sira, ayar: { ...kurs.ayar } } : undefined,
       sonra: (fn, ms) => z.sonra(guvenli(fn), ms),
       her: (fn, ms) => z.her(guvenli(fn), ms),
@@ -399,9 +447,9 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
       bitir: () => { if (z === zaman) turBitir(); },
       temizlenince: (fn) => { if (typeof fn === 'function') temizlikler.push(fn); },
     };
-    if (tanim.sureSn) {
-      z.sonra(turBitir, tanim.sureSn * 1000);
-      if (tanim.sureSn > 20) z.sonra(() => duyur('Son 10 saniye.'), (tanim.sureSn - 10) * 1000);
+    if (turSureSn) {
+      z.sonra(turBitir, turSureSn * 1000);
+      if (turSureSn > 20) z.sonra(() => duyur('Son 10 saniye.'), (turSureSn - 10) * 1000);
     }
     z.her(gostergeGuncelle, 250);
     gostergeGuncelle();
@@ -416,9 +464,36 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   function turBitir() {
     if (durum !== 'calisma') return;
     saatDurdur();
-    const ham = { dogru: sayac.dogru, yanlis: sayac.yanlis, sureSn: Math.round(gecenMs() / 1000), zorluk: seviye, ekstra: { ...ekstra } };
+    const ham = { dogru: sayac.dogru, yanlis: sayac.yanlis, sureSn: Math.round(gecenMs() / 1000), zorluk: seviye, ekstra: { ...ekstra, ...kademeEki } };
     turuTemizle();
-    sonucGoster(ham);
+    if (alistirmaTuru) alistirmaSonucu(ham);
+    else sonucGoster(ham);
+  }
+
+  // ---------- S34e: alıştırma sonucu (kayıt, rekor, XP ve seviye değişimi yok) ----------
+  function alistirmaSonucu(ham) {
+    durumAyarla('sonuc');
+    alistirmaEl.hidden = true;
+    if (!tanim.molaMi) { molasizSn += ham.sureSn; sonBitis = Date.now(); }
+    const e = ham.ekstra ?? {};
+    const deneme = sayi(e.deneme);
+    const dogru = sayi(e.dogru) ?? ham.dogru;
+    const ozet = deneme ? `Alıştırmada ${dogru}/${deneme} doğru.`
+      : ham.dogru + ham.yanlis ? `Alıştırmada ${etiket.dogru.toLocaleLowerCase('tr-TR')}: ${ham.dogru}, ${etiket.yanlis.toLocaleLowerCase('tr-TR')}: ${ham.yanlis}.`
+        : 'Alıştırmada henüz yanıt olmadı.';
+    const baslik = el('h3', { id: 'egz-sonuc-baslik', sinif: 'egz-sonuc__baslik', metin: 'Alıştırma bitti' });
+    const ekran = el('section', { sinif: 'egz-ekran egz-sonuc', 'aria-labelledby': 'egz-sonuc-baslik' },
+      cocukGorunumuMu() && el('div', { sinif: 'egz-sonuc__puan' }, sonucSahnesi('cesaret')),
+      baslik,
+      el('p', { metin: ozet }),
+      el('p', { metin: 'Kuralı anladıysan asıl tura geç. Alıştırma kaydedilmez.' }),
+      el('div', { sinif: 'egz-sonuc__eylemler' },
+        el('button', { type: 'button', sinif: 'btn btn--birincil', metin: 'Asıl tura başla', onclick: () => turBaslat() }),
+        el('button', { type: 'button', sinif: 'btn btn--ikincil', metin: 'Bir alıştırma daha', onclick: () => turBaslat(true) }),
+        el('button', { type: 'button', sinif: 'btn btn--hayalet', metin: kurs ? 'Kurs sayfasına dön' : 'Bitir', onclick: () => kapat() })));
+    ekranGoster(ekran, baslik);
+    sesCal('bitti');
+    duyur(`Alıştırma bitti. ${ozet}`);
   }
 
   // ---------- 4) Sonuç: puan, kişisel rekor, geri bildirim, mola önerisi ----------
@@ -440,7 +515,7 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
     const { kayit, kaydedildi, hata, rekor } = tanim.kayitYok ? { kaydedildi: false, hata: 'kayit-yok' } : kayitEkle({
       modul: tanim.modul, egzersiz: tanim.egzersiz, sureSn: ham.sureSn, zorluk: seviye,
       dogru: deg.dogru, yanlis: deg.yanlis, puan: deg.puan, wpm: deg.wpm, anlamaYuzde: deg.anlamaYuzde, eoh: deg.eoh,
-      ekstra: { ...ham.ekstra, ...deg.ekstra, isabet: deg.isabet, ...(kurs ? { kurs: { gun: kurs.gun, sira: kurs.sira } } : {}) },
+      ekstra: { ...ham.ekstra, ...deg.ekstra, isabet: deg.isabet, ...kademeEki, ...(kurs ? { kurs: { gun: kurs.gun, sira: kurs.sira } } : {}) },
     });
     const kazanim = kaydedildi ? kazanimAl(kayit?.id) : null; // S20
     const puan = rekor?.deger ?? sayi(deg.eoh ?? deg.puan) ?? 0;

@@ -1,7 +1,9 @@
-// Görsel Arama (S10; D06: geri bildirim duyurulur, sütun sayısı 44 px hedefe göre ekrana uyar): kalabalık içinde hedef şekli bulma; seviyeye göre öğe sayısı ve çeldirici benzerliği artar, her denemede yeni dizilim
+// Görsel Arama (S10; D06: geri bildirim duyurulur, sütun sayısı 44 px hedefe göre ekrana uyar; S34-son: öğe sayısı sınıf bandından, deneme sayısı denemeSayisi ile, örnek): kalabalık içinde hedef şekli bulma; seviyeye göre öğe sayısı ve çeldirici benzerliği artar, her denemede yeni dizilim
 import { el } from '../../core/ui.js';
 import { sayiBicimle, karistir, dakikaPuani } from '../../core/utils.js';
 import { simgeSvg, SEKILLER, SEKIL_ADLARI, RENKLER, renkAdi, rastgeleSec, rastgeleTam, izgaraGezinme, geriYaz } from '../../engine/algi.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
+import { denemeSayisi } from '../../engine/attention-core.js';
 
 const DENEME = 12;
 const HATA_CEZA_SN = 2;
@@ -50,11 +52,17 @@ export default {
   puanEtiketi: 'Bulunan/dakika',
   puanAciklama: `Dakikada bulunan hedef. Her yanlış seçim süreye ${HATA_CEZA_SN} saniye ekler.`,
   alanEtiketi: 'Görsel arama. Tab ile şekillere geç, oklarla gezin, Enter ile seç.',
+  ornek: () => ornekListesi([
+    { cizim: simgeSvg('yildiz', { renk: RENKLER[2].deger }), metin: 'Üstte aranacak şekil görünür' },
+    { cizim: el('span', { sinif: 'egz-ornek__ikili' }, simgeSvg('kalp', { renk: RENKLER[2].deger }), simgeSvg('yildiz', { renk: RENKLER[2].deger })),
+      metin: 'Rengi de şekli de aynı olana dokun' },
+  ]),
 
   baslat(ctx) {
     const { alan } = ctx;
     const sv = ctx.seviye;
     alan.classList.add('algi-alan', 'arama-alan');
+    const denemeToplam = denemeSayisi(ctx, DENEME); // S34-son: alıştırma > bant > 12
     Object.assign(ctx.ekstra, { oge: sv.oge });
 
     let deneme = 0;
@@ -81,7 +89,7 @@ export default {
     }
     const gezinme = izgaraGezinme(izgara, { ogeler: () => dugmeler, sutun: () => sutun });
 
-    const durumYaz = () => { durum.textContent = `Deneme ${deneme}/${DENEME} · Yanlış ${ctx.sayac().yanlis}`; };
+    const durumYaz = () => { durum.textContent = `Deneme ${deneme}/${denemeToplam} · Yanlış ${ctx.sayac().yanlis}`; };
 
     function yeniDeneme() {
       deneme += 1;
@@ -111,7 +119,7 @@ export default {
         geriYaz(geri, 'dogru', 'Buldun!');
         durumYaz();
         ctx.sonra(() => {
-          if (deneme < DENEME) { yeniDeneme(); return; }
+          if (deneme < denemeToplam) { yeniDeneme(); return; }
           const ort = sureler.reduce((t, s) => t + s, 0) / sureler.length;
           Object.assign(ctx.ekstra, { deneme, ortMs: Math.round(ort * 1000), sureMs: Math.round(ctx.gecenSn() * 1000) });
           ctx.bitir();

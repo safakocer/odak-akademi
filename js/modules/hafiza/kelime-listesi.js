@@ -1,10 +1,11 @@
-// Kelime Listesi (S14b): kelimeler tek tek gösterilir; öğrenci seçeneklerden sırayla dokunarak ya da yazarak hatırlar. Kelime doğruluğu ve sıra doğruluğu ayrı hesaplanır; liste uzunluğu merdivenle uyarlanır. Kelimeler data/kelimeler.json'dan okunur (S34c: kelime-havuzu.js, sınıfa göre kategori)
+// Kelime Listesi (S14b): kelimeler tek tek gösterilir; öğrenci seçeneklerden sırayla dokunarak ya da yazarak hatırlar. Kelime doğruluğu ve sıra doğruluğu ayrı hesaplanır; liste uzunluğu merdivenle uyarlanır. Kelimeler data/kelimeler.json'dan okunur (S34c: kelime-havuzu.js, sınıfa göre kategori; S34-son: ilkokulda tempo, liste sınırı ve hatırlama biçimi sınıf bandından, örnek)
 import { el } from '../../core/ui.js';
 import { karistir, trKucuk, yuzdeBicimle } from '../../core/utils.js';
 import { duyur } from '../../core/a11y.js';
 import { KESINTI_MS } from '../../engine/attention-core.js';
 import { yazimSadelestir } from '../../engine/flas.js';
 import { hafizaOyunu, hafizaSahnesi, hafizaBitir, bekle, ogeDuyur } from '../../engine/memory-core.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 import { kelimeHavuzuYukle, sinifKategorileri, havuzYeterliMi } from '../../engine/kelime-havuzu.js';
 
 const BIRIM = 'kelime';
@@ -96,7 +97,7 @@ export default hafizaOyunu({
     ['Hatırlanan kelime', `${e.kelimeDogru ?? 0}/${e.kelimeToplam ?? 0}`],
     ['Listede olmayan', String(e.fazlaKelime ?? 0)],
   ],
-  mesaj(e, { ipuclari }) {
+  mesaj(e, { ipuclari, enCok = 10 }) {
     if (!e.deneme) return 'Bu turda liste tamamlanmadı. Hazır olduğunda yeniden dene.';
     const parca = [e.enIyi
       ? `Bu turda bütün kelimelerini hatırladığın en uzun liste ${e.enIyi} kelime.`
@@ -104,7 +105,7 @@ export default hafizaOyunu({
     if (e.siraIsabet !== undefined && e.ogeIsabet !== undefined && e.ogeIsabet - e.siraIsabet >= 20) {
       parca.push('Kelimeleri iyi hatırlıyorsun; sırayı tutmak için kelimeleri küçük bir hikâyeye bağlamayı dene.');
     }
-    if (e.enIyi && e.enIyi < 10) parca.push(`Bir sonraki hedef: ${e.enIyi + 1} kelimelik listeyi tam hatırlamak.`);
+    if (e.enIyi && e.enIyi < enCok) parca.push(`Bir sonraki hedef: ${e.enIyi + 1} kelimelik listeyi tam hatırlamak.`); // S34-son: seviyenin en uzun listesi
     else if (e.enIyi) parca.push('En uzun listeyi tam hatırladın; şimdi sırayı da korumayı hedefle.');
     if (ipuclari.length) parca.push(`İpucu: ${ipuclari[Math.floor(Math.random() * ipuclari.length)]}`);
     return parca.join(' ');
@@ -115,6 +116,10 @@ export default hafizaOyunu({
     'her kelimeyi gözünde canlandır; resim, tek başına kelimeden daha kolay hatırlanır.',
     { mod: 'yaz', metin: 'önce aklına gelenleri hızlıca yaz, sonra eksik kalanları kategori kategori düşün.' },
   ],
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: 'elma' }), metin: 'Kelimeler tek tek görünür, aklında tut' },
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '1. elma' }), metin: 'Sonra gördüğün sırayla seç' },
+  ]),
   alanEtiketi: 'Kelime Listesi. Kelimeler sırayla okunur. Sıra sana gelince kelimeleri gördüğün sırayla seç ya da yaz, sonra Tamam’a bas.',
 
   baslat(ctx, { mod, merdiven, deneme }) {

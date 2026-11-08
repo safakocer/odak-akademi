@@ -1,8 +1,9 @@
-// Grup Flaşı (takistoskop; D06: yazarak yanıtta sonuç ekran okuyucuya duyurulur): 2-3-4 kelimelik grup ekranın ortasında kısa süre görünür; öğrenci seçeneklerden seçer ya da yazar; süre kademeli kısalır
+// Grup Flaşı (takistoskop; D06: yazarak yanıtta sonuç ekran okuyucuya duyurulur; S34-son: süre aralığı ve basamaklar sınıf bandından, deneme sayısı denemeSayisi ile, örnek): 2-3-4 kelimelik grup ekranın ortasında kısa süre görünür; öğrenci seçeneklerden seçer ya da yazar; süre kademeli kısalır
 import { el } from '../../core/ui.js';
 import { odakla, duyur } from '../../core/a11y.js';
 import { karistir, karakterSayisi, sayiBicimle } from '../../core/utils.js';
-import { hazirlikSecimi } from '../../engine/exercise-frame.js';
+import { hazirlikSecimi, ornekListesi } from '../../engine/exercise-frame.js';
+import { denemeSayisi } from '../../engine/attention-core.js';
 import {
   havuzHazirla, flasGoster, kareSuresi, merdivenOlustur, merdivenSeviyesi, baslangicSuresi, hizPuani, secenekPaneli,
   rastgeleGrup, grupCeldiricileri, yazimKarsilastir,
@@ -16,6 +17,7 @@ const YANIT_TURLERI = Object.freeze([
   { deger: 'yaz', etiket: 'Yazarak', aciklama: 'gördüğün kelimeleri yaz; Türkçe harf ve noktalama farkı sayılmaz' },
 ]);
 let yanitTuru = 'sec'; // oturum boyunca hatırlanır
+let sonSure = null; // S34-son: son turun süre aralığı (bant seviyenin sure alanını değiştirebilir)
 
 export default {
   modul: 'goz',
@@ -38,6 +40,10 @@ export default {
   puanEtiketi: 'Hız puanı',
   puanAciklama: '1000 − son flaşların ortalama süresi (ms). Flaş ne kadar kısaysa puan o kadar yüksek.',
   alanEtiketi: 'Grup flaşı alanı. Flaştan sonra 1 ile 4 arasındaki rakamlarla seç ya da kutuya yazıp Enter’a bas.',
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '•' }), metin: 'Ortadaki noktaya bak' },
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: 'sabah erken' }), metin: 'Kelimeleri bütün olarak gör, sonra seç' },
+  ]),
 
   hazirlik() {
     return el('div', { sinif: 'okuma-ayar' }, hazirlikSecimi({
@@ -48,6 +54,8 @@ export default {
   baslat(ctx) {
     const { alan, seviye: s } = ctx;
     const tur = yanitTuru;
+    const toplamDeneme = denemeSayisi(ctx, DENEME_SAYISI); // S34-son: alıştırma > bant > 12
+    sonSure = s.sure;
     const merdiven = merdivenOlustur({ ...s.sure, baslangic: baslangicSuresi({ modul: 'goz', egzersiz: 'grup-flasi', zorluk: ctx.zorluk }, s.sure) });
     Object.assign(ctx.ekstra, { kelime: s.kelime, yanit: tur, baslangicMs: merdiven.ms });
     alan.classList.add('flas-alan');
@@ -86,10 +94,10 @@ export default {
     }
 
     function deneme() {
-      if (tamam >= DENEME_SAYISI) { bitir(); return; }
+      if (tamam >= toplamDeneme) { bitir(); return; }
       panel = null;
       soru.hidden = true;
-      durumEl.textContent = `Deneme ${tamam + 1} / ${DENEME_SAYISI} · Flaş: ${merdiven.ms} ms`;
+      durumEl.textContent = `Deneme ${tamam + 1} / ${toplamDeneme} · Flaş: ${merdiven.ms} ms`;
       if (!alan.contains(document.activeElement) || soru.contains(document.activeElement)) odakla(alan, { kaydir: false });
       const grup = rastgeleGrup(s.kelime);
       ogeEl.textContent = grup;
@@ -162,7 +170,7 @@ export default {
   },
 
   degerlendir({ dogru, yanlis, zorluk, ekstra }) {
-    const sure = this.seviyeler[zorluk - 1]?.sure ?? this.seviyeler[0].sure;
+    const sure = sonSure ?? this.seviyeler[zorluk - 1]?.sure ?? this.seviyeler[0].sure;
     const toplam = dogru + yanlis;
     const isabet = toplam ? Math.round((dogru * 100) / toplam) : 0;
     const esikMs = ekstra.esikMs ?? sure.baslangic;

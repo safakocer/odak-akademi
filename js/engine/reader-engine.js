@@ -1,4 +1,4 @@
-// Okuma motoru: Türkçe metin ön işleme, kelime/karakter gruplama, rAF zamanlayıcı, WPM ölçümü, kademeli hız kuralları, okuma ayarları ve okuma alanı (S34a: WPM alt sınırı 30, kayıtlı hız yoksa sınıf bandından varsayılan, bant izin vermiyorsa kademeli hız kapalı)
+// Okuma motoru: Türkçe metin ön işleme, kelime/karakter gruplama, rAF zamanlayıcı, WPM ölçümü, kademeli hız kuralları, okuma ayarları ve okuma alanı (S34a: WPM alt sınırı 30, kayıtlı hız yoksa sınıf bandından varsayılan, bant izin vermiyorsa kademeli hız kapalı; S34-son: bandın üst hızı ustWpm)
 import { kelimelereBol, kelimeGruplari, karakterSayisi, boslukTemizle, sinirla, sayi } from '../core/utils.js';
 import { oku, yazmaDene, sil, depoUyar } from '../core/storage.js';
 import { dinle, OLAYLAR, etkinProfil } from '../core/store.js';
@@ -126,8 +126,10 @@ export function kademeliIzinli(anlamaYuzde) {
   const n = sayi(anlamaYuzde);
   return n === undefined || n >= KADEMELI.anlamaEsigi;
 }
-/** Kademeli artışın bu turdaki üst sınırı */
-export const kademeliTavan = (baslangic) => Math.min(WPM_SINIR.enCok, Math.round(wpmDenetle(baslangic) * KADEMELI.tavanOran));
+/** S34-son: Bandın en yüksek okuma hızı (ilkokulda bant ustWpm; yoksa WPM_SINIR.enCok) */
+export const ustWpm = (bant = etkinOkumaBandi()) => Math.min(WPM_SINIR.enCok, sayi(bant?.ustWpm) ?? WPM_SINIR.enCok);
+/** Kademeli artışın bu turdaki üst sınırı (S34-son: bandın üst hızını da aşmaz) */
+export const kademeliTavan = (baslangic, ust = ustWpm()) => Math.min(WPM_SINIR.enCok, ust, Math.round(wpmDenetle(baslangic) * KADEMELI.tavanOran));
 
 // ---------- Motor ----------
 /**
@@ -272,7 +274,8 @@ const aktifProfilId = () => etkinProfil()?.id ?? null;
 export const etkinOkumaBandi = () => okumaBandi(etkinProfil()?.sinif);
 
 /** Ayar nesnesini şemaya göre temizler; eksik/geçersiz alan varsayılan olur.
- *  S34a: bant { varsayilanWpm, kademeli }: kayıtlı hız yoksa bandın hızı; bant kademeliye izin vermiyorsa kademeli her zaman kapalı */
+ *  S34a: bant { varsayilanWpm, kademeli }: kayıtlı hız yoksa bandın hızı; bant kademeliye izin vermiyorsa kademeli her zaman kapalı
+ *  S34-son: bant.ustWpm varsa hız onu aşmaz (ilkokulda kayıtlı daha yüksek hız okunurken sınıra çekilir; ayar kaydedilince sınırdaki değer yazılır) */
 export function okumaAyarDenetle(ham, bant = etkinOkumaBandi()) {
   const a = ham && typeof ham === 'object' ? ham : {};
   const v = VARSAYILAN_OKUMA_AYARLARI;
@@ -281,7 +284,7 @@ export function okumaAyarDenetle(ham, bant = etkinOkumaBandi()) {
   const s = GRUP_SINIR[grupTuru];
   const boyut = Math.round(sayi(a.grupBoyutu) ?? NaN);
   return {
-    wpm: wpmDenetle(sayi(a.wpm) === undefined && bant?.varsayilanWpm ? bant.varsayilanWpm : a.wpm),
+    wpm: Math.min(ustWpm(bant), wpmDenetle(sayi(a.wpm) === undefined && bant?.varsayilanWpm ? bant.varsayilanWpm : a.wpm)),
     grupBoyutu: boyut >= s.en && boyut <= s.enCok ? boyut : s.varsayilan,
     grupTuru,
     yaziBoyutu: sec(a.yaziBoyutu, OKUMA_SECENEKLERI.yaziBoyutu, v.yaziBoyutu),
@@ -412,4 +415,5 @@ export function okumaAlaniOlustur(gruplar, { ayar, gorunum = 'metin', etiket = '
  * wpmHesapla, wpmDenetle, tahminiSureSn, kelimeMi; WPM_SINIR, GRUP_SINIR, OKUMA_SECENEKLERI, VARSAYILAN_OKUMA_AYARLARI
  * S05b: kademeliIzinli(anlamaYuzde), kademeliTavan(baslangic), KADEMELI; ayarlarda kademeli ve gozMolasi (true/false)
  * S34a: okumaAyarDenetle(ham, bant?), etkinOkumaBandi(); WPM_SINIR.en 30
+ * S34-son: ustWpm(bant?) (bandın en yüksek hızı), kademeliTavan(baslangic, ust?) bandı aşmaz; okumaAyarDenetle hızı ustWpm’e sınırlar
  */

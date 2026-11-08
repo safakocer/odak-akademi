@@ -1,4 +1,4 @@
-// Oturum sonuçlarını Kayıt şemasına göre saklar; kişisel rekor, seri, haftalık süre, son anlama yüzdesi ve son seçilen seviye sorguları sunar
+// Oturum sonuçlarını Kayıt şemasına göre saklar; kişisel rekor, seri, haftalık süre, son anlama yüzdesi ve son seçilen seviye sorguları sunar (S34-son: rekor kademeye göre ayrı)
 import { oku, yaz, yazmaDene, sil, depoUyar } from './storage.js';
 import { yay, OLAYLAR, etkinProfil } from './store.js';
 import { kimlikUret, sayi, tamSayi, gunAnahtari } from './utils.js';
@@ -54,6 +54,15 @@ export function kayitlariGetir(profilId) {
     : [];
 }
 
+/**
+ * S34-son: Kaydın rekor kademesi. İlkokulda yapılan turun kaydı ekstra.kademe = 'ilkokul' taşır (çerçeve yazar); etiketi olmayan kayıt
+ * (S34-son öncesi ve ortaokul) 'ortaokul' sayılır. Sınıf bantları ayarları değiştirdiği için rekorlar kademe içinde karşılaştırılır.
+ */
+export const ILKOKUL_ETIKETI = 'ilkokul';
+export const kayitKademesi = (kayit) => (kayit?.ekstra?.kademe === ILKOKUL_ETIKETI ? ILKOKUL_ETIKETI : 'ortaokul');
+/** İki kayıt (ya da kayıt ve kademe adı) aynı rekor kademesinde mi? */
+export const ayniKademe = (kayit, kademeAdi) => kayitKademesi(kayit) === (kademeAdi === ILKOKUL_ETIKETI ? ILKOKUL_ETIKETI : 'ortaokul');
+
 /** Kaydın rekor alanı: eoh > puan > dogru (ilk dolu olan); yoksa null */
 export function rekorAlani(kayit) {
   return REKOR_ONCELIGI.find((a) => sayi(kayit?.[a]) !== undefined) ?? null;
@@ -94,7 +103,7 @@ function listeyiYaz(pid, liste) {
  * Oturum sonucunu etkin profile kaydeder.
  * sonuc: { modul, egzersiz, sureSn, zorluk, wpm?, anlamaYuzde?, eoh?, dogru?, yanlis?, puan?, ekstra? }
  * Döner: { kayit, kaydedildi, hata: null|'profil'|'kota'|'hata', rekor: { alan, deger, onceki, yeni } | null }
- * Rekor yalnızca aynı egzersiz ve aynı seviyedeki önceki kayıtlarla karşılaştırılır.
+ * Rekor yalnızca aynı egzersiz, aynı seviye ve (S34-son) aynı kademedeki önceki kayıtlarla karşılaştırılır.
  */
 export function kayitEkle(sonuc, profilId) {
   if (!sonuc || typeof sonuc.modul !== 'string' || typeof sonuc.egzersiz !== 'string') {
@@ -132,7 +141,8 @@ export function kayitEkle(sonuc, profilId) {
   const liste = kayitlariGetir(pid);
   const alan = rekorAlani(kayit);
   const oncekiKayit = alan
-    ? enIyi(liste.filter((k) => k.modul === kayit.modul && k.egzersiz === kayit.egzersiz && k.zorluk === kayit.zorluk), alan)
+    ? enIyi(liste.filter((k) => k.modul === kayit.modul && k.egzersiz === kayit.egzersiz && k.zorluk === kayit.zorluk
+      && kayitKademesi(k) === kayitKademesi(kayit)), alan)
     : null;
   liste.push(kayit);
   if (liste.length > EN_FAZLA_KAYIT) liste.splice(0, liste.length - EN_FAZLA_KAYIT);
@@ -165,10 +175,10 @@ export function modulKayitlari(modul, { egzersiz, profilId } = {}) {
   return kayitlariGetir(profilId).filter((k) => k.modul === modul && (!egzersiz || k.egzersiz === egzersiz));
 }
 
-// yon: 'buyuk' (yüksek iyi) | 'kucuk' (düşük iyi, örn. süre); zorluk verilirse yalnızca o seviyenin kayıtları
-export function kisiselRekor({ alan = 'eoh', modul, egzersiz, zorluk, yon = 'buyuk', profilId } = {}) {
+// yon: 'buyuk' (yüksek iyi) | 'kucuk' (düşük iyi, örn. süre); zorluk verilirse yalnızca o seviyenin kayıtları; S34-son: kademe ('ilkokul'|'ortaokul') verilirse yalnız o kademenin
+export function kisiselRekor({ alan = 'eoh', modul, egzersiz, zorluk, kademe, yon = 'buyuk', profilId } = {}) {
   const liste = kayitlariGetir(profilId).filter((k) => (!modul || k.modul === modul)
-    && (!egzersiz || k.egzersiz === egzersiz) && (zorluk === undefined || k.zorluk === zorluk));
+    && (!egzersiz || k.egzersiz === egzersiz) && (zorluk === undefined || k.zorluk === zorluk) && (!kademe || ayniKademe(k, kademe)));
   return enIyi(liste, alan, yon);
 }
 

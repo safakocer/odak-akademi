@@ -1,8 +1,10 @@
-// Ayna mı, Döndürme mi? (S10; D06: ok tuşları yanıt vermez, yalnız 1/2): rastgele üretilen kare parçalı şekil ile döndürülmüş hâlini ya da ayna görüntüsünü karşılaştırma (zihinde döndürme)
+// Ayna mı, Döndürme mi? (S10; D06: ok tuşları yanıt vermez, yalnız 1/2; S34-son: parça sayısı ve açılar sınıf bandından, deneme sayısı denemeSayisi ile, örnek): rastgele üretilen kare parçalı şekil ile döndürülmüş hâlini ya da ayna görüntüsünü karşılaştırma (zihinde döndürme)
 import { el } from '../../core/ui.js';
 import { sayiBicimle, karistir, dakikaPuani } from '../../core/utils.js';
 import { svg, rastgeleSec, geriYaz } from '../../engine/algi.js';
 import { secenekPaneli } from '../../engine/flas.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
+import { denemeSayisi } from '../../engine/attention-core.js';
 
 const DENEME = 12;               // yarısı ayna, yarısı döndürme (karışık sırayla)
 const HATA_CEZA_SN = 3;
@@ -83,13 +85,24 @@ export default {
   puanEtiketi: 'Doğru/dakika',
   puanAciklama: `Dakikada doğru karar. Her yanlış süreye ${HATA_CEZA_SN} saniye ekler.`,
   alanEtiketi: 'Ayna mı, döndürme mi? İki şekli karşılaştır, 1 ya da 2 ile yanıtla.',
+  // S34-son: örnek L şekli; döndürülmüşü üst üste oturur, aynası oturmaz
+  ornek() {
+    const h = [[0, 0], [0, 1], [0, 2], [1, 2]];
+    const vb = yaricap(h);
+    const ciz = (aci, ayna) => parcaCiz(h, { aci, ayna, isaret: true, vb });
+    return ornekListesi([
+      { cizim: el('span', { sinif: 'egz-ornek__ikili' }, ciz(0, false), ciz(90, false)), metin: 'Yalnız dönmüş: “Aynısı”' },
+      { cizim: el('span', { sinif: 'egz-ornek__ikili' }, ciz(0, false), ciz(0, true)), metin: 'Aynadaki gibi ters: “Ayna görüntüsü”' },
+    ]);
+  },
 
   baslat(ctx) {
     const { alan } = ctx;
     const sv = ctx.seviye;
     alan.classList.add('algi-alan', 'ayna-alan');
     Object.assign(ctx.ekstra, { hucre: sv.hucre, aciAdim: sv.acilar.includes(45) ? 45 : 90 });
-    const sira = karistir(Array.from({ length: DENEME }, (_, i) => i % 2 === 0)); // true = ayna
+    const toplamDeneme = denemeSayisi(ctx, DENEME); // S34-son: alıştırma > bant > 12
+    const sira = karistir(Array.from({ length: toplamDeneme }, (_, i) => i % 2 === 0)); // true = ayna
     let deneme = 0;
     let panel = null;
     let aynaMi = false;
@@ -111,7 +124,7 @@ export default {
       sagKap.querySelector('svg')?.remove();
       solKap.prepend(parcaCiz(h, { aci: taban, ayna: false, isaret: sv.isaret, vb }));
       sagKap.prepend(parcaCiz(h, { aci: taban + rastgeleSec(sv.acilar), ayna: aynaMi, isaret: sv.isaret, vb }));
-      durum.textContent = `Deneme ${deneme}/${DENEME} · Yanlış ${ctx.sayac().yanlis}`;
+      durum.textContent = `Deneme ${deneme}/${toplamDeneme} · Yanlış ${ctx.sayac().yanlis}`;
       const odakIcerde = panelKap.contains(document.activeElement);
       panel = secenekPaneli({
         baslik: 'B şekli A’nın…',
@@ -136,7 +149,7 @@ export default {
         geriYaz(geri, 'yanlis', aynaMi ? 'Bu sefer ayna görüntüsüydü. Bir köşeyi seçip iki şekilde izlemeyi dene.' : 'Bu sefer aynısıydı, yalnızca döndürülmüştü.');
       }
       ctx.sonra(() => {
-        if (deneme < DENEME) { yeniDeneme(); return; }
+        if (deneme < toplamDeneme) { yeniDeneme(); return; }
         ctx.ekstra.sureMs = Math.round(ctx.gecenSn() * 1000);
         ctx.bitir();
       }, i === dogru ? 1000 : 1900);

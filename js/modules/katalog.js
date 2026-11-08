@@ -24,9 +24,10 @@ const EGZERSIZLER = [
   { ad: 'hizli-dokun', sinif: [2, 8], modul: 'dikkat', baslik: 'Hızlı Dokun', ikon: 'isik', etiket: '30 saniye',
     aciklama: 'Yanan ışıkları sönmeden yakala.', yukle: () => import('./dikkat/hizli-dokun.js') },
   // S11a: seçici dikkat oyunları (ortak ölçüm: js/engine/attention-core.js)
-  { ad: 'stroop', sinif: [3, 8], modul: 'dikkat', baslik: 'Renk mi, Kelime mi?', ikon: 'renk-kelime', etiket: '24 deneme',
+  // S34e: stroop 2-8 (2. sınıfta 3 renk, şekil ipucu baştan açık, en çok 2. basamak: data/sinif-bantlari.json)
+  { ad: 'stroop', sinif: [2, 8], modul: 'dikkat', baslik: 'Renk mi, Kelime mi?', ikon: 'renk-kelime', etiket: '16-24 deneme',
     aciklama: 'Kelimeyi okuma, yazının rengini seç.', yukle: () => import('./dikkat/stroop.js') },
-  { ad: 'git-dur', sinif: [2, 8], modul: 'dikkat', baslik: 'Dokun ya da Bekle', ikon: 'git-dur', etiket: '40 deneme',
+  { ad: 'git-dur', sinif: [2, 8], modul: 'dikkat', baslik: 'Dokun ya da Bekle', ikon: 'git-dur', etiket: '30-40 deneme',
     aciklama: 'Yalnız yıldıza dokun, öteki şekillerde bekle.', yukle: () => import('./dikkat/git-dur.js') },
   // S11b: iptal testi (seçici dikkat) ve sürekli dikkat
   { ad: 'iptal-testi', sinif: [2, 8], modul: 'dikkat', baslik: 'Hedef Avı', ikon: 'satirlar', etiket: '6-8 satır',
@@ -79,11 +80,13 @@ const ARACLAR = Object.freeze([
   { ad: 'odak', sinif: [3, 8], modul: 'dikkat', baslik: 'Odak Araçları', ikon: 'saat', etiket: 'Ders çalışırken', adres: '#/odak',
     aciklama: 'Ortamını hazırla, kısa bloklarla çalış, odağını günlüğe yaz.' },
   // S15: Hafıza Teknikleri Akademisi: 6 mini ders (içerik data/lessons/*.json, sayfa hafiza/teknikler.js)
-  { ad: 'teknikler', sinif: [4, 8], modul: 'hafiza', baslik: 'Hafıza Teknikleri', ikon: 'akademi', etiket: '6 mini ders', adres: '#/teknikler',
-    aciklama: 'Hikâye zinciri, yolculuk, akrostiş ve dahası: dene, öğren, ölç.' },
+  // S34f: kart 2-8; her dersin kendi aralığı ders dosyasında (ilkokulda hikâye zinciri, görselleştirme, gruplama; ilkokul sürümüyle)
+  { ad: 'teknikler', sinif: [2, 8], modul: 'hafiza', baslik: 'Hafıza Teknikleri', ikon: 'akademi', etiket: 'Mini dersler', adres: '#/teknikler',
+    aciklama: 'Hikâye zinciri, görselleştirme, gruplama ve dahası: dene, öğren, ölç.' },
   // S21: Okuma Stratejileri: 8 mini ders (içerik data/lessons/*.json, motor lesson-engine.js, sayfa hafiza/teknikler.js; adres ders sayfasının kapsayıcısını kullanır)
-  { ad: 'stratejiler', sinif: [4, 8], modul: 'oku', baslik: 'Okuma Stratejileri', ikon: 'akademi', etiket: '8 mini ders', adres: '#/teknikler/stratejiler',
-    aciklama: 'Tahmin, ana fikir, çıkarım, 5N1K, özet ve dahası: öğren, uygula, dene.' },
+  // S34f: kart 2-8; ilkokulda tahmin, 5N1K ve (3. sınıftan) ana fikir, ilkokul sürümüyle
+  { ad: 'stratejiler', sinif: [2, 8], modul: 'oku', baslik: 'Okuma Stratejileri', ikon: 'akademi', etiket: 'Mini dersler', adres: '#/teknikler/stratejiler',
+    aciklama: 'Tahmin, 5N1K, ana fikir ve dahası: öğren, uygula, dene.' },
   // S16: aralıklı tekrar (5 kutulu Leitner; motor js/engine/srs.js, sayfa hafiza/tekrar.js, hazır desteler data/decks/*.json)
   { ad: 'tekrar', sinif: [2, 8], modul: 'hafiza', baslik: 'Tekrar Kartları', ikon: 'tekrar-kart', etiket: 'Her gün birkaç dakika', adres: '#/tekrar',
     aciklama: 'Kartları kutularla tekrar et: bildiğin seyrekleşir, zorlandığın sık gelir.' },
@@ -92,7 +95,8 @@ const ARACLAR = Object.freeze([
     aciklama: 'Solda sorular, sağda notlar, altta özet. Tekrar ederken kendini yokla.' },
   { ad: 'zihin-haritasi', sinif: [3, 8], modul: 'rehber', grup: 'arac', baslik: 'Zihin Haritası', ikon: 'zihin', etiket: 'Sürükle, bağla', adres: '#/rehber/zihin-haritasi',
     aciklama: 'Konuyu ortaya yaz, alt başlıkları dallar hâlinde diz; resim olarak indir.' },
-  { ad: 'haftalik-plan', sinif: [4, 8], modul: 'rehber', grup: 'arac', baslik: 'Haftalık Plan', ikon: 'takvim', etiket: 'Hafta sonu esnek', adres: '#/rehber/haftalik-plan',
+  // S34f: 2-8; ilkokulda ailece kullanım dili, kısa bloklar ve ilkokul örnek planı (metinler rehber-icerik.js PLAN_METINLERI)
+  { ad: 'haftalik-plan', sinif: [2, 8], modul: 'rehber', grup: 'arac', baslik: 'Haftalık Plan', ikon: 'takvim', etiket: 'Hafta sonu esnek', adres: '#/rehber/haftalik-plan',
     aciklama: 'Her güne kısa ders blokları ve molalar koy, haftanı bir bakışta gör.' },
   { ad: 'sinav-hazirlik', sinif: [5, 8], modul: 'rehber', grup: 'bilgi', baslik: 'Sınav Hazırlığı', ikon: 'test', etiket: 'LGS dahil', adres: '#/rehber/sinav-hazirlik',
     aciklama: 'Plan, kendini yoklama, yanlış defteri ve sınav günü için öneriler.' },

@@ -1,4 +1,7 @@
-// Hızlı Dokun: beliren fener ışıklarına sönmeden dokun, gri sis karelerine dokunma (dikkat ve tepki denetimi)
+// Hızlı Dokun: beliren fener ışıklarına sönmeden dokun, gri sis karelerine dokunma (dikkat ve tepki denetimi; S34e: seviyeler sınıf bandından, görsel örnek)
+import { el } from '../../core/ui.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
+
 export default {
   modul: 'dikkat',
   egzersiz: 'hizli-dokun',
@@ -19,6 +22,11 @@ export default {
   etiketler: { dogru: 'Yakalanan ışık', yanlis: 'Hatalı dokunuş' },
   puanAciklama: 'Puan: yakalanan ışık eksi hatalı dokunuş.',
   alanEtiketi: 'Oyun alanı. Işık yanınca Boşluk tuşuna bas; yalnızca sis varken bekle.',
+  // S34e: kısa yönergede görsel örnek
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'hd-isik hd-ornek' }), metin: 'Sarı ışık: dokun' },
+    { cizim: el('span', { sinif: 'hd-sis hd-ornek' }), metin: 'Gri sis: dokunma' },
+  ]),
 
   baslat(ctx) {
     const { alan, seviye: s } = ctx;
@@ -111,6 +119,7 @@ export default {
       background: repeating-linear-gradient(135deg, var(--renk-kenar-guclu) 0 6px, var(--renk-kenar) 6px 12px);
       box-shadow: inset 0 0 0 3px var(--renk-metin-soluk);
     }
+    .hd-ornek { position: relative; display: block; --boyut: 2.5rem; animation: none; cursor: default; }
     @keyframes hd-yan { from { opacity: 0; transform: scale(0.4); } }
   `,
 };

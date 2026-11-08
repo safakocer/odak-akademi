@@ -1,8 +1,8 @@
-// Şekilli Metin (D06: yoklamada yalnız küçük harfli kelimeler): seçilen metin kare, üçgen ya da elmas biçiminde dizilir; göz şeklin ortasından aşağı iner, sonda kelime yoklaması yapılır
+// Şekilli Metin (D06: yoklamada yalnız küçük harfli kelimeler; S34-son: okunan kelime sayısı ve şekil genişliği sınıf bandından, örnek): seçilen metin kare, üçgen ya da elmas biçiminde dizilir; göz şeklin ortasından aşağı iner, sonda kelime yoklaması yapılır
 import { el } from '../../core/ui.js';
 import { odakla, duyur } from '../../core/a11y.js';
-import { karistir, kelimelereBol, karakterSayisi, trKucuk, sayiBicimle } from '../../core/utils.js';
-import { hazirlikSecimi } from '../../engine/exercise-frame.js';
+import { karistir, kelimelereBol, karakterSayisi, trKucuk, sayiBicimle, sayi } from '../../core/utils.js';
+import { hazirlikSecimi, ornekListesi } from '../../engine/exercise-frame.js';
 import { metniHazirla, kelimeMi, wpmHesapla } from '../../engine/reader-engine.js';
 import { metinSeciciOlustur, metinSecimHatasi } from '../../engine/text-picker.js';
 import { havuzHazirla, rastgeleKelime, kenarTemizle } from '../../engine/flas.js';
@@ -64,15 +64,15 @@ function sayfalariKur(kelimeler, secim, g) {
   return sayfalar;
 }
 
-// Metnin başından en az 120 kelime; ilk cümle sonunda (en çok 180 kelimede) durur
-function okunacakKisim(metin) {
+// Metnin başından en az 120 kelime; ilk cümle sonunda (en çok 180 kelimede) durur. S34-son: sınırlar bant enAzKelime / enCokKelime ile değişebilir
+function okunacakKisim(metin, enAz = EN_AZ_KELIME, enCok = EN_COK_KELIME) {
   const kelimeler = [];
   let sayi = 0;
   for (const p of metniHazirla(metin).paragraflar) {
     for (const k of kelimelereBol(p)) {
       kelimeler.push(k);
       if (kelimeMi(k)) sayi += 1;
-      if ((sayi >= EN_AZ_KELIME && /[.!?…]["'”’»)\]]*$/u.test(k)) || sayi >= EN_COK_KELIME) return { kelimeler, sayi };
+      if ((sayi >= enAz && /[.!?…]["'”’»)\]]*$/u.test(k)) || sayi >= enCok) return { kelimeler, sayi };
     }
   }
   return { kelimeler, sayi };
@@ -114,6 +114,10 @@ export default {
   puanEtiketi: 'Dikkatli okuma puanı',
   puanAciklama: 'Dakikadaki kelime × kelime yoklaması isabeti.',
   alanEtiketi: 'Şekilli metin alanı',
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'sm-ornek' }, el('span', { metin: 'bir' }), el('span', { metin: 'iki üç' }), el('span', { metin: 'dört beş' })), metin: 'Gözünü ortadaki çizgiden aşağı indir' },
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: 'kelime ✓' }), metin: 'Sonda metinde olan kelimeleri seç' },
+  ]),
 
   hazirlik() {
     secici = metinSeciciOlustur({ egzersiz: 'sekilli-metin', kimlik: 'sm' });
@@ -130,9 +134,11 @@ export default {
     const { alan, seviye: s } = ctx;
     const metin = secici?.secili();
     if (!metin) throw new Error('Metin seçilmedi.');
-    const { kelimeler, sayi } = okunacakKisim(metin.metin);
+    // S34-son: ilkokul bandı daha kısa bir bölüm okutabilir (enAzKelime, enCokKelime)
+    const enAz = Math.max(40, sayi(ctx.bant?.enAzKelime) ?? EN_AZ_KELIME);
+    const { kelimeler, sayi: okunanSayi } = okunacakKisim(metin.metin, enAz, Math.max(enAz, sayi(ctx.bant?.enCokKelime) ?? EN_COK_KELIME));
     const sayfalar = sayfalariKur(kelimeler, sekilSecimi, s.genislik);
-    Object.assign(ctx.ekstra, { sekil: sekilSecimi, genislik: s.genislik, kelime: sayi, metin: metin.kimlik, kaynak: metin.kaynak });
+    Object.assign(ctx.ekstra, { sekil: sekilSecimi, genislik: s.genislik, kelime: okunanSayi, metin: metin.kimlik, kaynak: metin.kaynak });
     alan.classList.add('sm-alan');
 
     const durumEl = el('p', { sinif: 'sm-durum' });
@@ -253,5 +259,7 @@ export default {
     .sm-kelime[data-sonuc="dogru"] { border-color: var(--renk-basari); }
     .sm-kelime[data-sonuc="yanlis"] { border-color: var(--renk-vurgu-metin); border-style: dashed; }
     .sm-geri { font-weight: 700; }
+    .sm-ornek { position: relative; display: grid; justify-items: center; font-size: var(--fs-xs); line-height: 1.2; }
+    .sm-ornek::before { content: ""; position: absolute; inset-block: 0; inset-inline-start: 50%; border-inline-start: 1px dashed var(--renk-metin-soluk); }
   `,
 };

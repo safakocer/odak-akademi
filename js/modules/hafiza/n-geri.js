@@ -1,12 +1,14 @@
-// Aynı mı? (n-geri, S14b): öğeler tek tek belirir; öğrenci her öğenin n önceki öğeyle aynı olup olmadığını Evet/Hayır ile söyler. Konum, şekil ya da harf modu; n merdivenle 1 → 2 (2-geri için 1-geride bir blokta en az %80 doğru şart)
+// Aynı mı? (n-geri, S14b): öğeler tek tek belirir; öğrenci her öğenin n önceki öğeyle aynı olup olmadığını Evet/Hayır ile söyler. Konum, şekil ya da harf modu; n merdivenle 1 → 2 (2-geri için 1-geride bir blokta en az %80 doğru şart; S34-son: 4. sınıfta yalnız 1-geri (bant sinir), blok uzunluğu seviyeden (blokOge; alıştırmada kısa), örnek)
 import { el } from '../../core/ui.js';
 import { karistir, trKucuk, yuzdeBicimle, sayiBicimle } from '../../core/utils.js';
 import { KESINTI_MS } from '../../engine/attention-core.js';
 import { SEKILLER, simgeSvg } from '../../engine/algi.js';
 import { hafizaOyunu, hafizaSahnesi, hafizaBitir, bekle, ogeDuyur } from '../../engine/memory-core.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 
-const BLOK_OGE = 12;     // her blokta yanıt beklenen öğe (ilk n öğe yalnız izlenir)
-const HEDEF_SAYISI = 4;  // bunların kaçı “aynı” (yaklaşık üçte bir)
+const BLOK_OGE = 12;     // her blokta yanıt beklenen öğe (ilk n öğe yalnız izlenir); S34-son: seviye blokOge verirse o (alıştırma 6)
+const HEDEF_ORANI = 1 / 3; // bunların kaçı “aynı” (12 öğede 4)
+const hedefAdedi = (blokOge) => Math.max(1, Math.round(blokOge * HEDEF_ORANI));
 const GECME_ESIGI = 80;  // blokta doğru yanıt ≥ %80 → n bir artar
 const KONUMLAR = Object.freeze(['sol üst', 'üst orta', 'sağ üst', 'sol orta', 'sağ orta', 'sol alt', 'alt orta', 'sağ alt']);
 const IZGARA_SIRA = Object.freeze([0, 1, 2, 3, 5, 6, 7, 8]); // 3×3 ızgarada ortası (odak işareti) hariç
@@ -15,10 +17,10 @@ const HARFLER = Object.freeze(['B', 'D', 'F', 'K', 'L', 'M', 'R', 'S', 'T', 'Z']
 const HAVUZ = Object.freeze({ konum: KONUMLAR.length, sekil: SEKIL_HAVUZU.length, harf: HARFLER.length });
 const kacOnce = (n) => (n === 1 ? 'bir önceki' : 'iki önceki');
 
-/** n-geri dizisi: HEDEF_SAYISI öğe n öncekinin aynısı; diğerleri n öncekinden ve hemen öncekinden farklı (kazara “aynı” çıkmaz) */
-function diziUret(n, boyut) {
-  const toplam = n + BLOK_OGE;
-  const hedefler = new Set(karistir(Array.from({ length: BLOK_OGE }, (_, i) => i + n)).slice(0, HEDEF_SAYISI));
+/** n-geri dizisi: blokOge'nin üçte biri n öncekinin aynısı; diğerleri n öncekinden ve hemen öncekinden farklı (kazara “aynı” çıkmaz) */
+function diziUret(n, boyut, blokOge = BLOK_OGE) {
+  const toplam = n + blokOge;
+  const hedefler = new Set(karistir(Array.from({ length: blokOge }, (_, i) => i + n)).slice(0, hedefAdedi(blokOge)));
   const dizi = [];
   for (let i = 0; i < toplam; i++) {
     if (hedefler.has(i)) { dizi.push(dizi[i - n]); continue; }
@@ -74,13 +76,15 @@ export default hafizaOyunu({
     ['Yanıtsız (farklı)', String(e.yanitsiz ?? 0)],
     ...(e.ortMs ? [['Ortalama tepki (yakalanan)', `${sayiBicimle(e.ortMs / 1000, 2)} sn`]] : []),
   ],
-  mesaj(e, { ipuclari }) {
+  mesaj(e, { ipuclari, enCok = 2 }) {
     if (!e.deneme) return 'Bu turda blok tamamlanmadı. Hazır olduğunda yeniden dene.';
+    // S34-son: 4. sınıfta en yüksek düzey 1 (bant): hedef 2-geri değil, 1-geride doğruluğu korumak
     const parca = [e.enIyi >= 2
       ? 'Bu turda 2-geri bloğunu geçtin; aynı anda iki öğeyi aklında tutup güncelledin.'
       : e.enIyi === 1
-        ? `1-geride %${GECME_ESIGI} doğruya ulaştın. Bir sonraki hedef: 2-geri bloğunu geçmek.`
-        : `1-geri henüz %${GECME_ESIGI}’e ulaşmadı. Bir sonraki hedef: bir blokta ${Math.ceil((BLOK_OGE * GECME_ESIGI) / 100)} doğru yanıt.`];
+        ? (enCok > 1 ? `1-geride %${GECME_ESIGI} doğruya ulaştın. Bir sonraki hedef: 2-geri bloğunu geçmek.`
+          : `1-geride %${GECME_ESIGI} doğruya ulaştın. Bir sonraki hedef: bunu daha çok blokta tutturmak.`)
+        : `1-geri henüz %${GECME_ESIGI}’e ulaşmadı. Bir sonraki hedef: bir blokta ${Math.ceil(((e.blokOge ?? BLOK_OGE) * GECME_ESIGI) / 100)} doğru yanıt.`];
     if (e.yanlisAlarm > e.kacan) parca.push('Yanlış alarmların kaçırdıklarından fazla: emin olmadan “Evet” demek yerine bir an düşün.');
     else if (e.kacan > e.yanlisAlarm) parca.push('Kaçırdıkların yanlış alarmlarından fazla: “aynı” gelince çekinmeden “Evet” de.');
     if (ipuclari.length) parca.push(`İpucu: ${ipuclari[Math.floor(Math.random() * ipuclari.length)]}`);
@@ -92,10 +96,17 @@ export default hafizaOyunu({
     { mod: 'konum', metin: 'karelere içinden ad ver (“sol üst”, “alt orta”) ve adları tekrar et.' },
     { mod: 'sekil', metin: 'şekillere kısa adlar ver (“kalp”, “artı”) ve adları tekrar et.' },
   ],
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__ikili' }, simgeSvg('kalp', { renk: 'var(--renk-birincil)' }), simgeSvg('kalp', { renk: 'var(--renk-birincil)' })),
+      metin: 'Öncekiyle aynı: “Evet, aynı”' },
+    { cizim: el('span', { sinif: 'egz-ornek__ikili' }, simgeSvg('kalp', { renk: 'var(--renk-birincil)' }), simgeSvg('kare', { renk: 'var(--renk-birincil)' })),
+      metin: 'Öncekinden farklı: “Hayır, farklı”' },
+  ]),
   alanEtiketi: 'Aynı mı, n-geri. Öğeler sırayla okunur. Her öğe n önceki öğeyle aynıysa E ya da Sol ok, farklıysa H ya da Sağ ok tuşuna bas.',
 
   baslat(ctx, { mod, merdiven, deneme }) {
     const s = ctx.seviye;
+    const blokOge = Math.max(4, Math.round(Number(s.blokOge) || BLOK_OGE)); // S34-son: alıştırmada kısa blok
     const sahne = hafizaSahnesi(ctx, { sahneSinif: 'nb-sahne' });
     const soru = el('p', { sinif: 'nb-soru' });
     let hucreler = [];
@@ -188,7 +199,7 @@ export default hafizaOyunu({
     });
 
     async function blok(n) {
-      const { dizi, hedef } = diziUret(n, HAVUZ[mod]);
+      const { dizi, hedef } = diziUret(n, HAVUZ[mod], blokOge);
       const r = { hedefSayisi: 0, yakalanan: 0, kacan: 0, yanlisAlarm: 0, dogruRed: 0, yanitsiz: 0, tepki: [] };
       soru.textContent = `Bu öğe ${kacOnce(n)} öğeyle aynı mı?`;
       for (let i = 0; i < dizi.length; i++) {
@@ -224,7 +235,7 @@ export default hafizaOyunu({
       if (adim.degisim > 0) parca.push(`Sıradaki blok ${adim.deger}-geri.`);
       else if (adim.degisim < 0) parca.push(`Sıradaki blok ${adim.deger}-geri; rahatça ısın, sonra yeniden yükselirsin.`);
       else if (gecti) parca.push('En üst düzeydesin; doğruluğunu korumaya çalış.');
-      else if (n === 1) parca.push(`2-geriye geçmek için bir blokta en az %${GECME_ESIGI} doğru gerekir. Henüz değil; bir blok daha.`);
+      else if (n === 1 && merdiven.kural.enCok > 1) parca.push(`2-geriye geçmek için bir blokta en az %${GECME_ESIGI} doğru gerekir. Henüz değil; bir blok daha.`);
       else parca.push('Aynı düzeyde bir blok daha.');
       return parca.join(' ');
     }
@@ -254,10 +265,10 @@ export default hafizaOyunu({
           continue;
         }
         const dogruOge = r.yakalanan + r.dogruRed;
-        const yuzde = Math.round((dogruOge * 100) / BLOK_OGE);
+        const yuzde = Math.round((dogruOge * 100) / blokOge);
         const gecti = yuzde >= GECME_ESIGI;
         const adim = merdiven.sonuc(gecti);
-        denemeler.push({ duzey: n, dogru: gecti, dogruOge, ogeSayisi: BLOK_OGE });
+        denemeler.push({ duzey: n, dogru: gecti, dogruOge, ogeSayisi: blokOge });
         Object.keys(toplam).forEach((k) => { toplam[k] += r[k]; });
         tepkiler.push(...r.tepki);
         ctx.ses(gecti ? 'dogru' : 'yanlis');
@@ -271,7 +282,7 @@ export default hafizaOyunu({
       hafizaBitir(ctx, denemeler, {
         merdiven, kesinti,
         bitince: () => Object.assign(ctx.ekstra, toplam, {
-          blokOge: BLOK_OGE, gecmeEsigi: GECME_ESIGI,
+          blokOge, gecmeEsigi: GECME_ESIGI,
           ortMs: tepkiler.length ? Math.round(tepkiler.reduce((t, x) => t + x, 0) / tepkiler.length) : undefined,
         }),
       });

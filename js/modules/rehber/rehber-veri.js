@@ -1,8 +1,10 @@
-// Çalışma Rehberi verisi (S22): Cornell notları, zihin haritaları ve haftalık ders planı; profil başına calisma:<profilId> anahtarında (storage.js üzerinden)
+// Çalışma Rehberi verisi (S22): Cornell notları, zihin haritaları ve haftalık ders planı; profil başına calisma:<profilId> anahtarında (storage.js üzerinden). S34f: örnek plan kademeye göre (rehber-icerik.js ORNEK_PLANLAR)
 import { oku, yaz } from '../../core/storage.js';
 import { etkinProfil } from '../../core/store.js';
 import { profilBul } from '../../core/profile.js';
 import { kimlikUret, boslukTemizle, gunAnahtari } from '../../core/utils.js';
+import { kademe } from '../../core/siniflar.js';
+import { ORNEK_PLANLAR, SINIF_DERS_DEGISIMI } from './rehber-icerik.js';
 
 const SURUM = 1;
 export const SINIR = Object.freeze({
@@ -198,17 +200,19 @@ export function planKaydet(plan, profilId) {
 export const planBosMu = (plan) => GUNLER.every((g) => !plan.gunler[g.ad].length);
 export const yeniBlok = (ders = '', dk = VARSAYILAN_BLOK_DK) => ({ id: kimlikUret(), ders, dk });
 
-/** Örnek plan: hafta içi kısa iki blok, cumartesi tek blok, pazar boş (8. sınıfta Sosyal yerine İnkılap Tarihi) */
+/**
+ * Örnek plan (S34f: kademeye göre ORNEK_PLANLAR; ortaokulda hafta içi kısa iki blok, ilkokulda 10-15 dakikalık bloklar; pazar boş).
+ * Ders adı sınıfa göre değişir (SINIF_DERS_DEGISIMI: 4. sınıfta Fen Bilimleri, 8. sınıfta İnkılap Tarihi). Kademe yoksa ortaokul planı
+ */
 export function ornekPlan(sinif = etkinProfil()?.sinif) {
-  const sosyal = sinif === 8 ? 'T.C. İnkılap Tarihi' : 'Sosyal Bilgiler';
+  const sablon = ORNEK_PLANLAR[kademe(sinif) ?? 'ortaokul'] ?? ORNEK_PLANLAR.ortaokul;
+  const degisim = SINIF_DERS_DEGISIMI[sinif] ?? {};
   const plan = bosPlan();
-  const gun = (ad, ...bloklar) => { plan.gunler[ad] = bloklar.map(([d, dk]) => yeniBlok(d, dk)); };
-  gun('pzt', ['Türkçe', 25], ['Matematik', 25]);
-  gun('sal', ['Fen Bilimleri', 25], ['İngilizce', 20]);
-  gun('car', ['Matematik', 25], ['Kitap okuma', 20]);
-  gun('per', [sosyal, 25], ['Türkçe', 25]);
-  gun('cum', ['Haftanın tekrarı', 25]);
-  gun('cmt', ['Kitap okuma', 20]);
+  for (const g of GUNLER) {
+    const bloklar = Array.isArray(sablon[g.ad]) ? sablon[g.ad] : [];
+    plan.gunler[g.ad] = bloklar.slice(0, SINIR.blok)
+      .map(([d, dk]) => yeniBlok(degisim[d] ?? d, BLOK_SURELERI.includes(dk) ? dk : VARSAYILAN_BLOK_DK));
+  }
   return plan;
 }
 

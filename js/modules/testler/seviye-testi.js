@@ -1,5 +1,6 @@
 // Seviye Belirleme Testi sayfası (S17, #/testler): 5 adım (okuma+anlama, Dokun ya da Bekle, Rakam Dizisi, Görme Alanı Flaşı, odak öz değerlendirmesi), profil radarı, başlangıç/final karşılaştırması
 // S34d: 2-8. sınıf; kademe akışı data/tests/seviye-testi.json akislar’dan (ilkokulda kısa yönergeli 3-4 adım), egzersizi sınıfa uygun olmayan adım atlanır, okuma hızı ölçeği sınıf bandından
+// S34-son: akış adımında ornek (egzersizin görsel örneği), alistirma (kaydedilmeyen kısa deneme; olcum alanlarının üstüne) ve bantli (sınıfın egzersiz bandı; sonuç bantli listesine yazılır, final aynı koşulla)
 import { el } from '../../core/ui.js';
 import { odakla, duyur } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
@@ -10,7 +11,7 @@ import { metniGrupla, okumaMotoruOlustur, okumaAlaniOlustur, okumaAyarlariniGeti
 import { soruOturumuKur, ANLAMA_ESIGI } from '../../engine/quiz-engine.js';
 import { radarOlustur } from '../../engine/radar.js';
 import { egzersizYukle, egzersizBilgisi, aracBilgisi, kartUygunMu } from '../katalog.js';
-import { bantlariYukle } from '../../core/siniflar.js';
+import { bantlariYukle, egzersizBandi, seviyeleriUyarla } from '../../core/siniflar.js';
 import {
   EKSENLER, OLCEK, FINAL_GUN, YENILEME_GUN, testDurumu, sonucKaydet, yeniDonem, guclulukOzeti, karsilastir, hamMetin, sinifOlcegi, sonucOlcegi,
 } from './test-veri.js';
@@ -44,8 +45,11 @@ const AKIS_METINLERI = Object.freeze({
   hazirlik: 'Sessiz bir yer seç, bildirimleri kapat. Her adımdan önce hazır olduğunda “Başla”ya basarsın; zorlandığın bir adımı atlayabilirsin.',
   adimNotu: 'Hazır olduğunda başla. Adımlar arasında istediğin kadar dinlenebilirsin.',
 });
-// Akış dosyasının bir adımda değiştirebileceği alanlar ve türleri (egzersiz adı değiştirilemez)
-const ADIM_ALANLARI = Object.freeze({ baslik: 'metin', sure: 'metin', kisa: 'metin', aciklama: 'metin', ipuclari: 'liste', zorluk: 'sayi', olcum: 'nesne' });
+// Akış dosyasının bir adımda değiştirebileceği alanlar ve türleri (egzersiz adı değiştirilemez). S34-son: ornek, alistirma, bantli
+const ADIM_ALANLARI = Object.freeze({
+  baslik: 'metin', sure: 'metin', kisa: 'metin', aciklama: 'metin', ipuclari: 'liste', zorluk: 'sayi', olcum: 'nesne',
+  ornek: 'bool', alistirma: 'nesne', bantli: 'bool',
+});
 
 const OZ_SORULAR = Object.freeze([
   { metin: 'Ders çalışırken aklım başka şeylere kayar.', ters: true },
@@ -103,7 +107,8 @@ function testMetni(d, kimlik, sinif) {
 const turUygun = (v, tur) => (tur === 'metin' ? typeof v === 'string' && v.trim() !== ''
   : tur === 'liste' ? Array.isArray(v) && v.every((x) => typeof x === 'string')
     : tur === 'sayi' ? Number.isInteger(v) && v >= 1
-      : !!v && typeof v === 'object' && !Array.isArray(v));
+      : tur === 'bool' ? typeof v === 'boolean'
+        : !!v && typeof v === 'object' && !Array.isArray(v));
 
 /**
  * S34d: Sınıfın test akışı: { sure, giris, hazirlik, adimNotu, adimlar }. Akış dosyasında sınıfı içeren akış varsa adımları ve metinleri ondan
@@ -137,7 +142,7 @@ function akisKur(d, sinif) {
  * temizlenince(fn), dogru(), yanlis(), ses(tur), bitir(). Sekme gizlenince zamanlayıcılar durur, oyun saati işlemez
  * (dikkat ve hafıza motorları bu farkı “kesinti” sayıp denemeyi yineler). Kayıt yapılmaz.
  */
-function adimBaglami({ alan, seviye, zorluk, olcum }) {
+function adimBaglami({ alan, seviye, zorluk, olcum, bant = null }) {
   let bitti = false;
   let duraklatildi = document.hidden;
   let oyunMs = 0;
@@ -182,7 +187,7 @@ function adimBaglami({ alan, seviye, zorluk, olcum }) {
   }
 
   const ctx = {
-    alan, seviye, zorluk, olcum, ekstra: {}, sonuc,
+    alan, seviye, zorluk, olcum, bant, ekstra: {}, sonuc,
     sonra(fn, ms = 0) {
       const z = { fn, kalan: ms };
       zamanlayicilar.add(z);
@@ -202,7 +207,8 @@ function adimBaglami({ alan, seviye, zorluk, olcum }) {
 }
 
 // ---------- Adım ekranları ----------
-function adimGirisi(govde, adim, calisma, onceki, adimNotu) {
+// S34-son: adimOrnegi: egzersizin görsel örneği (Node | null); adim.alistirma varsa “Önce alıştırma yap” → 'alistirma'
+function adimGirisi(govde, adim, calisma, onceki, adimNotu, adimOrnegi = null) {
   return new Promise((coz) => {
     const bitir = (secim) => { calisma.durdur = null; coz(secim); };
     calisma.durdur = () => bitir('iptal');
@@ -211,25 +217,46 @@ function adimGirisi(govde, adim, calisma, onceki, adimNotu) {
       onceki ? el('p', { sinif: 'test-adim__onceki', metin: onceki }) : null,
       baslik,
       el('p', { metin: adim.aciklama }),
+      adimOrnegi instanceof Node ? el('figure', { sinif: 'egz-ornek' }, el('figcaption', { metin: 'Örnek' }), adimOrnegi) : null,
       el('ul', {}, adim.ipuclari.map((m) => el('li', { metin: m }))),
       el('p', { sinif: 'test-not', metin: adimNotu }),
       el('div', { sinif: 'test-eylemler' },
         el('button', { type: 'button', sinif: 'btn btn--birincil btn--buyuk', metin: 'Başla', onclick: () => bitir('basla') }),
+        adim.alistirma ? el('button', { type: 'button', sinif: 'btn btn--ikincil', onclick: () => bitir('alistirma') },
+          'Önce alıştırma yap', el('small', { metin: ' (kaydedilmez)' })) : null,
         el('button', { type: 'button', sinif: 'btn btn--hayalet', metin: 'Bu adımı atla', onclick: () => bitir('atla') }))));
     odakla(baslik);
   });
 }
 
+// S34-son: adımın egzersiz tanımı ve seviyesi; bantli ise sınıfın egzersiz bandı uygulanır (çerçevedeki gibi seviyeleriUyarla)
+async function adimHazirla(adim, sinif, bantli) {
+  const tanim = adim.egzersiz ? await egzersizYukle(adim.egzersiz) : null;
+  if (!tanim?.baslat) return { tanim: null, seviye: null, bant: null };
+  const bant = bantli ? egzersizBandi(adim.egzersiz, sinif) : null;
+  const seviyeler = seviyeleriUyarla(tanim.seviyeler ?? [], bant);
+  const sira = Math.min(Math.max(1, adim.zorluk ?? 1), seviyeler.length || 1);
+  return { tanim, seviye: seviyeler[sira - 1], bant };
+}
+
+function adimOrnegiOlustur(adim, h) {
+  if (!adim.ornek || typeof h?.tanim?.ornek !== 'function') return null;
+  tanimStili(h.tanim);
+  try { return h.tanim.ornek({ seviye: { ...h.seviye }, bant: h.bant }) ?? null; } catch (e) { console.error('[seviye-testi] örnek:', e); return null; }
+}
+
 // Egzersiz dosyasını sabit ayarla çalıştırır → { ekstra, dogru, yanlis } | { atlandi } | null (iptal)
-async function olcumAdimi(govde, adim, calisma) {
+// S34-son: h = adimHazirla sonucu (tanım, seviye, bant); alistirma: true → olcum'un üstüne adim.alistirma, üstte “kaydedilmez” notu
+async function olcumAdimi(govde, adim, calisma, h, { alistirma = false } = {}) {
   await stilYukle('css/exercise.css');
-  const tanim = await egzersizYukle(adim.egzersiz);
+  const tanim = h?.tanim;
   if (calisma.bitti) return null;
   if (!tanim?.baslat) return { atlandi: true };
   tanimStili(tanim);
   const alan = el('div', { sinif: 'egz-alan test-alan', tabindex: '-1', role: 'group', 'aria-label': tanim.alanEtiketi ?? adim.baslik });
-  govde.replaceChildren(alan);
-  const ctx = adimBaglami({ alan, seviye: tanim.seviyeler?.[adim.zorluk - 1], zorluk: adim.zorluk, olcum: adim.olcum });
+  govde.replaceChildren(...[alistirma && el('p', { sinif: 'rozet rozet--gunes', metin: 'Alıştırma turu · kaydedilmez' }), alan].filter(Boolean));
+  const olcum = alistirma ? Object.freeze({ ...(adim.olcum ?? {}), ...adim.alistirma }) : adim.olcum;
+  const ctx = adimBaglami({ alan, seviye: h.seviye, zorluk: adim.zorluk, olcum, bant: h.bant });
   calisma.durdur = () => ctx.iptal();
   odakla(alan);
   try { tanim.baslat(ctx); } catch (h) {
@@ -372,7 +399,10 @@ async function testiCalistir(kap, tur) {
   const ADIM = akis.adimlar;
 
   const t0 = Date.now();
+  const testSinifi = b?.sinif ?? p.sinif;
   const sonuc = { sinif: p.sinif, metin: metin?.kimlik ?? null, atlanan: [], olcek: { wpm: (b ? sonucOlcegi(b) : sinifOlcegi(p.sinif)).wpm } };
+  // S34-son: bandın uygulandığı adımlar; final başlangıçtakini izler (eski başlangıçta liste yoksa bant uygulanmaz)
+  const bantliMi = (adim) => (b ? (Array.isArray(b.bantli) && b.bantli.includes(adim.ad)) : adim.bantli === true);
   const baslik = el('h1', { metin: tur === 'final' ? 'Final testi' : 'Başlangıç testi' });
   const etiket = el('span', { id: `test-ilerleme-${++sayac}` });
   const dolgu = el('span', { sinif: 'ilerleme__dolgu' });
@@ -395,7 +425,16 @@ async function testiCalistir(kap, tur) {
     cubuk.setAttribute('aria-valuenow', String(i));
     cubuk.setAttribute('aria-valuetext', `${ADIM.length} adımdan ${i} tamamlandı`);
 
-    const secim = await adimGirisi(govde, adim, calisma, onceki, akis.adimNotu);
+    const bantli = bantliMi(adim);
+    const h = adim.egzersiz ? await adimHazirla(adim, testSinifi, bantli) : null;
+    if (calisma.bitti) return;
+    let secim = await adimGirisi(govde, adim, calisma, onceki, akis.adimNotu, adimOrnegiOlustur(adim, h));
+    // S34-son: alıştırma turu (kaydedilmez); sonra aynı adımın girişine dönülür
+    while (secim === 'alistirma' && !calisma.bitti) {
+      const a = await olcumAdimi(govde, adim, calisma, h, { alistirma: true });
+      if (calisma.bitti || !a) return;
+      secim = await adimGirisi(govde, adim, calisma, a.atlandi ? 'Alıştırma şu an açılamadı.' : 'Alıştırma bitti. Hazır olunca “Başla”ya bas.', akis.adimNotu, adimOrnegiOlustur(adim, h));
+    }
     if (calisma.bitti || secim === 'iptal') return;
     if (secim === 'atla') { sonuc.atlanan.push(adim.ad); onceki = `${adim.baslik} adımını atladın.`; continue; }
 
@@ -408,10 +447,13 @@ async function testiCalistir(kap, tur) {
       r = await ozAdimi(govde, calisma);
       if (r) sonuc.oz = r;
     } else {
-      r = await olcumAdimi(govde, adim, calisma);
+      r = await olcumAdimi(govde, adim, calisma, h);
       if (r && !r.atlandi) {
         const deger = adim.ad === 'dikkat' ? dikkatSonucu(r) : adim.ad === 'hafiza' ? hafizaSonucu(r) : gormeSonucu(r);
-        if (deger) sonuc[adim.ad] = deger; else r = { atlandi: true };
+        if (deger) {
+          sonuc[adim.ad] = deger;
+          if (h?.bant) (sonuc.bantli ??= []).push(adim.ad); // S34-son
+        } else r = { atlandi: true };
       }
     }
     if (calisma.bitti || !r) return;

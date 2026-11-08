@@ -1,8 +1,9 @@
-// Işıklı Bloklar (Corsi blokları, S14a): 9 büyük ve aralıklı bloktan bazıları sırayla yanar; öğrenci aynı sırayla (ya da sondan başa) dokunur, Geri al ile düzeltir. Yol uzunluğu merdivenle uyarlanır (memory-core.js)
+// Işıklı Bloklar (Corsi blokları, S14a): 9 büyük ve aralıklı bloktan bazıları sırayla yanar; öğrenci aynı sırayla (ya da sondan başa) dokunur, Geri al ile düzeltir. Yol uzunluğu merdivenle uyarlanır (memory-core.js; S34-son: ilkokulda tempo, yol sınırı ve yön sınıf bandından, örnek)
 import { el } from '../../core/ui.js';
 import { karistir } from '../../core/utils.js';
 import { duyur } from '../../core/a11y.js';
 import { hafizaOyunu, hafizaSahnesi, diziTuru, bekle, ogeDuyur } from '../../engine/memory-core.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 
 const BIRIM = 'blok';
 const KONUMLAR = Object.freeze(['sol üst', 'üst orta', 'sağ üst', 'sol orta', 'orta', 'sağ orta', 'sol alt', 'alt orta', 'sağ alt']);
@@ -32,6 +33,12 @@ export default hafizaOyunu({
     'bloklar yanarken yalnızca izle; dizi bitince dokunmaya başla.',
     { mod: 'geri', metin: 'geri yönde son yanan bloktan başla ve yolu tersinden yürü.' },
   ],
+  // S34-son: kısa yönergede görsel örnek: 3×3 küçük ızgarada iki blok sırayla
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'corsi-ornek' }, [0, 1, 2, 3, 4, 5, 6, 7, 8].map((i) => el('span', { 'data-sira': i === 2 ? '1' : i === 6 ? '2' : null, metin: i === 2 ? '1' : i === 6 ? '2' : '' }))),
+      metin: 'Bloklar sırayla yanar, sırayı aklında tut' },
+    { cizim: el('span', { sinif: 'egz-ornek__yazi', metin: '1 → 2' }), metin: 'Sonra aynı sırayla dokun' },
+  ]),
   alanEtiketi: 'Işıklı Bloklar. Yanan blokların konumu okunur. Sıra sana gelince bloklara aynı sırayla bas; 1-9 tuşları da blok seçer, Geri silme tuşu son seçimi geri alır, Enter onaylar.',
 
   baslat(ctx, { ters, merdiven, deneme }) {
@@ -172,6 +179,9 @@ export default hafizaOyunu({
       content: attr(data-sira); position: absolute; inset: 0; display: grid; place-items: center;
       font-size: var(--fs-2xl); font-weight: 800; color: var(--renk-metin);
     }
+    .corsi-ornek { display: grid; grid-template-columns: repeat(3, 0.8rem); gap: 2px; }
+    .corsi-ornek > span { display: grid; place-items: center; block-size: 0.8rem; border: 1px solid var(--renk-metin-soluk); border-radius: 2px; font-size: 0.55rem; font-weight: 800; line-height: 1; }
+    .corsi-ornek > span[data-sira] { background: var(--renk-gunes); border-color: var(--renk-gunes-golge); color: var(--renk-gunes-uzeri); }
     .corsi-alt { display: grid; justify-items: center; gap: var(--b-2); }
     .corsi-ilerleme { min-block-size: 1.6em; margin: 0; font-size: var(--fs-l); letter-spacing: 0.1em; color: var(--renk-birincil); }
     .corsi-eylemler { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--b-2); inline-size: min(100%, 22rem); }

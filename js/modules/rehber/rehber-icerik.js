@@ -1,4 +1,5 @@
 // Çalışma Rehberi içerikleri (S22): sınav hazırlığı, sağlıklı alışkanlık kartları, aile rehberi ve ders adı önerileri; yalnız veri (DOM yok)
+// S34f: kademeye göre değişen metinler kademe adıyla (ortaokul | ilkokul) anahtarlanır: ders önerileri, haftalık plan metinleri, örnek planlar, aile rehberinin ilkokul bölümü
 
 /** Plan ve not formlarındaki ders adı önerileri (datalist; öğrenci başka ad da yazabilir) */
 export const DERS_ONERILERI = Object.freeze([
@@ -6,9 +7,77 @@ export const DERS_ONERILERI = Object.freeze([
   'Din Kültürü', 'Kitap okuma', 'Haftanın tekrarı', 'Ödev', 'Deneme analizi',
 ]);
 
+/** S34f: kademeye göre ders adı önerileri (kademe yoksa ortaokul) */
+export const KADEME_DERS_ONERILERI = Object.freeze({
+  ortaokul: DERS_ONERILERI,
+  ilkokul: Object.freeze(['Türkçe', 'Matematik', 'Hayat Bilgisi', 'Fen Bilimleri', 'Sosyal Bilgiler', 'İngilizce', 'Kitap okuma', 'Ödev', 'Haftanın tekrarı']),
+});
+
+/**
+ * S34f: Haftalık plan sayfasının kademeye göre metinleri ve değerleri.
+ * { aciklama, veliNotu? {baslik, metin}, blokDk (yeni bloğun süresi; BLOK_SURELERI’nden), yogunDk (günlük çalışma bunu aşınca not), yogunNot, ipuclari[] }
+ */
+export const PLAN_METINLERI = Object.freeze({
+  ortaokul: Object.freeze({
+    aciklama: 'Her güne kısa ders blokları koy. Bloklar arasında mola, hafta sonunda esneklik var.',
+    blokDk: 25,
+    yogunDk: 120,
+    yogunNot: 'Bu gün yoğun görünüyor; bir bloğu başka güne taşımayı düşünebilirsin.',
+    ipuclari: Object.freeze([
+      'Blokları kısa tut (20-30 dk); zor dersi enerjinin yüksek olduğu saate koy.',
+      'Aynı dersi haftaya yay: bir gün uzun yerine iki üç gün kısa çalışmak tekrar fırsatı verir.',
+      'Her hafta bir tekrar bloğu koy; yeni konuyla birlikte eskiyi de hatırla.',
+      'Plan sana hizmet eder: tutmayan günde suçluluk yerine planı küçült.',
+    ]),
+  }),
+  ilkokul: Object.freeze({
+    aciklama: 'Haftanı ailenden biriyle birlikte planla. Her güne kısa bir çalışma koy; oyun ve dinlenme de plana dahil.',
+    veliNotu: Object.freeze({
+      baslik: 'Aileler için',
+      metin: 'Planı çocuğunuzla birlikte hazırlayın. Bu yaşta 10-15 dakikalık kısa bloklar genellikle yeterlidir; oyun, hareket ve dinlenme de planın parçasıdır.',
+    }),
+    blokDk: 15,
+    yogunDk: 60,
+    yogunNot: 'Bu gün yoğun görünüyor. Bir bloğu başka güne taşımayı birlikte düşünün.',
+    ipuclari: Object.freeze([
+      'Blokları kısa tut: 10-15 dakika yeter.',
+      'Planı ailenden biriyle birlikte yap.',
+      'Her gün biraz kitap oku. İstersen bir büyüğünle sırayla, sesli oku.',
+      'Plan tutmazsa üzülme. Planı birlikte küçültün.',
+    ]),
+  }),
+});
+
+/** S34f: Örnek planlar (gün → [[ders, dk]]; boş gün yazılmaz). Ders adı sınıfa göre SINIF_DERS_DEGISIMI ile değişir */
+export const ORNEK_PLANLAR = Object.freeze({
+  ortaokul: Object.freeze({
+    pzt: [['Türkçe', 25], ['Matematik', 25]],
+    sal: [['Fen Bilimleri', 25], ['İngilizce', 20]],
+    car: [['Matematik', 25], ['Kitap okuma', 20]],
+    per: [['Sosyal Bilgiler', 25], ['Türkçe', 25]],
+    cum: [['Haftanın tekrarı', 25]],
+    cmt: [['Kitap okuma', 20]],
+  }),
+  ilkokul: Object.freeze({
+    pzt: [['Türkçe', 15], ['Kitap okuma', 10]],
+    sal: [['Matematik', 15]],
+    car: [['Hayat Bilgisi', 15], ['Kitap okuma', 10]],
+    per: [['Türkçe', 15]],
+    cum: [['Matematik', 10]],
+    cmt: [['Kitap okuma', 10]],
+  }),
+});
+
+/** S34f: Sınıfa özel ders adı değişimi (örnek planda): 4. sınıfta Hayat Bilgisi yerine Fen Bilimleri, 8. sınıfta Sosyal Bilgiler yerine İnkılap Tarihi */
+export const SINIF_DERS_DEGISIMI = Object.freeze({
+  4: Object.freeze({ 'Hayat Bilgisi': 'Fen Bilimleri' }),
+  8: Object.freeze({ 'Sosyal Bilgiler': 'T.C. İnkılap Tarihi' }),
+});
+
 /**
  * Bilgi sayfası: { giris, uyari?: {baslik, metin}, bolumler: [{ baslik, ikon?, metin?, maddeler?[], baglantilar?[{adres, metin}] }],
- *   numarali? (bölümler sıralı öneri listesi olarak), listeBasligi?, kapanis? }
+ *   numarali? (bölümler sıralı öneri listesi olarak), listeBasligi?, kapanis?,
+ *   kademeBolumleri? (S34f): { <kademe>: bölüm } (bölümlerin ardından; etkin profil o kademedeyse ya da profil yoksa görünür) }
  */
 export const BILGI_SAYFALARI = Object.freeze({
   'sinav-hazirlik': {
@@ -169,6 +238,25 @@ export const BILGI_SAYFALARI = Object.freeze({
       { baslik: 'Hatayı öğrenme fırsatı sayın', metin: 'Düşük bir not ya da yanlış bir cevapta “Henüz öğrenmedin, nerede zorlandın?” diye sorun. Yanlış defteri tutmayı birlikte deneyebilirsiniz.' },
       { baslik: 'Zorlanma sürerse destek isteyin', metin: 'Okuma, dikkat ya da duygusal güçlükler uzun süredir devam ediyorsa öğretmeni ve rehber öğretmenle konuşun; gerekirse bir uzmana danışın.' },
     ],
+    // S34f: ilkokul (2-4. sınıf) bölümü
+    kademeBolumleri: {
+      ilkokul: {
+        baslik: 'İlkokul çağındaki çocuklar için',
+        ikon: 'aile',
+        metin: '2, 3 ve 4. sınıftaki çocuklar için uygulamayı birlikte kullanmaya yönelik öneriler.',
+        maddeler: [
+          'Kısa tutun: Bu yaşta 10-15 dakikalık çalışmalar ve sık molalar genellikle yeterlidir. Akıllı Kurs da ilkokulda günlük 10 ya da 15 dakikalık plan sunar.',
+          'Birlikte başlayın: Özellikle 2. ve 3. sınıfta yönergeleri birlikte okuyun; çocuğunuz yapsın, siz yanında olun.',
+          'Sesli okumayı paylaşın: Bir sayfayı siz, bir sayfayı çocuğunuz okusun. Okuduktan sonra “Neler oldu?” diye sorun.',
+          'Hızı zorlamayın: Uygulama ilkokulda okuma hızını küçük adımlarla artırır ve anlama düşükse hızı artırmaz. Evde de süre tutup yarıştırmayın.',
+          'Ekran süresini birlikte belirleyin: Uygulamayı da ekran süresinin içinde sayın; çalışmadan sonra hareket ve açık hava zamanı ayırın.',
+          'Haftalık planı birlikte yapın: Çalışma Rehberi’ndeki haftalık planı çocuğunuzla doldurun; oyunu ve dinlenmeyi de plana koyun.',
+          'Çabayı fark edin: “Bugün dikkatle okudun” gibi somut sözler, puan ve rozetlerden daha anlamlıdır.',
+        ],
+        not: 'Cornell notu ve sınav hazırlığı sayfaları ortaokul için hazırlandığından ilkokul profilinde görünmez.',
+        baglantilar: [{ adres: '#/rehber/haftalik-plan', metin: 'Haftalık plan' }],
+      },
+    },
     kapanis: 'Uygulamadaki İlerleme sayfasından yazdırılabilir bir veli raporu da alabilirsiniz; rapor yalnızca bu cihazdaki çalışmalardan hazırlanır.',
   },
 });

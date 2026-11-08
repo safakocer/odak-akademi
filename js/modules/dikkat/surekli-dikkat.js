@@ -1,9 +1,10 @@
-// Gece Nöbeti (Sürekli dikkat, S11b): 2-3 dakika boyunca ortada şekiller akar; seyrek ve tahmin edilemeyen aralıklarla gelen hilali yakala. İlk ve son yarının doğruluğu "odak sürekliliği" olarak gösterilir; ölçüm attention-core.js ile
+// Gece Nöbeti (Sürekli dikkat, S11b; S34e: hilal sayısı ve akış hızı sınıf bandından, görsel örnek): 2-3 dakika boyunca ortada şekiller akar; seyrek ve tahmin edilemeyen aralıklarla gelen hilali yakala. İlk ve son yarının doğruluğu "odak sürekliliği" olarak gösterilir; ölçüm attention-core.js ile
 import { el } from '../../core/ui.js';
 import { karistir, yuzdeBicimle } from '../../core/utils.js';
 import { molaRehberiAcikMi } from '../../core/a11y.js';
 import { simgeSvg, rastgeleSec } from '../../engine/algi.js';
-import { dikkatOyunu, dikkatTuru, dikkatSahnesi, dokunusBagla, ozetle, msMetni } from '../../engine/attention-core.js';
+import { dikkatOyunu, dikkatTuru, dikkatSahnesi, dokunusBagla, ozetle, msMetni, denemeSayisi } from '../../engine/attention-core.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 
 const HEDEF = 'hilal';
 const RENK = 'var(--renk-gunes)'; // hepsi aynı renk: kural yalnız şekle dayanır
@@ -38,8 +39,15 @@ export default dikkatOyunu({
   alanEtiketi: 'Gece Nöbeti. Hilal görünce Boşluk tuşuna bas, başka şekilde bekle.',
   sureNotu: 'Nöbet yaklaşık 2-3 dakika sürer. İstediğin an duraklatabilirsin.',
 
+  // S34e: kısa yönergede görsel örnek
+  ornek: () => ornekListesi([
+    { cizim: simgeSvg(HEDEF, { renk: RENK }), metin: 'Hilal: dokun' },
+    { cizim: simgeSvg('yildiz', { renk: RENK }), metin: 'Yıldız: bekle' },
+  ]),
+
   baslat(ctx) {
     const s = ctx.seviye;
+    const hedefSayisi = denemeSayisi(ctx, s.hedef); // S34e: alıştırmada daha az hilal
     const gorev = el('p', { sinif: 'sd-gorev' }, 'Yalnız buna dokun: ',
       el('span', { sinif: 'sd-hedef', 'aria-hidden': 'true' }, simgeSvg(HEDEF, { renk: RENK })), el('strong', { metin: 'hilal' }));
     const duzen = dikkatSahnesi(ctx, { ust: gorev, sahneSinif: 'sd-sahne' });
@@ -49,8 +57,8 @@ export default dikkatOyunu({
     sahne.append(odak, uyaran);
 
     // Plan: iki yarı eşit sayıda hilal; ara uzunlukları her yarıda ayrı karıştırılır (tahmin edilemez)
-    const yarim = Math.floor(s.hedef / 2);
-    const adimlar = [...araAdimlari(yarim, s.adim), ...araAdimlari(s.hedef - yarim, s.adim)];
+    const yarim = Math.floor(hedefSayisi / 2);
+    const adimlar = [...araAdimlari(yarim, s.adim), ...araAdimlari(hedefSayisi - yarim, s.adim)];
     let onceki = null;
     const plan = adimlar.map((adim, i) => ({
       tur: i < yarim ? 'ilk' : 'son',

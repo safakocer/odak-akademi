@@ -1,8 +1,9 @@
-// Dokun ya da Bekle (Go/No-Go, S11a): yalnız hedef şekle (yıldız) dokun, ötekilerde bekle; hedef oranı, hız ve benzer çeldirici sayısı basamakla artar. Kural şekle dayanır, renk yalnız ek benzerliktir (renk körlüğüne uygun)
+// Dokun ya da Bekle (Go/No-Go, S11a; S34e: deneme sayısı ve basamaklar sınıf bandından, görsel örnek): yalnız hedef şekle (yıldız) dokun, ötekilerde bekle; hedef oranı, hız ve benzer çeldirici sayısı basamakla artar. Kural şekle dayanır, renk yalnız ek benzerliktir (renk körlüğüne uygun)
 import { el } from '../../core/ui.js';
 import { karistir } from '../../core/utils.js';
 import { simgeSvg, SEKILLER, RENKLER } from '../../engine/algi.js';
-import { dikkatOyunu, dikkatTuru, dikkatSahnesi, dokunusBagla, denemePlani, oranliAdet } from '../../engine/attention-core.js';
+import { dikkatOyunu, dikkatTuru, dikkatSahnesi, dokunusBagla, denemePlani, oranliAdet, denemeSayisi } from '../../engine/attention-core.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
 
 const DENEME = 40;
 function renk(ad) {
@@ -11,6 +12,7 @@ function renk(ad) {
   return (r ?? RENKLER[0]).deger;
 }
 const HEDEF = Object.freeze({ sekil: 'yildiz', renk: renk('sarı') });
+const basHarf = (m) => m.charAt(0).toLocaleUpperCase('tr-TR') + m.slice(1);
 
 export default dikkatOyunu({
   egzersiz: 'git-dur',
@@ -31,10 +33,18 @@ export default dikkatOyunu({
     { hedefOrani: 0.8, uyaranMs: 500, pencereMs: 800, araMs: [450, 900], celdirici: [['altigen', 'sarı'], ['arti', 'sarı'], ['elmas', 'sarı'], ['kalp', 'sarı']] },
   ],
   alanEtiketi: 'Dokun ya da Bekle. Yıldız görünce Boşluk tuşuna bas, başka şekilde bekle.',
+  // S34e: kısa yönergede görsel örnek
+  ornek: ({ seviye: s }) => {
+    const [sekil, r] = s.celdirici[0];
+    return ornekListesi([
+      { cizim: simgeSvg(HEDEF.sekil, { renk: HEDEF.renk }), metin: 'Yıldız: dokun' },
+      { cizim: simgeSvg(sekil, { renk: renk(r) }), metin: `${basHarf(SEKILLER[sekil].ad)}: bekle` },
+    ]);
+  },
 
   baslat(ctx) {
     const s = ctx.seviye;
-    const deneme = ctx.olcum?.deneme ?? DENEME; // S17: seviye testi daha kısa tur ister (ctx.olcum)
+    const deneme = denemeSayisi(ctx, DENEME); // S17: seviye testi (ctx.olcum); S34e: alıştırma ve sınıf bandı
     const hedefSayisi = oranliAdet(deneme, s.hedefOrani);
     const durSayisi = deneme - hedefSayisi;
     Object.assign(ctx.ekstra, { hedefSayisi, durSayisi, celdirici: s.celdirici.length });

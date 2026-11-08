@@ -1,8 +1,10 @@
-// Kelime Piramidi (D06: dar ekranda en küçük yazı boyu korunur, satır ve kelime uzunluğu ekrana göre ayarlanır): ortadaki kelime çevresinde her satırda genişleyen satırlar kısa süre görünür; öğrenci iki uçtaki kelimenin aynı olup olmadığını söyler
+// Kelime Piramidi (D06: dar ekranda en küçük yazı boyu korunur, satır ve kelime uzunluğu ekrana göre ayarlanır; S34-son: soru sayısı denemeSayisi ile (alıştırma 1 piramit), basamaklar sınıf bandından, örnek): ortadaki kelime çevresinde her satırda genişleyen satırlar kısa süre görünür; öğrenci iki uçtaki kelimenin aynı olup olmadığını söyler
 import { el } from '../../core/ui.js';
 import { odakla } from '../../core/a11y.js';
 import { karistir, karakterSayisi, sayiBicimle } from '../../core/utils.js';
 import { havuzHazirla, flasGoster, secenekPaneli, rastgeleKelime, kelimeCeldiricileri } from '../../engine/flas.js';
+import { ornekListesi } from '../../engine/exercise-frame.js';
+import { denemeSayisi } from '../../engine/attention-core.js';
 
 await havuzHazirla();
 
@@ -61,6 +63,10 @@ export default {
   puanEtiketi: 'İsabet puanı',
   puanAciklama: 'İki ucu doğru karşılaştırdığın satırların yüzdesi.',
   alanEtiketi: 'Kelime piramidi alanı. Satır kaybolunca 1 (Aynı) ya da 2 (Farklı) tuşuna bas.',
+  ornek: () => ornekListesi([
+    { cizim: el('span', { sinif: 'egz-ornek__yazi' }, 'kedi ', el('strong', { metin: 'top' }), ' kedi'), metin: 'Uçlar aynı: “Aynı”yı seç' },
+    { cizim: el('span', { sinif: 'egz-ornek__yazi' }, 'kedi ', el('strong', { metin: 'top' }), ' kuş'), metin: 'Uçlar farklı: “Farklı”yı seç' },
+  ]),
 
   baslat(ctx) {
     const { alan, seviye: s } = ctx;
@@ -77,7 +83,7 @@ export default {
     while (satirSayisi > 2 && yanSiniri(butce, satirSayisi) < 3) satirSayisi -= 1;
     Object.assign(ctx.ekstra, { satir: satirSayisi, sureMs: s.sureMs, piramit: 0 });
 
-    const piramitSayisi = Math.ceil(SORU_SAYISI / satirSayisi);
+    const piramitSayisi = Math.ceil(denemeSayisi(ctx, SORU_SAYISI) / satirSayisi); // S34-son: alıştırmada 1 piramit
     const toplamSoru = piramitSayisi * satirSayisi;
     const cevaplar = karistir(Array.from({ length: toplamSoru }, (_, i) => i % 2 === 0)); // aynı/farklı dengeli
     let satirlar = [];

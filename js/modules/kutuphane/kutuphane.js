@@ -1,4 +1,4 @@
-// Kütüphane sayfası (#/kutuphane; S25: seçicide kimlik kaçışlı; S28: boş durumda çocuk görünümünde Fener balonu; S34b: sınıf filtresinde yalnız metni olan sınıflar, seviye noktaları kademeye göre; S34b-d: ilkokulda sınıf filtresi önce öğrencinin sınıfı, “süzgeç” yerine “filtre”): sınıf metinleri ve kendi metinlerin; arama, sınıf/tür/uzunluk/durum filtreleri, favoriler, seviye göstergesi; kendi metnini ekle, düzenle, sil
+// Kütüphane sayfası (#/kutuphane; S25: seçicide kimlik kaçışlı; S28: boş durumda çocuk görünümünde Fener balonu; S34b: sınıf filtresinde yalnız metni olan sınıflar, seviye noktaları kademeye göre; S34b-d: ilkokulda sınıf filtresi önce öğrencinin sınıfı, “süzgeç” yerine “filtre”; S34-son: uzunluk seçenekleri kademeye göre): sınıf metinleri ve kendi metinlerin; arama, sınıf/tür/uzunluk/durum filtreleri, favoriler, seviye göstergesi; kendi metnini ekle, düzenle, sil
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { duyur, odakla } from '../../core/a11y.js';
 import { git } from '../../core/router.js';
@@ -7,7 +7,7 @@ import { kademe } from '../../core/siniflar.js';
 import { sayiBicimle, dakikaMetni, boslukTemizle } from '../../core/utils.js';
 import { okumaAyarlariniGetir, tahminiSureSn } from '../../engine/reader-engine.js';
 import {
-  metinBankasiYukle, metinBankasiDurumu, tumMetinler, metinleriSuz, METIN_TURLERI, UZUNLUKLAR, METIN_DOSYASI_OLAN_SINIFLAR, ZORLUK_DERECESI,
+  metinBankasiYukle, metinBankasiDurumu, tumMetinler, metinleriSuz, METIN_TURLERI, uzunluklar, METIN_DOSYASI_OLAN_SINIFLAR, ZORLUK_DERECESI,
   favoriMi, favoriDegistir, okumaBilgisi, seviyeBilgisi, profilSinifi, secimAyarla, kendiMetniSil,
 } from '../../engine/text-bank.js';
 import { metinFormuAc } from './metin-formu.js';
@@ -155,7 +155,7 @@ function filtreFormu() {
   const [sinif, sinifAlan] = secimKutusu('sinif', 'Sınıf', [['', 'Tüm sınıflar'],
     ...METIN_DOSYASI_OLAN_SINIFLAR.map((s) => [s, s === ps ? `${s}. sınıf (senin sınıfın)` : `${s}. sınıf`])]); // S34b: metni olmayan sınıf seçilip boş liste görünmesin
   const [tur, turAlan] = secimKutusu('tur', 'Tür', [['', 'Tüm türler'], ...Object.entries(METIN_TURLERI).map(([k, v]) => [k, k === 'kendi' ? 'Kendi metinlerim' : v])]);
-  const [uzunluk, uzunlukAlan] = secimKutusu('uzunluk', 'Uzunluk', [['', 'Tüm uzunluklar'], ...UZUNLUKLAR.map((u) => [u.ad, u.etiket])]);
+  const [uzunluk, uzunlukAlan] = secimKutusu('uzunluk', 'Uzunluk', [['', 'Tüm uzunluklar'], ...uzunluklar().map((u) => [u.ad, u.etiket])]); // S34-son: kademeye göre
   const [durum, durumAlan] = secimKutusu('durum', 'Durum', [['', 'Hepsi'], ['okunmadi', 'Okunmadı'], ['okundu', 'Okundu']]);
   const favori = el('input', { type: 'checkbox', name: 'favori', id: 'kt-favori' });
   const temizle = el('button', { type: 'button', sinif: 'btn btn--hayalet btn--kucuk', metin: 'Filtreleri temizle' });

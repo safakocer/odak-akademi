@@ -1,10 +1,11 @@
-// Çalışma Rehberi (S22): #/rehber araç ve bilgi kartları, #/rehber/<sayfa> araç (Cornell, zihin haritası, haftalık plan) ya da bilgi sayfası; ortak sayfa üstü, ders adı listesi ve yazdırma (html.yazdir-rehber); S34a: kartlar etkin profilin sınıfına göre, uygun olmayan sayfa #/sinif-disi
+// Çalışma Rehberi (S22): #/rehber araç ve bilgi kartları, #/rehber/<sayfa> araç (Cornell, zihin haritası, haftalık plan) ya da bilgi sayfası; ortak sayfa üstü, ders adı listesi ve yazdırma (html.yazdir-rehber); S34a: kartlar etkin profilin sınıfına göre, uygun olmayan sayfa #/sinif-disi; S34f: ders önerileri ve bilgi sayfalarının kademe bölümleri etkin profilin kademesine göre
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { git } from '../../core/router.js';
 import { aracBilgisi, modulAraclari } from '../katalog.js';
 import { egzersizKarti, sinifDisiysaYonlendir } from '../egzersiz-listesi.js';
 import { etkinProfil } from '../../core/store.js';
-import { BILGI_SAYFALARI, DERS_ONERILERI } from './rehber-icerik.js';
+import { kademe } from '../../core/siniflar.js';
+import { BILGI_SAYFALARI, KADEME_DERS_ONERILERI } from './rehber-icerik.js';
 
 const YAZDIR_SINIFI = 'yazdir-rehber';
 const ARAC_DOSYALARI = {
@@ -24,8 +25,9 @@ export const sayfaUst = (ikon, baslik, aciklama) => el('div', { sinif: 'sayfa-us
   el('span', { sinif: 'kart__ikon', 'aria-hidden': 'true' }, spriteIkon(ikon, 'ikon')),
   el('div', {}, el('h1', { metin: baslik }), aciklama && el('p', { sinif: 'soluk', metin: aciklama })));
 
-/** Ders adı önerileri (datalist); sayfada bir kez eklenir, girdiler list="rehber-dersler" ile bağlanır */
-export const dersListesi = () => el('datalist', { id: 'rehber-dersler' }, DERS_ONERILERI.map((d) => el('option', { value: d })));
+/** Ders adı önerileri (datalist); sayfada bir kez eklenir, girdiler list="rehber-dersler" ile bağlanır. S34f: öneriler kademeye göre (kademe yoksa ortaokul) */
+export const dersListesi = (sinif = etkinProfil()?.sinif) => el('datalist', { id: 'rehber-dersler' },
+  (KADEME_DERS_ONERILERI[kademe(sinif) ?? 'ortaokul'] ?? KADEME_DERS_ONERILERI.ortaokul).map((d) => el('option', { value: d })));
 
 export const yazdirDugmesi = (metin = 'Yazdır', fn = () => yazdir()) => el('button',
   { type: 'button', sinif: 'btn btn--ikincil btn--kucuk yazdirma-yok', onclick: fn }, spriteIkon('indir', 'ikon ikon--kucuk'), metin);
@@ -138,6 +140,10 @@ function bilgiSayfasiCiz(kap, kart, icerik) {
   } else {
     parcalar.push(el('div', { sinif: 'bilgi-izgara' }, icerik.bolumler.map(bilgiKarti)));
   }
+  // S34f: kademe bölümleri (ör. aile rehberinde ilkokul): etkin profil o kademedeyse ya da profil yoksa
+  const k = kademe(etkinProfil()?.sinif);
+  const ekler = Object.entries(icerik.kademeBolumleri ?? {}).filter(([ad]) => !k || ad === k);
+  if (ekler.length) parcalar.push(el('div', { sinif: 'bilgi-izgara' }, ekler.map(([ad, b]) => bilgiKarti(b, `kademe-${ad}`))));
   if (icerik.kapanis) parcalar.push(el('p', { sinif: 'alan__ipucu', metin: icerik.kapanis }));
   kap.replaceChildren(...parcalar);
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Kurs planlayıcı testleri (S18b): course-planner.js kurallarını senaryolarla otomatik dener; yalnız geliştirme, sw.js'te yok -->
+<!-- Kurs planlayıcı testleri (S18b; S34d: ilkokul bantları, sınıf değişimi, seviye testi metinleri; S34e: egzersiz bantları; S34f: ilkokul dersleri, rehber ve Fener mesajları; S34-son: göz ve hafıza bantları, kademe bantları, okuma üst hızı, uzunluk sınıfları, rekor kademesi): course-planner.js kurallarını senaryolarla otomatik dener; yalnız geliştirme, sw.js'te yok -->
 <html lang="tr">
 <head>
   <meta charset="utf-8">
@@ -34,7 +34,7 @@
 <body>
 <main>
   <h1>Kurs planlayıcı testleri</h1>
-  <p>Her senaryo planı gün gün ilerletir ve beklenen davranışı denetler. Kurallar <code>data/course-rules.json</code> dosyasından okunur.</p>
+  <p>Her senaryo planı gün gün ilerletir ve beklenen davranışı denetler. Kurallar <code>data/course-rules.json</code>, seviye testi metinleri <code>data/tests/seviye-testi.json</code> dosyasından okunur. 1-10. senaryolar 6. sınıfla (5-8 davranışı), 11-13. senaryolar ilkokulla çalışır. 14. senaryo <code>data/sinif-bantlari.json</code> egzersiz bantlarını, 15. senaryo <code>data/lessons/</code> derslerinin sınıf aralıklarını ve ilkokul sürümlerini, rehberin ilkokul metinlerini ve Fener’in ilkokul mesajlarını, 16. senaryo göz ve hafıza bantlarını, ortaokul alıştırma bantlarını, okuma üst hızını, kademeye göre uzunluk sınıflarını, seviye testinin ilkokul adımlarını ve rekor kademesini denetler.</p>
   <button type="button" id="calistir">Testleri yeniden çalıştır</button>
   <div id="ozet" role="status" aria-live="polite">Testler hazırlanıyor…</div>
   <ol id="liste" aria-label="Senaryolar"></ol>
@@ -43,8 +43,12 @@
 // --- TESTLER BAŞI ---
 import {
   planOlustur, gunSonuGuncelle, atlananGunIsle, yorgunModuUygula, yorgunModuKaldir, yenidenBaslat, dersDurumuAyarla,
-  bugunkuGun, kursOzeti, kararAciklamasi, kurallarAciklamasi, kurallariDenetle, gunTuru, agirlikHesapla, kacirilanGun,
+  bugunkuGun, kursOzeti, kararAciklamasi, kurallarAciklamasi, kurallariDenetle, gunTuru, agirlikHesapla, kacirilanGun, sinifKurallari,
 } from './js/engine/course-planner.js';
+import { egzersizBandiDuzelt, seviyeleriUyarla, YONERGE_SINIRI, egzersizBantlariBirlestir } from './js/core/siniflar.js';
+import { egzersizBilgisi, aracBilgisi, kartUygunMu } from './js/modules/katalog.js';
+import { anaSayfaMesaji, ipucuMetni, MESAJ_KUMELERI, IPUCU_KUMELERI } from './js/engine/fener-mesajlari.js';
+import { PLAN_METINLERI, ORNEK_PLANLAR, KADEME_DERS_ONERILERI, BILGI_SAYFALARI } from './js/modules/rehber/rehber-icerik.js';
 
 const BASLANGIC = '2026-01-05';
 function tarih(n, bas = BASLANGIC) { // bas + n gün
@@ -307,13 +311,304 @@ const SENARYOLAR = [
       ok(oyna(cokYuksek, { tarih: tarih(0), wpm: 460, anlama: 95 }).karar.yeni === 460, '≥450: artış yok');
     },
   },
+  {
+    ad: '11. İlkokul bantları (S34d)',
+    aciklama: '2, 3, 4. sınıf: günde 4 ders, 10/15 dk profilleri, hız üst sınırı, ilkokul havuzları; 5-8. sınıfta kurallar aynen kalır.',
+    calistir(K, { ok, seri, oyna }) {
+      const ilk = (s, ek = {}) => planOlustur({ sinif: s, profilDk: 10, bugun: BASLANGIC, baslangicTesti: null, kurallar: K, olcekWpm: [20, 160], ...ek });
+      const B2 = sinifKurallari(K, 2);
+      ok(B2.kurs.gundeDers === 4 && B2.slotlar.length === 4 && B2.olcum.dersSirasi.length === 4, '2. sınıfta günde 4 ders');
+      ok(JSON.stringify(B2.sureProfilleri.secenekler) === '[10,15]' && B2.sureProfilleri.varsayilan === 10, 'Süre seçenekleri 10/15, varsayılan 10');
+      ok(JSON.stringify(sinifKurallari(K, 2).hedef.wpmSinir) === '[30,120]' && JSON.stringify(sinifKurallari(K, 3).hedef.wpmSinir) === '[30,150]' && JSON.stringify(sinifKurallari(K, 4).hedef.wpmSinir) === '[30,180]', 'Hız üst sınırı 2: 120, 3: 150, 4: 180');
+      ok(JSON.stringify(sinifKurallari(B2, 2)) === JSON.stringify(B2), 'İkinci kez işlemek bir şey değiştirmiyor');
+      const B6 = sinifKurallari(K, 6);
+      const { bantSinifi, ...B6Sade } = B6;
+      ok(bantSinifi === 6 && JSON.stringify(B6Sade) === JSON.stringify(K), '6. sınıfta kurallar değişmiyor');
+      ok(JSON.stringify(yeniPlan(K)) === JSON.stringify(yeniPlan(B6)), '6. sınıf planı bantlı ve bantsız kurallarla aynı');
+      ok(K.kurs.gundeDers === 5 && !('bantSinifi' in K), 'Kural nesnesinin kendisi değişmedi');
+      const p2 = ilk(2);
+      ok(p2.gunler.length === 21 && p2.gunler.every((g) => g.dersler.length === 4), '21 gün × 4 ders');
+      ok(p2.gunler.filter((g) => g.tur === 'normal').every((g) => g.dersler.reduce((t, x) => t + x.dk, 0) === 10), 'Normal günler 10 dakika', p2.gunler[0].dersler.map((x) => x.dk).join('+'));
+      ok(p2.gunler[4].dersler[3].arac === 'tekrar', 'Pekiştirmede son ders Tekrar Kartları');
+      ok(p2.durum.hedefWpm === 50 && bugunkuGun(p2).kalibrasyon, 'Testsiz: sınıf hızı (50) + kalibrasyon');
+      ok(ilk(2, { profilDk: 20 }).profilDk === 10 && ilk(3, { profilDk: 15 }).profilDk === 15, 'İlkokulda olmayan süre (20) varsayılana döner');
+      const tumu = p2.gunler.flatMap((g) => g.dersler);
+      ok(tumu.filter((x) => x.tip === 'goz').every((x) => B2.dersTipleri.goz.havuz.includes(x.egzersiz)), 'Göz dersleri ilkokul havuzundan');
+      ok(tumu.filter((x) => x.tip === 'hiz').every((x) => x.ayar.mod !== 'rsvp'), 'İlkokulda hız dersinde RSVP yok');
+      const p3 = ilk(3, { baslangicTesti: test(200, 90) });
+      ok(p3.durum.hedefWpm === 150 && p3.durum.tavanWpm <= 150, '3. sınıfta yüksek test hızı üst sınıra (150) çekildi', `${p3.durum.hedefWpm} / ${p3.durum.tavanWpm}`);
+      const p4 = ilk(4, { baslangicTesti: test(90, 90) });
+      ok(p4.durum.tavanWpm === 126, '4. sınıf tavanı başlangıç ×1,4', `${p4.durum.tavanWpm}`);
+      const { plan, sonuclar } = seri(p4, 21);
+      ok(plan.durum.bitti && sonuclar.every((x) => x.tamamlandi), '4. sınıf 21 günü tamamladı');
+      ok(sonuclar.every((x) => x.karar.yeni <= 126), 'Hedef tavanı aşmadı', `${plan.durum.hedefWpm}`);
+      ok(plan.gunler[0].karar.yeni === Math.floor(90 * 1.025 + 0.5), '1. gün %85+ → kademe 1 (%2,5) artış', `${plan.gunler[0].karar.yeni}`);
+      const y = yorgunModuUygula(ilk(2), 1, K);
+      const g = bugunkuGun(y.plan);
+      ok(g.dersler.length === 3 && g.dersler.map((x) => x.dk).join('+') === '2+4+2', 'Yorgun gün: 3 ders, 10 dk profil süreleri', g.dersler.map((x) => x.dk).join('+'));
+      const s = oyna(y.plan, { tarih: tarih(0), wpm: 55, anlama: 90 });
+      ok(s.tamamlandi && s.karar.kod === 'kalibrasyon', 'Yorgun kalibrasyon günü tamamlanıyor', s.karar?.kod);
+      ok(kurallarAciklamasi(B2).length === 5 && kurallarAciklamasi(B2)[1].includes('%70'), 'İlkokul açıklamaları şablonla doluyor', kurallarAciklamasi(B2)[1]);
+    },
+  },
+  {
+    ad: '12. Sınıf değişimi ve bant denetimi (S34d)',
+    aciklama: '4. sınıf planı 5. sınıfa geçince; hatalı bant yakalanıyor.',
+    calistir(K, { ok }) {
+      const p4 = planOlustur({ sinif: 4, profilDk: 10, bugun: BASLANGIC, baslangicTesti: null, kurallar: K });
+      const K5 = sinifKurallari(K, 5);
+      const devam = yenidenBaslat({ ...p4, sinif: 5 }, 'kaldigim-yerden', { bugun: BASLANGIC, kurallar: K5 });
+      ok(devam.profilDk === K.sureProfilleri.varsayilan, '10 dk 5. sınıfta yok → varsayılan süre', `${devam.profilDk}`);
+      ok(devam.gunler.every((g) => g.dersler.length === 5), 'Günler 5. sınıfa göre (5 ders) yeniden üretildi');
+      const p5 = planOlustur({ sinif: 5, profilDk: 30, bugun: BASLANGIC, baslangicTesti: null, kurallar: K });
+      const geri = yenidenBaslat({ ...p5, sinif: 4 }, 'kaldigim-yerden', { bugun: BASLANGIC, kurallar: sinifKurallari(K, 4) });
+      ok(geri.profilDk === 10 && geri.gunler.every((g) => g.dersler.length === 4), '5 → 4: 30 dk yok, 10 dk ve 4 ders');
+      const Kb = structuredClone(K);
+      Kb.sinifBantlari[0].kurallar.kurs.gundeDers = 3;
+      ok(kurallariDenetle(Kb).some((x) => x.startsWith('sinifBantlari.ilkokul')), 'Slot sayısı tutmayan bant yakalanıyor', kurallariDenetle(Kb)[0]);
+      const Kc = structuredClone(K);
+      Kc.sinifBantlari[0].kurallar.sureProfilleri.varsayilan = 20;
+      ok(kurallariDenetle(Kc).length > 0, 'Varsayılan süre seçeneklerde değilse yakalanıyor');
+      const Kd = structuredClone(K);
+      Kd.sinifBantlari.push({ ad: 'bozuk', siniflar: 'iki', kurallar: {} });
+      ok(kurallariDenetle(Kd).some((x) => x.startsWith('sinifBantlari.bozuk')), 'Şekli bozuk bant yakalanıyor');
+      let atti = false; try { planOlustur({ sinif: 2, profilDk: 10, bugun: BASLANGIC, baslangicTesti: null, kurallar: Kb }); } catch { atti = true; }
+      ok(atti, 'Hatalı bantla ilkokul planı kurulmuyor');
+      const Ke = structuredClone(K); delete Ke.sinifBantlari;
+      ok(kurallariDenetle(Ke).length === 0 && planOlustur({ sinif: 3, profilDk: 20, bugun: BASLANGIC, baslangicTesti: null, kurallar: Ke }).gunler[0].dersler.length === 5, 'Bant alanı yoksa eski davranış');
+    },
+  },
+  {
+    ad: '13. Seviye testi metinleri (S34d)',
+    aciklama: 'data/tests/seviye-testi.json: 2-8. sınıfların her birine bir metin; ilkokul akışı.',
+    calistir(K, { ok }, T) {
+      ok(T && Array.isArray(T.metinler), 'Test dosyası okundu');
+      if (!T?.metinler) return;
+      const kelime = (m) => m.metin.trim().split(/\s+/).length;
+      for (const s of [2, 3, 4, 5, 6, 7, 8]) ok(T.metinler.filter((m) => m.sinif === s).length === 1, `${s}. sınıfa bir metin`);
+      ok(new Set(T.metinler.map((m) => m.kimlik)).size === T.metinler.length, 'Kimlikler tekil');
+      const ilk = T.metinler.filter((m) => m.sinif <= 4);
+      const aralik = { 2: [60, 150], 3: [120, 250], 4: [180, 350] };
+      for (const m of ilk) {
+        ok(kelime(m) >= aralik[m.sinif][0] && kelime(m) <= aralik[m.sinif][1], `${m.ad}: kelime sayısı sınıf aralığında`, `${kelime(m)}`);
+        ok(m.sorular.length === 4 && m.sorular.every((q) => q.tip === 'dogru-yanlis' || (q.tip === 'coktan-secmeli' && q.secenekler.length === 3 && q.dogru >= 0 && q.dogru < 3)), `${m.ad}: 4 soru, 3 seçenek`);
+        ok(new Set(m.sorular.map((q) => q.kimlik)).size === 4 && m.sorular.every((q) => q.aciklama), `${m.ad}: soru kimlikleri tekil, açıklamalar var`);
+        ok(!/sınav|LGS|test puanı/i.test(JSON.stringify(m)), `${m.ad}: sınav dili yok`);
+      }
+      const a = T.akislar?.ilkokul;
+      ok(a && JSON.stringify(a.siniflar) === '[2,3,4]' && Array.isArray(a.adimlar), 'İlkokul akışı 2-4. sınıf için tanımlı');
+      ok(a?.adimlar.every((x) => ['okuma', 'dikkat', 'hafiza', 'gorme', 'oz'].includes(x.ad)), 'Akışta yalnız bilinen adımlar');
+      ok(a?.adimlar.every((x) => !x.aciklama || x.aciklama.split(/[.!?](\s|$)/).filter((p) => p.trim()).length <= 2), 'Yönergeler en çok 2 cümle');
+    },
+  },
+  {
+    ad: '14. Egzersiz bantları (S34e)',
+    aciklama: 'data/sinif-bantlari.json: ilkokul egzersiz bantları (kademe + sınıf bandı birleşmiş) geçerli, kolaydan zora ve sınıfa göre sıralı; 5-8’de yalnız alıştırma turu.',
+    calistir(K, { ok }, T, B) {
+      ok(B?.siniflar, 'Bant dosyası okundu');
+      if (!B?.siniflar) return;
+      // S34-son: sınıfın bandı = kademe bandı + sınıf bandı (siniflar.js ile aynı birleştirme)
+      const ham = (s) => egzersizBantlariBirlestir(B, s) ?? {};
+      const ALISTIRMASIZ = ['sekilli-metin']; // uzun okuma: alıştırma turu yok
+      for (const s of [5, 6, 7, 8]) ok(Object.values(ham(s)).every((b) => Object.keys(b).every((k) => k === 'alistirma')), `${s}. sınıfta egzersiz bandında yalnız alıştırma var (ortaokul ayarları aynen)`);
+      const tempo = ['pencereMs', 'uyaranMs', 'omurMs', 'satirMs', 'akisMs'];
+      for (const s of [2, 3, 4]) {
+        const e = ham(s);
+        ok(Object.keys(e).length >= 5, `${s}. sınıf: dikkat egzersizlerinin bandı var`, Object.keys(e).join(', '));
+        for (const [ad, b] of Object.entries(e)) {
+          const d = egzersizBandiDuzelt(b);
+          const kart = egzersizBilgisi(ad);
+          ok(kart && kartUygunMu(kart, s), `${s}. sınıf ${ad}: katalogda var ve sınıfa açık`);
+          ok(JSON.stringify(d) === JSON.stringify(b), `${s}. sınıf ${ad}: şemaya uygun (atılan alan yok)`);
+          ok(d.enCok && (!d.baslangic || d.baslangic <= d.enCok) && (d.basamaklar?.length ?? 0) <= d.enCok, `${s}. sınıf ${ad}: enCok/başlangıç/basamak sayısı tutarlı`);
+          ok(d.yonerge?.length >= 1 && d.yonerge.every((c) => c.length <= YONERGE_SINIRI.karakter && c.split(/[.!?](\s|$)/).filter((p) => p.trim()).length === 1),
+            `${s}. sınıf ${ad}: yönerge en çok 2 kısa cümle`);
+          ok(d.alistirma || ALISTIRMASIZ.includes(ad), `${s}. sınıf ${ad}: alıştırma turu var`);
+          ok(!/sınav|LGS|hızlı ol|acele/i.test(JSON.stringify(b)), `${s}. sınıf ${ad}: baskı ve sınav dili yok`);
+          const bs = d.basamaklar ?? [];
+          for (const a of tempo) {
+            const dizi = bs.map((x) => x?.[a]).filter((v) => typeof v === 'number');
+            if (dizi.length > 1) ok(dizi.every((v, i) => i === 0 || v <= dizi[i - 1]), `${s}. sınıf ${ad}: ${a} basamakla kısalıyor`, dizi.join(' → '));
+          }
+        }
+      }
+      for (const ad of Object.keys(ham(2))) {
+        const ilk = (s, a) => ham(s)[ad]?.basamaklar?.[0]?.[a];
+        for (const a of tempo) {
+          const v = [2, 3, 4].map((s) => ilk(s, a));
+          if (v.every((x) => typeof x === 'number')) ok(v[0] >= v[1] && v[1] >= v[2], `${ad}: 1. basamak ${a} 2 ≥ 3 ≥ 4. sınıf`, v.join(' / '));
+        }
+        const enCok = [2, 3, 4].map((s) => ham(s)[ad]?.enCok ?? 5);
+        ok(enCok[0] <= enCok[1] && enCok[1] <= enCok[2], `${ad}: en yüksek basamak sınıfla artıyor`, enCok.join(' / '));
+      }
+      // seviyeleriUyarla: üstüne yazma, tür denetimi, kesme, ad korunur
+      const taban = [{ ad: 'A', p: 1000, ara: [1, 2] }, { ad: 'B', p: 800, ara: [1, 2] }, { ad: 'C', p: 600, ara: [1, 2] }];
+      const u = seviyeleriUyarla(taban, egzersizBandiDuzelt({ enCok: 2, basamaklar: [{ p: 1500, deneme: 10, ad: 'X' }, { p: 'hızlı', ara: [3, 4] }] }));
+      ok(u.length === 2 && u[0].p === 1500 && u[0].deneme === 10 && u[0].ad === 'A', 'Basamak alanları üstüne yazılıyor, yeni alan ekleniyor, ad korunuyor');
+      ok(u[1].p === 800 && u[1].ara[0] === 3, 'Türü uymayan alan yok sayılıyor, dizi değişiyor');
+      ok(seviyeleriUyarla(taban, null) === taban, 'Bant yoksa seviyeler aynen');
+      const bozuk = egzersizBandiDuzelt({ enCok: 9, baslangic: 3, yonerge: ['Bu cümle altmış karakterden uzun olduğu için bant onu kabul etmemeli, atmalı.'], alistirma: { deneme: 99, sureSn: 10 }, basamaklar: 'x' });
+      ok(!bozuk.enCok && bozuk.baslangic === 3 && !bozuk.yonerge && bozuk.alistirma.sureSn === 10 && !bozuk.alistirma.deneme && !bozuk.basamaklar, 'Hatalı alanlar atılıyor, geçerliler kalıyor');
+    },
+  },
+  {
+    ad: '15. İlkokul dersleri, rehber ve Fener (S34f)',
+    aciklama: 'Ders dosyaları geçerli; ilkokulda yalnız uygun dersler, ilkokul sürümüyle; Cornell ve sınav hazırlığı ilkokulda kapalı; haftalık plan ve Fener mesajları ilkokul dilinde.',
+    calistir(K, { ok }, T, B, E) {
+      // Katalog: kart aralıkları
+      for (const s of [2, 3, 4]) {
+        ok(['teknikler', 'stratejiler', 'haftalik-plan', 'aile-rehberi'].every((a) => kartUygunMu(aracBilgisi(a), s)), `${s}. sınıf: Hafıza Teknikleri, Okuma Stratejileri, Haftalık Plan ve Aile Rehberi açık`);
+        ok(['cornell', 'sinav-hazirlik'].every((a) => !kartUygunMu(aracBilgisi(a), s)), `${s}. sınıf: Cornell ve Sınav Hazırlığı kapalı`);
+      }
+      ok(['cornell', 'sinav-hazirlik', 'teknikler', 'stratejiler'].every((a) => kartUygunMu(aracBilgisi(a), 6)), '6. sınıf: ortaokul kartları açık');
+      // Dersler
+      const M = E?.motor;
+      ok(M && E?.dersler, 'Ders motoru ve ders dosyaları okundu', E?.hata ?? '');
+      if (M && E?.dersler) {
+        const ILKOKUL = { 'hikaye-zinciri': 2, gorsellestirme: 2, gruplama: 2, 'tahmin-etme': 2, 'bes-n-bir-k': 2, 'ana-fikir': 3 };
+        const adlar = [...M.DERS_ADLARI, ...M.STRATEJI_ADLARI];
+        for (const ad of adlar) {
+          const d = E.dersler[ad];
+          if (!d) { ok(false, `${ad}.json okundu`); continue; }
+          const h = M.dersDosyasiDenetle(d, ad);
+          ok(!h.length, `${ad}: dosya geçerli (ilkokul sürümü dahil)`, h.join('; '));
+          const [en, enCok] = M.dersAraligi(d);
+          if (ILKOKUL[ad]) {
+            ok(en === ILKOKUL[ad] && enCok === 8, `${ad}: ${ILKOKUL[ad]}-8. sınıf`, `${en}-${enCok}`);
+            const i = M.dersSurumu(d, 4);
+            ok(d.ilkokul && i.surumAdi === M.ILKOKUL_SURUMU && i.ilkokul === undefined, `${ad}: 4. sınıfta ilkokul sürümü`);
+            ok(M.dersSurumu(d, 6) === d, `${ad}: 6. sınıfta dersin kendisi (5-8 değişmedi)`);
+            ok(!/LGS|sınav/i.test(JSON.stringify(d.ilkokul)), `${ad}: ilkokul sürümünde sınav dili yok`);
+            if (i.metin) {
+              const kelime = i.metin.bolumler.flatMap((b) => b.paragraflar).join(' ').split(/\s+/).filter(Boolean).length;
+              ok(kelime >= 50 && kelime <= 150, `${ad}: ilkokul metni 50-150 kelime`, String(kelime));
+              ok(!/haber/i.test(`${i.metin.baslik} ${i.metin.yonerge}`), `${ad}: ilkokul metni haber türünde değil`);
+              ok([...i.sinama.sorular, ...i.gorev.parcalar.flatMap((p) => p.sorular ?? [])].every((q) => q.tip !== 'coktan-secmeli' || q.secenekler.length === 3), `${ad}: çoktan seçmeli sorular 3 seçenekli`);
+            }
+            if (i.olcum) {
+              const n = i.olcum.tur === 'liste' ? i.olcum.sonra.ogeler.length : i.olcum.sonra.esler.length;
+              const tam = d.olcum.tur === 'liste' ? d.olcum.sonra.ogeler.length : d.olcum.sonra.esler.length;
+              ok(n < tam && n <= 9, `${ad}: ilkokul listesi daha kısa`, `${n} < ${tam}`);
+            }
+          } else {
+            ok(en >= 5 && !d.ilkokul, `${ad}: yalnız ortaokulda (ilkokulda gizli)`, `${en}-${enCok}`);
+          }
+          ok(adlar.every((x) => x === ad || M.dersUygunMu(E.dersler[x] ?? {}, 6)), `${ad}: 6. sınıfta bütün dersler açık`);
+        }
+        // Denetim hatalı alanları yakalıyor
+        const ornek = E.dersler['hikaye-zinciri'];
+        if (ornek) {
+          ok(M.dersDosyasiDenetle({ ...ornek, sinif: [6, 3] }, 'hikaye-zinciri').length > 0, 'Ters sınıf aralığı hata veriyor');
+          ok(M.dersDosyasiDenetle({ ...ornek, sinif: [5, 8] }, 'hikaye-zinciri').some((h) => h.includes('ilkokul')), 'Aralıkta ilkokul yokken ilkokul sürümü hata veriyor');
+          ok(M.dersDosyasiDenetle({ ...ornek, ilkokul: { ...ornek.ilkokul, ad: 'x' } }, 'hikaye-zinciri').some((h) => h.includes('bilinmeyen')), 'İlkokul sürümünde bilinmeyen alan hata veriyor');
+          ok(M.dersDosyasiDenetle({ ...ornek, ilkokul: { olcum: { tur: 'liste' } } }, 'hikaye-zinciri').some((h) => h.startsWith('ilkokul:')), 'Bozuk ilkokul ölçümü hata veriyor');
+        }
+      }
+      // Rehber: haftalık plan ve aile rehberi
+      const P = PLAN_METINLERI.ilkokul;
+      ok(P.veliNotu && P.blokDk <= 15 && P.yogunDk < PLAN_METINLERI.ortaokul.yogunDk, 'Haftalık plan: ilkokulda veli notu, kısa blok, düşük yoğun gün sınırı');
+      ok(Object.values(ORNEK_PLANLAR.ilkokul).flat().every(([, dk]) => [10, 15].includes(dk)), 'İlkokul örnek planı 10-15 dakikalık bloklar');
+      ok(KADEME_DERS_ONERILERI.ilkokul.includes('Hayat Bilgisi') && !KADEME_DERS_ONERILERI.ilkokul.some((d) => /Deneme|İnkılap/.test(d)), 'İlkokul ders önerileri uygun');
+      ok(BILGI_SAYFALARI['aile-rehberi'].kademeBolumleri?.ilkokul?.maddeler?.length >= 5, 'Aile rehberinde ilkokul bölümü var');
+      // Fener: ilkokul kümesi
+      const IK = MESAJ_KUMELERI.ilkokul;
+      ok(Object.keys(MESAJ_KUMELERI.ortaokul).every((k) => IK[k]?.length), 'İlkokulda her durumun mesajı var');
+      const tum = [...Object.values(IK).flat(), ...IPUCU_KUMELERI.ilkokul];
+      const uzun = tum.filter((m) => m.length > 60 || m.split(/[.!?:]/).some((c) => c.trim().split(/\s+/).length > 8));
+      ok(!uzun.length, 'İlkokul mesaj ve ipuçları kısa (≤60 karakter, cümle ≤8 kelime)', uzun.join(' | '));
+      ok(!tum.some((m) => /kaybed|bozul|acele|çabuk ol|herkes|arkadaşların(dan)?/i.test(m)), 'Seri kaybı, süre baskısı ve karşılaştırma dili yok');
+      ok(IPUCU_KUMELERI.ilkokul.length === IPUCU_KUMELERI.ortaokul.length, 'İlkokul ipucu sayısı aynı');
+      const gun = new Date(2026, 0, 5, 9, 0);
+      const d0 = { dk: 0, hedefDk: 10, yuzde: 0, kayit: 0 };
+      const m2 = anaSayfaMesaji({ profil: { sinif: 2 }, durum: d0, gun });
+      const m6 = anaSayfaMesaji({ profil: { sinif: 6 }, durum: d0, gun });
+      ok(m2.durum === m6.durum && IK[m2.durum].includes(m2.mesaj) && MESAJ_KUMELERI.ortaokul[m6.durum].includes(m6.mesaj), 'Aynı durum, kademeye göre mesaj', `${m2.mesaj} / ${m6.mesaj}`);
+      ok(IPUCU_KUMELERI.ilkokul.includes(ipucuMetni(3, 3)) && IPUCU_KUMELERI.ortaokul.includes(ipucuMetni(3)), 'İpucu kademeye göre (profil yoksa ortaokul)');
+    },
+  },
+  {
+    ad: '16. Göz ve hafıza bantları, okuma üst hızı, uzunluk, test adımları, rekor kademesi (S34-son)',
+    aciklama: 'İlkokulda göz ve hafıza oyunları sınıfa göre kolaylaşır; ortaokulda yalnız alıştırma eklenir; okuma hızının üst sınırı, kütüphane uzunluk sınıfları, seviye testinin ilkokul adımları ve rekorun kademe içinde kalması.',
+    calistir(K, { ok }, T, B, E) {
+      ok(B?.siniflar && B?.kademeler, 'Bant dosyasında sınıf ve kademe bantları var');
+      if (B?.siniflar) {
+        const ham = (s) => egzersizBantlariBirlestir(B, s) ?? {};
+        const GOZ = ['schulte', 'nesne-takibi', 'satir-ritmi', 'fark-bul', 'gorsel-arama', 'simge-esle'];
+        const HAFIZA = ['rakam-dizisi', 'corsi-bloklari', 'kelime-listesi', 'eslestirme'];
+        for (const s of [2, 3, 4]) {
+          const e = ham(s);
+          ok([...GOZ, ...HAFIZA].every((a) => e[a]?.enCok && e[a]?.yonerge?.length), `${s}. sınıf: 2-8 açık göz ve hafıza oyunlarının bandı var`, Object.keys(e).join(', '));
+          ok(Object.keys(e).every((a) => kartUygunMu(egzersizBilgisi(a), s)), `${s}. sınıf: bant yalnız sınıfa açık oyunlarda`);
+          // Gösterim ve ritim süreleri basamakla kısalır; uzunluklar ve öğe sayıları artar
+          for (const [ad, b] of Object.entries(e)) {
+            const bs = b.basamaklar ?? [];
+            for (const a of ['gosterMs', 'turMs', 'vurusMs', 'acikMs', 'sureMs', 'isaretMs']) {
+              const v = bs.map((x) => x?.[a]).filter((x) => typeof x === 'number');
+              if (v.length > 1) ok(v.every((x, i) => !i || x <= v[i - 1]), `${s}. sınıf ${ad}: ${a} basamakla kısalıyor`, v.join(' → '));
+            }
+            for (const a of ['oge', 'nesne', 'simge', 'genislik']) { // boyut yok: Hızlı Dokun’da ışık basamakla küçülür
+              const v = bs.map((x) => x?.[a]).filter((x) => typeof x === 'number');
+              if (v.length > 1) ok(v.every((x, i) => !i || x >= v[i - 1]), `${s}. sınıf ${ad}: ${a} basamakla artıyor`, v.join(' → '));
+            }
+            const sinir = bs.map((x) => x?.sinir).filter(Boolean);
+            ok(sinir.every((x) => Number.isInteger(x.en) && Number.isInteger(x.enCok) && x.en <= x.enCok), `${s}. sınıf ${ad}: düzey sınırları geçerli`);
+          }
+        }
+        // Sınıf büyüdükçe: ilk basamak daha hızlı ya da aynı, hafızada en uzun dizi aynı ya da uzun
+        for (const ad of [...GOZ, ...HAFIZA]) {
+          const ilk = (s, a) => ham(s)[ad]?.basamaklar?.[0]?.[a];
+          for (const a of ['gosterMs', 'turMs', 'vurusMs', 'acikMs']) {
+            const v = [2, 3, 4].map((s) => ilk(s, a));
+            if (v.every((x) => typeof x === 'number')) ok(v[0] >= v[1] && v[1] >= v[2], `${ad}: 1. basamak ${a} 2 ≥ 3 ≥ 4. sınıf`, v.join(' / '));
+          }
+          const ust = [2, 3, 4].map((s) => Math.max(0, ...(ham(s)[ad]?.basamaklar ?? []).map((x) => x?.sinir?.enCok ?? 0)));
+          if (ust.every((x) => x > 0)) ok(ust[0] <= ust[1] && ust[1] <= ust[2], `${ad}: en uzun dizi/liste sınıfla artıyor`, ust.join(' / '));
+        }
+        ok(['rakam-dizisi', 'corsi-bloklari', 'kelime-listesi'].every((a) => ham(2)[a]?.yonSabit && !ham(3)[a]?.yonSabit), '2. sınıfta tek yön (ileri, seçerek); 3. sınıftan seçim var');
+        ok((ham(4)['n-geri']?.basamaklar ?? []).every((x) => x.sinir?.enCok === 1) && ham(4)['n-geri']?.alistirma?.ayar?.blokOge, '4. sınıfta n-geri yalnız 1-geri, alıştırma kısa blok');
+        ok(ham(4)['periferik-flas']?.basamaklar?.every((x) => x.sure?.en >= 100 && x.sure.baslangic <= x.sure.enCok), '4. sınıf periferik flaş süre aralığı geçerli');
+        ok(['periferik-flas', 'grup-flasi', 'kelime-piramidi', 'sekilli-metin', 'n-geri'].every((a) => !ham(3)[a]), '4-8 oyunlarının 3. sınıfta bandı yok');
+        // Ortaokul: alıştırma turu kısa, ayarlar aynen
+        for (const s of [5, 8]) {
+          const e = ham(s);
+          ok(Object.keys(e).length >= 15 && Object.values(e).every((b) => b.alistirma && Object.keys(b).length === 1), `${s}. sınıf: oyunlarda yalnız alıştırma bandı`, String(Object.keys(e).length));
+          ok(Object.values(e).every((b) => (b.alistirma.deneme ?? 1) <= 6 && (b.alistirma.sureSn ?? 10) <= 20), `${s}. sınıf: alıştırmalar kısa`);
+        }
+        // Okuma üst hızı
+        const ok2 = (s) => B.siniflar[String(s)]?.okuma;
+        ok([2, 3, 4].every((s) => ok2(s).ustWpm >= ok2(s).varsayilanWpm) && ok2(2).ustWpm <= ok2(3).ustWpm && ok2(3).ustWpm <= ok2(4).ustWpm, 'İlkokulda okuma üst hızı varsayılandan yüksek ve sınıfla artıyor', [2, 3, 4].map((s) => ok2(s).ustWpm).join(' / '));
+        ok([5, 6, 7, 8].every((s) => ok2(s).ustWpm === undefined), '5-8’de okuma üst hızı yok (500)');
+        const kursUst = K?.sinifBantlari?.flatMap((b) => (b.siniflar ?? []).map((s) => [s, b.kurallar?.hedef?.wpmSinir?.[1]])).filter(([, v]) => v);
+        if (kursUst?.length) ok(kursUst.every(([s, v]) => ok2(s)?.ustWpm === v), 'Okuma üst hızı kursun hedef üst sınırıyla aynı', kursUst.map((x) => x.join(': ')).join(', '));
+      }
+      // Seviye testi ilkokul adımları
+      const adimlar = T?.akislar?.ilkokul?.adimlar ?? [];
+      ok(adimlar.filter((a) => a.ad !== 'okuma').every((a) => a.ornek === true && a.alistirma && (a.alistirma.deneme ?? 0) <= 6), 'Seviye testi: ilkokul ölçüm adımlarında örnek ve kısa alıştırma');
+      ok(adimlar.find((a) => a.ad === 'dikkat')?.bantli === true && !adimlar.some((a) => a.ad !== 'dikkat' && a.bantli), 'Seviye testi: yalnız dikkat adımı sınıf bandıyla');
+      // Uzunluk sınıfları ve rekor kademesi (modüller sonradan içe aktarılır)
+      const tb = E?.ek?.metin;
+      ok(tb?.KADEME_UZUNLUKLARI, 'Metin bankası okundu', E?.ek?.hata ?? '');
+      if (tb?.KADEME_UZUNLUKLARI) {
+        const U = tb.KADEME_UZUNLUKLARI;
+        ok(JSON.stringify(U.ortaokul.map((u) => u.ad)) === JSON.stringify(U.ilkokul.map((u) => u.ad)), 'Uzunluk adları iki kademede aynı');
+        ok(tb.uzunlukBul(100, tb.uzunluklar(2)).ad === 'kisa' && tb.uzunlukBul(180, tb.uzunluklar(3)).ad === 'orta' && tb.uzunlukBul(300, tb.uzunluklar(4)).ad === 'uzun', 'İlkokulda 100/180/300 kelime: kısa/orta/uzun');
+        ok(tb.uzunlukBul(180, tb.uzunluklar(6)).ad === 'orta' && tb.uzunlukBul(150, tb.uzunluklar(6)).ad === 'kisa' && tb.uzunluklar(null) === tb.UZUNLUKLAR, 'Ortaokulda eşikler aynen (profil yoksa ortaokul)');
+      }
+      const mt = E?.ek?.metrics;
+      if (mt?.kayitKademesi) {
+        ok(mt.kayitKademesi({ ekstra: { kademe: 'ilkokul' } }) === 'ilkokul' && mt.kayitKademesi({}) === 'ortaokul' && mt.kayitKademesi({ ekstra: {} }) === 'ortaokul', 'Rekor kademesi: etiketsiz kayıt ortaokul');
+        ok(mt.ayniKademe({ ekstra: { kademe: 'ilkokul' } }, 'ilkokul') && !mt.ayniKademe({}, 'ilkokul') && mt.ayniKademe({}, undefined), 'Rekor yalnız aynı kademedeki kayıtlarla karşılaştırılır');
+      } else ok(false, 'metrics.js okundu', E?.ek?.hata ?? '');
+    },
+  },
 ];
 
-/** Tüm senaryoları çalıştırır → [{ ad, aciklama, gecti, kontroller }] */
-export function testleriCalistir(K) {
+/** Tüm senaryoları çalıştırır → [{ ad, aciklama, gecti, kontroller }]. T: seviye testi dosyası (S34d; yoksa 13. senaryo kalır), B: sınıf bantları (S34e; yoksa 14. senaryo kalır),
+ *  E: { motor (lesson-engine.js), dersler {ad: json}, hata?, ek? { metin (text-bank.js), metrics, hata? } } (S34f; S34-son: ek 16. senaryo için) */
+export function testleriCalistir(K, T = null, B = null, E = null) {
   return SENARYOLAR.map((s) => {
     const d = denetci(K);
-    try { s.calistir(K, d); } catch (h) { d.ok(false, 'Beklenmeyen hata', `${h.message}\n${h.stack ?? ''}`); }
+    try { s.calistir(K, d, T, B, E); } catch (h) { d.ok(false, 'Beklenmeyen hata', `${h.message}\n${h.stack ?? ''}`); }
     return { ad: s.ad, aciklama: s.aciklama, gecti: d.kontroller.length > 0 && d.kontroller.every((k) => k.gecti), kontroller: d.kontroller };
   });
 }
@@ -343,7 +638,31 @@ async function calistir() {
     ozet.dataset.durum = 'kaldi';
     return;
   }
-  const sonuclar = testleriCalistir(K);
+  let T = null;
+  try {
+    const y = await fetch('./data/tests/seviye-testi.json', { cache: 'no-store' });
+    if (y.ok) T = await y.json();
+  } catch (h) { console.warn('Seviye testi dosyası okunamadı:', h); }
+  let B = null;
+  try {
+    const y = await fetch('./data/sinif-bantlari.json', { cache: 'no-store' });
+    if (y.ok) B = await y.json();
+  } catch (h) { console.warn('Sınıf bantları okunamadı:', h); }
+  // S34f: ders motoru (ekran modüllerini de içe aktardığı için sonradan) ve ders dosyaları
+  const E = {};
+  try {
+    E.motor = await import('./js/engine/lesson-engine.js');
+    const adlar = [...E.motor.DERS_ADLARI, ...E.motor.STRATEJI_ADLARI];
+    const dosyalar = await Promise.all(adlar.map((a) => fetch(`./data/lessons/${a}.json`, { cache: 'no-store' }).then((y) => (y.ok ? y.json() : null))));
+    E.dersler = Object.fromEntries(adlar.map((a, i) => [a, dosyalar[i]]));
+  } catch (h) { E.hata = h.message; console.warn('Ders dosyaları okunamadı:', h); }
+  // S34-son: metin bankası ve kayıt modülü (depo ve profil modüllerini içe aktardığı için sonradan)
+  E.ek = {};
+  try {
+    E.ek.metin = await import('./js/engine/text-bank.js');
+    E.ek.metrics = await import('./js/core/metrics.js');
+  } catch (h) { E.ek.hata = h.message; console.warn('Metin bankası ya da metrics.js okunamadı:', h); }
+  const sonuclar = testleriCalistir(K, T, B, E);
   for (const s of sonuclar) {
     const kontroller = oge('ul', { class: 'kontroller' }, ...s.kontroller.map((k) => oge('li', { class: k.gecti ? 'gecti' : 'kaldi' },
       oge('span', { class: 'isaret', 'aria-hidden': 'true', metin: k.gecti ? '✓ ' : '✗ ' }),

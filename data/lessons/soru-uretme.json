@@ -2,6 +2,7 @@
   "surum": 1,
   "tur": "strateji",
   "ad": "soru-uretme",
+  "sinif": [5, 8],
   "baslik": "Okurken Soru Üretme",
   "kisaAciklama": "Üç tür soru üreterek metni farklı açılardan düşün ve dikkatini metinde tut.",
   "sureDk": "8-10",

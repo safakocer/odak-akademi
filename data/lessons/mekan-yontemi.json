@@ -1,6 +1,7 @@
 {
   "surum": 1,
   "ad": "mekan-yontemi",
+  "sinif": [5, 8],
   "baslik": "Yolculuk (Mekân) Yöntemi",
   "kisaAciklama": "İyi bildiğin bir yoldaki duraklara hatırlayacaklarını bırak.",
   "sureDk": "6-8",

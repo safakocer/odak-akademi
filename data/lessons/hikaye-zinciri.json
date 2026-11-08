@@ -1,6 +1,7 @@
 {
   "surum": 1,
   "ad": "hikaye-zinciri",
+  "sinif": [2, 8],
   "baslik": "Hikâye Zinciri",
   "kisaAciklama": "İlgisiz kelimeleri kısa, hareketli sahnelerle birbirine bağla.",
   "sureDk": "6-8",
@@ -57,5 +58,99 @@
     "once": { "ogeler": ["anahtar", "bulut", "limon", "eldiven", "merdiven", "kaplumbağa", "saat", "balon"] },
     "sonra": { "ogeler": ["şemsiye", "portakal", "tren", "yastık", "davul", "kirpi", "fener", "çorap"] }
   },
-  "kapanis": "Hikâye zinciri; sırası önemli listelerde, örneğin bir deneyin adımlarında ya da bir olayın sırasında işine yarar."
+  "kapanis": "Hikâye zinciri; sırası önemli listelerde, örneğin bir deneyin adımlarında ya da bir olayın sırasında işine yarar.",
+  "ilkokul": {
+    "kisaAciklama": "Kelimeleri kısa ve komik sahnelerle birbirine bağla.",
+    "sureDk": "5-6",
+    "anlat": {
+      "baslik": "Hikâye zinciri nedir?",
+      "paragraflar": [
+        "Birbirine benzemeyen kelimeleri akılda tutmak zordur. Onları bir hikâyeyle bağlarsan iş kolaylaşır.",
+        "Her kelimeyi bir sonrakiyle küçük bir sahnede buluştur. Sonra hikâyeyi içinden baştan oynat.",
+        "Sahne ne kadar komik olursa o kadar kolay hatırlanır."
+      ],
+      "ornek": {
+        "baslik": "Örnek: top, kedi, şapka",
+        "satirlar": [
+          "Bir top zıplıyor ve kedinin sırtına konuyor.",
+          "Kedi topu fırlatıyor, top kocaman bir şapkaya dönüşüyor."
+        ]
+      },
+      "not": "Hikâyeyi içinden kurman yeter; yazmak zorunda değilsin."
+    },
+    "birlikte": {
+      "yonerge": "Şu dört kelimeyi birlikte bağlayalım: kova, zürafa, pasta, ay.",
+      "adimlar": [
+        {
+          "metin": "İlk kelime: kova. Onu gözünün önüne getir.",
+          "sahne": "Bahçede kırmızı bir kova duruyor."
+        },
+        {
+          "metin": "Kovayı zürafaya bağla.",
+          "sahne": "Kovanın içinden uzun boyunlu bir zürafa çıkıyor!"
+        },
+        {
+          "metin": "Zürafayı pastaya bağla.",
+          "sahne": "Zürafa ağzında çilekli bir pasta taşıyor."
+        },
+        {
+          "metin": "Pastayı aya bağla.",
+          "sahne": "Pasta havaya uçuyor ve aya yapışıyor."
+        },
+        {
+          "metin": "Şimdi baştan oynat: kova, zürafa, pasta, ay. Her sahne seni sıradakine götürüyor mu?"
+        }
+      ],
+      "kontrol": {
+        "soru": "Zürafa ağzında ne taşıyordu?",
+        "secenekler": [
+          "pasta",
+          "kova",
+          "ay"
+        ],
+        "dogru": 0,
+        "aciklama": "Zürafa ağzında çilekli bir pasta taşıyordu. Sahneyi hatırlayınca sıradaki kelime de gelir."
+      }
+    },
+    "kendin": {
+      "tur": "metin",
+      "yonerge": "Sıra sende. Aşağıdaki 6 kelimeyi sırayla bir hikâyeyle bağla.",
+      "ipuclari": [
+        "Kelimeleri sırayla bağla: 1, 2, 3…",
+        "Komik yap: dev, minik ya da konuşan şeyler işe yarar.",
+        "Bitince hikâyeyi içinden bir kez oynat."
+      ],
+      "etiket": "Hikâyen (istersen yaz)",
+      "yerTutucu": "Şemsiyeden portakallar yağdı…",
+      "onerilenSn": 90
+    },
+    "olcum": {
+      "tur": "liste",
+      "siraOnemli": true,
+      "calismaSn": 40,
+      "araSn": 10,
+      "araYonerge": "Kısa bir ara: içinden 1’den 10’a kadar yavaşça say.",
+      "once": {
+        "ogeler": [
+          "anahtar",
+          "bulut",
+          "limon",
+          "eldiven",
+          "saat",
+          "balon"
+        ]
+      },
+      "sonra": {
+        "ogeler": [
+          "şemsiye",
+          "portakal",
+          "tren",
+          "yastık",
+          "davul",
+          "kirpi"
+        ]
+      }
+    },
+    "kapanis": "Hikâye zinciri, sırası önemli şeyleri hatırlamana yardım eder. Örneğin çantana koyacağın eşyaları."
+  }
 }

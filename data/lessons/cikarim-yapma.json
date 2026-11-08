@@ -2,6 +2,7 @@
   "surum": 1,
   "tur": "strateji",
   "ad": "cikarim-yapma",
+  "sinif": [5, 8],
   "baslik": "Çıkarım Yapma",
   "kisaAciklama": "Metnin açıkça söylemediğini ipuçlarından ve bildiklerinden yola çıkarak bul.",
   "sureDk": "8-10",

@@ -1,6 +1,7 @@
 {
   "surum": 1,
   "ad": "gorsellestirme",
+  "sinif": [2, 8],
   "baslik": "Görselleştirme",
   "kisaAciklama": "Birlikte hatırlanacak şeyleri canlı, hareketli bir resimde buluştur.",
   "sureDk": "6-8",
@@ -72,5 +73,139 @@
       { "ipucu": "defter", "cevap": ["ördek"] }
     ] }
   },
-  "kapanis": "Görselleştirme; fen terimleri, tarihlerle olaylar ya da yeni kelimelerle anlamları gibi birlikte hatırlanacak bilgilerde işe yarar."
+  "kapanis": "Görselleştirme; fen terimleri, tarihlerle olaylar ya da yeni kelimelerle anlamları gibi birlikte hatırlanacak bilgilerde işe yarar.",
+  "ilkokul": {
+    "kisaAciklama": "İki şeyi komik ve hareketli bir resimde buluştur.",
+    "sureDk": "5-6",
+    "anlat": {
+      "baslik": "Görselleştirme nedir?",
+      "paragraflar": [
+        "Resimleri hatırlamak çoğu zaman kelimeleri hatırlamaktan kolaydır. Görselleştirmede bir bilgiyi zihninde resme çevirirsin.",
+        "İki şeyi birlikte hatırlamak için onları aynı resme koy. Biri ötekine bir şey yapsın.",
+        "Resme renk, ses ve hareket ekle."
+      ],
+      "ornek": {
+        "baslik": "Örnek: köpek ve yelken",
+        "satirlar": [
+          "Zayıf resim: Bir köpek var, uzakta da bir yelken.",
+          "Güçlü resim: Köpek ağzında turuncu bir yelken tutuyor ve rüzgârla denizde kayıyor."
+        ]
+      },
+      "not": "Resmi gözünün önüne getirmen yeter; çizmen gerekmez."
+    },
+    "birlikte": {
+      "yonerge": "“Saksı – trompet” çiftini birlikte canlandıralım.",
+      "adimlar": [
+        {
+          "metin": "Önce ikisini ayrı ayrı gör: bir saksı ve sarı bir trompet."
+        },
+        {
+          "metin": "Biri ötekine bir şey yapsın.",
+          "sahne": "Saksıdaki çiçek trompetin içinden büyüyor."
+        },
+        {
+          "metin": "Ses ekle.",
+          "sahne": "Trompet her çaldığında saksıdan “düt düt” diye çiçekler fışkırıyor."
+        },
+        {
+          "metin": "Şimdi yalnız “saksı”yı düşün. Trompet de aklına geliyor mu?"
+        }
+      ],
+      "kontrol": {
+        "soru": "Hangisi daha kolay akılda kalır?",
+        "secenekler": [
+          "Masada bir saksı, yanında bir trompet.",
+          "Saksıdan “düt düt” çalan bir trompet çıkıyor."
+        ],
+        "dogru": 1,
+        "aciklama": "İki şey birbirine bir şey yaptığında ve resimde ses olduğunda daha kolay hatırlanır."
+      }
+    },
+    "kendin": {
+      "tur": "satirlar",
+      "yonerge": "Her çift için iki şeyin birbirine bir şey yaptığı bir resim düşün.",
+      "ipuclari": [
+        "Renk, ses ve hareket ekle.",
+        "İki şey yan yana durmasın, birbirine bir şey yapsın.",
+        "Yazmak zorunda değilsin."
+      ],
+      "yerTutucu": "Resmin… (istersen yaz)",
+      "onerilenSn": 90
+    },
+    "olcum": {
+      "tur": "esler",
+      "calismaSn": 40,
+      "araSn": 10,
+      "araYonerge": "Kısa bir ara: içinden 1’den 10’a kadar yavaşça say.",
+      "once": {
+        "esler": [
+          {
+            "ipucu": "balık",
+            "cevap": [
+              "merdiven"
+            ]
+          },
+          {
+            "ipucu": "kitap",
+            "cevap": [
+              "kurbağa"
+            ]
+          },
+          {
+            "ipucu": "fil",
+            "cevap": [
+              "şemsiye"
+            ]
+          },
+          {
+            "ipucu": "sincap",
+            "cevap": [
+              "lamba"
+            ]
+          },
+          {
+            "ipucu": "çaydanlık",
+            "cevap": [
+              "bisiklet"
+            ]
+          }
+        ]
+      },
+      "sonra": {
+        "esler": [
+          {
+            "ipucu": "tavuk",
+            "cevap": [
+              "gitar"
+            ]
+          },
+          {
+            "ipucu": "penguen",
+            "cevap": [
+              "sepet"
+            ]
+          },
+          {
+            "ipucu": "kirpi",
+            "cevap": [
+              "balon"
+            ]
+          },
+          {
+            "ipucu": "kaşık",
+            "cevap": [
+              "ördek"
+            ]
+          },
+          {
+            "ipucu": "halı",
+            "cevap": [
+              "roket"
+            ]
+          }
+        ]
+      }
+    },
+    "kapanis": "Görselleştirme, birlikte hatırlanacak şeylerde işe yarar. Örneğin yeni bir kelimeyle onun anlamı."
+  }
 }

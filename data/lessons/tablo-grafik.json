@@ -2,6 +2,7 @@
   "surum": 1,
   "tur": "strateji",
   "ad": "tablo-grafik",
+  "sinif": [5, 8],
   "baslik": "Tablo ve Grafik Okuma",
   "kisaAciklama": "Başlık, birim ve karşılaştırmayla tablo ve grafiklerden bilgi çıkar, metinle ilişkilendir.",
   "sureDk": "8-10",

@@ -2,6 +2,7 @@
   "surum": 1,
   "tur": "strateji",
   "ad": "bes-n-bir-k",
+  "sinif": [2, 8],
   "baslik": "5N1K ile Okuma",
   "kisaAciklama": "Ne, nerede, ne zaman, nasıl, neden ve kim sorularıyla bir olayın tam resmini çıkar.",
   "sureDk": "8-10",
@@ -104,5 +105,133 @@
       }
     ]
   },
-  "kapanis": "Bir haber okurken ya da bir olayı birine anlatırken 5N1K’yı kullan. Altı sorudan hangilerinin cevapsız kaldığını fark et."
+  "kapanis": "Bir haber okurken ya da bir olayı birine anlatırken 5N1K’yı kullan. Altı sorudan hangilerinin cevapsız kaldığını fark et.",
+  "ilkokul": {
+    "kisaAciklama": "Kim, ne, nerede, ne zaman, nasıl ve neden sorularıyla bir olayı anla.",
+    "sureDk": "6-8",
+    "kazanim": "Okuduğun bir hikâyede kim, ne, nerede, ne zaman, nasıl ve neden sorularının cevaplarını bulmayı öğreneceksin.",
+    "anlat": {
+      "baslik": "Altı soru, tam bir resim",
+      "paragraflar": [
+        "5N1K, altı sorunun kısa adıdır: Ne? Nerede? Ne zaman? Nasıl? Neden? Kim?",
+        "Bu soruların cevaplarını bulunca olayı daha iyi anlarsın. Kimin ne yaptığını, nerede ve ne zaman yaptığını öğrenirsin.",
+        "Bazen bir sorunun cevabı metinde yoktur. Bunu fark etmek de iyi okurluktur."
+      ],
+      "ornek": {
+        "baslik": "Kısa örnek",
+        "satirlar": [
+          "Cümle: Dün akşam Can, parkta uçurtma uçurdu.",
+          "Kim? Can. Ne yaptı? Uçurtma uçurdu. Nerede? Parkta. Ne zaman? Dün akşam.",
+          "“Nasıl?” ve “Neden?” sorularının cevabı bu cümlede yok."
+        ]
+      }
+    },
+    "metin": {
+      "baslik": "Kuşlar İçin Yemlik",
+      "yonerge": "Hikâyeyi oku. Kim, ne, nerede, ne zaman, nasıl ve neden sorularının cevaplarını ara.",
+      "bolumler": [
+        {
+          "paragraflar": [
+            "Cumartesi sabahı Elif ile ağabeyi Mert bahçeye çıktı. Kış gelmişti, ağaçlarda hiç yaprak kalmamıştı.",
+            "“Kuşlar kışın yiyecek bulmakta zorlanıyor,” dedi Mert. “Onlara bir yemlik yapalım.”",
+            "Annelerinin yardımıyla boş bir süt kutusuna pencere gibi delikler açtılar. Kutunun içine buğday ve ayçekirdeği koydular. Sonra yemliği bir iple erik ağacının dalına astılar.",
+            "Öğleden sonra iki serçe geldi. Yemliğin kenarına kondular ve tohumları gagalamaya başladılar.",
+            "Elif sevinçle fısıldadı: “Yemliğimiz işe yaradı!”"
+          ]
+        }
+      ]
+    },
+    "gorev": {
+      "yonerge": "Hikâyedeki 5N1K sorularının cevaplarını bul, sonra cevabı olmayan bir soru yaz.",
+      "parcalar": [
+        {
+          "tur": "eslestir",
+          "baslik": "Soruları cevaplarla eşleştir",
+          "yonerge": "Her cevabın hangi soruya ait olduğunu seç.",
+          "kategoriler": [
+            "Kim?",
+            "Ne?",
+            "Nerede?",
+            "Ne zaman?",
+            "Nasıl?",
+            "Neden?"
+          ],
+          "ogeler": [
+            {
+              "metin": "Cumartesi sabahı",
+              "dogru": 3
+            },
+            {
+              "metin": "Süt kutusuna delik açıp içine tohum koyarak",
+              "dogru": 4
+            },
+            {
+              "metin": "Elif ile ağabeyi Mert",
+              "dogru": 0
+            },
+            {
+              "metin": "Kuşlar kışın yiyecek bulmakta zorlandığı için",
+              "dogru": 5
+            },
+            {
+              "metin": "Kuşlar için yemlik yaptılar.",
+              "dogru": 1
+            },
+            {
+              "metin": "Bahçede",
+              "dogru": 2
+            }
+          ],
+          "aciklama": "Kim, ne, nerede ve ne zaman soruları çoğu zaman metnin başında cevaplanır. Nasıl ve neden soruları sonra anlatılır."
+        },
+        {
+          "tur": "not",
+          "kimlik": "merak",
+          "baslik": "Cevabı olmayan soru",
+          "soru": "Bu hikâyede cevabı olmayan, merak ettiğin bir soru yaz.",
+          "ipucu": "Örneğin yemliğe başka hangi kuşlar geldi? Sorunu “Kim, ne, nerede…” diye başlatabilirsin.",
+          "yerTutucu": "Merak ettiğim: …"
+        }
+      ]
+    },
+    "sinama": {
+      "sorular": [
+        {
+          "kimlik": "bn-i-s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "“Dün akşam bahçede kedimizle oynadık.” Bu cümlede “Nerede?” sorusunun cevabı hangisi?",
+          "secenekler": [
+            "Bahçede",
+            "Dün akşam",
+            "Kedimizle"
+          ],
+          "dogru": 0,
+          "aciklama": "“Nerede?” sorusu yeri sorar: bahçede. “Dün akşam” zamanı gösterir."
+        },
+        {
+          "kimlik": "bn-i-s2",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Bir metinde “Neden?” sorusunun cevabını ararken hangi kelime en çok yardım eder?",
+          "secenekler": [
+            "çünkü",
+            "dün",
+            "bahçede"
+          ],
+          "dogru": 0,
+          "aciklama": "“Çünkü” kelimesi çoğu zaman bir nedeni anlatır. “Dün” zamanı, “bahçede” yeri gösterir."
+        },
+        {
+          "kimlik": "bn-i-s3",
+          "tip": "dogru-yanlis",
+          "katman": "yorum",
+          "soru": "Her metinde altı sorunun da cevabı vardır.",
+          "dogru": false,
+          "aciklama": "Bazı metinler her soruyu cevaplamaz. Cevabı olmayan soruyu fark etmek iyi okurluktur."
+        }
+      ]
+    },
+    "kapanis": "Bir hikâye okuyunca kendine sor: Kim? Ne? Nerede? Ne zaman? Cevabı olmayan soruyu da fark et."
+  }
 }

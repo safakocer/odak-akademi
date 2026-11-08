@@ -2,6 +2,7 @@
   "surum": 1,
   "tur": "strateji",
   "ad": "tahmin-etme",
+  "sinif": [2, 8],
   "baslik": "Başlıktan ve Görselden Tahmin",
   "kisaAciklama": "Okumaya başlamadan önce başlığa ve görsele bak, metnin neyi anlatacağını tahmin et.",
   "sureDk": "8-10",
@@ -135,5 +136,141 @@
       }
     ]
   },
-  "kapanis": "Bir sonraki okumanda metne başlamadan önce başlığa bak ve içinden kısa bir tahmin yap. Okurken tahmininin tutup tutmadığını izle."
+  "kapanis": "Bir sonraki okumanda metne başlamadan önce başlığa bak ve içinden kısa bir tahmin yap. Okurken tahmininin tutup tutmadığını izle.",
+  "ilkokul": {
+    "kisaAciklama": "Okumadan önce başlığa ve resme bak, metnin neyi anlatacağını tahmin et.",
+    "sureDk": "6-8",
+    "kazanim": "Başlığa ve resme bakarak metnin konusunu tahmin etmeyi, okuyunca da tahminini kontrol etmeyi öğreneceksin.",
+    "anlat": {
+      "baslik": "Tahmin etmek neden işe yarar?",
+      "paragraflar": [
+        "İyi okurlar okumaya başlamadan önce başlığa ve resme bakar. Sonra “Bu metin neyi anlatacak?” diye düşünür.",
+        "Okurken tahminin tutuyor mu diye bakarsın. Bu, dikkatini metinde tutar.",
+        "Tahminin tutmayabilir. Bu bir hata değildir; okurken tahminini değiştirebilirsin."
+      ],
+      "ornek": {
+        "baslik": "Kısa örnek",
+        "satirlar": [
+          "Başlık: “Karda Oyun”. Resim: bir kardan adam ve bir kızak.",
+          "Tahmin: Metin, karda oynayan çocukları anlatıyor olabilir."
+        ]
+      },
+      "not": "Tahminin kaydedilmez; yalnız bu derste ekranda durur."
+    },
+    "metin": {
+      "baslik": "Bahçedeki Gizli Misafir",
+      "gorsel": {
+        "simgeler": [
+          "🌙",
+          "🥬",
+          "🔦"
+        ],
+        "aciklama": "Gece vakti bir sebze bahçesi: ay ışığı, marul yaprakları ve yanan bir el feneri."
+      },
+      "onizleme": true,
+      "onizlemeYonerge": "Metni henüz okuma. Başlığa ve resme bak, sonra tahminini yaz.",
+      "onGorev": [
+        {
+          "tur": "not",
+          "kimlik": "tahmin",
+          "baslik": "Tahmin et",
+          "soru": "Başlıktaki “gizli misafir” kim ya da ne olabilir?",
+          "ipucu": "Resimdeki aya ve el fenerine bak: Zaman ne? Yer neresi?",
+          "yerTutucu": "Bence…"
+        }
+      ],
+      "yonerge": "Şimdi metni oku. Tahminin tutuyor mu, bak.",
+      "bolumler": [
+        {
+          "paragraflar": [
+            "Ece ile dedesi bahçeye marul ekmişti. Bir sabah Ece, marulların yapraklarında küçük delikler gördü.",
+            "“Biri gece gelip marullarımızı yiyor!” dedi. “Belki de bir tavşandır.”",
+            "Akşam olunca ikisi pencerenin önüne oturdu. Dedesi el fenerini yaktı. Marulların arasında yavaşça ilerleyen salyangozlar vardı.",
+            "Biraz sonra yaprakların arasından küçük, dikenli bir hayvan çıktı. Salyangozları birer birer yemeye başladı.",
+            "“Kirpi!” diye fısıldadı Ece. “Gizli misafirimiz oymuş.”",
+            "Dedesi gülümsedi: “Bu gece bahçemizin bekçisi o.”"
+          ]
+        }
+      ]
+    },
+    "gorev": {
+      "yonerge": "Tahminini metinle karşılaştır, sonra iki soruyu yanıtla.",
+      "parcalar": [
+        {
+          "tur": "not",
+          "kimlik": "karsilastirma",
+          "baslik": "Karşılaştır",
+          "goster": "tahmin",
+          "gosterBaslik": "Okumadan önceki tahminin",
+          "soru": "Tahminin tuttu mu? Hangi kısmı tuttu?",
+          "ipucu": "Tutmadıysa sorun değil. Sana yardım eden ipucunu yaz."
+        },
+        {
+          "tur": "sorular",
+          "sorular": [
+            {
+              "kimlik": "te-i-g1",
+              "tip": "coktan-secmeli",
+              "katman": "bilgi",
+              "soru": "Marulları kim yiyordu?",
+              "secenekler": [
+                "Salyangozlar",
+                "Bir tavşan",
+                "Kirpi"
+              ],
+              "dogru": 0,
+              "aciklama": "Dede el fenerini yakınca marulların arasında salyangozlar göründü. Marulları onlar yiyordu."
+            },
+            {
+              "kimlik": "te-i-g2",
+              "tip": "dogru-yanlis",
+              "katman": "cikarim",
+              "soru": "Ece’nin ilk tahmini tuttu.",
+              "dogru": false,
+              "aciklama": "Ece önce bir tavşan olduğunu düşündü. Gece bakınca salyangozları ve kirpiyi gördü; tahminini değiştirdi."
+            }
+          ]
+        }
+      ]
+    },
+    "sinama": {
+      "sorular": [
+        {
+          "kimlik": "te-i-s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Tahmin yapmaya ne zaman başlarız?",
+          "secenekler": [
+            "Okumaya başlamadan önce",
+            "Metni bitirdikten sonra",
+            "Kitabı rafa koyunca"
+          ],
+          "dogru": 0,
+          "aciklama": "Tahmin okumadan önce başlar. Okurken de tahminini kontrol edersin."
+        },
+        {
+          "kimlik": "te-i-s2",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Başlık: “Sınıfımızın Yeni Üyesi”. Resim: sınıfta bir akvaryum ve içinde turuncu bir balık. En iyi tahmin hangisi?",
+          "secenekler": [
+            "Sınıfa bir balık geldi.",
+            "Sınıfa yeni bir dolap geldi.",
+            "Okulda bir koşu yarışı yapıldı."
+          ],
+          "dogru": 0,
+          "aciklama": "En iyi tahmin başlığı ve resmi birlikte kullanır. Akvaryumdaki balık, sınıfın yeni üyesi olabilir."
+        },
+        {
+          "kimlik": "te-i-s3",
+          "tip": "dogru-yanlis",
+          "katman": "yorum",
+          "soru": "Tahminim tutmadıysa yanlış bir şey yapmışımdır.",
+          "dogru": false,
+          "aciklama": "Tahminin tutmaması doğaldır. Okurken tahminini metne göre değiştirmek iyi okurların işidir."
+        }
+      ]
+    },
+    "kapanis": "Bir sonraki kitabında önce kapağa ve başlığa bak. İçinden kısa bir tahmin yap."
+  }
 }

@@ -1,6 +1,7 @@
 {
   "surum": 1,
   "ad": "anahtar-kelime",
+  "sinif": [5, 8],
   "baslik": "Anahtar Kelime Yöntemi",
   "kisaAciklama": "Yabancı kelimeyi sesi benzeyen bir Türkçe kelimeyle resme bağla.",
   "sureDk": "6-8",

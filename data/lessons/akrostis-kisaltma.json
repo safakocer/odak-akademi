@@ -1,6 +1,7 @@
 {
   "surum": 1,
   "ad": "akrostis-kisaltma",
+  "sinif": [5, 8],
   "baslik": "Akrostiş ve Kısaltma",
   "kisaAciklama": "Baş harflerden akılda kalan bir cümle ya da kısa bir kelime kur.",
   "sureDk": "6-8",

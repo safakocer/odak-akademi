@@ -2,6 +2,7 @@
   "surum": 1,
   "tur": "strateji",
   "ad": "ana-fikir",
+  "sinif": [3, 8],
   "baslik": "Ana Fikir ve Yardımcı Fikir",
   "kisaAciklama": "Metnin konusunu, yazarın asıl söylemek istediğini ve onu destekleyen fikirleri bul.",
   "sureDk": "8-10",
@@ -132,5 +133,135 @@
       }
     ]
   },
-  "kapanis": "Bir sonraki metninde okumayı bitirince ana fikri tek bir cümleyle söylemeyi dene: “Yazar bana … demek istiyor.”"
+  "kapanis": "Bir sonraki metninde okumayı bitirince ana fikri tek bir cümleyle söylemeyi dene: “Yazar bana … demek istiyor.”",
+  "ilkokul": {
+    "baslik": "Konu ve Ana Fikir",
+    "kisaAciklama": "Metnin neyden söz ettiğini ve bize ne söylemek istediğini bul.",
+    "sureDk": "6-8",
+    "kazanim": "Bir metnin konusunu ve ana fikrini bulmayı öğreneceksin.",
+    "anlat": {
+      "baslik": "Konu ve ana fikir",
+      "paragraflar": [
+        "Konu, metnin neyden söz ettiğidir. Kısaca söylenir: “kütüphane”, “kediler” gibi.",
+        "Ana fikir, yazarın bize söylemek istediği asıl düşüncedir. Bir cümleyle söylenir.",
+        "Ana fikri bulmak için kendine sor: “Yazar bana en çok ne söylemek istiyor?”"
+      ],
+      "ornek": {
+        "baslik": "Kısa örnek",
+        "satirlar": [
+          "Paragraf: Bisiklet sürmek bizi hareket ettirir. Havayı kirletmez. Kısa yollarda da işimize yarar.",
+          "Konu: bisiklet",
+          "Ana fikir: Bisiklet hem bize hem çevreye yararlıdır."
+        ]
+      }
+    },
+    "metin": {
+      "baslik": "Okul Kütüphanemiz",
+      "yonerge": "Metni oku. “Yazar bana en çok ne söylemek istiyor?” diye düşün.",
+      "bolumler": [
+        {
+          "paragraflar": [
+            "Okulumuzun kütüphanesi, okulda en sevdiğim yerlerden biridir. Orada herkes için bir şey vardır.",
+            "Raflarda masal, bilmece ve hayvan kitapları vardır. Kitapları evimize götürüp okuyabiliriz. Okuyunca geri getiririz.",
+            "Kütüphanede sessiz bir köşe de vardır. Ödevini yapmak isteyen öğrenciler orada rahatça çalışır.",
+            "Her cuma öğretmenimiz bize bir masal okur. Sonra masalı birlikte konuşuruz.",
+            "Kütüphane yalnızca kitap okunan bir yer değildir. Orada yeni şeyler öğrenir, arkadaşlarımızla buluşuruz."
+          ]
+        }
+      ]
+    },
+    "gorev": {
+      "yonerge": "Metnin konusunu ve ana fikrini bul, sonra metinde geçen örnekleri işaretle.",
+      "parcalar": [
+        {
+          "tur": "sorular",
+          "baslik": "Konu ve ana fikir",
+          "sorular": [
+            {
+              "kimlik": "af-i-g1",
+              "tip": "coktan-secmeli",
+              "katman": "bilgi",
+              "soru": "Bu metnin konusu nedir?",
+              "secenekler": [
+                "Okul kütüphanesi",
+                "Okulun spor salonu",
+                "Okul bahçesi"
+              ],
+              "dogru": 0,
+              "aciklama": "Metnin her paragrafı okul kütüphanesinden söz ediyor. Konu, metnin neyden söz ettiğidir."
+            },
+            {
+              "kimlik": "af-i-g2",
+              "tip": "coktan-secmeli",
+              "katman": "cikarim",
+              "soru": "Metnin ana fikri hangisi?",
+              "secenekler": [
+                "Kütüphanede herkes için güzel şeyler vardır.",
+                "Kütüphanede yalnızca ödev yapılır.",
+                "Kitapları satın almak daha iyidir."
+              ],
+              "dogru": 0,
+              "aciklama": "Yazar bunu ilk paragrafta söylüyor. Diğer paragraflar bu düşünceyi örneklerle anlatıyor."
+            }
+          ]
+        },
+        {
+          "tur": "isaretle",
+          "baslik": "Örnekleri bul",
+          "yonerge": "Metne göre kütüphanede neler yapılabilir? Hepsini işaretle.",
+          "secenekler": [
+            "Kitapları eve götürüp okumak",
+            "Top oynamak",
+            "Sessiz köşede ödev yapmak",
+            "Öğretmenin okuduğu masalı dinlemek"
+          ],
+          "dogru": [
+            0,
+            2,
+            3
+          ],
+          "aciklama": "Bu örnekler ana fikri destekler. Top oynamak metinde geçmiyor."
+        }
+      ]
+    },
+    "sinama": {
+      "sorular": [
+        {
+          "kimlik": "af-i-s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Konu ile ana fikir için hangisi doğru?",
+          "secenekler": [
+            "Konu metnin neyden söz ettiğidir, ana fikir asıl düşüncedir.",
+            "Konu ile ana fikir her zaman aynıdır.",
+            "Ana fikir her zaman tek bir kelimedir."
+          ],
+          "dogru": 0,
+          "aciklama": "Konu “Neyden söz ediliyor?”, ana fikir “Yazar bize ne söylemek istiyor?” sorusunun cevabıdır."
+        },
+        {
+          "kimlik": "af-i-s2",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Paragraf: “Erken yatan çocuklar sabah dinç kalkar. Derste daha kolay dikkat eder. Gün boyu oyun oynayacak gücü olur.” Ana fikir hangisi?",
+          "secenekler": [
+            "Erken yatmak bize iyi gelir.",
+            "Sabahları süt içmeliyiz.",
+            "Derslerin hepsi kolaydır."
+          ],
+          "dogru": 0,
+          "aciklama": "Üç cümle de erken yatmanın bize nasıl iyi geldiğini anlatıyor."
+        },
+        {
+          "kimlik": "af-i-s3",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Metindeki örnekler ana fikri destekler.",
+          "dogru": true,
+          "aciklama": "Örnekler, ana fikri daha iyi anlamamıza yardım eder."
+        }
+      ]
+    },
+    "kapanis": "Bir metni bitirince ana fikri bir cümleyle söyle: “Yazar bana … demek istiyor.”"
+  }
 }

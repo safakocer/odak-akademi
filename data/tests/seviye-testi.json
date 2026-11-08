@@ -1,6 +1,6 @@
 {
-  "surum": 2,
-  "aciklama": "Seviye Belirleme Testi okuma metinleri ve kademe akışları (S17; S34d: 2-4. sınıf metinleri, ilkokul akışı). Sınıf başına bir sabit metin; final testi başlangıçtaki metni yeniden kullanır. Soru şeması quiz-engine.js ile aynı. akislar: sınıf listesine göre adım ayarları; listede olmayan adım çalışmaz, yazılmayan alan seviye-testi.js’teki varsayılandan gelir; egzersizi o sınıfa uygun olmayan adım (katalog sınıf aralığı) kendiliğinden atlanır. Akışı olmayan sınıflar (5-8) varsayılan 5 adımı kullanır.",
+  "surum": 3,
+  "aciklama": "Seviye Belirleme Testi okuma metinleri ve kademe akışları (S17; S34d: 2-4. sınıf metinleri, ilkokul akışı). Sınıf başına bir sabit metin; final testi başlangıçtaki metni yeniden kullanır. Soru şeması quiz-engine.js ile aynı. akislar: sınıf listesine göre adım ayarları; listede olmayan adım çalışmaz, yazılmayan alan seviye-testi.js’teki varsayılandan gelir; egzersizi o sınıfa uygun olmayan adım (katalog sınıf aralığı) kendiliğinden atlanır. Akışı olmayan sınıflar (5-8) varsayılan 5 adımı kullanır. S34-son (surum 3): adımda ornek (true: egzersizin görsel örneği adım ekranında), alistirma (kaydedilmeyen kısa deneme; alanları olcum’un üstüne yazılır) ve bantli (true: sınıfın egzersiz bandı uygulanır; sonuç bantli listesine yazılır, final başlangıçtaki listeye göre).",
   "metinler": [
     {
       "kimlik": "test-kardan-adam",
@@ -439,7 +439,12 @@
           "aciklama": "Yıldızı görünce dokun.",
           "ipuclari": [
             "Başka bir şekil gelirse bekle."
-          ]
+          ],
+          "ornek": true,
+          "alistirma": {
+            "deneme": 6
+          },
+          "bantli": true
         },
         {
           "ad": "hafiza",
@@ -454,7 +459,12 @@
           "aciklama": "Rakamları izle. Sonra aynı sırayla dokun.",
           "ipuclari": [
             "İlk dizide 3 rakam var."
-          ]
+          ],
+          "ornek": true,
+          "alistirma": {
+            "deneme": 2,
+            "baslangic": 2
+          }
         },
         {
           "ad": "gorme",
@@ -469,7 +479,11 @@
           "aciklama": "Ortadaki + işaretine bak. Çevrede beliren sayıyı seç.",
           "ipuclari": [
             "Emin değilsen tahmin et."
-          ]
+          ],
+          "ornek": true,
+          "alistirma": {
+            "deneme": 3
+          }
         }
       ]
     }

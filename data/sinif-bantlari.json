@@ -1,13 +1,132 @@
 {
-  "surum": 2,
-  "aciklama": "Sınıfa göre değişen değerler (S34a ilk sürüm: okuma bantları). varsayilanWpm: kayıtlı okuma hızı yoksa başlangıç hızı (30-500). modlar: Hızlı Oku ve Oku ve Anla’da sunulan okuma modları (rehber, kelime-grubu, serbest, rsvp; yoksa hepsi). kademeli: kademeli hız artışı açılabilir mi (S34a-d: tüm sınıflarda öğrenci isterse açar; anlama %70’in altındaysa yine kendiliğinden çalışmaz). test (S34d): olcekWpm [en, enCok]: seviye testinde okuma hızı puanı (en → 0, enCok ve üstü → 100); sonuçla birlikte saklanır, final aynı ölçekle hesaplanır. Egzersiz parametreleri S34e’de eklenecek.",
+  "surum": 4,
+  "aciklama": "Sınıfa göre değişen değerler (S34a ilk sürüm: okuma bantları). varsayilanWpm: kayıtlı okuma hızı yoksa başlangıç hızı (30-500). ustWpm (S34-son): okuma ekranlarında en yüksek hız (yoksa 500; ilkokulda kurs üst sınırıyla aynı). modlar: Hızlı Oku ve Oku ve Anla’da sunulan okuma modları (rehber, kelime-grubu, serbest, rsvp; yoksa hepsi). kademeli: kademeli hız artışı açılabilir mi (S34a-d: tüm sınıflarda öğrenci isterse açar; anlama %70’in altındaysa yine kendiliğinden çalışmaz). test (S34d): olcekWpm [en, enCok]: seviye testinde okuma hızı puanı (en → 0, enCok ve üstü → 100); sonuçla birlikte saklanır, final aynı ölçekle hesaplanır. egzersiz (S34e): egzersiz adı → bant. enCok: en yüksek basamak (1-5), baslangic: kaydı olmayan öğrencinin basamağı, basamaklar: sırayla 1., 2. … basamak ayarlarının üstüne yazılan alanlar (tepki penceresi pencereMs, uyaran süresi uyaranMs, gösterim gosterMs, ara araMs, deneme sayısı deneme, hafızada düzey sınırı sinir {en, enCok}, flaşta süre aralığı sure {baslangic, en, enCok} vb.; null: değişmez), yonerge: en çok 2 kısa cümle (≤60 karakter; uzun yönergenin yerine), sureNotu: açıklama ekranındaki süre notu, alistirma: kaydedilmeyen kısa alıştırma turu (deneme, sureSn, ayar), diğer tek değerler egzersize özeldir (stroop ipucu: renk ve şekil ipucu baştan açık; iptal-testi hucre: satırdaki sembol sayısı 6-12; nesne-takibi enCokDakika: en uzun süre; hafıza oyunlarında yonSabit: yön/hatırlama seçimi yok, ilk seçenek; sekilli-metin enAzKelime / enCokKelime: okunan bölüm). kademeler (S34-son): kademe adı → { egzersiz: {...} }; kademenin bütün sınıflarına ortak alanlar (ilkokulda kısa yönerge ve alıştırma, ortaokulda yalnız alıştırma turu). Bir sınıfta aynı egzersiz için kademe ve sınıf bandı varsa sınıfınki alan alan üstüne yazılır. Egzersiz bandı olmayan sınıfta ve egzersizde ayarlar egzersizin kendisinden gelir.",
+  "kademeler": {
+    "ilkokul": {
+      "egzersiz": {
+        "schulte": {"yonerge": ["Sayıları 1’den başlayarak sırayla bul.", "Bulduğun sayıya dokun."], "alistirma": {}},
+        "nesne-takibi": {"yonerge": ["Başını kıpırdatma, noktayı gözünle izle.", "Nokta sarı kare olunca ekrana dokun."], "enCokDakika": 2, "sureNotu": "1-2 dakika sürer. Her dakikadan sonra kısa mola var.", "alistirma": {"sureSn": 20}},
+        "satir-ritmi": {"yonerge": ["Işığı gözünle satır satır izle.", "Yıldızları say, sonda sayıyı seç."], "alistirma": {"deneme": 1}},
+        "fark-bul": {"yonerge": ["İki resme bak, farklı yere dokun.", "Takılırsan İpucu düğmesine bas."], "alistirma": {"deneme": 1}},
+        "gorsel-arama": {"yonerge": ["Üstteki şekli kalabalığın içinde bul.", "Bulunca ona dokun."], "alistirma": {"deneme": 3}},
+        "simge-esle": {"yonerge": ["Ortadaki simgeyi üstteki anahtarda bul.", "Altındaki sayıyı seç."], "alistirma": {"sureSn": 15}},
+        "rakam-dizisi": {"yonerge": ["Rakamları izle, aklında tut.", "Sonra rakamları tuşlarla gir."], "alistirma": {"deneme": 3}},
+        "corsi-bloklari": {"yonerge": ["Yanan blokların sırasını aklında tut.", "Sonra bloklara sırayla dokun."], "alistirma": {"deneme": 3}},
+        "kelime-listesi": {"yonerge": ["Kelimeleri oku, aklında tut.", "Sonra hatırladıklarını sırayla seç ya da yaz."], "alistirma": {"deneme": 2}},
+        "eslestirme": {"yonerge": ["Kartları ikişer aç, eşlerini bul.", "Aynı iki kart açık kalır."], "alistirma": {"deneme": 1}}
+      }
+    },
+    "ortaokul": {
+      "egzersiz": {
+        "hizli-dokun": {"alistirma": {"sureSn": 10}},
+        "stroop": {"alistirma": {"deneme": 4}},
+        "git-dur": {"alistirma": {"deneme": 6}},
+        "iptal-testi": {"alistirma": {"ayar": {"satir": 1}}},
+        "surekli-dikkat": {"alistirma": {"deneme": 3}},
+        "schulte": {"alistirma": {}},
+        "nesne-takibi": {"alistirma": {"sureSn": 20}},
+        "satir-ritmi": {"alistirma": {"deneme": 1}},
+        "periferik-flas": {"alistirma": {"deneme": 4}},
+        "grup-flasi": {"alistirma": {"deneme": 4}},
+        "kelime-piramidi": {"alistirma": {"deneme": 3}},
+        "fark-bul": {"alistirma": {"deneme": 1}},
+        "gorsel-arama": {"alistirma": {"deneme": 3}},
+        "simge-esle": {"alistirma": {"sureSn": 15}},
+        "ayna-dondur": {"alistirma": {"deneme": 4}},
+        "rakam-dizisi": {"alistirma": {"deneme": 3}},
+        "corsi-bloklari": {"alistirma": {"deneme": 3}},
+        "n-geri": {"alistirma": {"deneme": 1, "ayar": {"blokOge": 6}}},
+        "kelime-listesi": {"alistirma": {"deneme": 2}},
+        "eslestirme": {"alistirma": {"deneme": 1}}
+      }
+    }
+  },
   "siniflar": {
-    "2": { "okuma": { "varsayilanWpm": 50, "modlar": ["rehber", "serbest"], "kademeli": true }, "test": { "olcekWpm": [20, 160] } },
-    "3": { "okuma": { "varsayilanWpm": 70, "modlar": ["rehber", "serbest"], "kademeli": true }, "test": { "olcekWpm": [20, 160] } },
-    "4": { "okuma": { "varsayilanWpm": 90, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [20, 160] } },
-    "5": { "okuma": { "varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [40, 240] } },
-    "6": { "okuma": { "varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [40, 240] } },
-    "7": { "okuma": { "varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [40, 240] } },
-    "8": { "okuma": { "varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true }, "test": { "olcekWpm": [40, 240] } }
+    "2": {
+      "okuma": {"varsayilanWpm": 50, "ustWpm": 120, "modlar": ["rehber", "serbest"], "kademeli": true},
+      "test": {"olcekWpm": [20, 160]},
+      "egzersiz": {
+        "hizli-dokun": {"enCok": 2, "basamaklar": [{"boyut": 88, "omurMs": 2300, "aralikMs": 1200, "sis": 0}, {"boyut": 80, "omurMs": 2000, "aralikMs": 1050, "sis": 0.15}], "yonerge": ["Sarı ışık yanınca hemen dokun.", "Gri sise dokunma."], "alistirma": {"sureSn": 10}},
+        "stroop": {"enCok": 2, "ipucu": true, "basamaklar": [{"renk": 3, "uyumsuz": 0.2, "pencereMs": 4000, "araMs": [700, 1100], "deneme": 16}, {"renk": 3, "uyumsuz": 0.3, "pencereMs": 3500, "araMs": [650, 1050], "deneme": 16}], "yonerge": ["Kelimeyi okuma, yazının rengine bak.", "O rengin düğmesine dokun."], "alistirma": {"deneme": 4}},
+        "git-dur": {"enCok": 3, "basamaklar": [{"hedefOrani": 0.6, "uyaranMs": 1500, "pencereMs": 1900, "araMs": [900, 1500], "deneme": 30}, {"hedefOrani": 0.65, "uyaranMs": 1300, "pencereMs": 1700, "araMs": [800, 1400], "deneme": 30}, {"hedefOrani": 0.65, "uyaranMs": 1150, "pencereMs": 1550, "araMs": [750, 1300], "deneme": 30}], "yonerge": ["Yıldızı görünce kutuya dokun.", "Başka bir şekil gelirse bekle."], "alistirma": {"deneme": 6}},
+        "iptal-testi": {"enCok": 3, "hucre": 8, "basamaklar": [{"satir": 4, "hedefAdet": [2, 3], "satirMs": 30000}, {"satir": 4, "hedefAdet": [2, 3], "satirMs": 28000}, {"satir": 5, "hedefAdet": [2, 3], "satirMs": 26000}], "yonerge": ["Satırdaki hedef şekillere dokun.", "Bitince “Satırı bitirdim” düğmesine bas."], "alistirma": {"ayar": {"satir": 1}}},
+        "surekli-dikkat": {"enCok": 2, "basamaklar": [{"hedef": 8, "akisMs": 1500, "uyaranMs": 1100, "pencereMs": 2000, "adim": [3, 9]}, {"hedef": 10, "akisMs": 1400, "uyaranMs": 1000, "pencereMs": 1900, "adim": [3, 10]}], "yonerge": ["Hilal görünce kutuya dokun.", "Başka bir şekil gelirse bekle."], "sureNotu": "Nöbet yaklaşık 1-2 dakika sürer. İstediğin an duraklatabilirsin.", "alistirma": {"deneme": 3}},
+        "schulte": {"enCok": 2},
+        "nesne-takibi": {"enCok": 2, "enCokDakika": 1, "basamaklar": [{"turMs": 8000, "isaretMs": 2200, "araMin": 5000, "araMax": 9000}, {"turMs": 6500, "isaretMs": 1900}], "sureNotu": "Yaklaşık 1 dakika sürer. İstediğin an duraklatabilirsin."},
+        "satir-ritmi": {"enCok": 2, "basamaklar": [{"satir": 3, "nokta": 4, "vurusMs": 900, "yildiz": [1, 2], "deneme": 2}, {"satir": 4, "nokta": 4, "vurusMs": 800, "yildiz": [1, 2], "deneme": 2}]},
+        "fark-bul": {"enCok": 2, "basamaklar": [{"nesne": 7, "fark": [2, 3], "boyut": [40, 50], "deneme": 2}, {"nesne": 10, "fark": [3, 4], "boyut": [34, 44], "turler": ["yok", "sekil", "boyut", "renk"], "deneme": 2}]},
+        "gorsel-arama": {"enCok": 2, "basamaklar": [{"oge": 9, "sutun": 3, "deneme": 10}, {"oge": 12, "sutun": 4, "deneme": 10}]},
+        "simge-esle": {"enCok": 2, "basamaklar": [{"simge": 3}, {"simge": 4}]},
+        "rakam-dizisi": {"enCok": 2, "yonSabit": true, "basamaklar": [{"gosterMs": 1200, "araMs": 400, "sinir": {"en": 2, "enCok": 6}, "deneme": 10}, {"gosterMs": 1000, "araMs": 350, "sinir": {"en": 2, "enCok": 6}, "deneme": 10}]},
+        "corsi-bloklari": {"enCok": 2, "yonSabit": true, "basamaklar": [{"gosterMs": 1100, "araMs": 400, "sinir": {"en": 2, "enCok": 6}, "deneme": 10}, {"gosterMs": 900, "araMs": 350, "sinir": {"en": 2, "enCok": 6}, "deneme": 10}]},
+        "kelime-listesi": {"enCok": 2, "yonSabit": true, "yonerge": ["Kelimeleri oku, aklında tut.", "Sonra gördüğün sırayla seç."], "basamaklar": [{"gosterMs": 1800, "araMs": 600, "sinir": {"en": 3, "enCok": 6}, "deneme": 6}, {"gosterMs": 1500, "araMs": 500, "sinir": {"en": 3, "enCok": 6}, "deneme": 6}]},
+        "eslestirme": {"enCok": 2, "basamaklar": [{"acikMs": 1600, "sinir": {"en": 3, "enCok": 5}, "deneme": 4}, {"acikMs": 1400, "sinir": {"en": 3, "enCok": 6}, "deneme": 4}]}
+      }
+    },
+    "3": {
+      "okuma": {"varsayilanWpm": 70, "ustWpm": 150, "modlar": ["rehber", "serbest"], "kademeli": true},
+      "test": {"olcekWpm": [20, 160]},
+      "egzersiz": {
+        "hizli-dokun": {"enCok": 3, "basamaklar": [{"boyut": 84, "omurMs": 2100, "aralikMs": 1100, "sis": 0}, {"boyut": 72, "omurMs": 1700, "aralikMs": 900, "sis": 0.15}, {"boyut": 64, "omurMs": 1400, "aralikMs": 800, "sis": 0.2}], "yonerge": ["Sarı ışık yanınca hemen dokun.", "Gri sise dokunma."], "alistirma": {"sureSn": 10}},
+        "stroop": {"enCok": 3, "basamaklar": [{"renk": 3, "uyumsuz": 0.25, "pencereMs": 3600, "araMs": [600, 1000], "deneme": 20}, {"renk": 3, "uyumsuz": 0.35, "pencereMs": 3200, "araMs": [550, 950], "deneme": 20}, {"renk": 3, "uyumsuz": 0.4, "pencereMs": 2800, "araMs": [500, 900], "deneme": 20}], "yonerge": ["Kelimeyi okuma, yazının rengine bak.", "O rengin düğmesine dokun."], "alistirma": {"deneme": 4}},
+        "git-dur": {"enCok": 4, "basamaklar": [{"hedefOrani": 0.6, "uyaranMs": 1400, "pencereMs": 1800, "araMs": [800, 1400], "deneme": 36}, {"hedefOrani": 0.65, "uyaranMs": 1200, "pencereMs": 1600, "araMs": [700, 1300], "deneme": 36}, {"hedefOrani": 0.7, "uyaranMs": 1000, "pencereMs": 1350, "araMs": [600, 1200], "deneme": 36}, {"hedefOrani": 0.7, "uyaranMs": 850, "pencereMs": 1150, "araMs": [550, 1100], "deneme": 36}], "yonerge": ["Yıldızı görünce kutuya dokun.", "Başka bir şekil gelirse bekle."], "alistirma": {"deneme": 6}},
+        "iptal-testi": {"enCok": 4, "hucre": 10, "basamaklar": [{"satir": 5, "hedefAdet": [2, 3], "satirMs": 26000}, {"satir": 5, "hedefAdet": [3, 4], "satirMs": 24000}, {"satir": 6, "hedefAdet": [3, 4], "satirMs": 22000}, {"satir": 6, "hedefAdet": [3, 4], "satirMs": 20000}], "yonerge": ["Satırdaki hedef şekillere dokun.", "Bitince “Satırı bitirdim” düğmesine bas."], "alistirma": {"ayar": {"satir": 1}}},
+        "surekli-dikkat": {"enCok": 3, "basamaklar": [{"hedef": 10, "akisMs": 1400, "uyaranMs": 1000, "pencereMs": 1900, "adim": [3, 10]}, {"hedef": 10, "akisMs": 1300, "uyaranMs": 900, "pencereMs": 1800, "adim": [3, 11]}, {"hedef": 12, "akisMs": 1200, "uyaranMs": 800, "pencereMs": 1700, "adim": [3, 12]}], "yonerge": ["Hilal görünce kutuya dokun.", "Başka bir şekil gelirse bekle."], "sureNotu": "Nöbet yaklaşık 1-2 dakika sürer. İstediğin an duraklatabilirsin.", "alistirma": {"deneme": 3}},
+        "schulte": {"enCok": 3},
+        "nesne-takibi": {"enCok": 2, "basamaklar": [{"turMs": 7500, "isaretMs": 2000, "araMin": 4800, "araMax": 8800}, {"turMs": 6000, "isaretMs": 1700}]},
+        "satir-ritmi": {"enCok": 2, "basamaklar": [{"satir": 4, "nokta": 4, "vurusMs": 850, "yildiz": [1, 2]}, {"satir": 4, "nokta": 5, "vurusMs": 700, "yildiz": [0, 2]}]},
+        "fark-bul": {"enCok": 2, "basamaklar": [{"nesne": 8, "fark": [3, 3], "boyut": [38, 48]}, {"nesne": 11, "fark": [3, 5], "boyut": [32, 42]}]},
+        "gorsel-arama": {"enCok": 2, "basamaklar": [{"oge": 12, "sutun": 4}, {"oge": 16, "sutun": 4}]},
+        "simge-esle": {"enCok": 2, "basamaklar": [{"simge": 4}, {"simge": 5}]},
+        "ayna-dondur": {"enCok": 1, "basamaklar": [{"hucre": 4, "acilar": [0, 90, 270], "isaret": true, "deneme": 10}], "yonerge": ["B şekli A’nın dönmüşü mü, aynası mı?", "Doğru düğmeye dokun."], "alistirma": {"deneme": 4}},
+        "rakam-dizisi": {"enCok": 2, "basamaklar": [{"gosterMs": 1100, "araMs": 350, "sinir": {"en": 2, "enCok": 7}}, {"gosterMs": 900, "araMs": 300, "sinir": {"en": 2, "enCok": 7}}]},
+        "corsi-bloklari": {"enCok": 2, "basamaklar": [{"gosterMs": 1000, "araMs": 400, "sinir": {"en": 2, "enCok": 7}}, {"gosterMs": 850, "araMs": 350, "sinir": {"en": 2, "enCok": 7}}]},
+        "kelime-listesi": {"enCok": 2, "basamaklar": [{"gosterMs": 1600, "araMs": 500, "sinir": {"en": 3, "enCok": 7}}, {"gosterMs": 1300, "araMs": 400, "sinir": {"en": 3, "enCok": 7}}]},
+        "eslestirme": {"enCok": 2, "basamaklar": [{"acikMs": 1500, "sinir": {"en": 3, "enCok": 6}}, {"acikMs": 1300, "sinir": {"en": 3, "enCok": 7}}]}
+      }
+    },
+    "4": {
+      "okuma": {"varsayilanWpm": 90, "ustWpm": 180, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true},
+      "test": {"olcekWpm": [20, 160]},
+      "egzersiz": {
+        "hizli-dokun": {"enCok": 3, "basamaklar": [{"boyut": 80, "omurMs": 1900, "aralikMs": 1000, "sis": 0}, {"boyut": 68, "omurMs": 1500, "aralikMs": 800, "sis": 0.2}, {"boyut": 58, "omurMs": 1200, "aralikMs": 700, "sis": 0.25}], "yonerge": ["Sarı ışık yanınca hemen dokun.", "Gri sise dokunma."], "alistirma": {"sureSn": 10}},
+        "stroop": {"enCok": 4, "basamaklar": [{"renk": 3, "uyumsuz": 0.25, "pencereMs": 3300}, {"renk": 3, "uyumsuz": 0.4, "pencereMs": 2900}, {"renk": 4, "uyumsuz": 0.45, "pencereMs": 2600}, {"renk": 4, "uyumsuz": 0.5, "pencereMs": 2300, "uyaranMs": 1600}], "yonerge": ["Kelimeyi okuma, yazının rengine bak.", "O rengin düğmesine dokun."], "alistirma": {"deneme": 4}},
+        "git-dur": {"enCok": 5, "basamaklar": [{"uyaranMs": 1250, "pencereMs": 1600, "araMs": [750, 1350]}, {"uyaranMs": 1050, "pencereMs": 1400, "araMs": [650, 1250]}, {"uyaranMs": 900, "pencereMs": 1250, "araMs": [600, 1150]}, {"hedefOrani": 0.7, "uyaranMs": 750, "pencereMs": 1050, "araMs": [550, 1050]}, {"hedefOrani": 0.75, "uyaranMs": 650, "pencereMs": 950, "araMs": [500, 1000]}], "yonerge": ["Yıldızı görünce kutuya dokun.", "Başka bir şekil gelirse bekle."], "alistirma": {"deneme": 6}},
+        "iptal-testi": {"enCok": 5, "hucre": 12, "basamaklar": [{"satirMs": 24000}, {"satirMs": 22000}, {"satirMs": 21000}, {"satirMs": 19000}, {"satirMs": 18000}], "yonerge": ["Satırdaki hedef şekillere dokun.", "Bitince “Satırı bitirdim” düğmesine bas."], "alistirma": {"ayar": {"satir": 1}}},
+        "surekli-dikkat": {"enCok": 4, "basamaklar": [{"hedef": 12, "akisMs": 1300, "uyaranMs": 900, "pencereMs": 1800, "adim": [3, 11]}, {"hedef": 12, "akisMs": 1200, "uyaranMs": 800, "pencereMs": 1600, "adim": [3, 12]}, {"hedef": 12, "akisMs": 1100, "uyaranMs": 700, "pencereMs": 1500, "adim": [3, 13]}, {"hedef": 14, "akisMs": 1000, "uyaranMs": 650, "pencereMs": 1400, "adim": [3, 14]}], "yonerge": ["Hilal görünce kutuya dokun.", "Başka bir şekil gelirse bekle."], "sureNotu": "Nöbet yaklaşık 2 dakika sürer. İstediğin an duraklatabilirsin.", "alistirma": {"deneme": 3}},
+        "schulte": {"enCok": 4},
+        "nesne-takibi": {"enCok": 3, "basamaklar": [{"turMs": 7000, "isaretMs": 1900}, {"turMs": 5500, "isaretMs": 1600}, {"turMs": 4200, "isaretMs": 1400}]},
+        "satir-ritmi": {"enCok": 3, "basamaklar": [{"satir": 4, "nokta": 4, "vurusMs": 800, "yildiz": [1, 2]}, {"satir": 5, "nokta": 5, "vurusMs": 650, "yildiz": [0, 3]}, {"satir": 6, "nokta": 6, "vurusMs": 520, "yildiz": [0, 3]}]},
+        "periferik-flas": {"enCok": 2, "basamaklar": [{"uzaklik": 0.35, "yon": 4, "basamak": 2, "harf": [3, 4], "sure": {"baslangic": 500, "en": 150, "enCok": 600}}, {"uzaklik": 0.55, "yon": 8, "basamak": 3, "harf": [3, 5], "sure": {"baslangic": 450, "en": 120, "enCok": 550}}], "yonerge": ["Gözün ortadaki artıda kalsın.", "Yanda beliren sayıyı ya da kelimeyi seç."], "alistirma": {"deneme": 4}},
+        "grup-flasi": {"enCok": 2, "basamaklar": [{"sure": {"baslangic": 500, "en": 150, "enCok": 600}}, {"sure": {"baslangic": 600, "en": 200, "enCok": 700}}], "yonerge": ["Ortadaki noktaya bak.", "Bir an görünen kelimeleri seç ya da yaz."], "alistirma": {"deneme": 4}},
+        "kelime-piramidi": {"enCok": 2, "basamaklar": [{"satir": 3, "sureMs": 1800}, {"satir": 3, "sureMs": 1400}], "yonerge": ["Ortadaki koyu kelimeye bak.", "Uçtaki iki kelime aynı mı, onu seç."], "alistirma": {"deneme": 3}},
+        "sekilli-metin": {"enCok": 2, "basamaklar": [{"genislik": 14}, {"genislik": 20}], "enAzKelime": 90, "enCokKelime": 140, "yonerge": ["Gözünü şeklin ortasından aşağı indir.", "Sonda metinde olan kelimeleri seç."]},
+        "fark-bul": {"enCok": 3, "basamaklar": [{"nesne": 9, "fark": [3, 4]}, {"nesne": 12, "fark": [4, 5], "boyut": [30, 40]}, {"nesne": 15, "fark": [5, 6], "boyut": [28, 38], "turler": ["yok", "renk", "sekil", "boyut", "don"]}]},
+        "gorsel-arama": {"enCok": 3, "basamaklar": [{"oge": 12, "sutun": 4}, {"oge": 20, "sutun": 5}, {"oge": 25, "sutun": 5}]},
+        "simge-esle": {"enCok": 3, "basamaklar": [{"simge": 4}, {"simge": 6}, {"simge": 7}]},
+        "ayna-dondur": {"enCok": 2, "basamaklar": [{"hucre": 4, "isaret": true}, {"hucre": 5, "acilar": [90, 180, 270], "isaret": true}], "yonerge": ["B şekli A’nın dönmüşü mü, aynası mı?", "Doğru düğmeye dokun."], "alistirma": {"deneme": 4}},
+        "n-geri": {"enCok": 2, "basamaklar": [{"gosterMs": 1200, "araMs": 2400, "sinir": {"en": 1, "enCok": 1}, "deneme": 4}, {"gosterMs": 1000, "araMs": 2100, "sinir": {"en": 1, "enCok": 1}, "deneme": 4}], "yonerge": ["Her öğeyi bir öncekiyle karşılaştır.", "Aynıysa Evet, farklıysa Hayır’a bas."], "alistirma": {"deneme": 1, "ayar": {"blokOge": 6}}},
+        "rakam-dizisi": {"enCok": 3, "basamaklar": [{"gosterMs": 1000, "araMs": 300, "sinir": {"en": 2, "enCok": 8}}, {"gosterMs": 800, "araMs": 250, "sinir": {"en": 2, "enCok": 8}}, {"gosterMs": 650, "araMs": 200, "sinir": {"en": 2, "enCok": 8}}]},
+        "corsi-bloklari": {"enCok": 3, "basamaklar": [{"gosterMs": 900, "araMs": 350, "sinir": {"en": 2, "enCok": 8}}, {"gosterMs": 700, "araMs": 300, "sinir": {"en": 2, "enCok": 8}}, {"gosterMs": 550, "araMs": 250, "sinir": {"en": 2, "enCok": 8}}]},
+        "kelime-listesi": {"enCok": 3, "basamaklar": [{"gosterMs": 1500, "araMs": 500, "sinir": {"en": 3, "enCok": 8}}, {"gosterMs": 1200, "araMs": 400, "sinir": {"en": 3, "enCok": 8}}, {"gosterMs": 1000, "araMs": 300, "sinir": {"en": 3, "enCok": 8}}]},
+        "eslestirme": {"enCok": 3, "basamaklar": [{"acikMs": 1400, "sinir": {"en": 3, "enCok": 6}}, {"acikMs": 1200, "sinir": {"en": 4, "enCok": 8}}, {"acikMs": 1100, "sinir": {"en": 4, "enCok": 9}}]}
+      }
+    },
+    "5": {
+      "okuma": {"varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true},
+      "test": {"olcekWpm": [40, 240]}
+    },
+    "6": {
+      "okuma": {"varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true},
+      "test": {"olcekWpm": [40, 240]}
+    },
+    "7": {
+      "okuma": {"varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true},
+      "test": {"olcekWpm": [40, 240]}
+    },
+    "8": {
+      "okuma": {"varsayilanWpm": 150, "modlar": ["rehber", "kelime-grubu", "serbest", "rsvp"], "kademeli": true},
+      "test": {"olcekWpm": [40, 240]}
+    }
   }
 }

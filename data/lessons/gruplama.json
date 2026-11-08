@@ -1,6 +1,7 @@
 {
   "surum": 1,
   "ad": "gruplama",
+  "sinif": [2, 8],
   "baslik": "Gruplama",
   "kisaAciklama": "Dağınık bilgiyi küçük, anlamlı paketlere ayır.",
   "sureDk": "6-8",
@@ -60,5 +61,106 @@
     "once": { "ogeler": ["nar", "vapur", "atkı", "davul", "ayva", "yelek", "tramvay", "keman", "incir", "bere", "kamyon", "flüt"] },
     "sonra": { "ogeler": ["pırasa", "ceylan", "perde", "terzi", "kabak", "sincap", "sepet", "fırıncı", "turp", "ördek", "ayna", "mimar"] }
   },
-  "kapanis": "Gruplama; ders notlarını başlıklara ayırırken, kelime listelerinde ve uzun rakam dizilerinde işe yarar."
+  "kapanis": "Gruplama; ders notlarını başlıklara ayırırken, kelime listelerinde ve uzun rakam dizilerinde işe yarar.",
+  "ilkokul": {
+    "kisaAciklama": "Dağınık kelimeleri küçük ve anlamlı gruplara ayır.",
+    "sureDk": "5-6",
+    "anlat": {
+      "baslik": "Gruplama nedir?",
+      "paragraflar": [
+        "Aklımızda aynı anda çok şey tutmak zordur. Gruplama, parçaları küçük paketlere toplar.",
+        "Benzer kelimeleri bir araya koy ve her gruba bir ad ver: meyveler, hayvanlar gibi.",
+        "Hatırlarken önce grup adlarını düşün. Her grup adı, içindeki kelimeleri getirir."
+      ],
+      "ornek": {
+        "baslik": "Rakamlarla örnek",
+        "satirlar": [
+          "Gruplamadan: 4 8 2 9 1 7",
+          "Gruplayınca: 48 – 29 – 17. Altı parça yerine üç paket!"
+        ]
+      },
+      "not": "Her grupta kaç kelime olduğunu bilmek, eksik kalanı fark etmeni kolaylaştırır."
+    },
+    "birlikte": {
+      "yonerge": "Şu altı kelimeyi gruplayalım: kiraz, kedi, erik, tavşan, çilek, kuzu.",
+      "adimlar": [
+        {
+          "metin": "Kelimelere bak. Hangileri birbirine benziyor?"
+        },
+        {
+          "metin": "İlk grup: meyveler.",
+          "sahne": "Meyveler: kiraz, erik, çilek"
+        },
+        {
+          "metin": "İkinci grup: hayvanlar.",
+          "sahne": "Hayvanlar: kedi, tavşan, kuzu"
+        },
+        {
+          "metin": "Her grupta 3 kelime var. Biri eksik kalırsa hemen fark edersin."
+        },
+        {
+          "metin": "Şimdi yalnız grup adlarını düşün: meyveler, hayvanlar. Kelimeler geliyor mu?"
+        }
+      ],
+      "kontrol": {
+        "soru": "“Kalem, havuç, silgi, marul” için en iyi gruplama hangisi?",
+        "secenekler": [
+          "Okul eşyaları: kalem, silgi · Sebzeler: havuç, marul",
+          "İlk iki kelime bir grup, son iki kelime bir grup"
+        ],
+        "dogru": 0,
+        "aciklama": "Ortak özelliği olan kelimeleri bir araya koymak, grup adını iyi bir hatırlatıcı yapar."
+      }
+    },
+    "kendin": {
+      "tur": "satirlar",
+      "yonerge": "Aşağıdaki 9 kelimeyi gruplara ayır. Her gruba bir ad ver.",
+      "ipuclari": [
+        "Önce birbirine benzeyenleri bul.",
+        "Kaç grup olduğunu aklında tut.",
+        "Hatırlarken önce grup adlarını düşün."
+      ],
+      "etiketler": [
+        "1. grup",
+        "2. grup",
+        "3. grup"
+      ],
+      "yerTutucu": "Grup adı: kelimeler (istersen yaz)",
+      "onerilenSn": 90
+    },
+    "olcum": {
+      "tur": "liste",
+      "siraOnemli": false,
+      "calismaSn": 45,
+      "araSn": 10,
+      "araYonerge": "Kısa bir ara: içinden 1’den 10’a kadar yavaşça say.",
+      "once": {
+        "ogeler": [
+          "nar",
+          "vapur",
+          "atkı",
+          "ayva",
+          "yelek",
+          "tramvay",
+          "incir",
+          "bere",
+          "kamyon"
+        ]
+      },
+      "sonra": {
+        "ogeler": [
+          "pırasa",
+          "ceylan",
+          "perde",
+          "kabak",
+          "sincap",
+          "sepet",
+          "turp",
+          "ördek",
+          "ayna"
+        ]
+      }
+    },
+    "kapanis": "Gruplama, alışveriş listesini ya da yeni kelimeleri hatırlarken işe yarar."
+  }
 }

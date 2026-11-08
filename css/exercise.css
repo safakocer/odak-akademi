@@ -781,3 +781,25 @@ html.egz-acik { overflow: hidden; }
 .hafiza-dugme { flex: 1 1 8rem; min-block-size: 3.25rem; }
 .hafiza-eylemler[aria-disabled="true"] .hafiza-dugme, .hafiza-dugme[aria-disabled="true"] { opacity: 0.6; }
 .hafiza-devam { inline-size: min(100%, 22rem); min-block-size: 3.25rem; }
+
+/* ---------- S34e: ilkokulda kısa yönerge, görsel örnek ve alıştırma turu ---------- */
+.egz-ornek { display: grid; gap: var(--b-2); margin: 0; padding: var(--b-3); border: 1px solid var(--renk-kenar); border-radius: var(--kose-m); background: var(--renk-yuzey); }
+.egz-ornek figcaption { font-size: var(--fs-s); font-weight: 700; color: var(--renk-metin-soluk); }
+.egz-ornek__liste { display: flex; flex-wrap: wrap; gap: var(--b-3); margin: 0; padding: 0; list-style: none; }
+.egz-ornek__oge { display: flex; align-items: center; gap: var(--b-2); flex: 1 1 9rem; min-inline-size: 0; font-weight: 700; overflow-wrap: anywhere; }
+.egz-ornek__cizim { display: grid; place-items: center; flex: none; min-inline-size: 3rem; block-size: 3rem; }
+.egz-ornek__cizim > svg { inline-size: 3rem; block-size: 3rem; }
+/* S34-son: göz ve hafıza örnekleri: yazılı çizim (rakam, kelime) ve yan yana iki küçük şekil; seviye testi adım ekranında da kullanılır */
+.egz-ornek__yazi {
+  display: inline-grid; place-items: center; min-block-size: 2.5rem; padding: 0 var(--b-2); border: 2px solid var(--renk-kenar-guclu);
+  border-radius: var(--kose-s); background: var(--renk-yuzey-2); color: var(--renk-metin); font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.egz-ornek__yazi strong { color: var(--renk-birincil); }
+.egz-ornek__ikili { display: inline-flex; align-items: center; gap: 0.25rem; }
+.egz-ornek__cizim .egz-ornek__ikili > svg { inline-size: 2.25rem; block-size: 2.25rem; }
+.test-adim .egz-ornek { margin-block: var(--b-3); }
+.egz-aciklama__alistirma { display: grid; justify-items: center; gap: 2px; min-block-size: 2.75rem; }
+.egz-aciklama__alistirma small { font-size: var(--fs-xs); font-weight: 400; }
+/* Alıştırma rozeti göstergenin üstünde ayrı satır (süre ve sayaçla çakışmaz) */
+.egz__alistirma { grid-column: 1 / -1; justify-self: start; }
+.egz__alistirma[hidden] { display: none; }

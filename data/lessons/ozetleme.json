@@ -2,6 +2,7 @@
   "surum": 1,
   "tur": "strateji",
   "ad": "ozetleme",
+  "sinif": [5, 8],
   "baslik": "Üç Cümlede Özetleme",
   "kisaAciklama": "Bir hikâyeyi başlangıç, gelişme ve sonuçla, kendi cümlelerinle kısaca anlat.",
   "sureDk": "8-10",

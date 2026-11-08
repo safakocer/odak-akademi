@@ -2,6 +2,7 @@
   "surum": 1,
   "tur": "strateji",
   "ad": "tara-sor-oku",
+  "sinif": [5, 8],
   "baslik": "Tara, Sor, Oku, Anlat, Gözden Geçir",
   "kisaAciklama": "Bilgi veren metinleri beş adımda oku: göz at, soru sor, oku, anlat, kontrol et.",
   "sureDk": "8-10",

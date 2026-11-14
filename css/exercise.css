@@ -1,4 +1,4 @@
-/* Egzersiz çerçevesi: tam ekran katman, üst çubuk, açıklama / geri sayım / alan / sonuç / mola ekranları, duraklatma paneli, kutlama, okuma ve soru ekranları (S25: yanlış işaretinde ✗ ve kesik çizgi) */
+/* Egzersiz çerçevesi: tam ekran katman, üst çubuk, açıklama / geri sayım / alan / sonuç / mola ekranları, duraklatma paneli, kutlama, okuma ve soru ekranları (S25: yanlış işaretinde ✗ ve kesik çizgi; S35b: eski seviye denemesi kutusu ve sonucu, Oku ve Anla soru yolculuğu) */
 /* D04: durum renkleri tema belirteçlerine bağlandı (koyu temada da AA); color-mix olan yerlerde eski tarayıcılar için düz renk yedeği var */
 
 html.egz-acik { overflow: hidden; }
@@ -619,6 +619,41 @@ html.egz-acik { overflow: hidden; }
 .anlama-katman__ust { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; font-weight: 700; }
 .anlama-katman small { font-size: var(--fs-xs); color: var(--renk-metin-soluk); }
 .anlama-katmanlar__oneri { display: grid; gap: 0.5rem; }
+/* S35b: soru yolculuğu: üç basamak (bilgi → çıkarım → yorum) dikey yol; zor basamaktaki doğrular güneş zeminli kazanım satırı */
+.soru-yol__giris { margin: 0; font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+.soru-yol__liste { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+.soru-yol__adim { position: relative; grid-template-columns: 2rem minmax(0, 1fr); align-items: start; gap: 0.75rem; }
+.soru-yol__adim:not(:last-child)::after {
+  content: ""; position: absolute; inset-inline-start: calc(1rem - 1px); inset-block: 2.25rem -0.75rem; inline-size: 2px; background: var(--renk-kenar);
+}
+.soru-yol__no {
+  display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 50%;
+  background: var(--renk-yuzey-2); border: 2px solid var(--renk-kenar-guclu); font-weight: 800; font-variant-numeric: tabular-nums;
+}
+.soru-yol__adim[data-guclu="true"] .soru-yol__no { background: var(--renk-birincil); border-color: var(--renk-birincil); color: var(--renk-birincil-uzeri); }
+.soru-yol__govde { display: grid; gap: 0.375rem; min-inline-size: 0; }
+.soru-yol__kazanim {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.375rem; margin: 0; padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem; background: var(--renk-gunes-zemin); border: 1px solid var(--renk-gunes-golge); line-height: 1.5;
+}
+.soru-yol__yildiz { color: var(--renk-gunes-golge); font-size: var(--fs-m); line-height: 1; }
+
+/* S35b: “Eski seviyeni dene” kutusu (açıklama ekranı) ve deneme sonucu (karşılaştırma) */
+.egz-eski-seviye {
+  display: grid; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: 0.75rem;
+  border: 2px dashed var(--renk-kenar-guclu); background: var(--renk-yuzey-2);
+}
+.egz-eski-seviye p { margin: 0; line-height: 1.5; }
+.egz-eski-seviye__baslik { font-weight: 800; }
+.egz-eski-karsi {
+  display: grid; gap: 0.375rem; padding: 0.75rem 1rem; border-radius: 0.75rem;
+  border-inline-start: 4px solid var(--renk-kenar-guclu); background: var(--renk-yuzey-2);
+}
+.egz-eski-karsi p { margin: 0; line-height: 1.5; }
+.egz-eski-karsi[data-yon="artti"] { border-inline-start-color: var(--renk-basari); background: var(--renk-basari-zemin); }
+.egz-eski-karsi[data-yon="benzer"] { border-inline-start-color: var(--renk-birincil); }
+.egz-eski-karsi[data-yon="azaldi"] { border-inline-start-style: dashed; }
+.egz-eski-karsi__not { font-size: var(--fs-xs); color: var(--renk-metin-soluk); }
 .soru-gozden { display: grid; gap: 0.75rem; }
 .soru-gozden__liste { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
 .soru-gozden__oge {

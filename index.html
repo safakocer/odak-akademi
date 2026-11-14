@@ -1,4 +1,4 @@
-<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı; S33: çocukta “Dinamik” tema seçeneği), çocuk görünümü stili (S27), sınıfa uygun olmayan çalışma sayfası (S34a), alt gezinme, profiller, yedek, PWA bağlantıları -->
+<!-- Odak Akademi tek sayfa (S25: CSP, küresel hata yakalayıcı, gizlilik bağlantıları): üst çubuk, ana ekran, alan ve egzersiz listeleri, kütüphane, odak araçları (S12), hafıza teknikleri (S15), tekrar kartları (S16), seviye testi (S17), Akıllı Kurs ve rapor (S19), İlerleme ve veli raporu (S20), Çalışma Rehberi (S22), Veli/Öğretmen alanı (S24), ayarlar görünümü (S26: sürüm satırı; S33: çocukta “Dinamik” tema seçeneği), çocuk görünümü stili (S27), sınıfa uygun olmayan çalışma sayfası (S34a), Bugünün Görevi kartı (S35c), alt gezinme, profiller, yedek, PWA bağlantıları -->
 <!doctype html>
 <html lang="tr">
 <head>
@@ -148,62 +148,14 @@
         </ul>
       </section>
 
-      <!-- S20: günlük hedef, “bugünlük yeter” ve seviye; app.js gunlukHedefiGuncelle() doldurur -->
-      <section class="kart gunluk-hedef" id="gunluk-hedef" aria-labelledby="gunluk-hedef-baslik" hidden>
-        <div class="gunluk-hedef__ust">
-          <h2 id="gunluk-hedef-baslik">Bugün</h2>
-          <a class="btn btn--hayalet btn--kucuk" href="#/ilerleme"><svg class="ikon ikon--kucuk" aria-hidden="true"><use href="#grafik"/></svg>İlerlemem</a>
-        </div>
-        <div>
-          <div class="ilerleme-etiket"><span id="hedef-etiket">Günlük hedef</span><span id="hedef-metin">0 / 15 dk</span></div>
-          <div class="ilerleme ilerleme--basari" id="hedef-cubugu" role="progressbar" aria-labelledby="hedef-etiket" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-            <span class="ilerleme__dolgu" style="--deger: 0%"></span>
-          </div>
-        </div>
-        <div id="hedef-not" class="soluk"></div>
-        <p class="soluk" id="hafta-ozet" hidden></p><!-- S24: veli/öğretmenin haftalık hedefi -->
-        <p class="gunluk-hedef__seviye" id="seviye-ozet"></p>
-      </section>
-
-      <section class="gorev-karti" aria-labelledby="gorev-baslik">
+      <!-- S35c: Bugünün Görevi (S20 “Bugün” kartı buna katıldı: günlük hedef, “bugünlük yeter”, seviye, seri, haftalık hedef); içini js/modules/gorev/gorev-karti.js çizer -->
+      <section class="gorev-karti" id="gorev-karti" aria-labelledby="gorev-baslik" aria-busy="true">
         <div class="gorev-karti__ust">
           <div class="yigin" style="--yigin-bosluk: var(--b-2)">
             <span class="rozet rozet--gunes">Bugünün Görevi</span>
-            <h2 id="gorev-baslik">Üç kısa adım, yaklaşık 15 dakika</h2>
-            <p>Örnek plan. Seviye testinden sonra sana özel hazırlanacak.</p>
+            <h2 id="gorev-baslik">Bugün için hazırlanıyor…</h2>
           </div>
           <img class="gorev-karti__maskot" src="icons/fener.svg" alt="" width="72" height="72">
-        </div>
-
-        <ol class="gorev-listesi" aria-label="Görev adımları">
-          <li data-durum="sirada">
-            <span class="gorev-listesi__durum" aria-hidden="true">1</span>
-            <span class="gorev-listesi__metin">Isınma: sayı tablosu</span>
-            <span class="gorev-listesi__sure">3 dk</span>
-          </li>
-          <li data-durum="sirada">
-            <span class="gorev-listesi__durum" aria-hidden="true">2</span>
-            <span class="gorev-listesi__metin">Okuma ve anlama soruları</span>
-            <span class="gorev-listesi__sure">10 dk</span>
-          </li>
-          <li data-durum="sirada">
-            <span class="gorev-listesi__durum" aria-hidden="true">3</span>
-            <span class="gorev-listesi__metin">Göz dinlendirme molası</span>
-            <span class="gorev-listesi__sure">2 dk</span>
-          </li>
-        </ol>
-
-        <div class="gorev-karti__alt">
-          <div>
-            <div class="ilerleme-etiket"><span id="gorev-ilerleme-etiket">İlerleme</span><span>0 / 3</span></div>
-            <div class="ilerleme ilerleme--gunes" role="progressbar" aria-labelledby="gorev-ilerleme-etiket" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" aria-valuetext="3 adımdan 0 tamamlandı">
-              <span class="ilerleme__dolgu" style="--deger: 0%"></span>
-            </div>
-          </div>
-          <button class="btn btn--gunes btn--buyuk" type="button" data-yakinda="Bugünün görevi">
-            Göreve başla<span class="ekran-okuyucu"> (yakında)</span>
-            <svg class="ikon" aria-hidden="true"><use href="#ok-sag"/></svg>
-          </button>
         </div>
       </section>
 

@@ -6,6 +6,8 @@
    S32-d: irili ufaklı kayalar, kum yok; hüzme yatay döner (11,7 sn), ekranın sağına uzanır; dokunmatik tablette (“dar”) içerik sütunu sahnenin sağına kayar.
    S33: dinamik tema (data-gok="gunduz|gece"): güneş ve ay (.gok*, js/engine/gok-cisimleri.js), doğuş/batışta sıcak gök, gökyüzü ışığı cismin yerinde; gece yıldızlar ayla aynı yönde (soldan sağa) kayar.
    S33-d: güneş/ay açık/koyu temada da (sabit yerde); balondaki Fener eski boyunda (çizim alanının boş kenarları dengelendi). S33-d2: ana sayfa balonunda Fener telefonda büyüdü, balonun yüksekliğini doldurur.
+   S35b: kurs bitişi kutlaması (.c-kutlama[data-tur="kurs"]): çift kenarlı kart; süre (4 sn), hareket (ilk 1,5 sn) ve kapanma kuralları aynı.
+   S35c: Bugünün Görevi kartında ifadeli Fener (mesajsız) ve ilkokulda kısa yönerge (S35c-d: kompakt kart, Fener 60 px).
    Yalnız <html data-gorunum="cocuk"> iken etkilidir (hesap.js yazar; kullanıcı seçemez). Profesyonel görünüm bu dosyadan etkilenmez.
    Hareketi azalt açıkken base.css tüm animasyonları durdurur; egzersiz açıkken (html.egz-acik) arka plan gizlenir. Kontrast WCAG AA denetlendi. */
 
@@ -442,6 +444,13 @@
 }
 :root[data-gorunum="cocuk"] .gorev-karti__maskot { transform-origin: 50% 100%; animation: c-suzul 3.6s ease-in-out infinite; }
 :root[data-gorunum="cocuk"] .gorev-listesi li { border-radius: var(--kose-m); }
+/* S35c: kartta ifadeli Fener (mesajsız; ana sayfa balonu konuşur, çakışmaz) ve ilkokulda kısa yazılı yönerge */
+:root[data-gorunum="cocuk"] .gorev-karti__fener { overflow: visible; }
+:root[data-gorunum="cocuk"] .gorev-karti__fener > .fener { width: 100%; height: 100%; }
+:root[data-gorunum="cocuk"] .gorev-karti__yonerge { font-size: var(--fs-m); font-weight: 800; }
+:root[data-gorunum="cocuk"] .seviye-rozeti { width: 3rem; height: 3rem; } /* S35c-d5: çocukta biraz büyük */
+:root[data-gorunum="cocuk"] .seviye-rozeti::before { background: var(--c-gorev-golge); } /* S35c-d: kompakt kartta etiket */
+:root[data-gorunum="cocuk"] .gorev-listesi__durum { border-width: 3px; }
 
 /* ---------- Mini istatistik: her kutu kendi renginde ---------- */
 :root[data-gorunum="cocuk"] .mini-istatistik li { border: 0; box-shadow: 0 4px 0 var(--c-kart-golge); }
@@ -812,6 +821,14 @@
   font-weight: 800;
 }
 
+/* S35b: kurs bitişi: sertifika gibi çift kenarlı kart, süre çubuğu birincil renkte (yeni hareket ya da parlama eklenmez) */
+:root[data-gorunum="cocuk"] .c-kutlama[data-tur="kurs"] .c-kutlama__kart {
+  border: 6px double var(--renk-birincil);
+  box-shadow: 0 6px 0 var(--renk-birincil-golge), var(--golge-3);
+}
+:root[data-gorunum="cocuk"] .c-kutlama[data-tur="kurs"] .c-kutlama__sure { background: var(--renk-birincil); }
+:root[data-gorunum="cocuk"] .c-kutlama[data-tur="kurs"] .c-kutlama__ikon { border-color: var(--renk-birincil-golge); background: var(--renk-birincil-zemin); color: var(--renk-birincil); }
+
 @keyframes c-kutlama-perde-gir { from { opacity: 0; } to { opacity: 1; } }
 @keyframes c-kutlama-perde-cik { from { opacity: 1; } to { opacity: 0; } }
 @keyframes c-kutlama-kart-gir {
@@ -835,12 +852,14 @@
 :root[data-gorunum="cocuk"] .fener--durgun,
 :root[data-gorunum="cocuk"] .fener--durgun * { animation: none; }
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .fener *,
+:root[data-gorunum="cocuk"][data-hareket="azalt"] .gorev-karti__maskot,
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .fener-balon__balon { animation: none; }
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .fener-balon__dugme { transition: none; transform: none; }
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .egz-sonuc__yildiz,
 :root[data-gorunum="cocuk"][data-hareket="azalt"] .c-kutlama { display: none; }
 @media (prefers-reduced-motion: reduce) {
   :root[data-gorunum="cocuk"] .fener *,
+  :root[data-gorunum="cocuk"] .gorev-karti__maskot,
   :root[data-gorunum="cocuk"] .fener-balon__balon { animation: none; }
   :root[data-gorunum="cocuk"] .fener-balon__dugme { transition: none; transform: none; }
   :root[data-gorunum="cocuk"] .egz-sonuc__yildiz,

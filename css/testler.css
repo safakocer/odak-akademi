@@ -1,4 +1,4 @@
-/* Seviye Belirleme Testi (S17): giriş kartı, adım akışı, okuma ve öz değerlendirme ekranı, profil radarı, karşılaştırma tablosu. Renkler yalnız tokens.css belirteçlerinden */
+/* Seviye Belirleme Testi (S17): giriş kartı, adım akışı, okuma ve öz değerlendirme ekranı, profil radarı, karşılaştırma tablosu (S35a: eşdeğer metin ve yeniden okuma kartları, Fener). Renkler yalnız tokens.css belirteçlerinden */
 
 #testler-sayfasi [hidden] { display: none !important; }
 .test-giris { display: grid; gap: var(--b-2); max-inline-size: 42rem; }
@@ -72,6 +72,15 @@
 .test-ozet h3 { margin: 0; font-size: var(--fs-m); }
 .test-ozet p { margin: 0; line-height: 1.5; }
 .test-ozet .btn { justify-self: start; }
+/* S35a: eşdeğer metin (asıl karşılaştırma) ve aynı metni yeniden okuma (ayrı ölçüm, kesik kenar: renge dayanmaz) */
+.test-ozet li[data-tur="esdeger"] { border-inline-start-color: var(--renk-birincil); }
+.test-ozet li[data-tur="tekrar"] { border-inline-start-style: dashed; background: var(--renk-yuzey-2); }
+.test-degisim { display: grid; gap: var(--b-1); margin: 0; }
+.test-degisim__satir { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 var(--b-3); padding-block: var(--b-1); border-block-end: 1px solid var(--renk-kenar); }
+.test-degisim__satir:last-child { border-block-end: 0; }
+.test-degisim dt { font-weight: 700; }
+.test-degisim dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.test-sonuc__fener { margin-block-start: var(--b-2); }
 .test-olcek > summary { display: flex; align-items: center; min-block-size: var(--dokunma-min); cursor: pointer; font-weight: 700; }
 .test-olcek ul { margin: 0; padding-inline-start: 1.25rem; line-height: 1.6; font-size: var(--fs-s); }
 .test-olcek p { margin: var(--b-2) 0 0; font-size: var(--fs-s); color: var(--renk-metin-soluk); }

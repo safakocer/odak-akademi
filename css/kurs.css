@@ -1,4 +1,4 @@
-/* Akıllı Kurs (S19): özet, plan notu, gün haritası, bugünün dersleri, dersler arası mola, çerçevedeki kurs bandı, rapor, sertifika ve yazdırma. Renkler yalnız tokens.css belirteçlerinden */
+/* Akıllı Kurs (S19): özet, plan notu, gün haritası, bugünün dersleri, dersler arası mola, çerçevedeki kurs bandı, rapor, sertifika ve yazdırma; S35b: kurs karnesi (Kurs raporu ve İlerleme sayfası) ve yalnız karneyi yazdırma (html.yazdir-karne). Renkler yalnız tokens.css belirteçlerinden */
 
 #kurs-sayfasi [hidden], #kurs-rapor-sayfasi [hidden] { display: none !important; }
 .kurs-kart { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--b-4); padding: var(--b-5); border: 1px solid var(--renk-kenar); border-radius: var(--kose-l); background: var(--renk-yuzey); min-inline-size: 0; }
@@ -78,6 +78,35 @@
 .kurs-sertifika__mesaj { max-inline-size: 32rem; }
 .kurs-sertifika__tarih { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
 
+/* ---------- S35b: Kurs karnesi: ilk gün ve son sonuç yan yana (360 px’te de iki sütun; değerler kısa) ---------- */
+.kurs-karne__ust { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--b-3); }
+.kurs-karne__ust > div { display: grid; gap: var(--b-1); min-inline-size: 0; }
+.kurs-karne__kim { font-weight: 700; }
+.kurs-karne__liste { display: grid; gap: var(--b-3); margin: 0; padding: 0; list-style: none; }
+.kurs-karne__oge {
+  display: grid; gap: var(--b-2); padding: var(--b-3) var(--b-4); min-inline-size: 0;
+  border-radius: var(--kose-m); background: var(--renk-yuzey-2); border-inline-start: 6px solid var(--renk-kenar-guclu);
+}
+/* Renk tek başına bilgi taşımaz: işaret (▲ ≈ •) ve cümle de yazılır; “henüz altında” kesik kenarla */
+.kurs-karne__oge[data-yon="artti"] { border-inline-start-color: var(--renk-basari); }
+.kurs-karne__oge[data-yon="benzer"] { border-inline-start-color: var(--renk-birincil); }
+.kurs-karne__oge[data-yon="azaldi"] { border-inline-start-style: dashed; }
+.kurs-karne__ad { margin: 0; font-size: var(--fs-m); overflow-wrap: anywhere; }
+.kurs-karne__modul { font-weight: 400; font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+.kurs-karne p { margin: 0; }
+.kurs-karne__olcu { font-size: var(--fs-s); color: var(--renk-metin-soluk); }
+.kurs-karne__ikili { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--b-2); }
+.kurs-karne__hucre { display: grid; gap: 2px; align-content: start; min-inline-size: 0; padding: var(--b-2) var(--b-3); border-radius: var(--kose-s); background: var(--renk-yuzey); }
+.kurs-karne__hucre--bos { background: transparent; }
+.kurs-karne__etiket { font-size: var(--fs-xs); font-weight: 700; color: var(--renk-metin-soluk); }
+.kurs-karne__deger { font-size: var(--fs-xl); font-weight: 800; line-height: 1.2; color: var(--renk-birincil); font-variant-numeric: tabular-nums; }
+.kurs-karne__alt { font-size: var(--fs-xs); color: var(--renk-metin-soluk); overflow-wrap: anywhere; }
+.kurs-karne__degisim { display: flex; align-items: baseline; gap: var(--b-2); font-size: var(--fs-s); line-height: var(--sh-govde); }
+.kurs-karne__isaret { flex: none; font-weight: 800; }
+.kurs-karne__oge[data-yon="artti"] .kurs-karne__isaret { color: var(--renk-basari); }
+.kurs-karne__oge[data-yon="benzer"] .kurs-karne__isaret { color: var(--renk-birincil); }
+.kurs-karne__fener, .kurs-rapor__fener { margin: 0; }
+
 /* ---------- Yazdırma (rapor + sertifika; “Yalnız sertifika”: html.yazdir-sertifika) ---------- */
 @media print {
   @page { margin: 14mm; }
@@ -91,4 +120,8 @@
   .kurs-sertifika { break-before: page; break-inside: avoid; min-block-size: 70vh; align-content: center; }
   html.yazdir-sertifika .kurs-rapor > :not(.kurs-sertifika) { display: none !important; }
   html.yazdir-sertifika .kurs-sertifika { break-before: auto; min-block-size: 85vh; }
+  /* S35b: “Karneyi yazdır” (rehber yazdir('yazdir-karne')): karneyi içermeyen her şey gizlenir (Kurs raporunda da İlerleme’de de) */
+  html.yazdir-karne body *:not(:has(.kurs-karne)):not(.kurs-karne):not(.kurs-karne *) { display: none !important; }
+  html.yazdir-karne .kurs-karne { border: 0; padding: 0; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  html.yazdir-karne .kurs-karne__oge { break-inside: avoid; }
 }

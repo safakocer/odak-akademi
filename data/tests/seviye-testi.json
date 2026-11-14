@@ -1,12 +1,13 @@
 {
-  "surum": 3,
-  "aciklama": "Seviye Belirleme Testi okuma metinleri ve kademe akışları (S17; S34d: 2-4. sınıf metinleri, ilkokul akışı). Sınıf başına bir sabit metin; final testi başlangıçtaki metni yeniden kullanır. Soru şeması quiz-engine.js ile aynı. akislar: sınıf listesine göre adım ayarları; listede olmayan adım çalışmaz, yazılmayan alan seviye-testi.js’teki varsayılandan gelir; egzersizi o sınıfa uygun olmayan adım (katalog sınıf aralığı) kendiliğinden atlanır. Akışı olmayan sınıflar (5-8) varsayılan 5 adımı kullanır. S34-son (surum 3): adımda ornek (true: egzersizin görsel örneği adım ekranında), alistirma (kaydedilmeyen kısa deneme; alanları olcum’un üstüne yazılır) ve bantli (true: sınıfın egzersiz bandı uygulanır; sonuç bantli listesine yazılır, final başlangıçtaki listeye göre).",
+  "surum": 4,
+  "aciklama": "Seviye Belirleme Testi okuma metinleri ve kademe akışları (S17; S34d: 2-4. sınıf metinleri, ilkokul akışı). Sınıf başına eşdeğer iki metin (S35a: form A/B). Soru şeması quiz-engine.js ile aynı. akislar: sınıf listesine göre adım ayarları; listede olmayan adım çalışmaz, yazılmayan alan seviye-testi.js’teki varsayılandan gelir; egzersizi o sınıfa uygun olmayan adım (katalog sınıf aralığı) kendiliğinden atlanır. Akışı olmayan sınıflar (5-8) varsayılan 5 adımı kullanır. S34-son (surum 3): adımda ornek (true: egzersizin görsel örneği adım ekranında), alistirma (kaydedilmeyen kısa deneme; alanları olcum’un üstüne yazılır) ve bantli (true: sınıfın egzersiz bandı uygulanır; sonuç bantli listesine yazılır, final başlangıçtaki listeye göre). S35a (surum 4): her sınıfa iki eşdeğer metin, form A ve B (aynı tür, kelime sayısı ±%15, aynı soru tipi ve katman sırası). İlk dönemin başlangıç testi A, finali B formunu kullanır; her yeni dönemde başlangıç formu öncekinin tersidir, final hep başlangıcın diğer formu. Form alanı olmayan metin A sayılır. Final sonunda isteğe bağlı “İlk metnine dön” adımında başlangıç metni yeniden okunur (yalnız hız; final puanlarına girmez).",
   "metinler": [
     {
       "kimlik": "test-kardan-adam",
       "ad": "Kardan Adamın Atkısı",
       "sinif": 2,
       "tur": "hikaye",
+      "form": "A",
       "metin": "Can sabah uyanınca pencereden dışarı baktı. Her yer bembeyazdı. Hemen kalın montunu giydi ve bahçeye koştu.\n\nKız kardeşi Elif de geldi. İkisi birlikte büyük bir kar topu yuvarladı. Sonra küçük bir top yapıp onun üstüne koydular. Gözler için iki taş, burun için bir havuç buldular.\n\nElif, “Kardan adamımız üşüyor,” dedi. Can eve koştu ve eski bir atkı getirdi. Atkıyı kardan adamın boynuna sardılar.\n\nElif güldü: “Şimdi çok mutlu görünüyor!” Akşam iki kardeş pencereden kardan adama el salladı.",
       "sorular": [
         {
@@ -59,10 +60,68 @@
       ]
     },
     {
+      "kimlik": "test-ucurtma",
+      "ad": "Kırmızı Uçurtma",
+      "sinif": 2,
+      "tur": "hikaye",
+      "form": "B",
+      "metin": "Rüzgârlı bir sabahtı. Ece ile dedesi parka gitti. Dedesi kırmızı bir uçurtma getirmişti. Uçurtmanın uzun, renkli bir kuyruğu vardı.\n\nEce ipi tuttu ve koşmaya başladı. Uçurtma biraz yükseldi, sonra yere düştü. Ece çok üzüldü.\n\nDedesi, “Rüzgâra karşı koş ve ipi yavaş yavaş bırak,” dedi. Ece yeniden denedi. Bu kez uçurtma havalandı ve bulutlara doğru yükseldi.\n\nEce sevinçle bağırdı: “Bak dede, uçuyor!” Eve dönerken uçurtmayı dikkatle katladı. Dedesine de teşekkür etti. Yarın yine parka gelmek istiyordu.",
+      "sorular": [
+        {
+          "kimlik": "s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Uçurtmayı parka kim getirdi?",
+          "secenekler": [
+            "Ece",
+            "Dedesi",
+            "Annesi"
+          ],
+          "dogru": 1,
+          "aciklama": "Metinde dedesinin kırmızı bir uçurtma getirdiği yazıyor."
+        },
+        {
+          "kimlik": "s2",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Uçurtma ilk denemede hemen yükseldi ve uçtu.",
+          "dogru": false,
+          "aciklama": "İlk denemede uçurtma biraz yükseldi, sonra yere düştü."
+        },
+        {
+          "kimlik": "s3",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Uçurtma ne renkti?",
+          "secenekler": [
+            "Mavi",
+            "Sarı",
+            "Kırmızı"
+          ],
+          "dogru": 2,
+          "aciklama": "Metinde kırmızı bir uçurtma olduğu yazıyor."
+        },
+        {
+          "kimlik": "s4",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Uçurtma ikinci denemede neden uçtu?",
+          "secenekler": [
+            "Ece dedesinin söylediğini yaptığı için",
+            "Hava karardığı için",
+            "Uçurtma değiştiği için"
+          ],
+          "dogru": 0,
+          "aciklama": "Ece rüzgâra karşı koşup ipi yavaş yavaş bırakınca uçurtma havalandı."
+        }
+      ]
+    },
+    {
       "kimlik": "test-kirpinin-kisi",
       "ad": "Kirpi Kışı Nasıl Geçirir?",
       "sinif": 3,
       "tur": "fen",
+      "form": "A",
       "metin": "Kirpi, sırtı dikenlerle kaplı küçük bir hayvandır. Gündüzleri genellikle saklanır, akşam olunca yiyecek aramaya çıkar. Böcekler, solucanlar ve salyangozlar en sevdiği yiyeceklerdir.\n\nKirpinin dikenleri onu korur. Tehlike sezince kirpi top gibi kıvrılır ve dikenlerini dikleştirir. Böylece onu yakalamak isteyen hayvanlar uzak durur.\n\nSonbahar gelince kirpi bol bol yemek yer. Böylece vücudunda yağ biriktirir. Havalar soğuyunca yapraklardan ve otlardan sıcak bir yuva hazırlar. Bu yuvayı genellikle çalıların altına ya da yaprak yığınlarının arasına kurar. Sonra bu yuvaya girip kış uykusuna yatar.\n\nKış uykusundaki kirpinin kalbi çok yavaş atar, nefesi de yavaşlar. Kirpi aylarca yemek yemez. Sonbaharda biriktirdiği yağ, bu süre boyunca ona enerji verir.\n\nİlkbaharda havalar ısınınca kirpi uyanır. Çok acıktığı için hemen yiyecek aramaya başlar.\n\nBahçede bir kirpi görürsen ona dokunma. Uzaktan izlemek hem senin hem de kirpinin iyiliği içindir.",
       "sorular": [
         {
@@ -115,10 +174,68 @@
       ]
     },
     {
+      "kimlik": "test-kurbaganin-buyumesi",
+      "ad": "Kurbağa Nasıl Büyür?",
+      "sinif": 3,
+      "tur": "fen",
+      "form": "B",
+      "metin": "Kurbağalar hayatlarına suda başlar. İlkbaharda anne kurbağa, gölün kıyısındaki sulara çok sayıda küçük yumurta bırakır. Yumurtalar jöle gibi yumuşak bir kılıfın içindedir.\n\nBirkaç gün sonra yumurtalardan iribaşlar çıkar. İribaşın uzun bir kuyruğu vardır ama bacakları yoktur. Balıklar gibi suda yüzer ve solungaçlarıyla nefes alır. Sudaki minik bitkilerle beslenir. İribaşlar çok küçük olduğu için suyun içinde kolayca saklanır.\n\nZamanla iribaşın önce arka bacakları, sonra ön bacakları çıkar. Kuyruğu ise yavaş yavaş kısalır. Bu sırada akciğerleri de gelişir.\n\nBirkaç hafta sonra küçük kurbağa sudan karaya çıkabilir. Artık akciğerleriyle nefes alır ve böcek yakalar. Uzun ve yapışkan dili, böcekleri yakalamasına yardım eder. Kurbağa artık hem suda hem karada yaşayabilir.\n\nKurbağalar temiz sularda yaşamayı sever. Kirli sular kurbağalara ve yumurtalarına zarar verir.\n\nBir gölde iribaş görürsen onları yerinde bırak. Uzaktan izlemek hem senin hem de onların iyiliği içindir.",
+      "sorular": [
+        {
+          "kimlik": "s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "İribaş suda nasıl nefes alır?",
+          "secenekler": [
+            "Akciğerleriyle",
+            "Solungaçlarıyla",
+            "Burnuyla"
+          ],
+          "dogru": 1,
+          "aciklama": "Metinde iribaşın balıklar gibi solungaçlarıyla nefes aldığı yazıyor."
+        },
+        {
+          "kimlik": "s2",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "İribaş yumurtadan bacaklarıyla birlikte çıkar.",
+          "dogru": false,
+          "aciklama": "İribaşın uzun bir kuyruğu vardır ama bacakları yoktur; bacaklar zamanla çıkar."
+        },
+        {
+          "kimlik": "s3",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Küçük kurbağa neden karaya çıkabilir hâle gelir?",
+          "secenekler": [
+            "Akciğerleri geliştiği için",
+            "Kuyruğu uzadığı için",
+            "Gölün suyu bittiği için"
+          ],
+          "dogru": 0,
+          "aciklama": "Akciğerleri gelişen kurbağa, karada akciğerleriyle nefes alabilir."
+        },
+        {
+          "kimlik": "s4",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Kirli bir gölde neden iribaş görülmeyebilir?",
+          "secenekler": [
+            "İribaşlar geceleri uyuduğu için",
+            "Göl çok derin olduğu için",
+            "Kirli su yumurtalara ve kurbağalara zarar verdiği için"
+          ],
+          "dogru": 2,
+          "aciklama": "Metne göre kirli sular kurbağalara ve yumurtalarına zarar verir."
+        }
+      ]
+    },
+    {
       "kimlik": "test-kursun-kalem",
       "ad": "Kurşun Kalemin İçinde Ne Var?",
       "sinif": 4,
       "tur": "bilgilendirici",
+      "form": "A",
       "metin": "Her gün elimize aldığımız kurşun kalemin içinde aslında kurşun yoktur. Kalemin yazan kısmı, grafit adlı yumuşak ve gri bir maddeyle kilden yapılır. Anlatılanlara göre grafit ilk bulunduğunda insanlar onu kurşuna benzetmiş. Kalemin adı da bu yüzden kurşun kalem olarak kalmış.\n\nKalem fabrikasında önce grafit ve kil toz hâline getirilir. Bu tozlar suyla karıştırılarak bir hamur yapılır. Hamur ince çubuklar hâlinde sıkılır ve çok sıcak fırınlarda pişirilir. Pişen çubuklar sertleşir ve yazmaya hazır olur.\n\nKarışımdaki kil miktarı, kalemin ne kadar sert olacağını belirler. Kil arttıkça uç sertleşir ve daha açık renkli bir çizgi bırakır. Grafit arttıkça uç yumuşar, çizgi koyulaşır. Kalemlerin üzerindeki harf ve rakamlar bu farkı gösterir. Resim yapan pek çok kişi, gölgeleri çizmek için yumuşak uçlu kalemleri seçer.\n\nKalemin tahta gövdesi iki parçadan oluşur. Önce tahtanın üzerine ince oluklar açılır. Grafit çubuklar bu oluklara yerleştirilir, üstüne ikinci tahta yapıştırılır. Ardından tahta kesilir, boyanır ve tek tek kalemler elde edilir.\n\nBazı kalemlerin arkasında bir de silgi bulunur. Silgi, ince bir metal halkayla kaleme tutturulur. Kurşun kalemle yazılan bir yanlışı bu silgiyle kolayca düzeltebiliriz.\n\nBir dahaki sefere kalemini açarken, onun ne kadar uzun bir yoldan geçtiğini hatırlayabilirsin.",
       "sorular": [
         {
@@ -171,10 +288,68 @@
       ]
     },
     {
+      "kimlik": "test-kagit-yolculugu",
+      "ad": "Kâğıt Nasıl Yapılır?",
+      "sinif": 4,
+      "tur": "bilgilendirici",
+      "form": "B",
+      "metin": "Her gün elimize aldığımız kâğıdın uzun bir hikâyesi vardır. Defterimizin, kitabımızın ve gazetenin sayfaları kâğıttan yapılır. Peki kâğıt neyden yapılır? Kâğıdın büyük bölümü ağaçlardan elde edilen liflerden üretilir. Lif, ipliğe benzeyen çok ince bir parçadır.\n\nKâğıt fabrikasında önce ağaç gövdeleri kabuklarından ayrılır ve küçük yongalara bölünür. Yongalar suyla birlikte kaynatılır. Böylece lifler birbirinden ayrılır ve hamura benzeyen yumuşak bir karışım oluşur. Bu karışıma kâğıt hamuru denir.\n\nBu karışım ince bir tabaka hâlinde, delikli ve geniş bir bandın üzerine yayılır. Suyun büyük kısmı deliklerden akıp gider. Kalan tabaka, büyük ve sıcak silindirlerin arasından geçirilerek kurutulur. Silindirler kâğıdı hem kurutur hem de düzleştirir. Sonunda uzun bir kâğıt şeridi elde edilir. Bu şerit kesilerek tabaka tabaka kâğıt yapılır.\n\nKâğıdın kalınlığı, karışımın ne kadar kalın yayıldığına bağlıdır. Karışım kalın yayılırsa karton gibi sert bir kâğıt olur. İnce yayılırsa hafif ve ince bir kâğıt elde edilir. Defter sayfaları ince, kutular ise kalın kâğıttan yapılır.\n\nKullanılmış kâğıtlar da yeniden kâğıda dönüşebilir. Toplanan kâğıtlar suyla karıştırılıp yeniden hamur hâline getirilir. Böylece daha az ağaç kesilir. Bir kâğıt birkaç kez yeniden kullanılabilir.\n\nBir dahaki sefere defterinin sayfasını çevirirken, o sayfanın bir ağaçtan sana kadar uzanan yolculuğunu düşünebilirsin.",
+      "sorular": [
+        {
+          "kimlik": "s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Kâğıdın büyük bölümü neyden üretilir?",
+          "secenekler": [
+            "Taşlardan",
+            "Ağaç liflerinden",
+            "Plastikten"
+          ],
+          "dogru": 1,
+          "aciklama": "Metinde kâğıdın büyük bölümünün ağaçlardan elde edilen liflerden üretildiği yazıyor."
+        },
+        {
+          "kimlik": "s2",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Ağaç yongaları suyla birlikte kaynatılır.",
+          "dogru": true,
+          "aciklama": "Yongalar suyla kaynatılır; böylece lifler birbirinden ayrılır."
+        },
+        {
+          "kimlik": "s3",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Karton gibi sert bir kâğıt yapmak için karışım nasıl yayılmalıdır?",
+          "secenekler": [
+            "Kalın yayılmalıdır",
+            "İnce yayılmalıdır",
+            "Hiç kurutulmamalıdır"
+          ],
+          "dogru": 0,
+          "aciklama": "Karışım kalın yayılırsa karton gibi sert bir kâğıt olur."
+        },
+        {
+          "kimlik": "s4",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu metin en çok neyi anlatıyor?",
+          "secenekler": [
+            "Kitapların nasıl satıldığını",
+            "Ağaçların nasıl büyüdüğünü",
+            "Kâğıdın neyden ve nasıl yapıldığını"
+          ],
+          "dogru": 2,
+          "aciklama": "Metin, kâğıdın hangi maddeden ve hangi aşamalardan geçerek yapıldığını anlatıyor."
+        }
+      ]
+    },
+    {
       "kimlik": "test-balkondaki-fide",
       "ad": "Balkondaki Fide",
       "sinif": 5,
       "tur": "hikaye",
+      "form": "A",
       "metin": "Elif, bahar gelince balkona küçük bir saksı koydu. İçine toprak doldurdu ve dedesinin verdiği domates tohumlarını ekti. Her sabah okula gitmeden önce saksıya biraz su veriyordu.\n\nİlk hafta hiçbir şey olmadı. Elif sabırsızlandı ve tohumların bozuk olduğunu düşündü. Dedesi gülümseyerek, “Toprağın altında iş bitmez, yalnızca görünmez,” dedi.\n\nDokuzuncu günün sabahı toprağın üstünde iki minik yeşil yaprak belirmişti. Elif sevinçle annesini çağırdı. O günden sonra fidenin boyunu her hafta bir deftere yazmaya başladı. Bir ay sonra fide, Elif’in bir karışını geçmişti.\n\nYaz ortasında ilk sarı çiçekler açtı. Komşular balkonun önünden geçerken durup bitkiye bakıyordu. Ağustosun sonunda Elif, kızarmış üç domatesi topladı. Birini dedesine götürdü ve “Haklıymışsın, toprak boş durmuyormuş,” dedi. Dedesi domatesi eline alıp uzun uzun kokladı.",
       "sorular": [
         {
@@ -230,10 +405,71 @@
       ]
     },
     {
+      "kimlik": "test-kus-yemligi",
+      "ad": "Kuş Yemliği",
+      "sinif": 5,
+      "tur": "hikaye",
+      "form": "B",
+      "metin": "Emre, kış tatilinde babasıyla birlikte tahtadan bir kuş yemliği yaptı. Yemliği bahçedeki erik ağacının dalına astı ve içine buğday ile ayçiçeği çekirdeği koydu. Yemliğin içine yağmur girmesin diye üstüne küçük bir çatı da yaptılar.\n\nİlk günlerde hiçbir kuş gelmedi. Emre her sabah pencereden baktı ama yemlik hep doluydu. Babası, “Kuşlar önce yeni bir şeyin güvenli olup olmadığını anlamak ister,” dedi.\n\nBir hafta sonra yemliğin kenarına küçük bir serçe kondu. Ertesi gün iki serçe daha geldi. Serçeler yemi gagalarıyla tek tek alıyordu. Emre, yemliğe gelen kuşları bir deftere yazmaya başladı. Ay sonunda defterde serçelerin yanında bir de saka kuşu vardı.\n\nBahar geldiğinde kuşlar erik ağacının dallarına yuva yaptı. Emre babasına dönüp “Beklemeseydik bunların hiçbirini göremeyecektik,” dedi. Babası gülümsedi ve yemliğe yeni buğday koydu.",
+      "sorular": [
+        {
+          "kimlik": "s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Emre kuş yemliğini kiminle birlikte yaptı?",
+          "secenekler": [
+            "Dedesiyle",
+            "Annesiyle",
+            "Babasıyla",
+            "Arkadaşıyla"
+          ],
+          "dogru": 2,
+          "aciklama": "Metinde Emre’nin yemliği babasıyla birlikte yaptığı yazıyor."
+        },
+        {
+          "kimlik": "s2",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Yemliğe ilk kuş, yemlik asıldıktan bir gün sonra geldi.",
+          "dogru": false,
+          "aciklama": "İlk günlerde hiçbir kuş gelmedi; ilk serçe bir hafta sonra kondu."
+        },
+        {
+          "kimlik": "s3",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Babanın “Kuşlar önce yeni bir şeyin güvenli olup olmadığını anlamak ister.” sözü neyi açıklıyor?",
+          "secenekler": [
+            "Yemliğin bozuk olduğunu",
+            "Kuşların yemliğe hemen gelmemesinin nedenini",
+            "Buğdayın kuşlara uygun olmadığını",
+            "Yemliğin yanlış yere asıldığını"
+          ],
+          "dogru": 1,
+          "aciklama": "Baba, kuşların yeni yemliğe neden hemen gelmediğini açıklıyor; bir hafta sonra kuşlar gelmeye başlıyor."
+        },
+        {
+          "kimlik": "s4",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Bu metinden çıkarılabilecek en uygun düşünce hangisi?",
+          "secenekler": [
+            "Sabırla beklemek güzel sonuçlar getirebilir.",
+            "Kuşlar yalnızca yazın yem yer.",
+            "Yemlik yapmak çok zordur.",
+            "Serçeler en çok erik ağacını sever."
+          ],
+          "dogru": 0,
+          "aciklama": "Emre ve babası sabırla beklediler; sonunda kuşlar geldi ve bahçeye yuva yaptı."
+        }
+      ]
+    },
+    {
       "kimlik": "test-arilarin-dansi",
       "ad": "Arıların Dansı",
       "sinif": 6,
       "tur": "fen",
+      "form": "A",
       "metin": "Bal arıları yiyecek bulduklarında bunu kovandaki arkadaşlarına anlatmanın ilginç bir yolunu kullanır: dans etmek. Çiçeklerle dolu bir alan keşfeden işçi arı kovana döner ve diğer arıların arasında özel hareketler yapar.\n\nYiyecek kovana yakınsa arı küçük daireler çizerek döner. Bu dans, yakınlarda yiyecek olduğunu bildirir. Yiyecek uzaktaysa arı sekiz rakamına benzeyen bir yol izler. Bu yolun ortasındaki düz kısımda gövdesini hızla sağa sola sallar. Sallanarak yürüdüğü bu bölüm ne kadar uzun sürerse yiyecek o kadar uzaktadır.\n\nDansın yönü de önemlidir. Arı, düz kısımda yürürken güneşin konumunu kendine işaret noktası olarak kullanır. Böylece diğer arılar hangi yöne uçmaları gerektiğini anlar. Kovanın içi karanlık olduğu için arkadaşları dansı çoğunlukla dokunarak ve titreşimleri hissederek izler.\n\nBilim insanları bu davranışı uzun yıllar boyunca gözlemleyerek çözmüştür. Arıların dansı, hayvanların da karmaşık bilgileri birbirine aktarabildiğini gösteren güzel bir örnektir.",
       "sorular": [
         {
@@ -289,10 +525,71 @@
       ]
     },
     {
+      "kimlik": "test-yarasalarin-yolu",
+      "ad": "Yarasalar Karanlıkta Nasıl Yol Bulur?",
+      "sinif": 6,
+      "tur": "fen",
+      "form": "B",
+      "metin": "Yarasalar çoğunlukla geceleri uçar ve böcek avlar. Karanlıkta görmek zor olduğu için pek çok yarasa yolunu bulmak için sesleri kullanır. Gündüzleri ise ağaç kovuklarında ya da mağaralarda dinlenirler.\n\nUçan bir yarasa ağzından ya da burnundan çok tiz sesler çıkarır. Bu seslerin çoğunu insan kulağı duyamaz. Sesler bir ağaca, duvara ya da uçan bir böceğe çarpınca geri döner. Yarasa, geri gelen bu yankıyı büyük kulaklarıyla yakalar. Yankı ne kadar çabuk dönerse engel o kadar yakındadır.\n\nYarasa bir böceğe yaklaştıkça seslerini daha sık çıkarır. Böylece avının yerini daha kesin olarak belirler. Bu yönteme yankıyla yer bulma denir. Yarasalar bu sayede karanlık mağaralarda bile duvarlara ve birbirine çarpmadan uçabilir.\n\nBilim insanları bu davranışı uzun yıllar boyunca inceledi. Benzer bir fikir, gemilerin deniz altındaki engelleri bulmasına yardım eden cihazlarda da kullanılır. Yarasaların bu yeteneği, doğadaki canlıların ne kadar şaşırtıcı özellikleri olduğunu gösterir.",
+      "sorular": [
+        {
+          "kimlik": "s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Yarasa geri dönen yankıyı neyle yakalar?",
+          "secenekler": [
+            "Gözleriyle",
+            "Kulaklarıyla",
+            "Kanatlarıyla",
+            "Ayaklarıyla"
+          ],
+          "dogru": 1,
+          "aciklama": "Metinde yarasanın yankıyı büyük kulaklarıyla yakaladığı yazıyor."
+        },
+        {
+          "kimlik": "s2",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Yarasaların çıkardığı seslerin çoğunu insan kulağı duyamaz.",
+          "dogru": true,
+          "aciklama": "Metinde bu seslerin çoğunu insan kulağının duyamadığı yazıyor."
+        },
+        {
+          "kimlik": "s3",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Bir yarasanın çıkardığı sesin yankısı çok çabuk geri dönüyorsa yarasa ne anlar?",
+          "secenekler": [
+            "Önünde yakın bir engel vardır.",
+            "Mağaradan çıkmıştır.",
+            "Hava ısınmıştır.",
+            "Yakında hiç böcek yoktur."
+          ],
+          "dogru": 0,
+          "aciklama": "Metne göre yankı ne kadar çabuk dönerse engel o kadar yakındadır."
+        },
+        {
+          "kimlik": "s4",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Metnin ana fikri hangisidir?",
+          "secenekler": [
+            "Yarasalar karanlıkta yollarını yankıdan yararlanarak bulur.",
+            "Yarasalar yalnızca mağaralarda yaşar.",
+            "Böcekler geceleri uçmaz.",
+            "Gemiler yarasalardan daha hızlıdır."
+          ],
+          "dogru": 0,
+          "aciklama": "Metnin tamamı, yarasaların sesleri ve yankıları kullanarak karanlıkta nasıl yol bulduğunu anlatıyor."
+        }
+      ]
+    },
+    {
       "kimlik": "test-duran-saat",
       "ad": "Duran Saat",
       "sinif": 7,
       "tur": "hikaye",
+      "form": "A",
       "metin": "Kasabanın meydanındaki saat kulesi yıllardır on ikiyi on geçeyi gösteriyordu. Kimse saatin ne zaman durduğunu tam olarak hatırlamıyordu. İnsanlar ona bakmayı bırakmış, telefonlarındaki saate güvenir olmuşlardı.\n\nYedinci sınıfa giden Kerem, okul gazetesi için kuleyle ilgili bir haber hazırlamaya karar verdi. Önce kasabanın en yaşlı saatçisi Nuri Usta’yı ziyaret etti. Nuri Usta, saatin büyük dişlilerinden birinin kırıldığını, o parçanın da artık üretilmediğini anlattı. “Parça bulunamazsa kopyası yapılabilir,” dedi, “ama bu, tek bir kişinin altından kalkabileceği bir iş değil.”\n\nKerem haberinin sonuna bir soru ekledi: “Meydanın saati yeniden çalışsın mı?” Gazete çıktıktan sonra okulun teknoloji öğretmeni, öğrencileriyle birlikte dişlinin çizimini hazırlamaya başladı. Belediye malzeme desteği verdi, Nuri Usta da parçanın yerine takılmasını üstlendi.\n\nSonbaharda bir sabah kasaba halkı alışık olmadığı bir ses duydu. Kuledeki saat, yıllar sonra ilk kez çalmıştı. Meydandaki insanlar bir an durup başlarını kaldırdı.",
       "sorular": [
         {
@@ -348,10 +645,71 @@
       ]
     },
     {
+      "kimlik": "test-bos-arsa",
+      "ad": "Boş Arsa",
+      "sinif": 7,
+      "tur": "hikaye",
+      "form": "B",
+      "metin": "Mahallenin ortasındaki boş arsa yıllardır otlarla kaplıydı. Çocuklar oradan geçerken adımlarını hızlandırıyor, kimse arsayla ilgilenmiyordu.\n\nYedinci sınıfa giden Zehra, arsada bir çiçek bahçesi kurma fikrini fen öğretmenine anlattı. Öğretmeni fikri beğendi ama önce arsanın kime ait olduğunu öğrenmeleri gerektiğini söyledi. Zehra ertesi gün okuldan çıkınca muhtarlığa gitti ve arsanın belediyeye ait olduğunu öğrendi. Muhtar, “Belediye izin verebilir,” dedi, “ama bahçeye düzenli bakacak insanlar gerekir.”\n\nZehra okulun panosuna bir duyuru astı: “Mahallemize bir bahçe ister misiniz?” Birkaç gün içinde öğrenciler, veliler ve emekli bir bahçıvan gönüllü oldu. Bazıları evlerinden kürek ve kova getirdi. Hafta sonları hep birlikte arsadaki otları temizlediler. Belediye toprak ve fide gönderdi, bahçıvan da sulama düzenini kurdu.\n\nİlkbaharın sonunda arsada rengârenk çiçekler açtı. Artık oradan geçen çocuklar adımlarını yavaşlatıyor, bahçenin önünde bir süre duruyordu. Bahçenin girişine, gönüllülerin adlarının yazılı olduğu küçük bir tabela kondu.",
+      "sorular": [
+        {
+          "kimlik": "s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Boş arsa kime aitti?",
+          "secenekler": [
+            "Okula",
+            "Belediyeye",
+            "Muhtara",
+            "Bahçıvana"
+          ],
+          "dogru": 1,
+          "aciklama": "Zehra muhtarlığa gidip arsanın belediyeye ait olduğunu öğrendi."
+        },
+        {
+          "kimlik": "s2",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Bahçenin sulama düzenini Zehra tek başına kurdu.",
+          "dogru": false,
+          "aciklama": "Sulama düzenini emekli bahçıvan kurdu; bahçe birçok gönüllünün katkısıyla yapıldı."
+        },
+        {
+          "kimlik": "s3",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Zehra’nın panoya astığı duyuru neden önemliydi?",
+          "secenekler": [
+            "Mahalledeki insanları bahçe için birlikte çalışmaya çağırdı.",
+            "Okulun panosunu süsledi.",
+            "Belediyenin izin vermesini engelledi.",
+            "Arsanın satılmasını sağladı."
+          ],
+          "dogru": 0,
+          "aciklama": "Duyurudan sonra öğrenciler, veliler ve bir bahçıvan gönüllü oldu; duyuru insanları harekete geçirdi."
+        },
+        {
+          "kimlik": "s4",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Metindeki olaylara göre hangisi söylenebilir?",
+          "secenekler": [
+            "Bir fikir, birçok kişinin katkısıyla gerçeğe dönüşebilir.",
+            "Boş arsalara hiç dokunulmamalıdır.",
+            "Bahçıvanlık artık kimsenin yapmadığı bir iştir.",
+            "Okul panolarına yalnızca öğretmenler duyuru asabilir."
+          ],
+          "dogru": 0,
+          "aciklama": "Zehra’nın fikri, öğretmenin, muhtarın, belediyenin, gönüllülerin ve bahçıvanın katkısıyla gerçekleşti."
+        }
+      ]
+    },
+    {
       "kimlik": "test-isi-adalari",
       "ad": "Şehirlerdeki Isı Adaları",
       "sinif": 8,
       "tur": "bilgilendirici",
+      "form": "A",
       "metin": "Yaz günlerinde şehir merkezinde yürüyen biri, havanın şehrin dışındaki köylere göre daha sıcak olduğunu fark edebilir. Bilim insanları bu duruma “kentsel ısı adası” adını verir.\n\nBu farkın birkaç nedeni vardır. Asfalt ve beton gibi koyu renkli yüzeyler gün boyunca güneş ışığını emer ve depoladıkları ısıyı akşam saatlerinde yavaş yavaş havaya verir. Bu yüzden şehirler özellikle geceleri daha geç serinler. Ayrıca şehirlerde ağaç ve toprak alan azdır. Bitkiler yapraklarından su buharı salarak çevrelerini serinletir; bitki azaldıkça bu doğal serinleme de azalır. Araçlardan, klimalardan ve fabrikalardan çıkan ısı da sıcaklığın artmasına katkıda bulunur.\n\nIsı adası etkisini azaltmak için çeşitli çözümler denenmektedir. Sokaklara ağaç dikmek, çatıları açık renge boyamak ve binaların üzerinde bitkili çatılar oluşturmak bunlardan bazılarıdır. Açık renkli yüzeyler güneş ışığının bir kısmını geri yansıtır. Bu önlemler hem sıcak günlerde insanların daha rahat etmesine hem de serinletme için harcanan enerjinin azalmasına yardımcı olabilir.",
       "sorular": [
         {
@@ -403,6 +761,66 @@
           ],
           "dogru": 0,
           "aciklama": "Metin önce ısı adasını tanımlıyor, sonra nedenlerini ve azaltma yollarını açıklıyor."
+        }
+      ]
+    },
+    {
+      "kimlik": "test-isik-kirliligi",
+      "ad": "Gece Gökyüzündeki Işık Kirliliği",
+      "sinif": 8,
+      "tur": "bilgilendirici",
+      "form": "B",
+      "metin": "Şehirde yaşayan biri geceleri gökyüzüne baktığında yalnızca birkaç yıldız görebilir. Oysa şehirden uzak bir köyde aynı gökyüzünde çok sayıda yıldız seçilebilir. Bu farkın en önemli nedeni “ışık kirliliği” olarak adlandırılır.\n\nIşık kirliliği, gereğinden fazla ya da yanlış yöne yönelmiş yapay ışığın gece gökyüzünü aydınlatmasıdır. Sokak lambalarının ışığı yalnızca yere değil, yukarıya ve yanlara da dağılır. Bina ışıkları, parlak reklam panoları ve gece boyunca açık bırakılan lambalar da buna katkıda bulunur. Bu ışık havadaki toz ve nem taneciklerine çarparak saçılır; böylece gökyüzü karanlık yerine soluk bir parıltıyla kaplanır. Işık kirliliği yalnızca yıldızları gizlemez, gece göç eden kuşlar gibi bazı canlıların yönünü şaşırmasına da yol açabilir.\n\nBu sorunu azaltmak için çeşitli önlemler alınabilir. Işığı yalnızca aşağıya yönlendiren lamba başlıkları kullanmak, gerekmeyen ışıkları kapatmak ve daha az parlak lambalar seçmek bunlardan bazılarıdır. Bu önlemler gece gökyüzünü korumaya ve enerji tasarrufuna yardımcı olabilir.",
+      "sorular": [
+        {
+          "kimlik": "s1",
+          "tip": "coktan-secmeli",
+          "katman": "bilgi",
+          "soru": "Metne göre yapay ışık havadaki hangi taneciklere çarparak saçılır?",
+          "secenekler": [
+            "Tuz ve kum",
+            "Duman ve buhar",
+            "Toz ve nem",
+            "Polen ve tohum"
+          ],
+          "dogru": 2,
+          "aciklama": "Metinde ışığın havadaki toz ve nem taneciklerine çarparak saçıldığı yazıyor."
+        },
+        {
+          "kimlik": "s2",
+          "tip": "dogru-yanlis",
+          "katman": "bilgi",
+          "soru": "Işık kirliliği bazı kuşların yönünü şaşırmasına yol açabilir.",
+          "dogru": true,
+          "aciklama": "Bu bilgi metnin ikinci paragrafının sonunda veriliyor."
+        },
+        {
+          "kimlik": "s3",
+          "tip": "coktan-secmeli",
+          "katman": "cikarim",
+          "soru": "Bir sokaktaki lambalara ışığı yalnızca aşağıya yönlendiren başlıklar takılırsa ne olması beklenir?",
+          "secenekler": [
+            "O sokaktan gökyüzü daha karanlık görünür, daha çok yıldız seçilebilir.",
+            "Sokak gündüzleri daha sıcak olur.",
+            "Gökyüzündeki yıldızların sayısı artar.",
+            "Lambalar daha çok enerji harcar."
+          ],
+          "dogru": 0,
+          "aciklama": "Işık yukarıya dağılmadığı için gökyüzü daha az aydınlanır; yıldızlar daha kolay görülür. Yıldızların sayısı değişmez, görünürlüğü artar."
+        },
+        {
+          "kimlik": "s4",
+          "tip": "coktan-secmeli",
+          "katman": "yorum",
+          "soru": "Yazarın bu metni yazma amacı en çok hangisidir?",
+          "secenekler": [
+            "Bir sorunu nedenleri ve çözüm yollarıyla açıklamak",
+            "Köyde yaşamanın şehirden daha iyi olduğunu kanıtlamak",
+            "Okurları yeni lamba almaya yönlendirmek",
+            "Bir gece yürüyüşünü anlatmak"
+          ],
+          "dogru": 0,
+          "aciklama": "Metin önce ışık kirliliğini tanımlıyor, sonra nedenlerini ve azaltma yollarını açıklıyor."
         }
       ]
     }

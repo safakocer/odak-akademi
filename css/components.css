@@ -1,4 +1,4 @@
-/* Bileşenler: buton, kart, görev kartı, rozet, madalya, ilerleme, sekme, modal, form, bildirim, toast, avatar; S25: hata ekranı, hata bandı, belge sayfası; S31: egzersizler sayfasının açılır alan kartları */
+/* Bileşenler: buton, kart, görev kartı (S35c: gerçek içerik), rozet, madalya, ilerleme, sekme, modal, form, bildirim, toast, avatar; S25: hata ekranı, hata bandı, belge sayfası; S31: egzersizler sayfasının açılır alan kartları */
 
 /* ---------- Buton ---------- */
 .btn {
@@ -126,15 +126,15 @@ a.kart:hover { border-color: var(--renk-birincil); box-shadow: var(--golge-2); }
   position: relative;
   overflow: hidden;
   display: grid;
-  gap: var(--b-4);
-  padding: var(--b-5);
+  gap: var(--b-3);
+  padding: var(--b-4);
   border-radius: var(--kose-xl);
   background: var(--gorev-zemin);
   color: var(--gorev-metin);
   isolation: isolate;
   --renk-odak: #ffffff; /* odak halkası koyu yeşil zeminde görünsün */
-  --isik-x: calc(100% - 3.75rem);
-  --isik-y: 2.65rem;
+  --isik-x: calc(100% - 2.9rem); /* S35c-d: 60 px maskotun lambası */
+  --isik-y: 1.9rem;
 }
 /* Işık huzmesi: maskotun lambasından sola-aşağı yayılan yumuşak ışık (tek açılış animasyonu) */
 .gorev-karti::before {
@@ -154,29 +154,30 @@ a.kart:hover { border-color: var(--renk-birincil); box-shadow: var(--golge-2); }
 }
 .gorev-karti h2 { margin-bottom: 0; color: inherit; }
 .gorev-karti p { margin-bottom: 0; }
-.gorev-karti__ust { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--b-3); }
-.gorev-karti__maskot { width: 4.5rem; height: 4.5rem; flex: none; }
+.gorev-karti__ust { display: flex; align-items: center; justify-content: space-between; gap: var(--b-3); }
+.gorev-karti__maskot { width: 3.75rem; height: 3.75rem; flex: none; } /* S35c-d: 60 px (geniş ekranda 72 px) */
 .gorev-karti__alt { display: grid; gap: var(--b-3); }
 
 .gorev-listesi { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--b-2); }
 .gorev-listesi li {
   display: flex;
   align-items: center;
-  gap: var(--b-3);
-  padding: var(--b-2) var(--b-3);
+  gap: var(--b-2);
+  min-height: var(--dokunma-min);
+  padding: var(--b-2); /* S35c-d6: dar ekranda ad ve neden sıkışmasın */
   border-radius: var(--kose-m);
   background: var(--gorev-ic);
 }
 .gorev-listesi__durum {
   display: grid;
   place-items: center;
-  width: 2rem;
-  height: 2rem;
+  width: 1.75rem;
+  height: 1.75rem;
   flex: none;
   border: 2px solid currentColor;
   border-radius: 50%;
   font-weight: 800;
-  font-size: var(--fs-s);
+  font-size: var(--fs-xs);
 }
 .gorev-listesi li[data-durum="tamam"] .gorev-listesi__durum {
   background: var(--renk-gunes);
@@ -186,10 +187,62 @@ a.kart:hover { border-color: var(--renk-birincil); box-shadow: var(--golge-2); }
 .gorev-listesi__metin { flex: 1; min-width: 0; line-height: 1.35; }
 .gorev-listesi__sure { flex: none; font-size: var(--fs-xs); font-weight: 700; white-space: nowrap; }
 
+/* S35c: Bugünün Görevi’nin gerçek içeriği. S35c-d: kompakt düzen (tek satır başlık ve hedef, ince satırlar). S35c-d2: tek sütun; hedef listenin üstünde; son satırda solda kurs düğmesi, sağında seviye ve bağlantılar */
+.gorev-karti__maskot { display: block; }
+.gorev-karti__baslik-kap { display: grid; gap: var(--b-1); min-width: 0; }
+.gorev-karti__baslik-satir { display: flex; flex-wrap: wrap; align-items: center; gap: var(--b-1) var(--b-2); }
+.gorev-karti__baslik-satir h2 { font-size: var(--fs-l); line-height: 1.2; }
+.gorev-karti__yonerge { font-weight: 700; }
+.gorev-karti__hedef { display: grid; gap: var(--b-1); }
+.gorev-karti__ana { display: grid; gap: var(--b-2); min-width: 0; }
+.gorev-karti__son { display: flex; flex-wrap: wrap; align-items: center; gap: var(--b-2) var(--b-3); }
+.gorev-karti__son > .btn { flex: none; }
+/* S35c-d4: yerler sabit: düğme (varsa) ve seviye solda; bağlantılar hep sağda (margin auto), “İlerlemem” en sağda. Kayan öğe yok, ortalama yok */
+.gorev-karti__son .gorev-karti__seviye { flex: 0 1 auto; min-width: 0; }
+/* S35c-d5: seviye rozeti ve iki satırlık yazı; dar ekranda seviye üstte tam satır, altında düğme solda, bağlantılar sağda */
+.gorev-karti__seviye { display: flex; align-items: center; gap: var(--b-2); }
+.gorev-karti__seviye-yazi { display: grid; margin: 0; font-size: var(--fs-s); line-height: 1.3; }
+.gorev-karti__seviye-yazi span { font-size: var(--fs-xs); }
+.seviye-rozeti {
+  --deger: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border-radius: 50%;
+  background: conic-gradient(var(--renk-gunes) calc(var(--deger) * 1%), rgb(255 255 255 / 0.28) 0);
+}
+.seviye-rozeti::before { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--gorev-zemin); box-shadow: inset 0 0 0 2px var(--renk-gunes); }
+.seviye-rozeti__no { position: relative; font-weight: 800; font-size: var(--fs-m); line-height: 1; color: var(--gorev-metin); }
+@media (max-width: 559px) {
+  .gorev-karti__son .gorev-karti__seviye { order: -1; flex-basis: 100%; }
+}
+.gorev-karti__son .gorev-karti__baglantilar { margin-inline-start: auto; justify-content: flex-end; }
+.gorev-karti__hedef-satir { display: flex; align-items: center; gap: var(--b-2); font-size: var(--fs-s); font-weight: 700; }
+.gorev-karti__hedef-satir .ilerleme { flex: 1; min-width: 3rem; }
+.gorev-karti__dk { white-space: nowrap; }
+.gorev-karti__not, .gorev-karti__toplam { margin: 0; font-size: var(--fs-s); line-height: 1.4; }
+.gorev-karti__not[data-tur="uyari"] { font-weight: 700; }
+.gorev-karti__toplam { font-weight: 700; }
+/* S35c-d6: ad üstte, neden altında sade küçük yazı (etiket çerçevesi kalktı: dar ekranda iç içe görünüyordu) */
+.gorev-listesi__metin { display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+.gorev-listesi__ad { font-weight: 700; line-height: 1.3; overflow-wrap: anywhere; }
+.gorev-listesi__neden { font-size: var(--fs-xs); font-weight: 400; line-height: 1.35; }
+.gorev-listesi__baglanti { min-height: var(--dokunma-min); color: inherit; text-decoration: none; border-radius: var(--kose-s, 0.375rem); }
+.gorev-listesi__baglanti .gorev-listesi__ad { text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1.5px; }
+.gorev-listesi__baglanti:hover .gorev-listesi__ad { text-decoration-thickness: 2.5px; }
+.gorev-listesi li[data-durum="tamam"] .gorev-listesi__ad { text-decoration-style: dotted; }
+.gorev-listesi li[data-durum="atlandi"] .gorev-listesi__durum { border-style: dashed; }
+.gorev-karti__baglantilar { display: flex; flex-wrap: wrap; gap: var(--b-2); }
+/* Koyu kart üstünde ikincil bağlantı: kartın iç zemini ve yazı rengi (kontrast kartın kendisiyle aynı) */
+.btn.gorev-karti__ikincil { background: var(--gorev-ic); color: var(--gorev-metin); border-color: currentColor; }
+.btn.gorev-karti__ikincil:hover { background: rgb(255 255 255 / 0.24); }
+
 @media (min-width: 720px) {
-  .gorev-karti { padding: var(--b-6); --isik-x: calc(100% - 5.5rem); --isik-y: 3.8rem; }
-  .gorev-karti__maskot { width: 7rem; height: 7rem; }
-  .gorev-karti__alt { grid-template-columns: 1fr auto; align-items: end; }
+  .gorev-karti { padding: var(--b-5); --isik-x: calc(100% - 3.5rem); --isik-y: 2.3rem; }
+  .gorev-karti__maskot { width: 4.5rem; height: 4.5rem; }
 }
 
 /* ---------- Mini istatistik ---------- */

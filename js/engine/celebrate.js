@@ -1,5 +1,6 @@
 // Kutlamalar: kutla() profesyonel görünümün kısa konfetisi (değişmedi); S28: çocuk görünümünde kutlama ekranı (Fener + başlık + konfeti ve yıldız patlaması, dokununca ya da tuşla kapanır).
 // S30: ekran 4 sn görünür; hareket (konfeti, ışınlar, zıplama) ilk 1,5 sn’de biter, sonra kart durgun kalır ve alttaki çubuk kalan süreyi gösterir. Sekme arka plandayken süre durur.
+// S35b: kurs bitişi en öncelikli kutlama türü (tur 'kurs'; çocukta daha bol konfeti ve çift kenarlı kart, aynı 4 sn ve aynı kapanma kuralları).
 // "Hareketi azalt" açıkken (ayar ya da sistem tercihi) hiçbiri çizilmez. Kutlama katmanı ekran okuyucuya gizlidir: duyurular çerçevede, metinler değişmedi.
 import { hareketAzaltilmisMi } from '../core/a11y.js';
 import { el, spriteIkon } from '../core/ui.js';
@@ -36,12 +37,21 @@ export const COCUK_KUTLAMA_HAREKET_MS = 1500; // konfeti, ışınlar ve Fener’
 const KONFETI_RENKLERI = ['kirmizi', 'sari', 'yesil', 'mavi', 'mor', 'pembe', 'turuncu', 'turkuaz']; // css/cocuk.css --ck-*
 const SEKILLER = ['serit', 'daire', 'yildiz'];
 
+/** S35b: kurs bitişi kutlamasında konfeti sayısı (normal kutlamada 36) */
+export const KURS_KUTLAMA_ADET = 48;
+
 /**
- * Sonuçtan kutlama türünü seçer (öncelik: rozet > seviye > rekor > hedef). Kutlanacak bir şey yoksa null.
- * kazanim: motivasyon.kazanimAl() çıktısı ya da null. Döner: { tur, baslik, alt, ikon, ekler[] } | null
+ * Sonuçtan kutlama türünü seçer (öncelik: S35b kurs > rozet > seviye > rekor > hedef). Kutlanacak bir şey yoksa null.
+ * kazanim: motivasyon.kazanimAl() çıktısı ya da null. S35b kurs: { gunSayisi?, rozet? { ad, ikon } } (kurs bitince; rozet çip olarak eklenir).
+ * Döner: { tur, baslik, alt, ikon, ekler[] } | null
  */
-export function kutlamaSec({ yeniRekor = false, kazanim = null } = {}) {
+export function kutlamaSec({ yeniRekor = false, kazanim = null, kurs = null } = {}) {
   const liste = [];
+  if (kurs) {
+    liste.push({ tur: 'kurs', baslik: 'Kursu tamamladın!', kisa: 'Kurs tamam',
+      alt: `${kurs.gunSayisi ?? 21} günlük yolu bitirdin.`, ikon: 'takvim' });
+    if (kurs.rozet?.ad) liste.push({ tur: 'rozet', kisa: `Rozet: ${kurs.rozet.ad}` });
+  }
   const rozetler = kazanim?.yeniRozetler ?? [];
   if (rozetler.length) {
     liste.push({ tur: 'rozet', baslik: rozetler.length > 1 ? 'Yeni rozetler!' : 'Yeni rozet!', kisa: 'Yeni rozet',
@@ -58,7 +68,7 @@ export function kutlamaSec({ yeniRekor = false, kazanim = null } = {}) {
 }
 
 /**
- * Çocuk görünümü kutlama ekranı (stil: css/cocuk.css, .c-kutlama). kapsayici: egzersiz kökü (tam ekranda da görünsün diye).
+ * Çocuk görünümü kutlama ekranı (stil: css/cocuk.css, .c-kutlama). kapsayici: egzersiz kökü (tam ekranda da görünsün diye); S35b: sayfada document.body (katman ekrana sabit).
  * Konfeti + tek bir yıldız patlaması (yanıp sönme yok) + Fener kartı. Dokunma/tıklama, Esc ya da herhangi bir tuş kapatır; Esc egzersizi kapatmaz.
  * S30: COCUK_KUTLAMA_MS boyunca görünür; sekme gizlenince süre ve animasyonlar durur, dönünce kaldığı yerden sürer. Egzersiz kapanıp katman sayfadan çıktıysa dinleyiciler temizlenir.
  * Döner: kapatma fonksiyonu | null (hareket azaltılmışsa ya da kutlanacak bir şey yoksa)

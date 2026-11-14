@@ -1,6 +1,8 @@
 // Fener’in ana sayfa mesajları ve ipuçları (S30): duruma göre ifade + mesaj seçimi. Saf modül (DOM ve depo yok); bilgiyi app.js toplar, fener.js yeniden dışa açar.
 // Uzunluk (S30 düzeltme): mesaj ve ipucu en çok ~90 karakter; ana sayfa balonu bu uzunluğa göre sabit yükseklikte (telefonda 4, genişte 2-3 satır).
 // Dil kuralı: kısa, “henüz / bir sonraki hedef” dili; başkasıyla karşılaştırma, seri kaybı korkusu, süre baskısı ve tıbbi iddia yok.
+// S35a: seviye testi karşılaştırma ekranının mesajları (karsilastirmaMesaji; gelisti / benzer / henuz), aynı dil kuralı ve kademe kümeleri.
+// S35b: kurs bitişi (kursBitisMesaji) ve kurs karnesi (karneMesaji; gelisti / surdu / basladi) mesajları; ek çalışma baskısı yok (“daha çok çalış”, “her gün” gibi yükümlülük dili kullanılmaz).
 // S34f: ilkokul (2-4. sınıf) için ayrı mesaj ve ipucu kümeleri: daha kısa cümleler (cümle başına en çok ~8 kelime, mesaj en çok ~60 karakter), aynı durumlar ve öncelik. Kademe profilin sınıfından; profil yoksa ortaokul kümesi.
 import { kademe } from '../core/siniflar.js';
 
@@ -240,6 +242,96 @@ export function anaSayfaMesaji(b = {}) {
   }
   if (b.test === 'yok' && gunNumarasi(gun) % TEST_ONERI_ARALIGI === 0) return sec('test');
   return sec(dakika < 12 * 60 ? 'sabah' : dakika < 18 * 60 ? 'ogle' : 'aksam');
+}
+
+// ---------- S35a: seviye testi karşılaştırması ----------
+/** Karşılaştırma durumu → Fener’in ifadesi (düşük sonuçta da üzgün yüz yok: cesaret) */
+export const KARSILASTIRMA_IFADESI = Object.freeze({ gelisti: 'sevinc', benzer: 'cesaret', henuz: 'cesaret' });
+// {alan}: en çok gelişen eksenin adı (ör. “Anlama”, “Görme alanı”; ekten önce gelmesin), yalnız “gelisti” mesajlarında
+const KARSILASTIRMA_ORTAOKUL = Object.freeze({
+  gelisti: [
+    'En çok ilerlediğin alan: {alan}. Emeğinin izi burada!',
+    'Işığım senin için parlıyor! En büyük adımın: {alan}.',
+    'Belirgin bir ilerleme var: {alan}. Çalışman karşılığını buldu.',
+  ],
+  benzer: [
+    'Sonuçların başlangıca yakın. Düzenli kısa çalışmalar farkı zamanla gösterir.',
+    'Yerini korudun. Bir sonraki hedefini birlikte seçelim mi?',
+  ],
+  henuz: [
+    'Bu ölçüm henüz istediğin gibi çıkmadı. Tek bir test her şeyi anlatmaz; bir sonraki hedefe bakalım.',
+    'Bazı günler sonuçlar düşük çıkabilir. Kısa ve düzenli çalışmak iyi bir sonraki adım.',
+  ],
+});
+const KARSILASTIRMA_ILKOKUL = Object.freeze({
+  gelisti: ['En çok ilerlediğin alan: {alan}. Harika!', 'Emeğin işe yaradı! En büyük adımın: {alan}.'],
+  benzer: ['Sonuçların başlangıca yakın. Devam edelim!', 'Yerini korudun. Birlikte devam edelim.'],
+  henuz: ['Bu sefer henüz olmadı. Birlikte yine deneriz.', 'Her gün küçük bir adım. Devam edelim!'],
+});
+export const KARSILASTIRMA_KUMELERI = Object.freeze({ ortaokul: KARSILASTIRMA_ORTAOKUL, ilkokul: KARSILASTIRMA_ILKOKUL });
+
+/**
+ * Seviye testi karşılaştırmasında Fener’in ifadesi ve mesajı. ozet: test-veri.js gelisimOzeti() sonucu ({ durum, enCok }).
+ * Döner: { ifade, mesaj, durum }. Aynı gün aynı mesaj; başkalarıyla karşılaştırma yok.
+ */
+export function karsilastirmaMesaji(ozet, { sinif = null, gun = new Date() } = {}) {
+  const durum = KARSILASTIRMA_IFADESI[ozet?.durum] ? ozet.durum : 'benzer';
+  const kume = KARSILASTIRMA_KUMELERI[kademe(sinif)] ?? KARSILASTIRMA_ORTAOKUL;
+  const liste = durum === 'gelisti' && !ozet?.enCok ? kume.benzer : kume[durum];
+  const sablon = liste[(gunNumarasi(gun) + karma(`k-${durum}`)) % liste.length];
+  return { ifade: KARSILASTIRMA_IFADESI[durum], mesaj: doldur(sablon, { alan: ozet?.enCok?.eksen?.etiket ?? '' }), durum };
+}
+
+// ---------- S35b: kurs bitişi ve kurs karnesi ----------
+/** Kurs bitişi her zaman sevinç; karnede gelişim sevinç, diğerleri cesaret ya da normal (üzgün yüz yok) */
+export const KURS_BITIS_IFADESI = 'sevinc';
+export const KARNE_IFADESI = Object.freeze({ gelisti: 'sevinc', surdu: 'cesaret', basladi: 'normal' });
+const KURS_BITIS_ORTAOKUL = Object.freeze([
+  '21 günü tamamladın! Bu yolu adım adım sen yürüdün; tebrikler.',
+  'Limana vardın! 21 gün boyunca kendine zaman ayırdın.',
+  'Kurs tamam! Düzenli çalışmanın izini karnende görebilirsin.',
+]);
+const KURS_BITIS_ILKOKUL = Object.freeze(['21 günü bitirdin! Tebrikler!', 'Limana vardık! Çok güzel çalıştın.', 'Kurs tamam! Emeğin için aferin.']);
+export const KURS_BITIS_KUMELERI = Object.freeze({ ortaokul: KURS_BITIS_ORTAOKUL, ilkokul: KURS_BITIS_ILKOKUL });
+// {n}: ilk güne göre artan ya da seviyesi yükselen çalışma sayısı (yalnız gelisti’de; sayıdan sonra ek gelmez)
+const KARNE_ORTAOKUL = Object.freeze({
+  gelisti: [
+    'İlk günle bugünü yan yana koyunca ilerlemen görünüyor: {n} çalışmada artış var.',
+    'Karnende {n} çalışma ilk gününden ileride. Emeğinin izi burada!',
+  ],
+  surdu: [
+    'Sonuçların ilk gününe yakın. Düzenli kısa çalışmalar farkı zamanla gösterir.',
+    'Yerini korudun. Tek bir sonuç her şeyi anlatmaz; genel yöne bak.',
+  ],
+  basladi: [
+    'Karnen yeni başlıyor. İlk sonuçların burada saklanıyor.',
+    'İlk adımların kaydedildi. Bir sonraki derste yan yana görürüz.',
+  ],
+});
+const KARNE_ILKOKUL = Object.freeze({
+  gelisti: ['{n} çalışmada ilerledin. Harika!', 'İlk günden bugüne ilerledin!'],
+  surdu: ['Sonuçların ilk güne yakın. Devam edelim!', 'Yerini korudun. Birlikte devam!'],
+  basladi: ['Karnen yeni başlıyor. Hoş geldin!', 'İlk sonuçların burada saklanıyor.'],
+});
+export const KARNE_KUMELERI = Object.freeze({ ortaokul: KARNE_ORTAOKUL, ilkokul: KARNE_ILKOKUL });
+
+/** S35b: Kurs bitince Fener’in mesajı (kurs raporunun başında, yalnız çocuk görünümünde). Döner: { ifade, mesaj, durum: 'kursBitti' } */
+export function kursBitisMesaji({ sinif = null, gun = new Date() } = {}) {
+  const liste = KURS_BITIS_KUMELERI[kademe(sinif)] ?? KURS_BITIS_ORTAOKUL;
+  return { ifade: KURS_BITIS_IFADESI, mesaj: liste[(gunNumarasi(gun) + karma('kurs-bitti')) % liste.length], durum: 'kursBitti' };
+}
+
+/**
+ * S35b: Kurs karnesinde Fener’in mesajı. ozet: kurs-veri.js karneOzeti() sonucu ({ durum, gelisen }); ‘bos’ ise null.
+ * Döner: { ifade, mesaj, durum } | null. Gün içinde aynı mesaj; başkalarıyla karşılaştırma yok.
+ */
+export function karneMesaji(ozet, { sinif = null, gun = new Date() } = {}) {
+  if (!ozet || ozet.durum === 'bos') return null;
+  const durum = KARNE_IFADESI[ozet.durum] ? ozet.durum : 'basladi';
+  const kume = KARNE_KUMELERI[kademe(sinif)] ?? KARNE_ORTAOKUL;
+  const liste = kume[durum];
+  const sablon = liste[(gunNumarasi(gun) + karma(`karne-${durum}`)) % liste.length];
+  return { ifade: KARNE_IFADESI[durum], mesaj: doldur(sablon, { n: ozet.gelisen ?? 0 }), durum };
 }
 
 /** n. ipucu (döngüsel). S34f: sinif verilirse o kademenin ipuçları */

@@ -1,4 +1,4 @@
-// Akıllı Kurs ekranları (S19): #/kurs (başlangıç, gün haritası, bugünün dersleri ve akışı, aralarda mola, plan bildirimi, yorgun modu) ve #/kurs/rapor (başlangıç/final karşılaştırması, yazdırılabilir sertifika) (S34a: sınıf değişince uyarı ve iki seçenek; S34d: süre seçenekleri ve ders sayısı sınıfın kurallarından, test önerisi süresiz)
+// Akıllı Kurs ekranları (S19): #/kurs (başlangıç, gün haritası, bugünün dersleri ve akışı, aralarda mola, plan bildirimi, yorgun modu) ve #/kurs/rapor (başlangıç/final karşılaştırması, yazdırılabilir sertifika) (S34a: sınıf değişince uyarı ve iki seçenek; S34d: süre seçenekleri ve ders sayısı sınıfın kurallarından, test önerisi süresiz; S35b: kurs bitince puandan bağımsız bitirme rozeti, çocukta özel kutlama, raporda Fener ve kurs karnesi)
 import { el, spriteIkon, toastGoster, modalAc, modalKapat } from '../../core/ui.js';
 import { duyur, odakla, molaRehberiAcikMi } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
@@ -6,12 +6,19 @@ import { git, etkinRota } from '../../core/router.js';
 import { gunAnahtari, tarihMetni, sayiBicimle, yuzdeBicimle } from '../../core/utils.js';
 import { modulKayitlari } from '../../core/metrics.js';
 import { egzersizAc, egzersiziKapat } from '../../engine/exercise-frame.js';
+import { sesCal } from '../../core/sound.js';
+import { cocukGorunumuMu } from '../../core/hesap.js';
+import { kutlamaSec, cocukKutla, KURS_KUTLAMA_ADET } from '../../engine/celebrate.js';
+import { fenerBalonu } from '../../engine/fener.js';
+import { kursBitisMesaji } from '../../engine/fener-mesajlari.js';
+import { rozetVer, KURS_ROZETI } from '../../engine/motivasyon.js';
+import { karneBolumu } from './kurs-karne.js';
 import { radarOlustur } from '../../engine/radar.js';
 import { bugununTekrari } from '../../engine/srs.js';
 import { bugunkuGun, kursOzeti, kararAciklamasi, kurallarAciklamasi, kurallariYukle, gunFarki } from '../../engine/course-planner.js';
 import { egzersizYukle, egzersizBilgisi, aracBilgisi, sinifaUygunMu } from '../katalog.js';
 import { testVerisi, testDurumu, EKSENLER, karsilastir, hamMetin } from '../testler/test-veri.js';
-import { kursVerisi, kursBaslat, kursAc, dersiIsaretle, gunuBitir, yorgunModu, yenidenBaslatSec, sinifDegisimi, sinifaGoreDevam } from './kurs-veri.js';
+import { kursVerisi, kursBaslat, kursAc, dersiIsaretle, gunuBitir, yorgunModu, yenidenBaslatSec, sinifDegisimi, sinifaGoreDevam, kursBitirildiMi } from './kurs-veri.js';
 
 const MOLA_SN = 20;        // dersler arası mola (20-20-20: uzağa bakma)
 const GECIS_SN = 5;        // mola hatırlatıcısı kapalıyken kısa geçiş
@@ -28,6 +35,7 @@ let cizimNo = 0;     // eski bir çizim yeni sayfanın üstüne yazmasın
 let kapEl = null;
 let kurallar = null;
 let ara = null;      // dersler arası mola: { dialog, zaman }
+let bitisKutlamasi = null; // S35b: son gün bitince rapora geçerken kutlama bekler: { rozet | null }
 
 // ---------- Küçük yardımcılar ----------
 const sayfaUst = (baslik, aciklama, id) => el('div', { sinif: 'sayfa-ust', 'data-modul': 'kurs' },
@@ -199,7 +207,10 @@ async function gunuBitirVeGoster() {
     return;
   }
   if (s.plan.durum.bitti) {
-    toastGoster('Tebrikler, 21 günü tamamladın! Raporun hazır.', { tur: 'basari', sure: 6000 });
+    // S35b: bitirme rozeti puandan bağımsız; kutlama rapor sayfasında (çocukta özel kutlama ekranı)
+    const r = rozetVer(KURS_ROZETI);
+    bitisKutlamasi = { rozet: r?.yeni ? r.rozet : null };
+    toastGoster(`Tebrikler, ${s.plan.gunler.length} günü tamamladın! Raporun ve karnen hazır.${r?.yeni ? ` Yeni rozet: ${r.rozet.ad}.` : ''}`, { tur: 'basari', sure: 6000 });
     git('/kurs/rapor');
     return;
   }
@@ -417,7 +428,7 @@ function bittiBolumu(plan) {
   else if (t.asama === 'hazir') testNotu = el('a', { sinif: 'btn btn--ikincil', href: '#/testler', metin: 'Final testini yap' });
   else if (t.asama === 'bekliyor') testNotu = el('p', { metin: `Final testi ${t.kalan} gün sonra açılır.` });
   return bolum('kurs-bitti-baslik', 'Kursu tamamladın!',
-    el('p', { metin: 'Düzenli çalışman için tebrikler. Raporunda başlangıç ve son ölçümlerini görebilir, sertifikanı yazdırabilirsin.' }),
+    el('p', { metin: 'Düzenli çalışman için tebrikler. Raporunda başlangıç ve son ölçümlerini, kurs karneni (ilk gün ve son gün) görebilir, sertifikanı yazdırabilirsin. Bu kurs için “Limana Varış” rozetini kazandın.' }),
     el('div', { sinif: 'kurs-eylemler' }, el('a', { sinif: 'btn btn--gunes btn--buyuk', href: '#/kurs/rapor', metin: 'Raporu gör' }), testNotu));
 }
 
@@ -451,6 +462,7 @@ async function sayfaCiz({ odak } = {}) {
   kurallar = s.kurallar;
   let plan = s.plan;
   if (s.karar) duyur(kararAciklamasi(s.karar, kurallar));
+  bitirmeRozetiniDenetle(plan); // S35b: S35b öncesi biten ya da “Sonuçları sil” sonrası kurslar için de
 
   // Pekiştirme dersi Tekrar Kartları’nda yapıldıysa dönüşte kendiliğinden işaretlenir
   const g = plan && !plan.durum.yenidenBaslatmaOnerisi ? bugunkuGun(plan) : null;
@@ -498,6 +510,22 @@ export function kursSayfasiniKapat() {
   cizimNo++;
   araKapat();
   egzersiziKapat();
+}
+
+// ---------- S35b: bitirme rozeti ve kutlama ----------
+/** Kurs bitmişse (bu ya da geçmiş bir kurs) rozet yoksa verir; yeni verildiyse kısa bildirim. Döner: rozetVer sonucu | null */
+function bitirmeRozetiniDenetle(plan, { bildir = true } = {}) {
+  if (!kursBitirildiMi(plan)) return null;
+  const r = rozetVer(KURS_ROZETI);
+  if (r?.yeni && bildir) toastGoster(`Yeni rozet: ${r.rozet.ad}. İlerleme sayfasında görebilirsin.`, { tur: 'basari', sure: 6000 });
+  return r;
+}
+
+/** Kurs bitişi kutlaması: ses (≤1,5 sn) ve çocuk görünümünde özel kutlama ekranı (4 sn, dokununca kapanır, hareketi azaltta çizilmez) */
+function kursBitisKutlamasi(plan, rozet) {
+  const secim = kutlamaSec({ kurs: { gunSayisi: plan.gunler.length, rozet } });
+  sesCal('rozet');
+  if (cocukGorunumuMu()) cocukKutla(document.body, secim, { adet: KURS_KUTLAMA_ADET });
 }
 
 // ---------- Rapor (#/kurs/rapor) ----------
@@ -586,12 +614,20 @@ export async function kursRaporuCiz(kap) {
     return;
   }
   kurallar = k.kurallar;
+  // S35b: kurs bitti: rozet (yoksa) ve bir kez kutlama (son günden gelindiyse ya da rozet şimdi verildiyse)
+  const rozet = bitirmeRozetiniDenetle(plan, { bildir: !bitisKutlamasi });
+  const kutlamaVar = !!bitisKutlamasi || !!rozet?.yeni;
+  const kutlamaRozeti = bitisKutlamasi?.rozet ?? (rozet?.yeni ? rozet.rozet : null);
+  bitisKutlamasi = null;
+  const profil = etkinProfil();
+  const fm = cocukGorunumuMu() ? kursBitisMesaji({ sinif: profil?.sinif }) : null;
   const tamamlanan = plan.gunler.filter((g) => g.tamamlandi);
   const dersSayisi = tamamlanan.reduce((t, g) => t + g.dersler.filter((x) => x.durum === 'tamam').length, 0);
   const d = plan.durum;
   kap.replaceChildren(el('div', { sinif: 'kurs-rapor yigin', style: '--yigin-bosluk: var(--b-5)' },
     geri,
     sayfaUst('Kurs raporu', `${tarihMetni(`${plan.baslangic}T12:00:00`)} – ${tarihMetni(`${plan.sonAktif}T12:00:00`)} · yalnızca kendi sonuçların karşılaştırılır`, 'kurs-rapor-baslik'),
+    fm && fenerBalonu({ ifade: fm.ifade, mesaj: fm.mesaj, sinif: 'kurs-rapor__fener yazdirma-yok' }),
     el('ul', { sinif: 'mini-istatistik', 'aria-label': 'Kurs sayıları' },
       el('li', {}, el('strong', { metin: `${tamamlanan.length}/${plan.gunler.length}` }), el('span', { metin: 'Tamamlanan gün' })),
       el('li', {}, el('strong', { metin: sayiBicimle(dersSayisi) }), el('span', { metin: 'Tamamlanan ders' })),
@@ -599,8 +635,10 @@ export async function kursRaporuCiz(kap) {
     bolum('kurs-rapor-okuma', 'Okuma ölçümleri', olcumTablosu(plan),
       el('p', { sinif: 'soluk', metin: 'Etkin okuma hızı = okuma hızı × anlama oranı. Tek bir ölçüm günden güne değişebilir; genel yöne bak.' })),
     bolum('kurs-rapor-test', 'Başlangıç ve final', testKarsilastirmasi(plan)),
+    karneBolumu({ plan, profil, fener: false }), // S35b
     el('div', { sinif: 'kurs-eylemler yazdirma-yok' },
       dugme('Raporu yazdır', 'btn--birincil', () => yazdir(false)),
       dugme('Yalnız sertifikayı yazdır', 'btn--ikincil', () => yazdir(true))),
     sertifika(plan)));
+  if (kutlamaVar) kursBitisKutlamasi(plan, kutlamaRozeti);
 }

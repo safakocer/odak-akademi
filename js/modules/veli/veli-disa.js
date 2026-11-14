@@ -1,16 +1,16 @@
-// Veli/Öğretmen dışa aktarımı (S24): profil özetleri; tüm profillerin özet ve çalışma CSV’si (UTF-8 BOM, “;”) ve JSON dosyası. Yedek değildir (geri yükleme Ayarlar’daki yedekle)
+// Veli/Öğretmen dışa aktarımı (S24; S35a: seviye testinde iki okuma ölçümü ayrı alanlarda; S35c: kurs karnesi, JSON surum 3): profil özetleri; tüm profillerin özet ve çalışma CSV’si (UTF-8 BOM, “;”) ve JSON dosyası. Yedek değildir (geri yükleme Ayarlar’daki yedekle)
 import { profilleriGetir } from '../../core/profile.js';
-import { kayitlariGetir, sonEoh, sonAnlamaYuzde } from '../../core/metrics.js';
+import { kayitlariGetir, sonEoh, sonAnlamaYuzde, kayitKademesi } from '../../core/metrics.js';
 import { csvMetni, gunAnahtari } from '../../core/utils.js';
 import { dosyaIndir } from '../../core/ui.js';
 import { ilerlemeVerisi, seriDurumu, seviyeBilgisi } from '../../engine/motivasyon.js';
 import { gunListesi, donemOzeti } from '../ilerleme/ilerleme-veri.js';
 import { egzersizBilgisi, modulBilgisi } from '../katalog.js';
-import { testVerisi } from '../testler/test-veri.js';
-import { kursVerisi } from '../kurs/kurs-veri.js';
+import { testVerisi, gelisimOzeti } from '../testler/test-veri.js';
+import { kursVerisi, karneSatirlari, karneOzeti } from '../kurs/kurs-veri.js';
 import { veliHedefi, haftalikDurum } from './veli-veri.js';
 
-export const DISA_SURUMU = 1;
+export const DISA_SURUMU = 3; // S35a: seviyeTesti.karsilastirma; S35c: kursKarnesi
 
 /** Kurs planının kısa özeti ya da null */
 export function kursOzetiKisa(profilId) {
@@ -38,6 +38,30 @@ export function profilOzeti(p) {
     rozet: Object.keys(veri.rozetler).length, sonEoh: sonEoh(p.id), sonAnlama: sonAnlamaYuzde({ profilId: p.id }),
     sonCalisma: kayitlar.at(-1)?.tarih ?? null, kayitSayisi: kayitlar.length,
     gunlukHedefDk: veri.gunlukHedefDk, veliGunlukDk: hedef.gunlukDk, haftalikHedefDk: hedef.haftalikDk, buHaftaDk: haftalikDurum(p.id).dk,
+  };
+}
+
+const OLCU_ADLARI = Object.freeze({ eoh: 'Etkin okuma hızı (k/dk)', puan: 'Puan', dogru: 'Doğru sayısı' });
+const karneKaydi = (k, alan) => (k ? { gun: gunAnahtari(k.tarih), seviye: k.zorluk, deger: k[alan] ?? null, kademe: kayitKademesi(k) } : null);
+
+/**
+ * S35c: Kurs karnesi (JSON): kurs yoksa null. Mantık kurs-veri.js karneSatirlari/karneOzeti; yalnız kurs dersi kayıtları.
+ * { baslangic, bitis, bitti, ozet {toplam, gelisen, seviyeYukselen, durum}, satirlar [{egzersiz, ad, alan, olcu, olcuAdi, kayitSayisi, ilk, son, enIyi, seviyeDegisti, kademeDegisti, karsilastirmaTemeli, degisim}] }
+ */
+export function kursKarnesiVerisi(profilId) {
+  const plan = kursVerisi(profilId);
+  if (!plan) return null;
+  const satirlar = karneSatirlari(plan, kayitlariGetir(profilId));
+  return {
+    baslangic: plan.baslangic, bitis: plan.durum?.bitti ? plan.sonAktif ?? null : null, bitti: !!plan.durum?.bitti,
+    ozet: karneOzeti(satirlar),
+    satirlar: satirlar.map((r) => ({
+      egzersiz: r.egzersiz, ad: egzersizBilgisi(r.egzersiz)?.baslik ?? r.egzersiz, alan: modulBilgisi(r.modul)?.baslik ?? r.modul,
+      olcu: r.alan, olcuAdi: OLCU_ADLARI[r.alan] ?? r.alan, kayitSayisi: r.sayi,
+      ilk: karneKaydi(r.ilk, r.alan), son: karneKaydi(r.son, r.alan), enIyi: karneKaydi(r.enIyi, r.alan),
+      seviyeDegisti: r.seviyeDegisti, kademeDegisti: kayitKademesi(r.ilk) !== kayitKademesi(r.son),
+      karsilastirmaTemeli: r.karsi ? karneKaydi(r.karsi, r.alan) : null, degisim: r.degisim,
+    })),
   };
 }
 
@@ -84,7 +108,7 @@ export function kayitCsv() {
   return csvMetni([KAYIT_SUTUNLARI.map(([b]) => b), ...satirlar]);
 }
 
-/** İncelemek için JSON: profil özetleri, hedefler, ilerleme, seviye testi, kurs özeti ve kayıtlar. Notlar, zihin haritaları ve kendi metinleri girmez */
+/** İncelemek için JSON: profil özetleri, hedefler, ilerleme, seviye testi, kurs özeti, kurs karnesi (S35c) ve kayıtlar. Notlar, zihin haritaları ve kendi metinleri girmez */
 export function jsonVerisi() {
   return {
     uygulama: 'odak-akademi', tur: 'veli-disa-aktarim', surum: DISA_SURUMU, olusturma: new Date().toISOString(),
@@ -96,11 +120,25 @@ export function jsonVerisi() {
         takmaAd: p.takmaAd, sinif: p.sinif, olusturma: p.olusturma,
         ozet: profilOzeti(p), hedefler: veliHedefi(p.id),
         ilerleme: { gunlukHedefDk: ilerleme.gunlukHedefDk, xp: ilerleme.xp, gunler: ilerleme.gunler, rozetler: ilerleme.rozetler },
-        seviyeTesti: { baslangic: test.baslangic, final: test.final },
+        seviyeTesti: { baslangic: test.baslangic, final: test.final, karsilastirma: testKarsilastirmasi(test.baslangic, test.final) },
         kurs: kursOzetiKisa(p.id),
+        kursKarnesi: kursKarnesiVerisi(p.id), // S35c
         kayitlar: kayitlariGetir(p.id),
       };
     }),
+  };
+}
+
+/** S35a: seviye testinin iki okuma ölçümü ayrı ve etiketli (yeniden okuma asıl gelişim değildir); final yoksa null */
+function testKarsilastirmasi(b, f) {
+  const o = gelisimOzeti(b, f);
+  if (!o) return null;
+  const { esdeger: e, tekrar: t } = o;
+  return {
+    esdegerMetin: { aciklama: e.ayniMetin ? 'Başlangıç ve final aynı metinle (eşdeğer metin yoktu)' : 'Başlangıç ve final eşdeğer iki metinle; asıl gelişim ölçüsü',
+      baslangicMetin: e.baslangicMetin, finalMetin: e.finalMetin, baslangicForm: e.baslangicForm, finalForm: e.finalForm, wpm: e.wpm, anlama: e.anlama, eoh: e.eoh },
+    ayniMetniYenidenOkuma: t ? { aciklama: 'Başlangıç metni finalde yeniden okundu; tanıdık metin, puanlara girmez', metin: t.metin, wpm: { once: t.once, sonra: t.sonra, fark: t.fark } } : null,
+    enCokGelisenAlan: o.enCok ? { alan: o.enCok.eksen.etiket, fark: o.enCok.fark } : null,
   };
 }
 

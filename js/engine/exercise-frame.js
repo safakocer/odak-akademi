@@ -1,9 +1,9 @@
-// Egzersiz çerçevesi (S34-son: kayıtta rekor kademesi, ortaokulda da alıştırma turu (kademe bandı), ilkokulda ilk girişte alıştırma öne çıkar, ctx.alistirma.sureSn; S34e: sınıf bandı (enCok, başlangıç, basamak ayarları), ilkokulda kısa yönerge + görsel örnek + kaydedilmeyen alıştırma turu; S29: sonuç sesi kutlama türüne göre: rozet, seviye, rekor, hedef ya da bitti; S28: çocuk görünümünde sonuçta Fener ve kutlama ekranı; S20: sonuçta XP, yeni rozet ve “bugünlük yeter”; D06: kayitYok egzersiz seviye de yazmaz; S19: kurs dersi bandı, ctx.kurs, ekstra.kurs, “Sonraki derse geç”): açıklama → geri sayım → çalışma → sonuç yaşam döngüsü; başlık ikonu, duraklat/çık, tam ekran, seviye (S09: otomatik seviye), hazırlık ayarları, metrics kaydı, mola önerisi (S10: Ayarlar'dan kapatılabilir; mola egzersizi sayacı sıfırlar)
+// Egzersiz çerçevesi (S35b: “Eski seviyeni dene”: kurs başındaki seviyede tek turluk, kaydedilmeyen deneme ve kısa karşılaştırma; S34-son: kayıtta rekor kademesi, ortaokulda da alıştırma turu (kademe bandı), ilkokulda ilk girişte alıştırma öne çıkar, ctx.alistirma.sureSn; S34e: sınıf bandı (enCok, başlangıç, basamak ayarları), ilkokulda kısa yönerge + görsel örnek + kaydedilmeyen alıştırma turu; S29: sonuç sesi kutlama türüne göre: rozet, seviye, rekor, hedef ya da bitti; S28: çocuk görünümünde sonuçta Fener ve kutlama ekranı; S20: sonuçta XP, yeni rozet ve “bugünlük yeter”; D06: kayitYok egzersiz seviye de yazmaz; S19: kurs dersi bandı, ctx.kurs, ekstra.kurs, “Sonraki derse geç”): açıklama → geri sayım → çalışma → sonuç yaşam döngüsü; başlık ikonu, duraklat/çık, tam ekran, seviye (S09: otomatik seviye), hazırlık ayarları, metrics kaydı, mola önerisi (S10: Ayarlar'dan kapatılabilir; mola egzersizi sayacı sıfırlar)
 import { odakTuzagi, odakla, duyur, molaRehberiAcikMi } from '../core/a11y.js';
-import { kayitEkle, sonSeviye, sonSeviyeKaydet, modulKayitlari, ILKOKUL_ETIKETI } from '../core/metrics.js';
+import { kayitEkle, sonSeviye, sonSeviyeKaydet, modulKayitlari, kayitlariGetir, rekorAlani, ILKOKUL_ETIKETI } from '../core/metrics.js';
 import { el, spriteIkon } from '../core/ui.js';
 import { sesCal } from '../core/sound.js';
-import { sureBicimle, sureMetni, dakikaMetni, yuzdeBicimle, sinirla, sayi } from '../core/utils.js';
+import { sureBicimle, sureMetni, dakikaMetni, yuzdeBicimle, sinirla, sayi, tarihMetni } from '../core/utils.js';
 import { kutla, cocukKutla, kutlamaSec } from './celebrate.js';
 import { cocukGorunumuMu } from '../core/hesap.js';
 import { fenerCiz } from './fener.js';
@@ -177,6 +177,29 @@ function geriBildirim({ dogru, yanlis, isabet, ilerle }, enUst) {
   return `İsabetin henüz %${ILERLEME_ESIGI}’in altında. Acele etmeden doğru hedeflere odaklan; hız arkasından gelir.`;
 }
 
+// S35b: “Eski seviyeni dene” için kurs verisi yalnız gerekince yüklenir (kurs dosyaları açılış zincirinde değil)
+async function kursVerisiYukle() {
+  try { return await import('../modules/kurs/kurs-veri.js'); } catch (h) { console.warn('[egzersiz] kurs verisi okunamadı:', h); return null; }
+}
+
+/**
+ * S35b: Kurs başındaki seviye: kursun bu egzersizdeki ilk kaydının (yoksa kurs öncesi son kaydın) seviyesi; aynı rekor kademesinde.
+ * Döner: { seviye, kayit, alan, karsilastir(deger) → değişim | null } | null (kurs yok, kayıt yok ya da seviye bantta yok)
+ */
+function eskiSeviyeBul(kv, egzersiz, kademeAdi, enCok) {
+  try {
+    const plan = kv?.kursVerisi();
+    const kayit = plan ? kv.kursBasiKaydi(plan, egzersiz, kayitlariGetir(), kademeAdi) : null;
+    const s = sayi(kayit?.zorluk);
+    const alan = kayit && rekorAlani(kayit);
+    if (!kayit || !alan || s === undefined || s < 1 || s > enCok) return null;
+    return { seviye: s, kayit, alan, karsilastir: (deger) => kv.karneDegisimi(alan, kayit[alan], deger) };
+  } catch (h) {
+    console.warn('[egzersiz] eski seviye bulunamadı:', h);
+    return null;
+  }
+}
+
 // S09: otomatik seviyeli egzersizde sonuç mesajı (seviye adı: bir sonraki turun seviyesi)
 function seviyeMesaji({ dogru, yanlis }, yeni, eski, enUst, ad) {
   if (dogru + yanlis === 0) return 'Bu turda hiç yanıt olmadı. Hazır olduğunda yeniden dene.';
@@ -203,6 +226,8 @@ function seviyeMesaji({ dogru, yanlis }, yeni, eski, enUst, ad) {
  * S34-son: kademe bandı (ortaokulda yalnız alıştırma) da gelir; kısa yönergeli bantta egzersizin hiç kaydı yoksa alıştırma birincil düğmedir.
  * İlkokulda kaydın ekstrasına kademe: 'ilkokul' yazılır (rekor kademe içinde; degerlendir ham.ekstra.kademe'yi görür).
  * ctx.bant: bant ya da null; hazirlik({ seviye, kurs, bant }).
+ * S35b “Eski seviyeni dene”: kurs dersi dışında, seviyeli ve kaydedilen egzersizde, kurs başındaki seviye şimdiki seviyeden düşükse açıklamada düğme;
+ * tek tur o seviyede çalışır; kaydedilmez (rekor, XP, otomatik seviye ve seçili seviye değişmez); sonuçta kurs başındaki kayıtla kısa karşılaştırma.
  * Rekor alanını metrics.js seçer: eoh > puan > dogru.
  * secenekler: { zorluk?, kapaninca?({ turBitti, devam }), kurs? }  → Döner: { kapat() }
  * S19 kurs: { gun, sira, toplam, baslik, yonerge, ayar, sonDers } → açıklamada bant, hazirlik({ seviye, kurs }), ctx.kurs,
@@ -211,7 +236,9 @@ function seviyeMesaji({ dogru, yanlis }, yeni, eski, enUst, ad) {
 export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   tanimDenetle(tanim);
   acik?.kapat({ bildir: false });
-  await Promise.all([cssYukle(), bantlariYukle()]); // bantlar açılışta yüklenmiş olur; yüklenemezse egzersiz kendi ayarlarıyla açılır
+  // bantlar açılışta yüklenmiş olur; yüklenemezse egzersiz kendi ayarlarıyla açılır. S35b: kurs verisi yalnız eski seviye denemesi olabilecek egzersizde
+  const eskiDenenebilir = !kurs && !tanim.kayitYok && (tanim.seviyeler?.length ?? VARSAYILAN_SEVIYELER.length) > 1;
+  const [, , kursVeri] = await Promise.all([cssYukle(), bantlariYukle(), eskiDenenebilir ? kursVerisiYukle() : null]);
   stilEkle(tanim);
 
   const profilSinif = etkinProfil()?.sinif;
@@ -220,6 +247,9 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   const seviyeler = seviyeleriUyarla(tanim.seviyeler?.length ? tanim.seviyeler : VARSAYILAN_SEVIYELER, bant);
   const kisaYonerge = !!bant?.yonerge?.length;
   const alistirmaAyari = bant?.alistirma ?? null;
+  // S35b: kurs başındaki seviye (aynı kademe; ilkokul kaydı ortaokulda kullanılmaz)
+  const eskiSeviye = eskiDenenebilir && seviyeler.length > 1
+    ? eskiSeviyeBul(kursVeri, tanim.egzersiz, ilkokulMu(profilSinif) ? ILKOKUL_ETIKETI : 'ortaokul', seviyeler.length) : null;
   const etiket = { dogru: 'Doğru', yanlis: 'Yanlış', ...tanim.etiketler };
   const puanEtiketi = tanim.puanEtiketi ?? 'Puan';
   // S19: pekiştirme dersinde zorluk bir alt seviyeden başlar (kayıtlı seviye seçimi değişmez)
@@ -233,6 +263,7 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   let sayac = { dogru: 0, yanlis: 0 };
   let ekstra = {};
   let alistirmaTuru = false;   // S34e: bu tur alıştırma mı (kaydedilmez)
+  let eskiTuru = false;        // S35b: bu tur eski seviye denemesi mi (kaydedilmez)
   let turSureSn = tanim.sureSn; // S34e: alıştırmada alistirma.sureSn
   const saat = { birikmis: 0, son: null };
 
@@ -347,6 +378,12 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
     const alistirmaDugme = alistirmaAyari && el('button', { type: 'button',
       sinif: `btn ${ilkGiris ? 'btn--birincil btn--buyuk' : 'btn--ikincil'} btn--blok egz-aciklama__alistirma`, onclick: () => basla(true) },
     'Önce alıştırma yap', el('small', { metin: 'Kısa sürer, kaydedilmez' }));
+    // S35b: eski seviyeni dene (yalnız kurs başındaki seviye şimdikinden düşükse)
+    const eskiAd = eskiSeviye && seviyeler[eskiSeviye.seviye - 1]?.ad;
+    const eskiKutu = eskiSeviye && eskiSeviye.seviye < seviye && el('div', { sinif: 'egz-eski-seviye', role: 'group', 'aria-labelledby': 'egz-eski-baslik' },
+      el('p', { id: 'egz-eski-baslik', sinif: 'egz-eski-seviye__baslik', metin: 'Eski seviyeni dene' }),
+      el('p', { metin: `Kursun başında bu çalışmayı ${eskiAd} seviyede yapıyordun. O seviyeyi bir tur dene, farkı gör. Bu tur kaydedilmez; rekorun ve seviyen değişmez.` }),
+      el('button', { type: 'button', sinif: 'btn btn--ikincil btn--blok', onclick: () => basla('eski') }, `Eski seviyeni dene (${eskiAd})`));
     const kursBandi = kurs && el('div', { sinif: 'egz-kurs-bandi', role: 'note' },
       el('strong', { metin: `Kurs · Gün ${kurs.gun} · Ders ${kurs.sira}/${kurs.toplam}${kurs.baslik ? ` · ${kurs.baslik}` : ''}` }),
       kurs.yonerge && el('p', { metin: kurs.yonerge }));
@@ -362,6 +399,7 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
           el('input', { type: 'radio', name: 'seviye', value: String(i + 1), checked: i + 1 === seviye }),
           el('span', { metin: s.ad }))))),
       hazirlikDugumu,
+      eskiKutu,
       hataEl,
       el('p', { sinif: 'egz-aciklama__not', metin: tanim.sureSn
         ? `Süre: ${sureMetni(tanim.sureSn)}. İstediğin an duraklatabilirsin.`
@@ -372,7 +410,7 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
       e.preventDefault();
       basla(false);
     });
-    // S34e: asıl tur ya da alıştırma; ikisinde de hazırlık denetlenir
+    // S34e: asıl tur ya da alıştırma (S35b: ya da 'eski' seviye denemesi); hepsinde hazırlık denetlenir
     function basla(alistirma) {
       let sorun;
       try { sorun = tanim.hazirlikDenetle?.(); } catch (h) { console.error('[egzersiz] hazırlık denetimi hatası:', h); }
@@ -390,13 +428,16 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   }
 
   // ---------- 2) Geri sayım ----------
-  function turBaslat(alistirma = false) {
+  // tur: false (asıl tur) | true (S34e alıştırma) | 'eski' (S35b eski seviye denemesi)
+  function turBaslat(tur = false) {
     turuTemizle();
     zaman = zamanlayiciOlustur();
-    alistirmaTuru = !!alistirma && !!alistirmaAyari;
+    eskiTuru = tur === 'eski' && !!eskiSeviye;
+    alistirmaTuru = tur === true && !!alistirmaAyari;
     turSureSn = alistirmaTuru && tanim.sureSn ? (alistirmaAyari.sureSn ?? tanim.sureSn) : tanim.sureSn;
-    alistirmaEl.hidden = !alistirmaTuru;
-    if (!alistirmaTuru && !tanim.kayitYok && !zorlukFarki) sonSeviyeKaydet(tanim.egzersiz, seviye); // tur yarıda kalsa da seçim hatırlansın (D06: kaydedilmeyen egzersiz depoya yazmaz)
+    alistirmaEl.hidden = !alistirmaTuru && !eskiTuru;
+    alistirmaEl.textContent = eskiTuru ? 'Eski seviye denemesi · kaydedilmez' : 'Alıştırma turu · kaydedilmez';
+    if (!alistirmaTuru && !eskiTuru && !tanim.kayitYok && !zorlukFarki) sonSeviyeKaydet(tanim.egzersiz, seviye); // tur yarıda kalsa da seçim hatırlansın (D06: kaydedilmeyen egzersiz depoya yazmaz)
     sayac = { dogru: 0, yanlis: 0 };
     ekstra = {};
     saat.birikmis = 0;
@@ -405,7 +446,8 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
     const halka = el('div', { sinif: 'egz-gerisayim__halka', 'aria-hidden': 'true' });
     const kutu = el('div', { sinif: 'egz-gerisayim', tabindex: '-1' },
       el('p', { sinif: 'egz-gerisayim__etiket', metin: alistirmaTuru ? 'Alıştırma turu. Hazır ol!'
-        : seviyeler.length > 1 ? `${seviyeler[seviye - 1].ad} seviye. Hazır ol!` : 'Hazır ol!' }), halka);
+        : eskiTuru ? `Eski seviye denemesi: ${seviyeler[eskiSeviye.seviye - 1].ad}. Hazır ol!`
+          : seviyeler.length > 1 ? `${seviyeler[seviye - 1].ad} seviye. Hazır ol!` : 'Hazır ol!' }), halka);
     ekranGoster(kutu, kutu);
     duyur('Üç saniye içinde başlıyor.');
     let kalan = 3;
@@ -427,7 +469,7 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
     saatBaslat();
     const z = zaman;
     const guvenli = (fn) => () => { try { fn(); } catch (h) { console.error('[egzersiz]', h); } };
-    const turSeviye = alistirmaTuru ? 1 : seviye; // S34e: alıştırma en kolay basamakta
+    const turSeviye = alistirmaTuru ? 1 : eskiTuru ? eskiSeviye.seviye : seviye; // S34e: alıştırma en kolay basamakta; S35b: eski seviye denemesi kurs başındaki seviyede
     const ctx = {
       alan,
       zorluk: turSeviye,
@@ -464,9 +506,10 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
   function turBitir() {
     if (durum !== 'calisma') return;
     saatDurdur();
-    const ham = { dogru: sayac.dogru, yanlis: sayac.yanlis, sureSn: Math.round(gecenMs() / 1000), zorluk: seviye, ekstra: { ...ekstra, ...kademeEki } };
+    const ham = { dogru: sayac.dogru, yanlis: sayac.yanlis, sureSn: Math.round(gecenMs() / 1000), zorluk: eskiTuru ? eskiSeviye.seviye : seviye, ekstra: { ...ekstra, ...kademeEki } };
     turuTemizle();
     if (alistirmaTuru) alistirmaSonucu(ham);
+    else if (eskiTuru) eskiSeviyeSonucu(ham);
     else sonucGoster(ham);
   }
 
@@ -494,6 +537,49 @@ export async function egzersizAc(tanim, { zorluk, kapaninca, kurs } = {}) {
     ekranGoster(ekran, baslik);
     sesCal('bitti');
     duyur(`Alıştırma bitti. ${ozet}`);
+  }
+
+  // ---------- S35b: eski seviye denemesinin sonucu (kayıt, rekor, XP, seviye değişimi yok; kurs başındaki kayıtla karşılaştırma) ----------
+  function eskiSeviyeSonucu(ham) {
+    durumAyarla('sonuc');
+    alistirmaEl.hidden = true;
+    eskiTuru = false;
+    if (!tanim.molaMi) { molasizSn += ham.sureSn; sonBitis = Date.now(); }
+    const toplam = ham.dogru + ham.yanlis;
+    const deg = { dogru: ham.dogru, yanlis: ham.yanlis, isabet: toplam ? Math.round((ham.dogru * 100) / toplam) : 0 };
+    try { Object.assign(deg, tanim.degerlendir?.(ham)); } catch (h) { console.error('[egzersiz] değerlendirme hatası:', h); }
+    deg.puan ??= deg.dogru;
+    const { alan, kayit: ref } = eskiSeviye;
+    const simdi = sayi({ eoh: deg.eoh, puan: deg.puan, dogru: deg.dogru }[alan]);
+    const d = simdi === undefined ? null : eskiSeviye.karsilastir(simdi);
+    const olcu = alan === 'eoh' ? 'Etkin okuma hızı' : alan === 'dogru' ? etiket.dogru : puanEtiketi;
+    const ad = seviyeler[ham.zorluk - 1]?.ad ?? '';
+    const farkMetni = d ? `${d.fark > 0 ? '+' : d.fark < 0 ? '−' : ''}${Math.abs(d.fark)}` : '';
+    let karsiMetni;
+    if (!d) karsiMetni = 'Bu turda karşılaştırılacak bir sonuç oluşmadı. Hazır olduğunda kendi seviyende devam edebilirsin.';
+    else if (d.yon === 'artti') karsiMetni = `Kurs başında bu seviyede ${d.once} almıştın; bugün ${d.sonra} (${farkMetni}). Çalışmanın izi burada!`;
+    else if (d.yon === 'benzer') karsiMetni = `Kurs başında bu seviyede ${d.once} almıştın; bugün ${d.sonra}. Sonucun kurs başındakine yakın.`;
+    else karsiMetni = `Kurs başında bu seviyede ${d.once} almıştın; bugün ${d.sonra}. Henüz o sonucun altında; tek tur günden güne değişebilir, bu bir sınav değil.`;
+    const satirlar = tanim.sayacYok
+      ? (deg.satirlar?.length ? deg.satirlar : [['Süre', sureMetni(ham.sureSn)]])
+      : [[etiket.dogru, deg.dogru], [etiket.yanlis, deg.yanlis], ...(deg.satirlar ?? []), ['İsabet', yuzdeBicimle(deg.isabet)], ['Süre', sureMetni(ham.sureSn)]];
+    const baslik = el('h3', { id: 'egz-sonuc-baslik', sinif: 'egz-sonuc__baslik', metin: 'Eski seviye denemesi bitti' });
+    const ekran = el('section', { sinif: 'egz-ekran egz-sonuc', 'aria-labelledby': 'egz-sonuc-baslik' },
+      baslik,
+      el('div', { sinif: 'egz-sonuc__puan' },
+        cocukGorunumuMu() && sonucSahnesi(d?.yon === 'artti' ? 'sevinc' : 'cesaret'),
+        el('strong', { metin: String(simdi ?? 0) }),
+        el('span', { metin: `${olcu}, ${ad} seviye` })),
+      el('div', { sinif: 'egz-eski-karsi', 'data-yon': d?.yon ?? '' },
+        el('p', { metin: karsiMetni }),
+        el('p', { sinif: 'egz-eski-karsi__not', metin: `Karşılaştırılan sonuç: ${tarihMetni(ref.tarih)}, aynı seviye. Bu deneme kaydedilmedi; rekorun ve seviyen değişmedi.` })),
+      el('ul', { sinif: 'egz-sonuc__liste' }, satirlar.map(([a, v]) => el('li', {}, el('span', { metin: a }), el('strong', { metin: String(v) })))),
+      el('div', { sinif: 'egz-sonuc__eylemler' },
+        el('button', { type: 'button', sinif: 'btn btn--birincil', metin: `Kendi seviyende başla (${seviyeler[seviye - 1].ad})`, onclick: () => turBaslat() }),
+        el('button', { type: 'button', sinif: 'btn btn--hayalet', metin: 'Bitir', onclick: () => kapat() })));
+    ekranGoster(ekran, baslik);
+    sesCal('bitti');
+    duyur(`Eski seviye denemesi bitti. ${karsiMetni}`);
   }
 
   // ---------- 4) Sonuç: puan, kişisel rekor, geri bildirim, mola önerisi ----------

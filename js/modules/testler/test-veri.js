@@ -1,4 +1,4 @@
-// Seviye testi verisi (S17; S34d: okuma hızı ölçeği sınıf bandından, sonuçla saklanır): başlangıç/final sonuçlarını saklar (testler:<profilId>), 5 eksen puanı (0-100), 21 gün kuralı, iki ölçümün karşılaştırması
+// Seviye testi verisi (S17; S34d: okuma hızı ölçeği sınıf bandından, sonuçla saklanır; S35a: eşdeğer form A/B, “ilk metnine dön” ölçümü, gelişim özeti): başlangıç/final sonuçlarını saklar (testler:<profilId>), 5 eksen puanı (0-100), 21 gün kuralı, iki ölçümün karşılaştırması
 import { oku, yaz } from '../../core/storage.js';
 import { etkinProfil } from '../../core/store.js';
 import { sayi, sinirla, gunAnahtari, sayiBicimle, yuzdeBicimle } from '../../core/utils.js';
@@ -104,7 +104,8 @@ export function sonucKaydet(tur, sonuc, profilId) {
   if (!pid) return { tamam: false, hata: 'Önce bir profil seç.' };
   const v = testVerisi(pid);
   if (tur === 'final' && !v.baslangic) return { tamam: false, hata: 'Final için önce başlangıç testi gerekli.' };
-  const kayit = { ...sonuc, tur, puanlar: eksenPuanlari(sonuc) };
+  const kayit = { ...sonuc, tur, puanlar: eksenPuanlari(sonuc) }; // S35a: tekrarOkuma puanlara girmez
+  if (tur === 'baslangic') delete kayit.tekrarOkuma;
   if (tur === 'baslangic') { v.baslangic = kayit; v.final = null; } else v.final = kayit;
   return veriyiYaz(pid, v) ? { tamam: true, sonuc: kayit } : { tamam: false, hata: 'Sonuç kaydedilemedi. Cihazda yer kalmamış olabilir.' };
 }
@@ -163,6 +164,80 @@ export function karsilastir(baslangic, final) {
     const yon = fark === null ? null : fark >= DEGISIM_ESIGI ? 'artti' : fark <= -DEGISIM_ESIGI ? 'azaldi' : 'benzer';
     return { eksen, once: once ?? null, sonra: sonra ?? null, fark, yon };
   });
+}
+
+// ---------- S35a: eşdeğer formlar ----------
+/*
+ * Her sınıfın test dosyasında iki eşdeğer metni var (form A ve B). İlk dönemin başlangıcı A, finali B; her yeni dönemin başlangıcı
+ * önceki dönemin başlangıcının diğer formu, final hep başlangıcın diğer formu. Form, sonuçla saklanır (sonuc.form);
+ * S35a öncesi kayıtlarda metnin formu dosyadan çözülür (metinFormu(kimlik) → 'A' | 'B' | null).
+ */
+export const FORMLAR = Object.freeze(['A', 'B']);
+export const formGecerli = (f) => FORMLAR.includes(f);
+export const digerForm = (f) => (f === 'B' ? 'A' : 'B');
+
+/** Sonucun formu: kayıttaki form; yoksa metninin formu (çözücüyle); bilinmiyorsa null */
+export function sonucFormu(s, metinFormu = () => null) {
+  if (formGecerli(s?.form)) return s.form;
+  const f = s?.metin ? metinFormu(s.metin) : null;
+  return formGecerli(f) ? f : null;
+}
+
+/**
+ * Bu testin formu. tur 'final': başlangıcın diğer formu (başlangıcın formu bilinmiyorsa A sayılır → B).
+ * tur 'baslangic': süren dönemin başlangıcı yenileniyorsa aynı form; değilse son kapanan dönemin başlangıcının diğeri; ilk dönemde A.
+ */
+export function testFormu(veri, tur, metinFormu = () => null) {
+  if (tur === 'final') return digerForm(sonucFormu(veri?.baslangic, metinFormu) ?? FORMLAR[0]);
+  if (veri?.baslangic && !veri.final) return sonucFormu(veri.baslangic, metinFormu) ?? FORMLAR[0];
+  const onceki = sonucFormu(veri?.final ? veri.baslangic : veri?.gecmis?.at(-1)?.baslangic, metinFormu);
+  return onceki ? digerForm(onceki) : FORMLAR[0];
+}
+
+// ---------- S35a: gelişim özeti (karşılaştırma ekranı, veli raporu, dışa aktarım ortak kullanır) ----------
+export const HIZ_ESIGI_ORAN = 0.05; // okuma hızı ve EOH’de başlangıcın %5’inden (en az 5 k/dk) küçük fark “benzer”
+const hizEsigi = (once) => Math.max(DEGISIM_ESIGI, Math.round(once * HIZ_ESIGI_ORAN));
+
+function degisim(once, sonra, esik) {
+  const o = sayi(once);
+  const s = sayi(sonra);
+  if (o === undefined || s === undefined) return null;
+  const fark = Math.round(s - o);
+  const e = esik(o);
+  return { once: Math.round(o), sonra: Math.round(s), fark, yon: fark >= e ? 'artti' : fark <= -e ? 'azaldi' : 'benzer' };
+}
+
+/**
+ * Başlangıç ve finalin gelişim özeti (ikisi de yoksa null):
+ * { esdeger: { ayniMetin, baslangicMetin, finalMetin, baslangicForm, finalForm, guvenilir, wpm, anlama, eoh } (her biri { once, sonra, fark, yon } | null),
+ *   tekrar: { metin, once, sonra, fark, yon, sureDoldu, hizliGecis } | null (aynı metni yeniden okuma; puanlara, radara ve kursa girmez),
+ *   enCok: { eksen, fark } | null (en çok artan eksen; artış DEGISIM_ESIGI’nden küçükse null), sonrakiHedef: eksen | null, durum: 'gelisti' | 'benzer' | 'henuz' }
+ * Eksen farkları finalin puanlarından (eşdeğer form); tekrarOkuma hiçbir hesaba katılmaz.
+ */
+export function gelisimOzeti(b, f) {
+  if (!b || !f) return null;
+  const k = karsilastir(b, f);
+  const artan = k.filter((x) => x.yon === 'artti').sort((x, y) => y.fark - x.fark);
+  const azalan = k.filter((x) => x.yon === 'azaldi').sort((x, y) => x.fark - y.fark);
+  const g = guclulukOzeti(f.puanlar);
+  const eoh = degisim(b.eoh, f.eoh, hizEsigi);
+  const t = f.tekrarOkuma;
+  const tekrar = t && b.okuma ? degisim(b.okuma.wpm, t.wpm, hizEsigi) : null;
+  return {
+    esdeger: {
+      ayniMetin: !!b.metin && b.metin === f.metin,
+      baslangicMetin: b.metin ?? null, finalMetin: f.metin ?? null, baslangicForm: b.form ?? null, finalForm: f.form ?? null,
+      guvenilir: !b.okuma?.hizliGecis && !f.okuma?.hizliGecis,
+      wpm: degisim(b.okuma?.wpm, f.okuma?.wpm, hizEsigi),
+      anlama: degisim(b.anlama?.yuzde, f.anlama?.yuzde, () => DEGISIM_ESIGI),
+      eoh,
+    },
+    tekrar: tekrar ? { metin: t.metin ?? b.metin ?? null, ...tekrar, sureDoldu: !!t.sureDoldu, hizliGecis: !!t.hizliGecis } : null,
+    enCok: artan[0] ? { eksen: artan[0].eksen, fark: artan[0].fark } : null,
+    sonrakiHedef: azalan[0]?.eksen ?? (g.gelisim && !g.dengeli ? g.gelisim : null),
+    // Değişen eksen yoksa ya da artış varsa “gelişti”/“benzer”; azalan eksen artandan çoksa “henüz”
+    durum: artan.length ? 'gelisti' : azalan.length > 0 && azalan.length >= k.filter((x) => x.yon === 'benzer').length ? 'henuz' : 'benzer',
+  };
 }
 
 /** Geliştirici denemesi (yalnız yerel sunucu, app.js): başlangıç tarihini geri alır, finali beklemeden denemek için */

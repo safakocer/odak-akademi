@@ -1,16 +1,19 @@
-// Veli/Öğretmen alanı (S24, #/veli): PIN kapısı (oluştur, gir, bekleme, unuttum), profil özetleri ve hedefler, sınıf modu, dışa aktarım, PIN değiştirme; profil raporu #/veli/rapor?profil=<id>
+// Veli/Öğretmen alanı (S24, #/veli): PIN kapısı (oluştur, gir, bekleme, unuttum), profil özetleri ve hedefler, sınıf modu, dışa aktarım, PIN değiştirme; profil raporu #/veli/rapor?profil=<id> (S35a: seviye testinde eşdeğer metin ve aynı metni yeniden okuma ayrı tablolarda; S35a-d: yeniden okuma yapılmadıysa da tablo, nedeniyle; S35c: Akıllı Kurs bölümünde kurs karnesi tablosu)
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
 import { duyur, odakla } from '../../core/a11y.js';
 import { git } from '../../core/router.js';
 import { profilleriGetir, avatarOge } from '../../core/profile.js';
 import { sureBicimle, tarihMetni } from '../../core/utils.js';
 import { ilerlemeRaporuCiz, ilerlemeSayfasiniKapat, raporTablosu } from '../ilerleme/ilerleme-sayfasi.js';
-import { testVerisi, karsilastir, DEGISIM_ESIGI } from '../testler/test-veri.js';
+import { testVerisi, karsilastir, gelisimOzeti, DEGISIM_ESIGI } from '../testler/test-veri.js';
 import {
   PIN_UZUNLUK, BEKLEME, GUNLUK_SECENEKLER, HAFTALIK_SECENEKLER, pinVarMi, pinDogrula, pinKaydet, pinHatasi, beklemeKalanMs,
   oturumAcikMi, oturumuKapat, veliSifirla, sinifModuAcikMi, sinifModuAyarla, veliHedefi, veliHedefiKaydet, haftaGecmisi, gunTarihi,
 } from './veli-veri.js';
 import { profilOzeti, kursOzetiKisa, disaAktar } from './veli-disa.js';
+import { kayitlariGetir } from '../../core/metrics.js';
+import { kursVerisi, karneSatirlari, karneOzeti } from '../kurs/kurs-veri.js';
+import { karneRaporSatirlari } from '../kurs/kurs-karne.js';
 
 const OTOMATIK_KILIT_MS = 5 * 60 * 1000; // dokunulmadan 5 dk geçerse alan kilitlenir
 let kap = null;
@@ -381,8 +384,36 @@ function testRaporu(p) {
     ? [el('p', { sinif: 'soluk', metin: 'Seviye testi henüz yapılmadı.' })]
     : [raporTablosu(`Başlangıç ${gunMetni(v.baslangic.gun)}${v.final ? `, final ${gunMetni(v.final.gun)}` : ''}`, ['Alan', 'Başlangıç', 'Final'],
       karsilastir(v.baslangic, v.final).map((s) => [s.eksen.etiket, s.once ?? 'ölçülmedi', v.final ? (s.sonra ?? 'ölçülmedi') : 'henüz yok'])),
-    el('p', { sinif: 'alan__ipucu', metin: `Puanlar herkes için aynı sabit ölçekte (0-100). ${DEGISIM_ESIGI} puandan küçük farklar benzer sayılır; tek ölçüm günden güne oynayabilir.` })];
+    el('p', { sinif: 'alan__ipucu', metin: `Puanlar herkes için aynı sabit ölçekte (0-100). ${DEGISIM_ESIGI} puandan küçük farklar benzer sayılır; tek ölçüm günden güne oynayabilir.` }),
+    ...okumaOlcumleri(v.baslangic, v.final)];
   return el('section', { sinif: 'yigin', 'aria-labelledby': 'veli-r-test', style: '--yigin-bosluk: var(--b-3)' }, ust, ...govde);
+}
+
+// S35a: iki okuma ölçümü ayrı tablo ve etiketle; yeniden okuma farkı asıl gelişim gibi sunulmaz
+const farkli = (x) => (x ? `${x.once} → ${x.sonra} (${x.fark > 0 ? '+' : ''}${x.fark})` : '—');
+function okumaOlcumleri(b, f) {
+  const o = gelisimOzeti(b, f);
+  if (!o) return [];
+  const e = o.esdeger;
+  const parca = [raporTablosu(e.ayniMetin ? 'Okuma: başlangıç ve final (aynı metin)' : 'Okuma: eşdeğer metinle karşılaştırma (asıl gelişim ölçüsü)',
+    ['Ölçü', 'Başlangıç → final'], [
+      ['Okuma hızı (k/dk)', farkli(e.wpm)],
+      ['Anlama (%)', farkli(e.anlama)],
+      ['Etkin okuma hızı (k/dk)', farkli(e.eoh)],
+    ])];
+  parca.push(el('p', { sinif: 'alan__ipucu', metin: e.ayniMetin
+    ? 'Bu dönemde final, başlangıçla aynı metinle yapıldı (eşdeğer metin bulunamadı).'
+    : 'Final, başlangıçtakine eşdeğer başka bir metinle yapılır (aynı tür, benzer uzunluk, aynı soru tipleri); radar ve kurs bu ölçümü kullanır.' }));
+  // S35a-d: yeniden okuma yapılmadıysa da tablo görünür (veli adımın varlığını bilsin); yapılmama nedeni yazılır
+  const yok = e.ayniMetin ? 'Bu dönemde yok (final aynı metinle yapıldı)'
+    : !b.okuma ? 'Yok (başlangıçta okuma ölçülmedi)'
+      : 'Yapılmadı (isteğe bağlı adım)';
+  parca.push(raporTablosu('Aynı metni yeniden okuma (ayrı ölçüm, puanlara girmez)', ['Ölçü', 'Başlangıçta → yeniden okumada'],
+    [['Okuma hızı (k/dk)', o.tekrar ? farkli(o.tekrar) : yok]]),
+  el('p', { sinif: 'alan__ipucu', metin: o.tekrar
+    ? 'Öğrenci finalin sonunda başlangıç metnini isteğe bağlı olarak yeniden okudu. Metin tanıdık olduğu için hızın artması beklenir; bu fark asıl gelişim ölçüsü değildir.'
+    : 'Finalin sonunda öğrenci isterse başlangıç metnini yeniden okuyabilir. Bu adım isteğe bağlıdır ve puanları etkilemez.' }));
+  return parca;
 }
 
 function kursRaporu(p) {
@@ -396,7 +427,20 @@ function kursRaporu(p) {
         ['Durum', k.bitti ? 'Bitti' : `Sürüyor (${k.kursGunu}. gün)`],
         ['Başlangıç okuma hızı', k.baslangicWpm ? `${k.baslangicWpm} k/dk` : '—'],
         ['Şu anki hedef hız', k.hedefWpm ? `${k.hedefWpm} k/dk` : '—'],
-      ]));
+      ]),
+    ...(k ? karneRaporu(p) : []));
+}
+
+// S35c: kurs karnesi (ilk gün ve son sonuç; yalnız bu kursun dersleri, farklı seviye/kademe karşılaştırılmaz)
+function karneRaporu(p) {
+  const satirlar = karneSatirlari(kursVerisi(p.id), kayitlariGetir(p.id));
+  if (!satirlar.length) return [el('p', { sinif: 'soluk', metin: 'Kurs karnesi: kurs dersleri yapıldıkça her çalışmanın ilk ve son sonucu burada görünür.' })];
+  const oz = karneOzeti(satirlar);
+  return [
+    raporTablosu(`Kurs karnesi: ilk gün ve son (${oz.toplam} çalışma; ${oz.gelisen} çalışmada ileride ya da seviye yükseldi)`,
+      ['Çalışma', 'Ölçü', 'İlk gün', 'Son', 'Değişim'], karneRaporSatirlari(satirlar)),
+    el('p', { sinif: 'alan__ipucu', metin: '▲ ileride, ≈ yakın, • henüz altında. Yalnız öğrencinin kendi sonuçları karşılaştırılır; seviye değiştiyse fark son seviyedeki ilk sonuçla hesaplanır. Tek bir sonuç günden güne değişebilir; seviye testi karneye girmez.' }),
+  ];
 }
 
 /** #/veli/rapor?profil=<id> (yalnız alan açıkken; değilse PIN kapısına döner) */

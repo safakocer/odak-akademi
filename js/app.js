@@ -1,4 +1,4 @@
-// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28; S30: duruma göre mesaj, dokununca ipucu), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), geniş ekranda kayalıklar üstünde Fener sahnesini (S32), dinamik temada güneş ve ayı (S33), sınıfa göre görünüm ve kartları (S34a: 2-4. sınıfta çocuk görünümü, #/sinif-disi), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
+// Uygulamanın giriş noktası: çekirdek modülleri başlatır; ana ekranı, alan ve egzersiz listelerini, kütüphaneyi, odak araçlarını (S12), hafıza tekniklerini (S15), tekrar kartlarını (S16), seviye testini (S17), Akıllı Kurs ve raporunu (S19), İlerleme paneli ve veli raporunu (S20), Çalışma Rehberini (S22), Veli/Öğretmen alanını ve sınıf modunu (S24), yöneticinin verdiği görünümü (S27) ve çocuk görünümünde Fener balonunu (S28; S30: duruma göre mesaj, dokununca ipucu), ses katmanını (S29: dokunma sesi, ses düzeyi önizlemesi), geniş ekranda kayalıklar üstünde Fener sahnesini (S32), dinamik temada güneş ve ayı (S33), sınıfa göre görünüm ve kartları (S34a: 2-4. sınıfta çocuk görünümü, #/sinif-disi), Bugünün Görevi kartını (S35c), ayarlar sayfasını, profil/yedek pencerelerini ve PWA'yı bağlar
 import { temaDugmesiBagla, ayarFormuBagla, duyur, degisinceHaberVer } from './core/a11y.js';
 import { modalBagla, modalAc, toastGoster, el } from './core/ui.js';
 import { depoBaslat, yedekIndir, yedekYukle, kullanimBayt, kaliciMi } from './core/storage.js';
@@ -19,8 +19,8 @@ import { gozMolasiEsiginiAyarla } from './engine/eye-rest.js';
 import { gokyuzuBaslat, gokyuzuDene } from './engine/gokyuzu.js';
 import { sahneBaslat } from './engine/fener-sahnesi.js';
 import { gokCisimleriBaslat, gokDeneme } from './engine/gok-cisimleri.js';
-import { seriDurumu, bugunDurumu, bugunlukMesaji, seviyeBilgisi, ilerlemeVerisi, ilerlemeSonuclariniSil, rozetDurumu, bugunAnahtari } from './engine/motivasyon.js';
-import { sinifModuAcikMi, haftalikDurum } from './modules/veli/veli-veri.js';
+import { seriDurumu, bugunDurumu, seviyeBilgisi, ilerlemeVerisi, ilerlemeSonuclariniSil, rozetDurumu, bugunAnahtari } from './engine/motivasyon.js';
+import { sinifModuAcikMi } from './modules/veli/veli-veri.js';
 import { fenerBalonu, balonGuncelle, anaSayfaMesaji } from './engine/fener.js';
 import { ipucuMetni, gunlukIpucuSirasi } from './engine/fener-mesajlari.js';
 
@@ -175,12 +175,12 @@ const kursKapat = () => kursModulu().then((m) => m.kursSayfasiniKapat()).catch((
 rotaEkle('/kurs', { baslik: 'Akıllı Kurs', goster: kursCiz, gizle: kursKapat });
 rotaEkle('/kurs/rapor', { baslik: 'Kurs raporu', goster: kursCiz, gizle: kursKapat });
 
-// S20: İlerleme paneli (#/ilerleme) ve veli raporu (#/ilerleme/rapor); gezinmeden ve ana sayfadaki “Bugün” kartından açılır
+// S20: İlerleme paneli (#/ilerleme) ve veli raporu (#/ilerleme/rapor); gezinmeden ve ana sayfadaki “Bugünün Görevi” kartından açılır (S35c: ?bolum=karne kurs karnesine kaydırır)
 const ilerlemeModulu = () => import('./modules/ilerleme/ilerleme-sayfasi.js');
 const ilerlemeCiz = () => ilerlemeModulu()
   .then((m) => {
     const yol = etkinRota()?.yol;
-    if (yol === '/ilerleme') m.ilerlemeSayfasiCiz($('#ilerleme-sayfasi'));
+    if (yol === '/ilerleme') m.ilerlemeSayfasiCiz($('#ilerleme-sayfasi'), etkinRota()?.sorgu);
     else if (yol === '/ilerleme/rapor') m.ilerlemeRaporuCiz($('#ilerleme-rapor-sayfasi'));
   })
   .catch((h) => { console.error('[ilerleme]', h); toastGoster('İlerleme sayfası açılamadı. Sayfayı yenileyip yeniden dene.', { tur: 'hata' }); });
@@ -265,7 +265,7 @@ const profilPenceresi = profilPenceresiniBagla({
 });
 profilDugmesiniBagla($('#profil-dugmesi'));
 
-// Ana ekran: selamlama, kısa özet ve günlük hedef (öğrencinin kendi verisi). S20: seri esnek seridir (dinlenme hakkıyla)
+// Ana ekran: selamlama, kısa özet ve Bugünün Görevi (öğrencinin kendi verisi). S20: seri esnek seridir (dinlenme hakkıyla)
 function anaEkraniGuncelle() {
   const p = aktifProfil();
   anaKartlariCiz(p); // S34a
@@ -274,7 +274,7 @@ function anaEkraniGuncelle() {
   $('#ozet-seri').textContent = `${p ? seriDurumu(p.id).seri : 0} gün`;
   $('#ozet-hafta').textContent = `${o.haftaDk} dk`;
   $('#ozet-eoh').textContent = o.sonEoh != null ? `${o.sonEoh} k/dk` : '—';
-  gunlukHedefiGuncelle(p);
+  gorevKartiniGuncelle(p); // S35c
   fenerSelami(p);
 }
 
@@ -349,31 +349,18 @@ function kursBugun(v, bugun) {
 // Görünüm (yönetici/geliştirici) ya da ayar değişince balon eklenir, kalkar ya da yenilenir
 degisinceHaberVer(() => fenerSelami(aktifProfil()));
 
-// S20: ana sayfadaki “Bugün” kartı: günlük hedef çubuğu, “bugünlük yeter” mesajı, seviye
-function gunlukHedefiGuncelle(p) {
-  const kart = $('#gunluk-hedef');
-  if (!kart) return;
-  kart.hidden = !p;
-  if (!p) return;
-  const d = bugunDurumu(p.id);
-  const s = seviyeBilgisi(ilerlemeVerisi(p.id).xp);
-  const cubuk = $('#hedef-cubugu');
-  $('#hedef-metin').textContent = `${d.dk} / ${d.hedefDk} dk`;
-  cubuk.setAttribute('aria-valuenow', String(d.yuzde));
-  cubuk.setAttribute('aria-valuetext', `${d.hedefDk} dakikalık hedefin ${d.dk} dakikası tamam`);
-  cubuk.querySelector('.ilerleme__dolgu').style.setProperty('--deger', `${d.yuzde}%`);
-  const mesaj = bugunlukMesaji(d);
-  const not = $('#hedef-not');
-  not.className = mesaj ? `bildirim bildirim--${mesaj.tur}` : 'soluk';
-  not.replaceChildren(mesaj
-    ? el('p', {}, el('strong', { metin: `${mesaj.baslik}. ` }), mesaj.metin)
-    : el('p', { metin: d.dk === 0 ? 'Bugün birkaç kısa tur yeterli.' : `Hedefe ${d.hedefDk - d.dk} dakika kaldı.` }));
-  $('#seviye-ozet').textContent = `Seviye ${s.seviye}, ${s.unvan}: ${s.xp} XP (bir sonraki seviyeye ${s.kalan} XP)`;
-  // S24: veli/öğretmenin haftalık hedefi varsa
-  const h = haftalikDurum(p.id);
-  const hafta = $('#hafta-ozet');
-  hafta.hidden = !h.hedefDk;
-  if (h.hedefDk) hafta.textContent = h.tamam ? `Bu hafta ${h.dk} dakika çalıştın; haftalık hedefin (${h.hedefDk} dk) tamam.` : `Bu hafta: ${h.dk} / ${h.hedefDk} dk (haftalık hedef).`;
+// S35c: ana sayfadaki “Bugünün Görevi” kartı (S20’nin “Bugün” kartı buna katıldı: günlük hedef, “bugünlük yeter”, seviye, seri, haftalık hedef).
+// Kart dosyası ilk çizimde yüklenir; açılamazsa kartta kısa bir uyarı kalır
+const gorevModulu = () => import('./modules/gorev/gorev-karti.js');
+function gorevKartiniGuncelle(p) {
+  const kap = $('#gorev-karti');
+  if (!kap) return;
+  gorevModulu().then((m) => m.gorevKartiCiz(kap, p)).catch((h) => {
+    console.error('[gorev]', h);
+    kap.removeAttribute('aria-busy');
+    const baslik = kap.querySelector('#gorev-baslik');
+    if (baslik) baslik.textContent = 'Bugünün görevi açılamadı. Sayfayı yenileyip yeniden dene.';
+  });
 }
 // Uygulama gece yarısını geçerek açık kaldıysa “bugün” yenilensin
 document.addEventListener('visibilitychange', () => { if (!document.hidden && etkinRota()?.yol === '/') anaEkraniGuncelle(); });

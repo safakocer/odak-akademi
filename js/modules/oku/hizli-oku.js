@@ -68,7 +68,7 @@ function hazirlik({ kurs } = {}) {
     },
   });
 
-  kademeliSatiriniGizle(panel.kok); // S34a: ilkokulda kademeli hız yok
+  kademeliSatiriniGizle(panel.kok); // S34a: sınıf bandı izin vermezse kademeli hız satırı gizlenir (S34a-d’den beri her sınıfta öğrenci isterse açar)
   const ozet = el('p', { sinif: 'okuma-ayar__ozet' });
   // S19: kurs dersinde mod ve hız kilitli; yalnız metin seçilebilir
   const kap = kursta ? el('div', { sinif: 'okuma-ayar' }, secici.kok, ozet) : el('div', { sinif: 'okuma-ayar' }, secici.kok, modSecici.kok, panel.kok, ozet);

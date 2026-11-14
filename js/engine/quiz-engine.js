@@ -1,4 +1,4 @@
-// Anlama ve soru motoru: soru şeması ve denetimi, 5 soru tipinin puanlaması, soru oturumu ekranı, katman özeti ve açıklamalı gözden geçirme
+// Anlama ve soru motoru: soru şeması ve denetimi, 5 soru tipinin puanlaması, soru oturumu ekranı, katman özeti (S35b: kademeli soru yolculuğu bilgi → çıkarım → yorum, zor katmandaki doğrular kazanım) ve açıklamalı gözden geçirme
 import { el } from '../core/ui.js';
 import { duyur, odakla } from '../core/a11y.js';
 import { sesCal } from '../core/sound.js';
@@ -159,15 +159,16 @@ export function cevapPuanla(soru, cevap) {
   }
 }
 
-/** sonuclar: [{ soru, cevap, puan }] → { yuzde, puan, soruSayisi, dogruSayisi, katmanlar: { bilgi: { puan, soru, yuzde } ... } } */
+/** sonuclar: [{ soru, cevap, puan }] → { yuzde, puan, soruSayisi, dogruSayisi, katmanlar: { bilgi: { puan, soru, yuzde, dogru (S35b: tam puanlı soru) } ... } } */
 export function anlamaHesapla(sonuclar) {
   const katmanlar = {};
   let toplam = 0;
   for (const r of sonuclar) {
     toplam += r.puan;
-    const k = (katmanlar[r.soru.katman] ??= { puan: 0, soru: 0, yuzde: 0 });
+    const k = (katmanlar[r.soru.katman] ??= { puan: 0, soru: 0, yuzde: 0, dogru: 0 });
     k.puan += r.puan;
     k.soru += 1;
+    if (r.puan >= 1) k.dogru += 1;
   }
   for (const k of Object.values(katmanlar)) k.yuzde = Math.round((k.puan * 100) / k.soru);
   const n = sonuclar.length;
@@ -466,28 +467,52 @@ export function soruOturumuKur(kap, { sorular, metin = '', ayar, metinGorunur = 
 }
 
 // ---------- Sonuç ekranı parçaları ----------
-/** Katman bazlı güçlü / geliştirilecek yönler (anlama: anlamaHesapla çıktısı) */
+/** S35b: Soru yolculuğunun basamakları (kolaydan zora) ve zor basamaklar: buradaki her tam doğru “kazanım” olarak gösterilir (zorluk düşürülmez) */
+export const KATMAN_YOLU = Object.freeze(['bilgi', 'cikarim', 'yorum']);
+export const ZOR_KATMANLAR = Object.freeze(['cikarim', 'yorum']);
+const KAZANIM_METNI = Object.freeze({
+  cikarim: 'metnin açıkça söylemediğini ipuçlarından buldun',
+  yorum: 'metindeki fikri kendi düşüncenle ilişkilendirdin',
+});
+/** S35b: Zor katmanlardaki tam doğrular: [{ katman, dogru, soru }] (doğrusu olmayan katman yok) */
+export function zorKatmanKazanimlari(anlama) {
+  return ZOR_KATMANLAR.map((k) => ({ katman: k, ...anlama?.katmanlar?.[k] }))
+    .filter((x) => x.soru > 0 && (x.dogru ?? Math.floor(x.puan ?? 0)) > 0)
+    .map((x) => ({ katman: x.katman, dogru: x.dogru ?? Math.floor(x.puan), soru: x.soru }));
+}
+
+/** Katman özeti, S35b’den beri kademeli soru yolculuğu: bilgi → çıkarım → yorum basamakları, doğru sayıları, zor basamakta kazanım (anlama: anlamaHesapla çıktısı) */
 export function katmanOzetiOlustur(anlama) {
-  const anahtarlar = Object.keys(KATMANLAR).filter((k) => anlama.katmanlar[k]);
+  const anahtarlar = KATMAN_YOLU.filter((k) => anlama.katmanlar[k]);
   const zayif = anahtarlar.filter((k) => anlama.katmanlar[k].yuzde < ANLAMA_ESIGI);
-  const satir = (k) => {
+  const kazanimlar = zorKatmanKazanimlari(anlama);
+  const adim = (k, i) => {
     const d = anlama.katmanlar[k];
+    const dogru = d.dogru ?? Math.floor(d.puan);
     const guclu = d.yuzde >= ANLAMA_ESIGI;
+    const kazanim = kazanimlar.find((x) => x.katman === k);
     const dolgu = el('span', { sinif: 'ilerleme__dolgu' });
     dolgu.style.setProperty('--deger', `${d.yuzde}%`);
-    return el('li', { sinif: 'anlama-katman', 'data-guclu': String(guclu) },
-      el('div', { sinif: 'anlama-katman__ust' }, katmanRozeti(k),
-        el('span', { metin: `%${d.yuzde} · ${guclu ? 'güçlü yön' : 'geliştirilecek yön'}` })),
-      el('div', { sinif: 'ilerleme ilerleme--ince', 'aria-hidden': 'true' }, dolgu),
-      el('small', { metin: `${KATMANLAR[k].aciklama} (${sayiBicimle(d.puan, 1)} / ${d.soru} puan)` }));
+    return el('li', { sinif: 'soru-yol__adim anlama-katman', 'data-katman': k, 'data-guclu': String(guclu), 'data-kazanim': String(!!kazanim) },
+      el('span', { sinif: 'soru-yol__no', 'aria-hidden': 'true', metin: String(i + 1) }),
+      el('div', { sinif: 'soru-yol__govde' },
+        el('div', { sinif: 'anlama-katman__ust' }, katmanRozeti(k),
+          el('span', { metin: `${dogru}/${d.soru} doğru · %${d.yuzde} · ${guclu ? 'güçlü yön' : 'bir sonraki hedef'}` })),
+        el('div', { sinif: 'ilerleme ilerleme--ince', 'aria-hidden': 'true' }, dolgu),
+        el('small', { metin: `${i + 1}. basamak: ${KATMANLAR[k].aciklama} (${sayiBicimle(d.puan, 1)} / ${d.soru} puan)` }),
+        kazanim && el('p', { sinif: 'soru-yol__kazanim' },
+          el('span', { sinif: 'soru-yol__yildiz', 'aria-hidden': 'true', metin: '★' }),
+          el('strong', { metin: 'Kazanım: ' }),
+          `${KATMANLAR[k].etiket} sorularında ${kazanim.dogru} doğru; ${KAZANIM_METNI[k]}.`)));
   };
-  return el('section', { sinif: 'anlama-katmanlar', 'aria-labelledby': 'anlama-katman-baslik' },
-    el('h4', { id: 'anlama-katman-baslik', metin: 'Soru katmanlarına göre' }),
-    el('ul', {}, anahtarlar.map(satir)),
+  return el('section', { sinif: 'anlama-katmanlar soru-yol', 'aria-labelledby': 'anlama-katman-baslik' },
+    el('h4', { id: 'anlama-katman-baslik', metin: 'Soru yolculuğun: bilgi → çıkarım → yorum' }),
+    el('p', { sinif: 'soru-yol__giris', metin: 'Sorular kolaydan zora üç basamaktır. Zor basamaklardaki her doğru ayrı bir kazanımdır.' }),
+    el('ol', { sinif: 'soru-yol__liste' }, anahtarlar.map(adim)),
     zayif.length
       ? el('div', { sinif: 'anlama-katmanlar__oneri' }, el('p', {}, el('strong', { metin: 'Bir sonraki adım için ipucu: ' })),
         el('ul', {}, zayif.map((k) => el('li', {}, el('strong', { metin: `${KATMANLAR[k].etiket}: ` }), KATMANLAR[k].oneri))))
-      : el('p', { metin: 'Üç katmanda da iyi iş çıkardın. Bir sonraki hedef: bu anlamayı farklı metinlerde de korumak.' }));
+      : el('p', { metin: 'Üç basamakta da iyi iş çıkardın. Bir sonraki hedef: bu anlamayı farklı metinlerde de korumak.' }));
 }
 
 /** Açıklamalı gözden geçirme: yanlış ve kısmen doğru sorular (hepsi doğruysa tüm açıklamalar); düğmeyle açılır */

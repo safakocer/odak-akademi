@@ -1,6 +1,7 @@
 // Seviye Belirleme Testi sayfası (S17, #/testler): 5 adım (okuma+anlama, Dokun ya da Bekle, Rakam Dizisi, Görme Alanı Flaşı, odak öz değerlendirmesi), profil radarı, başlangıç/final karşılaştırması
 // S34d: 2-8. sınıf; kademe akışı data/tests/seviye-testi.json akislar’dan (ilkokulda kısa yönergeli 3-4 adım), egzersizi sınıfa uygun olmayan adım atlanır, okuma hızı ölçeği sınıf bandından
 // S34-son: akış adımında ornek (egzersizin görsel örneği), alistirma (kaydedilmeyen kısa deneme; olcum alanlarının üstüne) ve bantli (sınıfın egzersiz bandı; sonuç bantli listesine yazılır, final aynı koşulla)
+// S35a: eşdeğer form A/B (final başlangıcın diğer formuyla; yeni dönemde formlar yer değiştirir), finalde isteğe bağlı “İlk metnine dön” (yalnız hız, tekrarOkuma alanına; puanlara karışmaz), karşılaştırma ekranı ve çocukta Fener
 import { el } from '../../core/ui.js';
 import { odakla, duyur } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
@@ -12,8 +13,12 @@ import { soruOturumuKur, ANLAMA_ESIGI } from '../../engine/quiz-engine.js';
 import { radarOlustur } from '../../engine/radar.js';
 import { egzersizYukle, egzersizBilgisi, aracBilgisi, kartUygunMu } from '../katalog.js';
 import { bantlariYukle, egzersizBandi, seviyeleriUyarla } from '../../core/siniflar.js';
+import { cocukGorunumuMu } from '../../core/hesap.js';
+import { fenerBalonu } from '../../engine/fener.js';
+import { karsilastirmaMesaji } from '../../engine/fener-mesajlari.js';
 import {
   EKSENLER, OLCEK, FINAL_GUN, YENILEME_GUN, testDurumu, sonucKaydet, yeniDonem, guclulukOzeti, karsilastir, hamMetin, sinifOlcegi, sonucOlcegi,
+  FORMLAR, formGecerli, testFormu, gelisimOzeti,
 } from './test-veri.js';
 
 const OKUMA_EN_AZ_MS = 8000;     // bundan önce “Bitirdim” okumayı bitirmez (yanlışlıkla dokunma)
@@ -41,7 +46,7 @@ const ADIMLAR = Object.freeze([
 // Varsayılan akışın sayfa metinleri ({gun}: final günü); kademe akışı (seviye-testi.json akislar) bunları değiştirebilir
 const AKIS_METINLERI = Object.freeze({
   sure: 'yaklaşık 10 dakika',
-  giris: 'Kısa adımlarla okuma, anlama, dikkat, hafıza ve görme alanındaki bugünkü noktanı görürsün. {gun} gün sonra aynı testi yeniden yapıp yalnızca kendi sonuçlarınla karşılaştırırsın.',
+  giris: 'Kısa adımlarla okuma, anlama, dikkat, hafıza ve görme alanındaki bugünkü noktanı görürsün. {gun} gün sonra testi eşdeğer bir metinle yeniden yapıp yalnızca kendi sonuçlarınla karşılaştırırsın.',
   hazirlik: 'Sessiz bir yer seç, bildirimleri kapat. Her adımdan önce hazır olduğunda “Başla”ya basarsın; zorlandığın bir adımı atlayabilirsin.',
   adimNotu: 'Hazır olduğunda başla. Adımlar arasında istediğin kadar dinlenebilirsin.',
 });
@@ -98,11 +103,22 @@ function testDosyasi() {
   return dosyaSozu.then((d) => { dosya = d; return d; });
 }
 
-/** Final başlangıçtaki metni kullanır; yoksa profilin sınıfına uygun metin */
-function testMetni(d, kimlik, sinif) {
+// S35a: metnin formu (form alanı olmayan metin A sayılır) ve kimlikten form çözücü (S35a öncesi sonuçlar için)
+const metinFormuAl = (m) => (formGecerli(m?.form) ? m.form : FORMLAR[0]);
+const formCozucu = (d) => (kimlik) => { const m = d?.metinler.find((x) => x.kimlik === kimlik); return m ? metinFormuAl(m) : null; };
+
+/**
+ * S35a: Sınıfın istenen formdaki metni; yoksa yedek (final: başlangıçtaki metin, aynı metin olur), o da yoksa sınıfın herhangi bir metni.
+ * Kullanılan metnin formu sonuca yazılır; karşılaştırma ekranı aynı metin kullanıldıysa bunu ayrıca belirtir.
+ */
+function testMetni(d, { sinif, form, yedekKimlik = null }) {
   const liste = d.metinler;
-  return liste.find((m) => m.kimlik === kimlik) ?? liste.find((m) => m.sinif === Number(sinif)) ?? liste[0] ?? null;
+  const s = Number(sinif);
+  return liste.find((m) => m.sinif === s && metinFormuAl(m) === form)
+    ?? liste.find((m) => m.kimlik === yedekKimlik)
+    ?? liste.find((m) => m.sinif === s) ?? liste[0] ?? null;
 }
+const metinAdi = (d, kimlik) => d?.metinler.find((m) => m.kimlik === kimlik)?.ad ?? null;
 
 const turUygun = (v, tur) => (tur === 'metin' ? typeof v === 'string' && v.trim() !== ''
   : tur === 'liste' ? Array.isArray(v) && v.every((x) => typeof x === 'string')
@@ -269,12 +285,13 @@ async function olcumAdimi(govde, adim, calisma, h, { alistirma = false } = {}) {
   return sonuc;
 }
 
-function okumaAdimi(govde, metin, calisma) {
+// Okuma ekranı: perde → metin (süre görünmez) → “Bitirdim”. Döner: { okuma: { wpm, kelime, sureSn, sureDoldu?, hizliGecis? }, ayar } | null (iptal)
+// S35a: okuma adımı ve “İlk metnine dön” ortak kullanır; sorular çağırana aittir
+function metniOku(govde, metin, calisma, { ust = null } = {}) {
   return new Promise((coz) => {
     const ayar = okumaAyarlariniGetir();
     const gruplar = metniGrupla(metin.metin, ayar);
     const motor = okumaMotoruOlustur({ gruplar, mod: 'serbest', wpm: ayar.wpm });
-    let soruOturumu = null;
     let saat = 0;
     let bitti = false;
     const kapat = (sonuc) => {
@@ -282,7 +299,6 @@ function okumaAdimi(govde, metin, calisma) {
       bitti = true;
       clearInterval(saat);
       motor.iptal();
-      soruOturumu?.iptal();
       calisma.durdur = null;
       coz(sonuc);
     };
@@ -296,7 +312,7 @@ function okumaAdimi(govde, metin, calisma) {
     const bitirDugme = el('button', { type: 'button', sinif: 'btn btn--birincil btn--buyuk btn--blok', metin: 'Bitirdim', hidden: true, onclick: () => okumaBitti(false) });
     const perde = el('div', { sinif: 'test-perde' },
       el('p', { metin: 'Metin, düğmeye basınca görünecek. Süre o an başlar ve ekranda gösterilmez.' }), baslaDugme);
-    govde.replaceChildren(el('section', { sinif: 'test-okuma' }, baslik, perde, metinKutusu, not, bitirDugme));
+    govde.replaceChildren(el('section', { sinif: 'test-okuma' }, ust, baslik, perde, metinKutusu, not, bitirDugme));
     odakla(baslik);
 
     function basla() {
@@ -320,21 +336,58 @@ function okumaAdimi(govde, metin, calisma) {
       const okuma = { wpm: o.wpm, kelime: o.toplamKelime, sureSn: o.sureSn };
       if (sureDoldu) okuma.sureDoldu = true;
       if (o.wpm > WPM_SINIR.enCok) okuma.hizliGecis = true;
-      const kap = el('div', { sinif: 'test-sorular' });
-      govde.replaceChildren(kap);
-      if (sureDoldu) duyur('Okuma süresi doldu. Şimdi sorulara geçiyoruz.');
-      soruOturumu = soruOturumuKur(kap, {
-        sorular: metin.sorular, metin: metin.metin, ayar, metinGorunur: false, giris: true,
-        bitince: ({ anlama: a }) => kapat({
-          okuma,
-          anlama: {
-            yuzde: a.yuzde, dogru: a.dogruSayisi, soru: a.soruSayisi,
-            katman: Object.fromEntries(Object.entries(a.katmanlar).map(([k, v]) => [k, v.yuzde])),
-          },
-        }),
-      });
+      kapat({ okuma, ayar });
     }
   });
+}
+
+async function okumaAdimi(govde, metin, calisma) {
+  const r = await metniOku(govde, metin, calisma);
+  if (!r || calisma.bitti) return null;
+  return new Promise((coz) => {
+    let soruOturumu = null;
+    let bitti = false;
+    const kapat = (sonuc) => {
+      if (bitti) return;
+      bitti = true;
+      soruOturumu?.iptal();
+      calisma.durdur = null;
+      coz(sonuc);
+    };
+    calisma.durdur = () => kapat(null);
+    const kap = el('div', { sinif: 'test-sorular' });
+    govde.replaceChildren(kap);
+    if (r.okuma.sureDoldu) duyur('Okuma süresi doldu. Şimdi sorulara geçiyoruz.');
+    soruOturumu = soruOturumuKur(kap, {
+      sorular: metin.sorular, metin: metin.metin, ayar: r.ayar, metinGorunur: false, giris: true,
+      bitince: ({ anlama: a }) => kapat({
+        okuma: r.okuma,
+        anlama: {
+          yuzde: a.yuzde, dogru: a.dogruSayisi, soru: a.soruSayisi,
+          katman: Object.fromEntries(Object.entries(a.katmanlar).map(([k, v]) => [k, v.yuzde])),
+        },
+      }),
+    });
+  });
+}
+
+// S35a: “İlk metnine dön” (finalden sonra, isteğe bağlı): başlangıç metni yeniden okunur, yalnız hız ölçülür, soru yok.
+// Adım ekranı adimGirisi ile; döner: { metin, wpm, kelime, sureSn, sureDoldu?, hizliGecis? } | { atlandi: true } | null (iptal)
+const TEKRAR_ADIMI = Object.freeze({
+  baslik: 'Ek adım: İlk metnine dön',
+  aciklama: 'İstersen başlangıç testinde okuduğun metni yeniden oku. Yalnız okuma hızın ölçülür; soru yok.',
+  ipuclari: Object.freeze([
+    'Metni daha önce okuduğun için tanıdık gelecek; sonuç “Aynı metni yeniden okudun” diye ayrı gösterilir.',
+    'Bu ölçüm final puanlarına, radara ve kursa karışmaz.',
+  ]),
+});
+async function tekrarOkumaAdimi(govde, metin, calisma, onceki, adimNotu) {
+  const secim = await adimGirisi(govde, TEKRAR_ADIMI, calisma, onceki, adimNotu);
+  if (calisma.bitti || secim === 'iptal') return null;
+  if (secim === 'atla') return { atlandi: true };
+  const ust = el('p', { sinif: 'rozet rozet--gunes', metin: 'Aynı metni yeniden okuyorsun · puanlara girmez' });
+  const r = await metniOku(govde, metin, calisma, { ust });
+  return r ? { metin: metin.kimlik, ...r.okuma } : null;
 }
 
 function ozAdimi(govde, calisma) {
@@ -392,15 +445,16 @@ async function testiCalistir(kap, tur) {
   oturum = calisma;
   const [d] = await Promise.all([testDosyasi(), bantlariYukle()]);
   if (calisma.bitti) return;
-  // Final, başlangıçla aynı koşulda: aynı metin, başlangıcın sınıfının akışı ve ölçeği
+  // Final, başlangıçla aynı koşulda: başlangıcın sınıfının akışı ve ölçeği; S35a: metin aynı sınıfın eşdeğer (diğer) formundan
   const b = tur === 'final' ? durum.veri.baslangic : null;
-  const metin = testMetni(d, b?.metin ?? null, p.sinif);
+  const form = testFormu(durum.veri, tur, formCozucu(d));
+  const metin = testMetni(d, { sinif: b?.sinif ?? p.sinif, form, yedekKimlik: b?.metin ?? null });
   const akis = akisKur(d, b?.sinif ?? p.sinif);
   const ADIM = akis.adimlar;
 
   const t0 = Date.now();
   const testSinifi = b?.sinif ?? p.sinif;
-  const sonuc = { sinif: p.sinif, metin: metin?.kimlik ?? null, atlanan: [], olcek: { wpm: (b ? sonucOlcegi(b) : sinifOlcegi(p.sinif)).wpm } };
+  const sonuc = { sinif: p.sinif, metin: metin?.kimlik ?? null, form: metin ? metinFormuAl(metin) : form, atlanan: [], olcek: { wpm: (b ? sonucOlcegi(b) : sinifOlcegi(p.sinif)).wpm } };
   // S34-son: bandın uygulandığı adımlar; final başlangıçtakini izler (eski başlangıçta liste yoksa bant uygulanmaz)
   const bantliMi = (adim) => (b ? (Array.isArray(b.bantli) && b.bantli.includes(adim.ad)) : adim.bantli === true);
   const baslik = el('h1', { metin: tur === 'final' ? 'Final testi' : 'Başlangıç testi' });
@@ -408,8 +462,9 @@ async function testiCalistir(kap, tur) {
   const dolgu = el('span', { sinif: 'ilerleme__dolgu' });
   const cubuk = el('div', { sinif: 'ilerleme', role: 'progressbar', 'aria-labelledby': etiket.id, 'aria-valuemin': '0', 'aria-valuemax': String(ADIM.length) }, dolgu);
   const govde = el('div', { sinif: 'test-govde' });
+  let cikisSorusu = 'Test yarıda bırakılsın mı? Bu testteki yanıtlar kaydedilmez; istediğin zaman baştan başlayabilirsin.';
   const cik = el('button', { type: 'button', sinif: 'btn btn--hayalet btn--kucuk', metin: 'Testten çık', onclick: () => {
-    if (!confirm('Test yarıda bırakılsın mı? Bu testteki yanıtlar kaydedilmez; istediğin zaman baştan başlayabilirsin.')) return;
+    if (!confirm(cikisSorusu)) return;
     testiDurdur();
     sayfaCiz(kap);
   } });
@@ -462,11 +517,26 @@ async function testiCalistir(kap, tur) {
     sesCal('dogru');
   }
 
-  oturum = null;
   const simdi = new Date();
   Object.assign(sonuc, { tarih: simdi.toISOString(), gun: gunAnahtari(simdi), sureSn: Math.round((Date.now() - t0) / 1000) });
   if (sonuc.okuma && sonuc.anlama) sonuc.eoh = eohHesapla(sonuc.okuma.wpm, sonuc.anlama.yuzde);
-  const k = sonucKaydet(tur, sonuc, p.id);
+  let k = sonucKaydet(tur, sonuc, p.id);
+
+  // S35a: finalde isteğe bağlı “İlk metnine dön” (başlangıçta okuma ölçüldüyse ve final başka metinle yapıldıysa).
+  // Final önce kaydedilir; bu adımdan çıkılırsa ya da atlanırsa final yine kayıtlıdır. Okunursa tekrarOkuma eklenip yeniden kaydedilir.
+  const ilkMetin = k.tamam && tur === 'final' && b?.okuma && b.metin && b.metin !== sonuc.metin ? d.metinler.find((m) => m.kimlik === b.metin) : null;
+  if (ilkMetin) {
+    cikisSorusu = 'Ek adımdan çıkılsın mı? Final testin kaydedildi; yalnız bu isteğe bağlı okuma kaydedilmez.';
+    etiket.textContent = 'Ek adım (isteğe bağlı): İlk metnine dön';
+    dolgu.style.setProperty('--deger', '100%');
+    cubuk.setAttribute('aria-valuenow', String(ADIM.length));
+    cubuk.setAttribute('aria-valuetext', `${ADIM.length} adımın hepsi tamamlandı; isteğe bağlı ek adım`);
+    const t = await tekrarOkumaAdimi(govde, ilkMetin, calisma, `${onceki} Final testin kaydedildi.`, 'İstersen geçebilirsin; sonuçların bu adım olmadan da hazır.');
+    if (calisma.bitti || !t) return;
+    if (!t.atlandi) k = sonucKaydet(tur, { ...sonuc, tekrarOkuma: t }, p.id);
+  }
+
+  oturum = null;
   sayfaCiz(kap, { yeniTur: k.tamam ? tur : null, hata: k.tamam ? null : k.hata });
 }
 
@@ -535,32 +605,95 @@ function ozetListesi(s) {
   return el('ul', { sinif: 'test-ozet' }, ogeler);
 }
 
-// İki ölçüm: değişim özeti
-function degisimListesi(b, f) {
+// S35a: “önce → sonra” satırı; fark işaretle yazılır (renge dayanmaz)
+const isaretliFark = (fark) => (fark > 0 ? `+${sayiBicimle(fark)}` : fark < 0 ? `−${sayiBicimle(-fark)}` : '0');
+function degisimSatiri(etiket, x, birim) {
+  if (!x) return null;
+  const yon = { artti: 'arttı', azaldi: 'henüz başlangıcın altında', benzer: 'başlangıca yakın' }[x.yon];
+  return el('div', { sinif: 'test-degisim__satir' },
+    el('dt', { metin: etiket }),
+    el('dd', {}, `${birim(x.once)} → ${birim(x.sonra)} `,
+      el('span', { sinif: 'test-fark', 'data-yon': x.yon, metin: `(${isaretliFark(x.fark)})` }),
+      el('span', { sinif: 'ekran-okuyucu', metin: `, ${yon}` })));
+}
+const kdk = (n) => `${sayiBicimle(n)} kelime/dk`;
+const yuzde = (n) => `%${sayiBicimle(n)}`;
+
+// S35a (a): eşdeğer metinde değişim
+function esdegerOgesi(o, d0) {
+  const e = o.esdeger;
+  if (!e.wpm && !e.anlama) return null;
+  const bAd = metinAdi(d0, e.baslangicMetin);
+  const fAd = metinAdi(d0, e.finalMetin);
+  const giris = e.ayniMetin
+    ? `Başlangıçta ve finalde aynı metni${bAd ? ` (“${bAd}”)` : ''} okudun; bu dönem için eşdeğer metin bulunamadı.`
+    : `Başlangıçta “${bAd ?? 'ilk metin'}”, finalde “${fAd ?? 'eşdeğer metin'}” metnini okudun. İki metin aynı türde, benzer uzunlukta ve aynı soru tiplerinde.`;
+  const notlar = [];
+  if (!e.guvenilir) notlar.push('Metinlerden biri çok hızlı geçildiği için okuma hızı farkı güvenilir değil.');
+  if (e.eoh?.yon === 'azaldi') notlar.push('Etkin okuma hızın henüz başlangıcın altında. Bir sonraki hedefin: anlamayı koruyarak, kendi hızında okumak.');
+  else if (e.anlama?.yon === 'azaldi') notlar.push('Anlaman henüz başlangıcın altında. Bir sonraki hedefin: okurken “kim, ne, neden?” diye sormak.');
+  return el('li', { 'data-tur': 'esdeger' },
+    el('h3', { metin: e.ayniMetin ? 'Okuma ve anlamada değişim' : 'Eşdeğer metinde değişim' }),
+    el('p', { metin: giris }),
+    el('dl', { sinif: 'test-degisim' },
+      degisimSatiri('Okuma hızı', e.wpm, kdk),
+      degisimSatiri('Anlama', e.anlama, yuzde),
+      degisimSatiri('Etkin okuma hızı', e.eoh, kdk)),
+    ...notlar.map((m) => el('p', { sinif: 'test-not', metin: m })));
+}
+
+// S35a (b): aynı metni yeniden okuma (asıl gelişim gibi sunulmaz; ayrı etiket ve açıklama)
+function tekrarOgesi(o, d0) {
+  const t = o.tekrar;
+  if (!t) return null;
+  const ad = metinAdi(d0, t.metin);
+  return el('li', { 'data-tur': 'tekrar' },
+    el('h3', { metin: 'Aynı metni yeniden okudun' }),
+    el('dl', { sinif: 'test-degisim' }, degisimSatiri(ad ? `“${ad}” okuma hızı` : 'Okuma hızı', t, kdk)),
+    el('p', { sinif: 'test-not', metin: t.hizliGecis
+      ? 'Metin çok hızlı geçildiği için bu fark güvenilir değil.'
+      : 'Metni daha önce okuduğun için tanıdık geldi. Bu fark eşdeğer metindeki değişimden ayrı tutulur; final puanlarına, radara ve kursa karışmaz.' }));
+}
+
+// İki ölçüm: değişim özeti. S35a: (c) en çok geliştiğin alan, (a) eşdeğer metin, (b) aynı metni yeniden okuma, sonra yerini koruyan ve bir sonraki hedef
+function degisimListesi(b, f, d0) {
+  const o = gelisimOzeti(b, f);
   const k = karsilastir(b.puanlar ? b : null, f);
   const art = k.filter((x) => x.yon === 'artti');
   const az = k.filter((x) => x.yon === 'azaldi');
   const benzer = k.filter((x) => x.yon === 'benzer');
   const adlar = (l) => l.map((x) => x.eksen.etiket).join(', ');
   const ogeler = [];
-  if (art.length) {
-    ogeler.push(el('li', { 'data-tur': 'artti' }, el('h3', { metin: `${art.length} alanda ilerleme var` }),
-      el('p', { metin: `${adlar(art)}: ${FINAL_GUN} günlük çalışmanın izi burada.` })));
+  if (o.enCok) {
+    const x = k.find((y) => y.eksen.ad === o.enCok.eksen.ad);
+    const diger = art.filter((y) => y.eksen.ad !== o.enCok.eksen.ad);
+    ogeler.push(el('li', { 'data-tur': 'artti' }, el('h3', { metin: `En çok geliştiğin alan: ${o.enCok.eksen.etiket}` }),
+      el('p', { metin: `${x.once} → ${x.sonra} (${isaretliFark(o.enCok.fark)} puan). ${FINAL_GUN} günlük çalışmanın izi burada.` }),
+      diger.length ? el('p', { metin: `İlerleme olan diğer alanlar: ${adlar(diger)}.` }) : null));
+  } else {
+    const hedef = o.sonrakiHedef;
+    ogeler.push(el('li', { 'data-tur': 'gelisim' }, el('h3', { metin: 'Henüz belirgin bir artış yok' }),
+      el('p', { metin: `Bu ölçümde alanların başlangıca yakın ya da biraz altında. Tek bir test günden güne değişebilir.${hedef ? ` Bir sonraki hedefin: ${hedef.etiket}.` : ''}` }),
+      hedef ? egzersizBaglantisi(hedef) : null));
   }
+  ogeler.push(esdegerOgesi(o, d0), tekrarOgesi(o, d0));
   if (benzer.length) {
     ogeler.push(el('li', {}, el('h3', { metin: 'Yerini koruyan alanlar' }),
       el('p', { metin: `${adlar(benzer)}: başlangıca yakın. Düzenli kısa çalışmalar bu alanlarda da fark yaratabilir.` })));
   }
-  if (az.length) {
+  if (az.length && o.enCok) {
     ogeler.push(el('li', { 'data-tur': 'gelisim' }, el('h3', { metin: 'Bir sonraki hedef' }),
-      el('p', { metin: `${adlar(az)} bu ölçümde biraz düşük çıktı. Tek bir test günden güne değişebilir; bu alanda kısa ve düzenli çalışmak iyi bir sonraki adım.` }),
+      el('p', { metin: `${adlar(az)} bu ölçümde henüz başlangıcın altında. Tek bir test günden güne değişebilir; bu alanda kısa ve düzenli çalışmak iyi bir sonraki adım.` }),
       egzersizBaglantisi(az[0].eksen)));
   }
-  if (b.eoh && f.eoh) {
-    ogeler.push(el('li', {}, el('h3', { metin: 'Etkin okuma hızı' }),
-      el('p', { metin: `${sayiBicimle(b.eoh)} → ${sayiBicimle(f.eoh)} kelime/dk (okuma hızı × anlama oranı).` })));
-  }
-  return el('ul', { sinif: 'test-ozet' }, ogeler);
+  return el('ul', { sinif: 'test-ozet' }, ogeler.filter(Boolean));
+}
+
+// S35a: çocuk görünümünde karşılaştırmaya Fener eşlik eder (metin ekran okuyucuda normal okunur; profesyonelde yok)
+function fenerKarsilastirma(b, f) {
+  if (!cocukGorunumuMu()) return null;
+  const m = karsilastirmaMesaji(gelisimOzeti(b, f), { sinif: etkinProfil()?.sinif ?? f.sinif });
+  return fenerBalonu({ ifade: m.ifade, mesaj: m.mesaj, sinif: 'test-sonuc__fener' });
 }
 
 function tablo(b, f) {
@@ -590,7 +723,8 @@ function olcekAciklamasi(s) {
       el('li', { metin: `Dikkat: doğruluğun %70’i + tepki hızının %30’u (${OLCEK.tepkiMs[0]} ms → 0, ${OLCEK.tepkiMs[1]} ms → 100).` }),
       el('li', { metin: `Hafıza: doğru hatırlanan en uzun dizi (${OLCEK.dizi[0]} rakam → 0, ${OLCEK.dizi[1]} rakam → 100).` }),
       el('li', { metin: `Görme alanı: doğru görülen flaş süresi (${OLCEK.flasMs[0]} ms → 0, ${OLCEK.flasMs[1]} ms → 100).` })),
-    el('p', { metin: 'Bu ölçek bir not ya da sıralama değildir. Başlangıç ve final aynı cetvelle hesaplanır; yalnızca senin iki ölçümünü karşılaştırmak için kullanılır.' }));
+    el('p', { metin: 'Bu ölçek bir not ya da sıralama değildir. Başlangıç ve final aynı cetvelle hesaplanır; yalnızca senin iki ölçümünü karşılaştırmak için kullanılır.' }),
+    el('p', { metin: 'Final, başlangıçtakine eşdeğer bir metinle yapılır: aynı tür, benzer uzunluk, aynı soru tipleri. Yeni dönemde iki metin yer değiştirir. “İlk metnine dön” ölçümü ayrı gösterilir, puanlara girmez.' }));
 }
 
 function durumKarti(kap, d) {
@@ -608,7 +742,7 @@ function durumKarti(kap, d) {
   } else if (d.asama === 'hazir') {
     kart.append(
       el('h2', { id: 'test-durum-baslik', metin: `${FINAL_GUN} gün doldu` }),
-      el('p', { metin: 'Final testi hazır: aynı adımlar, aynı metin, aynı ayarlar. Sonra başlangıcınla karşılaştıracağız.' }),
+      el('p', { metin: 'Final testi hazır: aynı adımlar ve ayarlar, eşdeğer bir metin (aynı türde, benzer uzunlukta, aynı soru tiplerinde). Sonunda istersen ilk metnini de yeniden okuyabilirsin.' }),
       el('div', { sinif: 'test-eylemler' }, el('button', { type: 'button', sinif: 'btn btn--gunes btn--buyuk', metin: 'Final testine başla', onclick: () => testiCalistir(kap, 'final') })));
   } else {
     kart.append(
@@ -623,7 +757,7 @@ function durumKarti(kap, d) {
   return kart;
 }
 
-function sonucBolumu(d) {
+function sonucBolumu(d, d0) {
   const { baslangic: b, final: f } = d.veri;
   const seriler = [{ etiket: `Başlangıç (${tarihMetni(b.tarih)})`, degerler: b.puanlar }];
   if (f) seriler.push({ etiket: `Final (${tarihMetni(f.tarih)})`, degerler: f.puanlar });
@@ -636,8 +770,9 @@ function sonucBolumu(d) {
     el('div', { sinif: 'test-sonuc__ust' }, baslik,
       el('p', { sinif: 'soluk', metin: f
         ? 'Yalnızca kendi iki ölçümün karşılaştırılır.'
-        : 'Bu, sıralama değil; kendi gelişimini izlemek için bir başlangıç çizgisi.' })),
-    el('div', { sinif: 'test-sonuc__duzen' }, radar, f ? degisimListesi(b, f) : ozetListesi(b)),
+        : 'Bu, sıralama değil; kendi gelişimini izlemek için bir başlangıç çizgisi.' }),
+      f ? fenerKarsilastirma(b, f) : null),
+    el('div', { sinif: 'test-sonuc__duzen' }, radar, f ? degisimListesi(b, f, d0) : ozetListesi(b)),
     tablo(b, f),
     olcekAciklamasi(b));
 }
@@ -658,7 +793,7 @@ async function sayfaCiz(kap, { yeniTur = null, hata = null } = {}) {
   const parcalar = [girisBolumu(akis)];
   if (hata) parcalar.push(el('p', { sinif: 'test-oz__hata', role: 'alert', metin: hata }));
   if (d.asama === 'yok') parcalar.push(baslangicKarti(kap, akis));
-  else parcalar.push(sonucBolumu(d), durumKarti(kap, d));
+  else parcalar.push(sonucBolumu(d, d0), durumKarti(kap, d));
   kap.replaceChildren(...parcalar);
   if (yeniTur) {
     const b = kap.querySelector('#test-sonuc-baslik');

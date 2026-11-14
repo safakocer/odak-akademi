@@ -1,4 +1,4 @@
-// Oku ve Anla (S19: kurs dersinde mod ve hedef hız kurstan gelir; S34a: modlar ve kademeli hız sınıf bandına göre; S34b: soru sayısı metne göre 3-6): kütüphaneden (ya da kendi sorulu metinlerinden) metin seç, seçilen modla oku, ardından anlama soruları; sonuçta hız, anlama %, EOH, katman özeti ve gözden geçirme
+// Oku ve Anla (S19: kurs dersinde mod ve hedef hız kurstan gelir; S34a: modlar ve kademeli hız sınıf bandına göre; S34b: soru sayısı metne göre 3-6; S35b: sonuçta soru yolculuğu, zor basamaktaki doğrular kazanım): kütüphaneden (ya da kendi sorulu metinlerinden) metin seç, seçilen modla oku, ardından anlama soruları; sonuçta hız, anlama %, EOH, katman yolculuğu ve gözden geçirme
 import { el } from '../../core/ui.js';
 import { sayiBicimle, sureMetni, yuzdeBicimle } from '../../core/utils.js';
 import { eohHesapla, sonAnlamaYuzde } from '../../core/metrics.js';
@@ -6,7 +6,7 @@ import { okumaAyarlariniGetir, okumaAyarlariniKaydet, okumaAyarDenetle, tahminiS
 import { modlariYukle, okumaSahnesiKur, modSeciciOlustur, sinifaUygunModlar, kademeliSatiriniGizle } from '../../engine/reader-modes.js';
 import { bantlariYukle } from '../../core/siniflar.js';
 import { okumaAyarPaneliOlustur } from '../../engine/reader-panel.js';
-import { soruOturumuKur, katmanOzetiOlustur, gozdenGecirmeOlustur, ANLAMA_ESIGI } from '../../engine/quiz-engine.js';
+import { soruOturumuKur, katmanOzetiOlustur, gozdenGecirmeOlustur, zorKatmanKazanimlari, KATMANLAR, ANLAMA_ESIGI } from '../../engine/quiz-engine.js';
 import { metinBankasiYukle, okunduIsaretle } from '../../engine/text-bank.js';
 import { metinSeciciOlustur, metinSecimHatasi } from '../../engine/text-picker.js';
 
@@ -14,7 +14,7 @@ import { metinSeciciOlustur, metinSecimHatasi } from '../../engine/text-picker.j
 const TUM_MODLAR = await modlariYukle(['rehber', 'kelime-grubu', 'serbest']);
 await bantlariYukle(); // S34a: sınıf bantları (varsayılan hız, izinli modlar, kademeli hız)
 let MODLAR = TUM_MODLAR; // S34a: her hazırlıkta etkin profilin sınıfına göre süzülür
-await metinBankasiYukle(); // S07: metinler data/texts/sinif<N>.json'dan (S34b: 2, 3 ve 5-8); yüklenemezse yalnız kendi sorulu metinleri seçilebilir
+await metinBankasiYukle(); // S07: metinler data/texts/sinif<N>.json'dan (S34c’den beri 2-8. sınıfın hepsi); yüklenemezse yalnız kendi sorulu metinleri seçilebilir
 const soruluMu = (m) => m.sorular.length > 0;
 
 const secim = { mod: 'serbest', metneBak: false }; // metne bakma varsayılan kapalı
@@ -64,7 +64,7 @@ function hazirlik({ kurs } = {}) {
     },
   });
 
-  kademeliSatiriniGizle(panel.kok); // S34a: ilkokulda kademeli hız yok
+  kademeliSatiriniGizle(panel.kok); // S34a: sınıf bandı izin vermezse kademeli hız satırı gizlenir (S34a-d’den beri her sınıfta öğrenci isterse açar)
   const metneBak = el('input', { type: 'checkbox', name: 'oa-metne-bak', 'aria-describedby': 'oa-metne-bak-not' });
   metneBak.checked = secim.metneBak;
   const metneBakKutu = el('div', { sinif: 'okuma-ayar__satir' },
@@ -149,9 +149,14 @@ function degerlendir(ham) {
   ];
   if (d.metinGorunur) satirlar.push(['Metne bakma', d.metneBakis ? `Açık (${d.metneBakis} kez)` : 'Açık']);
 
-  const mesaj = dusuk
+  // S35b: zor basamaktaki (çıkarım, yorum) doğrular, anlama düşük olsa da kazanım olarak söylenir; soruların zorluğu değişmez
+  const kazanimlar = zorKatmanKazanimlari(d.anlama);
+  const kazanimMetni = kazanimlar.length
+    ? ` Zor basamakta kazanımın var: ${kazanimlar.map((x) => `${KATMANLAR[x.katman].etiket.toLocaleLowerCase('tr-TR')} sorularında ${x.dogru} doğru`).join(', ')}.`
+    : '';
+  const mesaj = (dusuk
     ? `Anlaman henüz %${ANLAMA_ESIGI}’in altında. Bu çok normal; aşağıdaki ipuçlarıyla bir sonraki okumada daha iyi anlayabilirsin.`
-    : 'Anlaman %70 ve üstünde. Bir sonraki hedef: aynı anlamayı koruyarak biraz daha akıcı okumak.';
+    : 'Anlaman %70 ve üstünde. Bir sonraki hedef: aynı anlamayı koruyarak biraz daha akıcı okumak.') + kazanimMetni;
   const oneri = dusuk && el('div', { sinif: 'anlama-oneri', role: 'note' },
     el('p', {}, el('strong', { metin: 'Bir sonraki hedef: hızı artırma, anlamayı güçlendir. ' })),
     el('ul', {},

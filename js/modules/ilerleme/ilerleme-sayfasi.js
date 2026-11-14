@@ -1,6 +1,6 @@
-// İlerleme paneli (S20, #/ilerleme): seviye ve XP, esnek seri, günlük hedef (S24: veli önerisi ve haftalık hedef), haftalık/aylık grafikler, 20 rozet; yazdırılabilir veli raporu (#/ilerleme/rapor; S24: Veli/Öğretmen alanı başka profil için de çizer)
+// İlerleme paneli (S20, #/ilerleme): seviye ve XP, esnek seri, günlük hedef (S24: veli önerisi ve haftalık hedef), haftalık/aylık grafikler, S35b: kurs karnesi (ilk gün ve bugün; S35c: ?bolum=karne ile açılınca karneye kaydırır), 21 rozet; yazdırılabilir veli raporu (#/ilerleme/rapor; S24: Veli/Öğretmen alanı başka profil için de çizer)
 import { el, spriteIkon, toastGoster } from '../../core/ui.js';
-import { duyur } from '../../core/a11y.js';
+import { duyur, hareketAzaltilmisMi } from '../../core/a11y.js';
 import { etkinProfil } from '../../core/store.js';
 import { kayitlariGetir } from '../../core/metrics.js';
 import { egzersizBilgisi, modulBilgisi } from '../katalog.js';
@@ -11,6 +11,8 @@ import {
 } from '../../engine/motivasyon.js';
 import { DONEMLER, OLCULER, gunListesi, olcuSerileri, donemOzeti } from './ilerleme-veri.js';
 import { veliHedefi, haftalikDurum } from '../veli/veli-veri.js';
+import { kursVerisi } from '../kurs/kurs-veri.js';
+import { karneBolumu } from '../kurs/kurs-karne.js';
 
 const YAZDIR_SINIFI = 'yazdir-ilerleme';
 const RAPOR_GUN = 30;
@@ -223,8 +225,25 @@ function nasilIsler() {
       el('li', { metin: `Seri, çalıştığın ardışık günleri sayar. Başta ${SERI.baslangicHak} dinlenme hakkın var; her ${SERI.hakIcinGun} çalışma gününde bir hak daha kazanırsın (en çok ${SERI.enCokHak}). Çalışmadığın bir günde hak varsa serin bozulmaz.` })));
 }
 
-/** #/ilerleme */
-export function ilerlemeSayfasiCiz(kap) {
+// S35b: kurs karnesi (kurs varsa; sürerken “ilk gün ve bugün”, bitince “ilk gün ve son gün”)
+function karneKarti(p, kayitlar) {
+  const plan = kursVerisi(p.id);
+  return plan ? karneBolumu({ plan, profil: p, kayitlar, bosBaglanti: true, id: 'il-karne-baslik' }) : null;
+}
+
+// S35c: “Bugünün Görevi”ndeki “Kurs karnen” bağlantısı (#/ilerleme?bolum=karne): çizimden sonra karne başlığına kaydırır ve odaklar
+function karneyeGit(kap) {
+  const baslik = kap.querySelector('#il-karne-baslik');
+  if (!baslik) return;
+  baslik.tabIndex = -1;
+  requestAnimationFrame(() => {
+    baslik.scrollIntoView({ block: 'start', behavior: hareketAzaltilmisMi() ? 'auto' : 'smooth' });
+    baslik.focus({ preventScroll: true });
+  });
+}
+
+/** #/ilerleme. S35c: sorgu.bolum === 'karne' ise kurs karnesine gider */
+export function ilerlemeSayfasiCiz(kap, sorgu = {}) {
   document.documentElement.classList.remove(YAZDIR_SINIFI);
   const ust = sayfaUst('İlerleme', 'Gelişimin yalnızca kendi geçmişinle karşılaştırılır.');
   const p = etkinProfil();
@@ -234,15 +253,17 @@ export function ilerlemeSayfasiCiz(kap) {
   }
   const veri = ilerlemeVerisi(p.id);
   const kayitlar = kayitlariGetir(p.id);
-  kap.replaceChildren(ust,
+  kap.replaceChildren(...[ust,
     el('div', { sinif: 'ilerleme-ozet' }, seviyeKarti(veri), seriKarti(), bugunKarti()),
     grafikBolumu(kayitlar),
+    karneKarti(p, kayitlar),
     rozetBolumu(),
     el('section', { sinif: 'kart ilerleme-rapor-karti', 'aria-labelledby': 'il-rapor-baslik' },
       el('div', {}, el('h2', { id: 'il-rapor-baslik', metin: 'Veli raporu' }),
         el('p', { sinif: 'soluk', metin: `Son ${RAPOR_GUN} günün özeti; yazdırılabilir ya da PDF olarak kaydedilebilir.` })),
       el('a', { sinif: 'btn btn--ikincil', href: '#/ilerleme/rapor' }, spriteIkon('test', 'ikon'), 'Raporu aç')),
-    nasilIsler());
+    nasilIsler()].filter(Boolean)); // S35b: kurs yoksa karne bölümü yok
+  if (sorgu?.bolum === 'karne') karneyeGit(kap);
 }
 
 // ---------- Veli raporu ----------

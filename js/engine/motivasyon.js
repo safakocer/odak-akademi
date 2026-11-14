@@ -1,4 +1,4 @@
-// Sağlıklı oyunlaştırma (S20): esnek seri (dinlenme hakkı), XP ve seviye, 20 rozet, günlük hedef ve “bugünlük yeter”; veri ilerleme:<profilId>
+// Sağlıklı oyunlaştırma (S20): esnek seri (dinlenme hakkı), XP ve seviye, 21 rozet (S35b: puandan bağımsız kurs bitirme rozeti, olayla verilir: rozetVer), günlük hedef ve “bugünlük yeter”; veri ilerleme:<profilId>
 import { oku, yaz } from '../core/storage.js';
 import { dinle, OLAYLAR, etkinProfil } from '../core/store.js';
 import { kayitlariGetir } from '../core/metrics.js';
@@ -105,7 +105,9 @@ export function seviyeBilgisi(xp = 0) {
   };
 }
 
-// ---------- Rozetler (20) ----------
+// ---------- Rozetler (21) ----------
+/** S35b: Akıllı Kurs bitirme rozeti: kayıtlardan denetlenmez, kurs bitince rozetVer() ile verilir (puan, hız ya da anlama şartı yok) */
+export const KURS_ROZETI = 'limana-varis';
 const okumaAnlamalari = (b) => b.kayitlar.filter((k) => k.modul === 'oku' && sayi(k.anlamaYuzde) !== undefined);
 const ort = (dizi) => dizi.reduce((t, v) => t + v, 0) / dizi.length;
 
@@ -136,6 +138,8 @@ export const ROZETLER = Object.freeze([
   { id: 'blok-mimari', ad: 'Blok Mimarı', ikon: 'bloklar', olcut: 'Işıklı Bloklar’da 5 ya da daha uzun bir sırayı hatırla.', kontrol: (b) => b.kayitlar.some((k) => k.egzersiz === 'corsi-bloklari' && (hafizaDuzey(k) ?? 0) >= 5) },
   { id: 'teknik-ciragi', ad: 'Teknik Çırağı', ikon: 'akademi', olcut: 'Bir Hafıza Teknikleri dersini tamamla.', kontrol: (b) => b.kayitlar.some((k) => k.egzersiz.startsWith('teknik-')) },
   { id: 'isik-yolcusu', ad: 'Işık Yolcusu', ikon: 'gunes', olcut: '5. seviyeye ulaş.', kontrol: (b) => seviyeBilgisi(b.veri.xp).seviye >= 5 },
+  // S35b: olaya bağlı (ozel): kontrol hep false; kurs sayfası kurs bitince verir
+  { id: KURS_ROZETI, ad: 'Limana Varış', ikon: 'takvim', olcut: 'Akıllı Kurs’un 21 gününü tamamla. Puanların ne olursa olsun kazanılır.', ozel: true, kontrol: () => false },
 ]);
 const ROZET_IDLERI = new Set(ROZETLER.map((r) => r.id));
 
@@ -280,6 +284,21 @@ export function ilerlemeSonuclariniSil(profilId) {
   if (!pid) return false;
   const eski = veriDuzelt(oku(ONEK + pid));
   return yaz(ONEK + pid, bosVeri(eski?.gunlukHedefDk));
+}
+
+/**
+ * S35b: Olaya bağlı rozeti verir (ROZETLER’de ozel: true olanlar; ör. kurs bitirme). Kazanılmışsa yeniden yazmaz.
+ * Döner: { yeni: true|false, rozet: { id, ad, ikon }, kazanildi } | null (profil yok, rozet bilinmiyor ya da kaydedilemedi)
+ */
+export function rozetVer(id, profilId) {
+  const pid = pidBul(profilId);
+  const r = ROZETLER.find((x) => x.id === id && x.ozel);
+  if (!pid || !r) return null;
+  const veri = ilerlemeVerisi(pid);
+  const rozet = { id: r.id, ad: r.ad, ikon: r.ikon };
+  if (veri.rozetler[id]) return { yeni: false, rozet, kazanildi: veri.rozetler[id] };
+  veri.rozetler[id] = bugunAnahtari();
+  return veriYaz(pid, veri) ? { yeni: true, rozet, kazanildi: veri.rozetler[id] } : null;
 }
 
 // ---------- Kayıt eklenince: XP, rozet, günlük durum (çerçeve sonucu kazanimAl ile okur) ----------

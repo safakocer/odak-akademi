@@ -1,8 +1,8 @@
-// Kurs verisi (S18b; S19: geliştirici denemesi için tarih kaydırma; S34a: kurallar profilin sınıfına uyarlanır, sınıf değişince uyarı ve seçenek; S34d: önce kural dosyasındaki sınıf bantları işlenir, okuma hızı ölçeği testten ya da sınıf bandından): planı kurs:<profilId> anahtarında saklar; planlayıcıyı başlangıç testi, metrics kayıtları ve bugünün tarihiyle bağlar (ekran yok)
+// Kurs verisi (S18b; S19: geliştirici denemesi için tarih kaydırma; S34a: kurallar profilin sınıfına uyarlanır, sınıf değişince uyarı ve seçenek; S34d: önce kural dosyasındaki sınıf bantları işlenir, okuma hızı ölçeği testten ya da sınıf bandından; S35b: kurs karnesi satırları, kurs başındaki kayıt, bitirme denetimi): planı kurs:<profilId> anahtarında saklar; planlayıcıyı başlangıç testi, metrics kayıtları ve bugünün tarihiyle bağlar (ekran yok)
 import { oku, yaz, sil } from '../../core/storage.js';
 import { etkinProfil } from '../../core/store.js';
-import { gunAnahtari } from '../../core/utils.js';
-import { modulKayitlari } from '../../core/metrics.js';
+import { gunAnahtari, sayi } from '../../core/utils.js';
+import { modulKayitlari, rekorAlani, kayitKademesi, ayniKademe } from '../../core/metrics.js';
 import { testVerisi, sinifOlcegi, sonucOlcegi } from '../testler/test-veri.js';
 import { egzersizBilgisi, aracBilgisi, kartUygunMu } from '../katalog.js';
 import { bantlariYukle, okumaBandi, kademe } from '../../core/siniflar.js';
@@ -182,6 +182,91 @@ export const yenidenBaslatSec = (secim) => planiDegistir((p, K) => {
   const girdi = { sinif, profilDk: p.profilDk, olcekWpm: kursOlcegi(baslangicTesti, sinif), baslangicTesti };
   return { plan: yenidenBaslat(p, secim, { bugun: gunAnahtari(), kurallar: K, girdi }) };
 });
+
+// ---------- S35b: kurs karnesi ve kurs başındaki seviye (saf; kayıtlar metrics.kayitlariGetir() biçiminde) ----------
+/** Kurs bitti mi (bu plan ya da geçmişteki bir kurs 21 günün hepsini tamamladıysa)? Bitirme rozeti puandan bağımsız buna bakar */
+export function kursBitirildiMi(plan) {
+  if (!plan) return false;
+  if (plan.durum?.bitti) return true;
+  const gunSayisi = plan.gunler?.length ?? 0;
+  return gunSayisi > 0 && (plan.gecmis ?? []).some((g) => (sayi(g?.tamamlananGun) ?? 0) >= gunSayisi);
+}
+
+/** Bu planın kurs dersi kayıtları (ekstra.kurs taşıyan, plan başlangıcından sonra; kurs bittiyse son aktif günden önce), eskiden yeniye */
+export function kursKayitlari(plan, kayitlar = []) {
+  if (!plan?.baslangic) return [];
+  const bitis = plan.durum?.bitti ? plan.sonAktif : null;
+  return kayitlar.filter((k) => {
+    if (!k?.ekstra?.kurs || typeof k.tarih !== 'string') return false;
+    const g = gunAnahtari(k.tarih);
+    return g >= plan.baslangic && (!bitis || g <= bitis);
+  }).sort((a, b) => a.tarih.localeCompare(b.tarih));
+}
+
+/** Karşılaştırma eşiği: EOH’de en az 5 k/dk ya da ilk değerin %5’i; diğer ölçülerde en az 1 ya da %5 (tek ölçüm günden güne oynar) */
+export const KARNE_ESIK = Object.freeze({ oran: 0.05, eoh: 5, diger: 1 });
+
+/** İki değerin değişimi: { once, sonra, fark, yon: 'artti'|'benzer'|'azaldi' } | null (biri yoksa). alan: rekor alanı (hepsi yüksek iyi) */
+export function karneDegisimi(alan, once, sonra) {
+  const o = sayi(once);
+  const s = sayi(sonra);
+  if (o === undefined || s === undefined) return null;
+  const fark = Math.round((s - o) * 10) / 10;
+  const esik = Math.max(alan === 'eoh' ? KARNE_ESIK.eoh : KARNE_ESIK.diger, Math.abs(o) * KARNE_ESIK.oran);
+  return { once: o, sonra: s, fark, yon: fark >= esik ? 'artti' : fark <= -esik ? 'azaldi' : 'benzer' };
+}
+
+const ayniSeviyeVeKademe = (a, b) => a.zorluk === b.zorluk && kayitKademesi(a) === kayitKademesi(b);
+// Kaydın rekor alanındaki değeri (eoh > puan > dogru)
+const alanDegeri = (k, alan) => sayi(k?.[alan]);
+
+/**
+ * Kurs karnesi satırları: kursta yapılan her egzersiz için ilk ve son sonuç (yan yana), son seviyedeki en iyi sonuç ve değişim.
+ * Farklı seviye ya da kademedeki sonuçlar karşılaştırılmaz: seviye değiştiyse değişim, son seviyedeki ilk sonuçla hesaplanır.
+ * Döner: [{ egzersiz, modul, sayi, alan, ilk, son, enIyi, seviyeDegisti, karsi (son seviyedeki ilk kayıt | null), degisim | null }] (ilk yapılış sırasıyla)
+ */
+export function karneSatirlari(plan, kayitlar = []) {
+  const gruplar = new Map();
+  for (const k of kursKayitlari(plan, kayitlar)) {
+    if (!rekorAlani(k)) continue;
+    if (!gruplar.has(k.egzersiz)) gruplar.set(k.egzersiz, []);
+    gruplar.get(k.egzersiz).push(k);
+  }
+  return [...gruplar.entries()].map(([egzersiz, liste]) => {
+    const ilk = liste[0];
+    const son = liste.at(-1);
+    const alan = rekorAlani(son);
+    const sonSeviyede = liste.filter((k) => ayniSeviyeVeKademe(k, son) && alanDegeri(k, alan) !== undefined);
+    const enIyi = sonSeviyede.reduce((en, k) => (!en || alanDegeri(k, alan) > alanDegeri(en, alan) ? k : en), null);
+    const seviyeDegisti = !ayniSeviyeVeKademe(ilk, son);
+    const karsi = liste.length > 1 ? (seviyeDegisti ? sonSeviyede[0] : ilk) : null;
+    const degisim = karsi && karsi !== son ? karneDegisimi(alan, alanDegeri(karsi, alan), alanDegeri(son, alan)) : null;
+    return { egzersiz, modul: son.modul, sayi: liste.length, alan, ilk, son, enIyi, seviyeDegisti, karsi: karsi !== son ? karsi : null, degisim };
+  });
+}
+
+/** Karnenin özeti: { toplam, gelisen (artan ya da seviyesi yükselen), seviyeYukselen, durum: 'gelisti'|'surdu'|'basladi'|'bos' } */
+export function karneOzeti(satirlar = []) {
+  const seviyeYukselen = satirlar.filter((r) => r.seviyeDegisti && kayitKademesi(r.ilk) === kayitKademesi(r.son) && r.son.zorluk > r.ilk.zorluk).length;
+  const gelisen = satirlar.filter((r) => r.degisim?.yon === 'artti'
+    || (r.seviyeDegisti && kayitKademesi(r.ilk) === kayitKademesi(r.son) && r.son.zorluk > r.ilk.zorluk)).length;
+  const karsilasan = satirlar.filter((r) => r.sayi > 1).length;
+  const durum = !satirlar.length ? 'bos' : gelisen ? 'gelisti' : karsilasan ? 'surdu' : 'basladi';
+  return { toplam: satirlar.length, gelisen, seviyeYukselen, durum };
+}
+
+/**
+ * S35b “Eski seviyeni dene”: egzersizin kurs başındaki kaydı: bu kursun o egzersizdeki ilk kurs kaydı; yoksa kurs başlamadan önceki son kaydı.
+ * Yalnız aynı rekor kademesindeki kayıtlar (ilkokul kaydı ortaokulda kullanılmaz). Döner: kayıt | null
+ */
+export function kursBasiKaydi(plan, egzersiz, kayitlar = [], kademeAdi) {
+  if (!plan?.baslangic || !egzersiz) return null;
+  const uygun = (k) => k?.egzersiz === egzersiz && ayniKademe(k, kademeAdi) && !!rekorAlani(k) && sayi(k.zorluk) !== undefined;
+  const kursta = kursKayitlari(plan, kayitlar).find(uygun);
+  if (kursta) return kursta;
+  return kayitlar.filter((k) => uygun(k) && typeof k.tarih === 'string' && gunAnahtari(k.tarih) < plan.baslangic)
+    .sort((a, b) => a.tarih.localeCompare(b.tarih)).at(-1) ?? null;
+}
 
 // ---------- Geliştirici denemesi (yalnız yerel sunucu, app.js: odakDeneme.kursIlerle) ----------
 const gunKaydir = (g, n) => {
